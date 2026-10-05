@@ -50,6 +50,9 @@ button, input { font: inherit; }
 :focus-visible { outline: 2px solid var(--blue); outline-offset: 3px; }
 .wrap { max-width: 1120px; margin: 0 auto; padding-inline: 24px; }
 .eyebrow { font-family: var(--mono); font-size: 11px; letter-spacing: .1em; text-transform: uppercase; color: var(--blue); display: flex; align-items: center; gap: 10px; }
+.eyebrow a { color: inherit; text-decoration: underline; text-decoration-color: var(--gold); text-underline-offset: 3px; }
+.bar a { color: inherit; text-decoration: underline; text-decoration-color: var(--border); text-underline-offset: 3px; }
+.bar a:hover { color: var(--blue); }
 .eyebrow::before { content: ""; width: 8px; height: 8px; background: var(--gold); flex: none; }
 
 /* top bar */
@@ -184,11 +187,11 @@ footer .other-demos a { color: var(--blue); }
 <body>
 
 
-<header class="bar"><div class="wrap"><b>Ask Toronto's data</b><span>Prototype · PortalJS</span></div></header>
+<header class="bar"><div class="wrap"><b>Ask Toronto's data</b><span>Data from <a href="https://open.toronto.ca/" target="_blank" rel="noopener">Toronto Open Data ↗</a></span></div></header>
 
 <div class="wrap">
   <section class="hero">
-    <span class="eyebrow">Toronto open data · 3 connected datasets</span>
+    <span class="eyebrow">Connected to <a href="https://open.toronto.ca/" target="_blank" rel="noopener">open.toronto.ca</a> · 3 datasets</span>
     <h1>Ask a question.<br>Get the <em>story.</em></h1>
     <p class="sub">Type a question in plain English. You'll get a short answer with charts, built from the City's own data, with every source one click away.</p>
     <form class="ask" id="ask" role="search">
