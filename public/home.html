@@ -373,11 +373,13 @@ function columns(box, data, o) {
   for (let v = 0; v <= top + 1e-9; v += step) { svgEl("line", { x1: m.l, x2: W - m.r, y1: Y(v), y2: Y(v), stroke: "var(--grid)", "stroke-width": 1 }, svg); svgEl("text", { x: m.l - 8, y: Y(v) + 4, "text-anchor": "end" }, svg).textContent = short(v); }
   const slot = (W - m.l - m.r) / data.length, bw = Math.max(4, Math.min(36, slot - 3));
   const every = o.every && W < 640 ? o.every * 2 : (o.every || (W < 480 && data.length > 8 ? 2 : 1));
+  // Narrow bars: label only the tallest highlighted bar so labels don't collide.
+  const hiMax = Math.max(...data.filter(d => d.hi).map(d => d.y));
   data.forEach((d, i) => {
     const cx = m.l + slot * (i + 0.5), y = Y(d.y), h = Math.max(1, H - m.b - y);
     svgEl("path", { d: roundTop(cx - bw / 2, H - m.b - h, bw, h, 3), fill: d.hi ? "var(--blue)" : "var(--context)" }, svg);
     if (i % every === 0) svgEl("text", { x: cx, y: H - 6, "text-anchor": "middle" }, svg).textContent = d.x;
-    if (o.labelHi && d.hi) svgEl("text", { x: cx, y: H - m.b - h - 6, "text-anchor": "middle", class: "lbl" }, svg).textContent = short(d.y);
+    if (o.labelHi && d.hi && (slot >= 32 || d.y === hiMax)) svgEl("text", { x: cx, y: H - m.b - h - 6, "text-anchor": "middle", class: "lbl" }, svg).textContent = short(d.y);
     const hit = svgEl("rect", { x: cx - slot / 2, y: m.t, width: slot, height: H - m.t - m.b, fill: "transparent" }, svg);
     hoverable(box, svg, W, H, hit, cx, H - m.b - h, o.tip(d));
   });
