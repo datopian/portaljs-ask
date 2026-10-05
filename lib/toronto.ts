@@ -10,7 +10,9 @@
 
 import { createHmac, timingSafeEqual } from 'crypto'
 
-const MODEL = process.env.TORONTO_MODEL || process.env.ANTHROPIC_MODEL || 'claude-haiku-4-5-20251001'
+// Sonnet rather than the Haiku the other demos use: it writes noticeably more accurate SQL and
+// stories, at about 3 cents a question. Override with TORONTO_MODEL.
+const MODEL = process.env.TORONTO_MODEL || 'claude-sonnet-5-5'
 const TOKEN_TTL_MS = 10 * 60 * 1000
 
 export const MAX_QUESTION_LENGTH = 300
