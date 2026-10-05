@@ -58,7 +58,7 @@ const PLAN_SYSTEM = `You help non-technical people get answers from three City o
 
 ${SCHEMA}
 
-Reply with JSON only, in one of these two shapes.
+Reply with the reply tool, in one of these two shapes.
 
 If the question can be answered (even partly) from these tables:
 {"answerable": true, "datasets": ["ferry" | "subway_delays" | "pet_names", ...], "queries": [
@@ -79,7 +79,7 @@ Rules for queries:
 If the question can't be answered from these tables (another topic, or data they don't contain):
 {"answerable": false, "message": "one or two plain sentences saying what these datasets cover and why this question isn't covered", "suggestions": ["three short questions these tables CAN answer"]}`
 
-const REPAIR_NOTE = `Some of your queries failed when run. Fix them and reply with the same JSON shape, containing all queries (fixed ones and ones that worked).`
+const REPAIR_NOTE = `Some of your queries failed when run. Fix them and reply with the same shape, containing all queries (fixed ones and ones that worked).`
 
 const WRITE_SYSTEM = `You turn query results into a short, plain-English data story for non-technical readers.
 
@@ -88,7 +88,7 @@ ${SCHEMA}
 
 You get the question and a numbered list of charts, each with its purpose, its SQL and its result rows (label, value).
 
-Reply with JSON only:
+Reply with the reply tool:
 {"lead": "the direct answer in at most 9 words, e.g. \"Line 1 has the most delays.\"",
  "highlight": "the 1-3 most important words of lead, copied exactly, e.g. \"Line 1\"",
  "sub": "one short line on what data and period this is based on",
@@ -136,7 +136,10 @@ export interface Story {
   next: string[]
 }
 
-async function callClaude(system: string, user: string, maxTokens: number): Promise<unknown> {
+// The reply comes back through a forced tool call, so the API hands us
+// parsed JSON instead of us parsing text the model typed (SQL with quotes in
+// it broke that).
+async function callClaude(system: string, user: string, maxTokens: number, schema: Record<string, unknown>): Promise<unknown> {
   const apiKey = process.env.ANTHROPIC_API_KEY
   if (!apiKey) throw new Error('ANTHROPIC_API_KEY is not configured on the server.')
   const res = await fetch('https://api.anthropic.com/v1/messages', {
@@ -146,24 +149,57 @@ async function callClaude(system: string, user: string, maxTokens: number): Prom
       model: MODEL,
       max_tokens: maxTokens,
       system,
+      tools: [{ name: 'reply', description: 'Send your reply.', input_schema: schema }],
+      tool_choice: { type: 'tool', name: 'reply' },
       messages: [{ role: 'user', content: user }],
     }),
   })
   if (!res.ok) throw new Error(`Anthropic request failed: ${res.status} ${res.statusText}`)
   const json = await res.json()
-  // Read every text block: newer models can put other block types first.
-  const text: string = (Array.isArray(json.content) ? json.content : [])
-    .filter((c: { type?: string }) => c.type === 'text')
-    .map((c: { text?: string }) => c.text || '')
-    .join('')
-  // The prompts ask for bare JSON; tolerate a code fence or stray prose around it.
-  const start = text.indexOf('{')
-  const end = text.lastIndexOf('}')
-  if (start < 0 || end < start) {
-    const types = (json.content || []).map((c: { type?: string }) => c.type).join(',')
-    throw new Error(`The model did not return JSON (stop: ${json.stop_reason}, blocks: ${types}, text: ${text.slice(0, 120)})`)
-  }
-  return JSON.parse(text.slice(start, end + 1))
+  const block = (Array.isArray(json.content) ? json.content : []).find((c: { type?: string }) => c.type === 'tool_use')
+  if (!block) throw new Error(`The model sent no reply (stop: ${json.stop_reason})`)
+  return block.input
+}
+
+const PLAN_SCHEMA = {
+  type: 'object',
+  properties: {
+    answerable: { type: 'boolean' },
+    datasets: { type: 'array', items: { type: 'string' } },
+    queries: {
+      type: 'array',
+      items: {
+        type: 'object',
+        properties: {
+          id: { type: 'string' },
+          purpose: { type: 'string' },
+          chart: { type: 'string', enum: ['columns', 'bars'] },
+          unit: { type: 'string' },
+          sql: { type: 'string' },
+        },
+        required: ['id', 'purpose', 'chart', 'unit', 'sql'],
+      },
+    },
+    message: { type: 'string' },
+    suggestions: { type: 'array', items: { type: 'string' } },
+  },
+  required: ['answerable'],
+}
+
+const WRITE_SCHEMA = {
+  type: 'object',
+  properties: {
+    lead: { type: 'string' },
+    highlight: { type: 'string' },
+    sub: { type: 'string' },
+    stat: { type: 'object', properties: { value: { type: 'string' }, caption: { type: 'string' } }, required: ['value', 'caption'] },
+    points: {
+      type: 'array',
+      items: { type: 'object', properties: { h: { type: 'string' }, p: { type: 'string' }, more: { type: 'string' } }, required: ['h', 'p', 'more'] },
+    },
+    next: { type: 'array', items: { type: 'string' } },
+  },
+  required: ['lead', 'highlight', 'sub', 'stat', 'points', 'next'],
 }
 
 const str = (v: unknown, max: number) => (typeof v === 'string' ? v.trim().slice(0, max) : '')
@@ -202,14 +238,14 @@ export async function planQueries(question: string, failed?: { sql: string; erro
       .map((f) => `SQL: ${f.sql}\nError: ${f.error}`)
       .join('\n\n')}`
   }
-  return cleanPlan(await callClaude(PLAN_SYSTEM, user, 1200))
+  return cleanPlan(await callClaude(PLAN_SYSTEM, user, 1500, PLAN_SCHEMA))
 }
 
 export async function writeStory(question: string, results: QueryResult[]): Promise<Story> {
   const today = new Date().toISOString().slice(0, 10)
   const charts = results.map(({ purpose, sql, unit, rows }, i) => `Chart ${i + 1}: ${purpose}\nUnit: ${unit}\nSQL: ${sql}\nRows: ${JSON.stringify(rows)}`)
   const user = `Today is ${today}.\nQuestion: ${question}\n\n${charts.join('\n\n')}\n\nWrite exactly ${results.length} points, one per chart.`
-  const r = ((await callClaude(WRITE_SYSTEM, user, 900)) || {}) as Record<string, unknown>
+  const r = ((await callClaude(WRITE_SYSTEM, user, 1200, WRITE_SCHEMA)) || {}) as Record<string, unknown>
   const stat = (r.stat || {}) as Record<string, unknown>
   const points = (Array.isArray(r.points) ? r.points : []).slice(0, results.length).map((p) => {
     const o = (p || {}) as Record<string, unknown>
