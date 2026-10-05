@@ -1,6 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
 import { checkRateLimit, clientIp } from '../../../lib/rateLimit'
-import { MAX_QUESTION_LENGTH, MAX_QUERIES, PlannedQuery, issueToken, planQueries, useToken } from '../../../lib/toronto'
+import { MAX_QUESTION_LENGTH, MAX_QUERIES, PlannedQuery, issueToken, planQueries, searchCatalogue, useToken } from '../../../lib/toronto'
 
 export const config = { maxDuration: 30 }
 
@@ -49,6 +49,10 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   try {
     const plan = await planQueries(question, failed, previous)
     log('toronto_plan_ok', { ip, repair: !!repair, answerable: plan.answerable, question, durationMs: Date.now() - startedAt })
+    if (!plan.answerable) {
+      const related = await searchCatalogue(plan.search || question)
+      return res.status(200).json({ ...plan, related, token })
+    }
     return res.status(200).json({ ...plan, token })
   } catch (err) {
     const message = err instanceof Error ? err.message : 'Unknown error'

@@ -19,7 +19,7 @@ export const MAX_QUESTION_LENGTH = 300
 export const MAX_QUERIES = 3
 export const MAX_ROWS = 30
 
-const SCHEMA = `Tables (DuckDB). Snapshot downloaded from open.toronto.ca on 4 Oct 2026.
+const SCHEMA = `Tables (DuckDB). Snapshot downloaded from open.toronto.ca on 4-5 Oct 2026. Wards are Toronto's 25 city wards.
 
 ferry  -- Toronto Island Ferry Ticket Counts, one row per 15-minute interval
   ts               TIMESTAMP  -- start of the 15-minute interval, 2015-05-01 to 2026-10-02
@@ -52,16 +52,132 @@ pet_names  -- Licensed Dog and Cat Names: only the top 200 names per animal per 
   year            INTEGER  -- 2020 to 2026
   rank            INTEGER  -- 1 = most popular that year
   name            VARCHAR  -- upper case, e.g. 'LUNA'
-  licensed_count  INTEGER  -- licensed animals with that name that year`
+  licensed_count  INTEGER  -- licensed animals with that name that year
 
-const PLAN_SYSTEM = `You help non-technical people get answers from three City of Toronto open datasets. You write DuckDB SQL; the queries run elsewhere and you never see the data at this step.
+fire_incidents  -- Fire Incidents: fires Toronto Fire Services attended, one row per fire, 2011-2024
+  alarm_time             TIMESTAMP
+  incident_type          VARCHAR  -- '01 - Fire', '02 - Explosion ...', '03 - NO LOSS OUTDOOR fire ...'. Outdoor no-loss fires (03) are only recorded from 2018,
+                                  -- so for trends across years use WHERE incident_type LIKE '01%'.
+  initial_call           VARCHAR  -- what the 911 call said, e.g. 'Vehicle Fire', 'Fire - Residential'
+  property_use           VARCHAR  -- coded text, e.g. '323 - Multi-Unit Dwelling - Over 12 Units', '301 - Detached Dwelling', '901 - Automobile'
+  ward                   INTEGER  -- 1 to 25
+  possible_cause         VARCHAR  -- e.g. '52 - Electrical Failure', '45 - Improperly Discarded', '44 - Unattended', '99 - Undetermined'
+  ignition_source, material_first_ignited, area_of_origin, extent_of_fire, building_status  VARCHAR (coded text like the above)
+  civilian_casualties, firefighter_casualties, persons_rescued, persons_displaced, responding_personnel  INTEGER
+  dollar_loss            BIGINT   -- estimated dollar loss
+  response_minutes       DOUBLE   -- alarm to first truck arriving
+  smoke_alarm            VARCHAR  -- e.g. '2 - Floor/suite of fire origin: Smoke alarm present and operated', '1 - ...: No smoke alarm'
+  sprinkler              VARCHAR
+  Labels: strip the code numbers for display, e.g. regexp_replace(possible_cause, '^[0-9]+ - ', '').
+
+fire_calls  -- Fire Services Emergency Incident Basic Detail: EVERY call Toronto Fire responded to (medical, fire, alarms, rescues ...), one row per call, 2018-2024
+  alarm_time        TIMESTAMP
+  call_type         VARCHAR  -- 'Medical', 'Emergency Fire', 'Vehicle Incident', 'Other Emergency Events', 'Technical Rescue', 'Carbon Monoxide', 'CBRN & Hazardous Materials', 'Non Emergency'
+  event_type        VARCHAR  -- more detail, e.g. 'FAHR - Alarm Highrise Residential', 'REE - Rescue - Elevator', 'FIG - Fire - Grass/Rubbish'
+  final_type        VARCHAR  -- what it turned out to be, coded text
+  call_source       VARCHAR
+  alarm_level       VARCHAR
+  ward              INTEGER  -- 1 to 25 (0 = unknown)
+  response_minutes  DOUBLE   -- alarm to first truck arriving
+  persons_rescued   INTEGER
+
+bus_delays  -- TTC Bus Delay Data, one row per incident, 2025-01-01 to 2026-08-31
+  date DATE, time TIME, weekday VARCHAR ('Monday' ...),
+  route     VARCHAR  -- upper case route, e.g. '52 LAWRENCE WEST', '32 EGLINTON WEST'
+  location  VARCHAR  -- where it happened, upper case free text
+  code VARCHAR, cause VARCHAR  -- upper-case description, e.g. 'NO OPERATOR AVAILABLE', 'ON DIVERSION', 'OTHER'; NULL for unknown codes
+  min_delay INTEGER  -- minutes. Count a "delay" only WHERE min_delay > 0.
+  min_gap INTEGER, bound VARCHAR
+
+streetcar_delays  -- TTC Streetcar Delay Data, same columns as bus_delays, 2025-01-01 to 2026-08-31
+  route e.g. '504 KING', '501 QUEEN', '505 DUNDAS', '506 CARLTON', '510 SPADINA'
+
+shelter_occupancy  -- Daily Shelter & Overnight Service Occupancy & Capacity: one row per shelter program per night, 2021-01-01 to 2026-10-04
+  date            DATE
+  organization, shelter_group, location, program  VARCHAR
+  sector          VARCHAR  -- 'Families', 'Mixed Adult', 'Men', 'Women', 'Youth'
+  program_model   VARCHAR  -- 'Emergency', 'Transitional'
+  service_type    VARCHAR  -- 'Shelter', 'Motel/Hotel Shelter', '24-Hour Respite Site', ...
+  program_area    VARCHAR  -- 'Base Shelter and Overnight Services System', 'COVID-19 Response', 'Temporary Refugee Response', 'Winter Programs', ...
+  capacity_type   VARCHAR  -- 'Bed Based Capacity' or 'Room Based Capacity' (families are usually counted in rooms)
+  service_users   INTEGER  -- people staying that night
+  beds_available, beds_occupied, rooms_available, rooms_occupied  INTEGER (NULL when the other capacity type applies)
+  Notes: people in shelters on a night = sum(service_users) for that date. For a month or year, average the nightly totals:
+    SELECT avg(n) FROM (SELECT date, sum(service_users) AS n FROM shelter_occupancy GROUP BY 1). 2026 is a partial year.
+
+dinesafe  -- DineSafe restaurant and food premises inspections, one row per infraction (or one row for an inspection with none), 2023-11 to 2026-10
+  establishment_id VARCHAR, establishment VARCHAR (upper case name), address VARCHAR
+  inspection_date  DATE
+  status           VARCHAR  -- 'Pass', 'Conditional Pass', 'Closed'
+  infraction       VARCHAR  -- detailed text, NULL if none
+  infraction_category VARCHAR
+  severity         VARCHAR  -- 'M - Minor', 'S - Significant', 'C - Crucial', NULL if none
+  outcome          VARCHAR  -- e.g. 'Conviction - Fined', mostly NULL
+  fine             BIGINT   -- dollars, mostly NULL
+  Notes: count inspections as count(DISTINCT establishment_id || inspection_date::VARCHAR), establishments as count(DISTINCT establishment_id).
+
+marriage_licences  -- Marriage Licence Statistics: licences issued per month per civic centre, 2011-01 to 2026-06
+  month DATE (first of the month), civic_centre VARCHAR ('TO' = Toronto City Hall, 'NY' = North York, 'SC' = Scarborough, 'ET' = Etobicoke), licences INTEGER
+
+beach_water  -- Toronto Beaches Water Quality: E. coli samples, swimming season (May to September), 2007-2026
+  beach VARCHAR (e.g. 'Woodbine Beaches', 'Cherry Beach', 'Kew Balmy Beach'), site VARCHAR (sampling point), date DATE
+  ecoli BIGINT  -- E. coli per 100 mL; NULL if not sampled. Several sites per beach per day: average them per beach and day first.
+  The City posts a beach as unsafe for swimming when E. coli is above 100.
+
+short_term_rentals  -- Short-term rental registrations (Airbnb-style), current snapshot of registered operators
+  property_type VARCHAR ('Condominium', 'Single/Semi-detached House', 'Apartment', 'Townhouse/ Row House', 'Duplex/Triplex/Fourplex'), ward INTEGER, ward_name VARCHAR, postal_code VARCHAR (first 3 characters)
+
+apartment_evaluations  -- RentSafeTO apartment building evaluations (buildings with 3+ storeys and 10+ units), one row per evaluation, 2023-06 to 2026-10
+  address VARCHAR, ward INTEGER, ward_name VARCHAR, property_type VARCHAR ('PRIVATE', 'TCHC' = Toronto Community Housing, 'SOCIAL HOUSING'),
+  year_built INTEGER, year_evaluated INTEGER, evaluation_date DATE, storeys INTEGER, units INTEGER,
+  score DOUBLE  -- 0 to 100, higher is better. A building can be evaluated more than once: for "per building", take its latest evaluation.
+
+ksi_collisions  -- Motor vehicle collisions where someone was killed or seriously injured (KSI), 2006 to 2026-09
+  ONE ROW PER PERSON INVOLVED, not per collision. Count collisions with count(DISTINCT collision_id).
+  collision_id VARCHAR, collision_time TIMESTAMP
+  severity  VARCHAR  -- for the whole collision: 'Fatal Injury', 'Non-Fatal Injury'
+  injury    VARCHAR  -- for this person: 'Fatal', 'Major', 'Minor', 'Minimal', 'None'. People killed = count(*) WHERE injury = 'Fatal'.
+  road_user VARCHAR  -- 'driver', 'pedestrian', 'passenger', 'cyclist', 'motorcyclist', ...
+  age INTEGER, impact_type, light, road_condition, visibility, road_class VARCHAR
+  ward_name, neighbourhood, street1, street2 VARCHAR
+  pedestrian, cyclist, motorcyclist, aggressive, distracted, red_light, school_child, older_adult, heavy_truck  BOOLEAN  -- collision involved this
+  2026 is a partial year.
+
+homeless_deaths_month  -- Deaths of people experiencing homelessness, by month, 2022-2024
+  year INTEGER, month VARCHAR ('January' ...), deaths INTEGER
+homeless_deaths_cause  -- the same deaths by cause, age group and gender, 2022-2024
+  year INTEGER, cause VARCHAR ('Acute Drug Toxicity', 'Cardiovascular Disease', 'Suicide', 'Homicide', 'Unknown', 'Pending', ...),
+  age_group VARCHAR ('<20', '20-39', '40-59', '60+', 'Unknown'), gender VARCHAR, deaths INTEGER
+
+library_visits  -- Toronto Public Library visits per branch per year, 2012-2024
+  year INTEGER, branch VARCHAR (e.g. 'Toronto Reference Library', 'North York Central Library'), visits BIGINT
+
+street_trees  -- every City-owned tree on a street, current inventory, 688,335 trees
+  ward INTEGER, common_name VARCHAR (e.g. 'Maple, Norway', 'Honey locust', 'Oak, red'), botanical_name VARCHAR, trunk_diameter_cm INTEGER, street VARCHAR
+
+building_permits  -- Building permits cleared (closed or finished) since 2017, one row per permit
+  permit_type VARCHAR ('Plumbing(PS)', 'Small Residential Projects', 'Mechanical(MS)', 'New Houses', 'Demolition Folder (DM)', ...),
+  structure_type, work ('Interior Alterations', 'New Building', ...), status ('Closed', 'Cancelled', ...)  VARCHAR,
+  application_date, issued_date, completed_date DATE  -- use issued_date for trends, 2017-2025 are the full years
+  current_use, proposed_use VARCHAR, units_created, units_lost INTEGER (dwelling units), est_cost DOUBLE (dollars), postal_area VARCHAR
+
+animal_services  -- Toronto Animal Services service requests and complaints, 2023-2026 (2026 partial)
+  year INTEGER, category VARCHAR ('MOBILE RESPONSE SERVICE REQUESTS', 'ENFORCEMENT COMPLAINTS'),
+  request_type VARCHAR (upper case, e.g. 'INJURED WILDLIFE', 'CADAVER - WILDLIFE', 'COYOT RESPONSE' = coyote, 'NOISE', 'STRAY DOG RUNNING AT LARGE')
+
+service_requests_311  -- 311 service requests, already COUNTED per day: one row per date + ward + type + status, 2019-01-01 to 2026-08-31
+  date DATE, ward VARCHAR (e.g. 'Toronto-Danforth (14)'), division VARCHAR ('Solid Waste Management Services', 'Transportation Services', 'Municipal Licensing & Standards', 'Toronto Water', 'Urban Forestry', ...),
+  section VARCHAR, request_type VARCHAR (e.g. 'Road - Pot hole', 'Res / Garbage / Not Picked Up', 'Property Standards', 'Injured - Wildlife', 'Noise'), status VARCHAR,
+  requests INTEGER  -- ALWAYS use sum(requests), never count(*).`
+
+const PLAN_SYSTEM = `You help non-technical people get answers from twenty City of Toronto open datasets (the tables below). You write DuckDB SQL; the queries run elsewhere and you never see the data at this step.
 
 ${SCHEMA}
 
 Always answer by calling the reply tool (never plain text), in one of these two shapes.
 
 If the question can be answered (even partly) from these tables:
-{"answerable": true, "datasets": ["ferry" | "subway_delays" | "pet_names", ...], "queries": [
+{"answerable": true, "datasets": ["table names used", ...], "queries": [
   {"id": "q1", "purpose": "what this shows, one short phrase", "chart": "columns" | "bars", "unit": "riders" | "delays" | "minutes" | "dogs" | ..., "sql": "SELECT ... AS label, ... AS value FROM ..."}
 ]}
 
@@ -70,14 +186,14 @@ Rules for queries:
 - Each query returns EXACTLY two columns and ONE row per label (labels are unique): "label" (short readable text, e.g. strftime(ts, '%b') for months, 'Line 1' instead of 'YU', weekday names, years as text) and "value" (a number, rounded).
 - At most ${MAX_ROWS} rows (use LIMIT). Rankings: ORDER BY value DESC. Time or ordered categories: chronological order.
 - chart "columns" for time or ordered categories; "bars" for rankings with longer labels.
-- Never chart a rank as the value (a bigger bar would mean a worse rank); chart licensed_count, delays, minutes or riders instead.
+- Never chart a rank as the value (a bigger bar would mean a worse rank); chart the underlying count instead.
 - To compare groups over time, write one query per group or pick the single most useful split; never return a third column.
 - Only SELECT from the tables above. Standard DuckDB functions only.
 - Averages per day/month/year are usually clearer than totals across uneven periods. Name the unit honestly ("riders per day", "delays per month").
 - Before writing each query, check it actually measures what its purpose says.
 
 If the question can't be answered from these tables (another topic, or data they don't contain):
-{"answerable": false, "message": "one or two plain sentences saying what these datasets cover and why this question isn't covered", "suggestions": ["three short questions these tables CAN answer"]}`
+{"answerable": false, "message": "one plain sentence saying this isn't in the datasets connected here", "search": "2-4 keywords to search the full Toronto Open Data catalogue for it, e.g. parking tickets", "suggestions": ["three short questions these tables CAN answer, close to what was asked"]}`
 
 const REPAIR_NOTE = `Some of your queries failed when run. Fix them and reply with the same shape, containing all queries (fixed ones and ones that worked).`
 
@@ -102,9 +218,9 @@ Rules:
 - Every number you write must appear in the rows or be a simple calculation from them (sum, share, difference, ratio). Never invent numbers.
 - Only describe what the numbers show. Never explain why (no causes, motives, tourism, weather, the pandemic as a reason, data quality, "limited data"), unless the rows themselves show it. Calling 2020 the pandemic year is fine.
 - Only mention things that are in the rows. If a row looks odd or tiny, leave it out rather than comment on it.
-- "next" questions must be answerable from these columns only: ferry riders by time (year, month, weekday, hour); subway delays by date, hour, weekday, station, cause, line and minutes; dog and cat names by year and rank. Nothing about routes, destinations, rider types, capacity, costs or weather.
+- "next" questions must be answerable from the columns listed above (any of the tables). Never suggest things the tables don't have, such as ferry routes, passenger counts, costs or weather.
 - If the results don't really answer the question, say so plainly in "lead".
-- pet_names counts licensed animals with a name in a year, not new registrations.
+- pet_names counts licensed animals with a name in a year, not new registrations. ksi_collisions has one row per person: say people or collisions to match the SQL.
 - Plain words, no jargon, no markdown. Write names in normal case (Luna, Kipling station), not upper case.`
 
 export interface PlannedQuery {
@@ -117,7 +233,13 @@ export interface PlannedQuery {
 
 export type Plan =
   | { answerable: true; datasets: string[]; queries: PlannedQuery[] }
-  | { answerable: false; message: string; suggestions: string[] }
+  | { answerable: false; message: string; search: string; suggestions: string[] }
+
+export interface CatalogueHit {
+  title: string
+  url: string
+  note: string
+}
 
 export interface QueryResult {
   id: string
@@ -149,7 +271,8 @@ async function callClaude(system: string, user: string, maxTokens: number, schem
     body: JSON.stringify({
       model: MODEL,
       max_tokens: maxTokens,
-      system,
+      // The system prompt (dataset descriptions) is the same on every call, so cache it.
+      system: [{ type: 'text', text: system, cache_control: { type: 'ephemeral' } }],
       tools: [{ name: 'reply', description: 'Send your reply.', input_schema: schema }],
       tool_choice: { type: 'auto' },
       messages: [{ role: 'user', content: user }],
@@ -192,6 +315,7 @@ const PLAN_SCHEMA = {
       },
     },
     message: { type: 'string' },
+    search: { type: 'string' },
     suggestions: { type: 'array', items: { type: 'string' } },
   },
   required: ['answerable'],
@@ -221,6 +345,7 @@ function cleanPlan(raw: unknown): Plan {
     return {
       answerable: false,
       message: str(r.message, 400) || "These datasets can't answer that question.",
+      search: str(r.search, 80),
       suggestions: (Array.isArray(r.suggestions) ? r.suggestions : []).map((s) => str(s, 120)).filter(Boolean).slice(0, 3),
     }
   }
@@ -319,4 +444,30 @@ export function useToken(token: unknown, question: string, use: 'write' | 'repai
   if (spent.has(key)) return false
   spent.set(key, Number(exp))
   return true
+}
+
+// For questions the connected tables can't answer: search the full Toronto
+// Open Data catalogue (CKAN, no AI involved) so the reply can point to the
+// datasets that do exist on the portal.
+const CKAN = 'https://ckan0.cf.opendata.inter.prod-toronto.ca/api/3/action/package_search'
+export async function searchCatalogue(terms: string): Promise<CatalogueHit[]> {
+  const q = terms.replace(/[^\p{L}\p{N}\s'-]/gu, ' ').trim().slice(0, 80)
+  if (!q) return []
+  try {
+    const res = await fetch(`${CKAN}?${new URLSearchParams({ q, rows: '4' })}`, { signal: AbortSignal.timeout(5000) })
+    if (!res.ok) return []
+    const json = await res.json()
+    const results: Record<string, unknown>[] = json?.result?.results || []
+    return results
+      .filter((d) => d.is_retired !== true && d.is_retired !== 'true')
+      .slice(0, 3)
+      .map((d) => ({
+        title: str(d.title, 120),
+        url: `https://open.toronto.ca/dataset/${encodeURIComponent(String(d.name || ''))}/`,
+        note: str(String(d.excerpt || d.notes || '').replace(/\s+/g, ' '), 160),
+      }))
+      .filter((d) => d.title)
+  } catch {
+    return []
+  }
 }
