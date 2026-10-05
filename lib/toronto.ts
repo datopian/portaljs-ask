@@ -23,7 +23,12 @@ ferry  -- Toronto Island Ferry Ticket Counts, one row per 15-minute interval
   ts               TIMESTAMP  -- start of the 15-minute interval, 2015-05-01 to 2026-10-02
   tickets_redeemed INTEGER    -- tickets used = people boarding a ferry to the islands. Use this for ridership.
   tickets_sold     INTEGER    -- tickets sold in that interval
-  Notes: 2016-2025 are the complete years. 2015 starts in May and 2026 ends on 2 Oct, so say so if you use them.
+  Notes: each row is ONE 15-MINUTE INTERVAL, so avg(tickets_redeemed) is riders per 15 minutes, not per day.
+    For riders per day: sum per day first, then average the daily totals, e.g.
+      SELECT avg(day_total) FROM (SELECT date_trunc('day', ts) AS d, sum(tickets_redeemed) AS day_total FROM ferry GROUP BY 1)
+    For riders per year or month: sum(tickets_redeemed).
+    2016-2025 are the complete years. 2015 starts in May and 2026 ends on 2 Oct; leave them out of year-on-year comparisons.
+    There is no route, destination, rider type or capacity information.
 
 subway_delays  -- TTC Subway Delay Data, one row per incident
   date      DATE       -- 2025-01-01 to 2026-08-31
@@ -35,7 +40,9 @@ subway_delays  -- TTC Subway Delay Data, one row per incident
   min_delay INTEGER    -- minutes of delay. Many incidents have 0. Count a "delay" only WHERE min_delay > 0.
   min_gap   INTEGER    -- minutes between trains
   bound     VARCHAR    -- direction: N, S, E, W
-  line      VARCHAR    -- 'YU' = Line 1 Yonge-University, 'BD' = Line 2 Bloor-Danforth, 'SHP' = Line 4 Sheppard; a few rows have combined or misspelt values
+  line      VARCHAR    -- 'YU' = Line 1 Yonge-University, 'BD' = Line 2 Bloor-Danforth, 'SHP' = Line 4 Sheppard.
+                       -- About 2% of rows have combined or misspelt values ('YU/BD', 'YUS', 'SRT', ...): when comparing lines, use WHERE line IN ('YU', 'BD', 'SHP').
+  There is no passenger count, cost or weather information.
   vehicle   INTEGER
 
 pet_names  -- Licensed Dog and Cat Names: only the top 200 names per animal per year, so it can't give total pet counts
@@ -62,7 +69,8 @@ Rules for queries:
 - At most ${MAX_ROWS} rows (use LIMIT). Rankings: ORDER BY value DESC. Time or ordered categories: chronological order.
 - chart "columns" for time or ordered categories; "bars" for rankings with longer labels.
 - Only SELECT from the tables above. Standard DuckDB functions only.
-- Averages per day/month/year are usually clearer than totals across uneven periods.
+- Averages per day/month/year are usually clearer than totals across uneven periods. Name the unit honestly ("riders per day", "delays per month").
+- Before writing each query, check it actually measures what its purpose says.
 
 If the question can't be answered from these tables (another topic, or data they don't contain):
 {"answerable": false, "message": "one or two plain sentences saying what these datasets cover and why this question isn't covered", "suggestions": ["three short questions these tables CAN answer"]}`
@@ -74,16 +82,19 @@ const WRITE_SYSTEM = `You turn query results into a short, plain-English data st
 You get the question and, for each query, its purpose, its SQL and its result rows (label, value).
 
 Reply with JSON only:
-{"lead": "the direct answer in at most 9 words, with the 1-3 most important words wrapped in *asterisks*",
+{"lead": "the direct answer in at most 9 words. Wrap the 1-3 most important words in *asterisks*, e.g. \"*Line 1* has the most delays.\"",
  "sub": "one short line on what data and period this is based on",
  "stat": {"value": "the single most telling number, formatted, e.g. 48% or 15,806", "caption": "what that number is, under 12 words"},
  "points": [{"h": "headline for this query's chart, at most 9 words", "p": "one short sentence", "more": "one or two sentences with extra facts from the rows"}],
- "next": ["three short follow-up questions these datasets could answer"]}
+ "next": ["three short follow-up questions"]}
 
 Rules:
 - "points" has exactly one entry per query, in the same order.
 - Every number you write must appear in the rows or be a simple calculation from them (sum, share, difference, ratio). Never invent numbers.
-- Don't guess at causes or reasons the data doesn't show.
+- Only describe what the numbers show. Never explain why (no causes, motives, tourism, weather, the pandemic as a reason, data quality, "limited data"), unless the rows themselves show it. Calling 2020 the pandemic year is fine.
+- Only mention things that are in the rows. If a row looks odd or tiny, leave it out rather than comment on it.
+- "lead" must contain at least one *asterisk* phrase.
+- "next" questions must be answerable from these columns only: ferry riders by time (year, month, weekday, hour); subway delays by date, hour, weekday, station, cause, line and minutes; dog and cat names by year and rank. Nothing about routes, destinations, rider types, capacity, costs or weather.
 - If the results don't really answer the question, say so plainly in "lead".
 - Plain words, no jargon, no markdown except the asterisks in "lead". Write names in normal case (Luna, Kipling station), not upper case.`
 
