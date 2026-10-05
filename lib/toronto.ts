@@ -151,11 +151,18 @@ async function callClaude(system: string, user: string, maxTokens: number): Prom
   })
   if (!res.ok) throw new Error(`Anthropic request failed: ${res.status} ${res.statusText}`)
   const json = await res.json()
-  const text: string = json.content?.[0]?.text || ''
+  // Read every text block: newer models can put other block types first.
+  const text: string = (Array.isArray(json.content) ? json.content : [])
+    .filter((c: { type?: string }) => c.type === 'text')
+    .map((c: { text?: string }) => c.text || '')
+    .join('')
   // The prompts ask for bare JSON; tolerate a code fence or stray prose around it.
   const start = text.indexOf('{')
   const end = text.lastIndexOf('}')
-  if (start < 0 || end < start) throw new Error('The model did not return JSON.')
+  if (start < 0 || end < start) {
+    const types = (json.content || []).map((c: { type?: string }) => c.type).join(',')
+    throw new Error(`The model did not return JSON (stop: ${json.stop_reason}, blocks: ${types}, text: ${text.slice(0, 120)})`)
+  }
   return JSON.parse(text.slice(start, end + 1))
 }
 
