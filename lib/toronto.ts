@@ -65,9 +65,11 @@ If the question can be answered (even partly) from these tables:
 
 Rules for queries:
 - 2 or 3 queries, each a different angle that helps answer the question. The first one answers it most directly.
-- Each query returns exactly two columns: "label" (short readable text, e.g. strftime(ts, '%b') for months, 'Line 1' instead of 'YU', weekday names, years as text) and "value" (a number, rounded).
+- Each query returns EXACTLY two columns and ONE row per label (labels are unique): "label" (short readable text, e.g. strftime(ts, '%b') for months, 'Line 1' instead of 'YU', weekday names, years as text) and "value" (a number, rounded).
 - At most ${MAX_ROWS} rows (use LIMIT). Rankings: ORDER BY value DESC. Time or ordered categories: chronological order.
 - chart "columns" for time or ordered categories; "bars" for rankings with longer labels.
+- Never chart a rank as the value (a bigger bar would mean a worse rank); chart licensed_count, delays, minutes or riders instead.
+- To compare groups over time, write one query per group or pick the single most useful split; never return a third column.
 - Only SELECT from the tables above. Standard DuckDB functions only.
 - Averages per day/month/year are usually clearer than totals across uneven periods. Name the unit honestly ("riders per day", "delays per month").
 - Before writing each query, check it actually measures what its purpose says.
@@ -79,24 +81,29 @@ const REPAIR_NOTE = `Some of your queries failed when run. Fix them and reply wi
 
 const WRITE_SYSTEM = `You turn query results into a short, plain-English data story for non-technical readers.
 
-You get the question and, for each query, its purpose, its SQL and its result rows (label, value).
+What the data is:
+${SCHEMA}
+
+You get the question and a numbered list of charts, each with its purpose, its SQL and its result rows (label, value).
 
 Reply with JSON only:
-{"lead": "the direct answer in at most 9 words. Wrap the 1-3 most important words in *asterisks*, e.g. \"*Line 1* has the most delays.\"",
+{"lead": "the direct answer in at most 9 words, e.g. \"Line 1 has the most delays.\"",
+ "highlight": "the 1-3 most important words of lead, copied exactly, e.g. \"Line 1\"",
  "sub": "one short line on what data and period this is based on",
  "stat": {"value": "the single most telling number, formatted, e.g. 48% or 15,806", "caption": "what that number is, under 12 words"},
- "points": [{"h": "headline for this query's chart, at most 9 words", "p": "one short sentence", "more": "one or two sentences with extra facts from the rows"}],
+ "points": [{"h": "headline for this chart, at most 9 words", "p": "one short sentence about what this chart shows", "more": "one or two sentences with extra facts from this chart's rows"}],
  "next": ["three short follow-up questions"]}
 
 Rules:
-- "points" has exactly one entry per query, in the same order.
+- "points" has exactly one entry per chart, in the same order, and every entry has all three fields filled in. Each point talks about its own chart.
+- "sub" states the real period, taken from the SQL and rows and the data notes above.
 - Every number you write must appear in the rows or be a simple calculation from them (sum, share, difference, ratio). Never invent numbers.
 - Only describe what the numbers show. Never explain why (no causes, motives, tourism, weather, the pandemic as a reason, data quality, "limited data"), unless the rows themselves show it. Calling 2020 the pandemic year is fine.
 - Only mention things that are in the rows. If a row looks odd or tiny, leave it out rather than comment on it.
-- "lead" must contain at least one *asterisk* phrase.
 - "next" questions must be answerable from these columns only: ferry riders by time (year, month, weekday, hour); subway delays by date, hour, weekday, station, cause, line and minutes; dog and cat names by year and rank. Nothing about routes, destinations, rider types, capacity, costs or weather.
 - If the results don't really answer the question, say so plainly in "lead".
-- Plain words, no jargon, no markdown except the asterisks in "lead". Write names in normal case (Luna, Kipling station), not upper case.`
+- pet_names counts licensed animals with a name in a year, not new registrations.
+- Plain words, no jargon, no markdown. Write names in normal case (Luna, Kipling station), not upper case.`
 
 export interface PlannedQuery {
   id: string
@@ -120,6 +127,7 @@ export interface QueryResult {
 
 export interface Story {
   lead: string
+  highlight: string
   sub: string
   stat: { value: string; caption: string }
   points: { h: string; p: string; more: string }[]
@@ -189,7 +197,9 @@ export async function planQueries(question: string, failed?: { sql: string; erro
 }
 
 export async function writeStory(question: string, results: QueryResult[]): Promise<Story> {
-  const user = `Question: ${question}\n\nResults:\n${JSON.stringify(results.map(({ purpose, sql, unit, rows }) => ({ purpose, unit, sql, rows })))}`
+  const today = new Date().toISOString().slice(0, 10)
+  const charts = results.map(({ purpose, sql, unit, rows }, i) => `Chart ${i + 1}: ${purpose}\nUnit: ${unit}\nSQL: ${sql}\nRows: ${JSON.stringify(rows)}`)
+  const user = `Today is ${today}.\nQuestion: ${question}\n\n${charts.join('\n\n')}\n\nWrite exactly ${results.length} points, one per chart.`
   const r = ((await callClaude(WRITE_SYSTEM, user, 900)) || {}) as Record<string, unknown>
   const stat = (r.stat || {}) as Record<string, unknown>
   const points = (Array.isArray(r.points) ? r.points : []).slice(0, results.length).map((p) => {
@@ -199,6 +209,7 @@ export async function writeStory(question: string, results: QueryResult[]): Prom
   while (points.length < results.length) points.push({ h: results[points.length].purpose, p: '', more: '' })
   return {
     lead: str(r.lead, 160),
+    highlight: str(r.highlight, 80),
     sub: str(r.sub, 200),
     stat: { value: str(stat.value, 24), caption: str(stat.caption, 140) },
     points,

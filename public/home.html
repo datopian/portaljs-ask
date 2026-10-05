@@ -621,7 +621,10 @@ function getDB() {
 async function runQuery(conn, sql) {
   const inner = sql.trim().replace(/;+\s*$/, "");
   const t = await conn.query(`SELECT CAST(label AS VARCHAR) AS label, CAST(value AS DOUBLE) AS value FROM (${inner}) AS q LIMIT 30`);
-  return t.toArray().map(r => r.toJSON()).filter(r => r.value !== null && Number.isFinite(Number(r.value))).map(r => ({ label: String(r.label ?? ""), value: Number(r.value) }));
+  const rows = t.toArray().map(r => r.toJSON()).filter(r => r.value !== null && Number.isFinite(Number(r.value))).map(r => ({ label: String(r.label ?? ""), value: Number(r.value) }));
+  // A repeated label means the query returned more than one row per bar; send it back for repair.
+  if (new Set(rows.map(r => r.label)).size < rows.length) throw new Error("Each label must appear only once: return exactly two columns (label, value) and one row per label.");
+  return rows;
 }
 async function post(url, body) {
   const res = await fetch(url, { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify(body) });
@@ -631,7 +634,13 @@ async function post(url, body) {
 }
 const niceLabel = t => /[a-z]/.test(t) || !/[A-Z]/.test(t) ? t : title(t).replace(/ Station$/, "");
 const numFmt = v => Number.isInteger(v) ? fmt(v) : fmt(Math.round(v * 10) / 10);
-const leadHTML = t => escH(t).replace(/\*([^*]+)\*/g, "<em>$1</em>").replace(/\*/g, "");
+// Colours the AI's chosen phrase (or *asterisk* phrase) in the headline, like the prepared stories.
+const leadHTML = (t, hl) => {
+  let h = escH(t).replace(/\*([^*]+)\*/g, "<em>$1</em>").replace(/\*/g, "");
+  const e = hl && escH(hl.replace(/\*/g, ""));
+  if (!h.includes("<em>") && e && h.includes(e)) h = h.replace(e, `<em>${e}</em>`);
+  return h;
+};
 function bindAsk(root) {
   root.querySelectorAll("[data-ask]").forEach(b => b.addEventListener("click", () => { $("qi").value = b.dataset.ask; route(b.dataset.ask); $("ask").scrollIntoView({ behavior: reduced ? "auto" : "smooth" }); }));
 }
@@ -711,7 +720,7 @@ function liveStory(question, ok, story) {
   });
   return {
     q: question, live: true,
-    lead: leadHTML(story.lead || "Here's what the data shows."), sub: escH(story.sub || ""),
+    lead: leadHTML(story.lead || "Here's what the data shows.", story.highlight), sub: escH(story.sub || ""),
     stat: [escH(story.stat?.value || ""), escH(story.stat?.caption || "")],
     ds: dsList[0], dsList, points,
     next: (story.next || []).map(q => [q])
