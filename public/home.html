@@ -497,7 +497,7 @@ function show(s) {
           <p>${s.sub}</p>
           ${s.live ? `<p class="live-note">Answered live. AI wrote the queries and the text; every number comes from the query results.</p>` : ""}
         </div>
-        <div class="stat">
+        <div class="stat"${s.stat[0] ? "" : " hidden"}>
           <span class="eyebrow">In one number</span>
           <div><b>${s.stat[0]}</b></div>
           <div style="display:flex;flex-direction:column;gap:12px"><span class="bar-gold"></span><p>${s.stat[1]}</p></div>
