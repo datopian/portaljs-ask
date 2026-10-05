@@ -58,7 +58,7 @@ const PLAN_SYSTEM = `You help non-technical people get answers from three City o
 
 ${SCHEMA}
 
-Reply with the reply tool, in one of these two shapes.
+Always answer by calling the reply tool (never plain text), in one of these two shapes.
 
 If the question can be answered (even partly) from these tables:
 {"answerable": true, "datasets": ["ferry" | "subway_delays" | "pet_names", ...], "queries": [
@@ -88,7 +88,7 @@ ${SCHEMA}
 
 You get the question and a numbered list of charts, each with its purpose, its SQL and its result rows (label, value).
 
-Reply with the reply tool:
+Always answer by calling the reply tool (never plain text):
 {"lead": "the direct answer in at most 9 words, e.g. \"Line 1 has the most delays.\"",
  "highlight": "the 1-3 most important words of lead, copied exactly, e.g. \"Line 1\"",
  "sub": "one short line on what data and period this is based on",
@@ -136,9 +136,10 @@ export interface Story {
   next: string[]
 }
 
-// The reply comes back through a forced tool call, so the API hands us
-// parsed JSON instead of us parsing text the model typed (SQL with quotes in
-// it broke that).
+// The reply comes back as a "reply" tool call, so the API hands us parsed
+// JSON instead of us parsing text the model typed (SQL with quotes in it
+// broke that). Newer models don't accept a forced tool_choice, so the prompt
+// asks for the tool and plain-text JSON is the fallback.
 async function callClaude(system: string, user: string, maxTokens: number, schema: Record<string, unknown>): Promise<unknown> {
   const apiKey = process.env.ANTHROPIC_API_KEY
   if (!apiKey) throw new Error('ANTHROPIC_API_KEY is not configured on the server.')
@@ -150,7 +151,7 @@ async function callClaude(system: string, user: string, maxTokens: number, schem
       max_tokens: maxTokens,
       system,
       tools: [{ name: 'reply', description: 'Send your reply.', input_schema: schema }],
-      tool_choice: { type: 'tool', name: 'reply' },
+      tool_choice: { type: 'auto' },
       messages: [{ role: 'user', content: user }],
     }),
   })
@@ -160,8 +161,15 @@ async function callClaude(system: string, user: string, maxTokens: number, schem
   }
   const json = await res.json()
   const block = (Array.isArray(json.content) ? json.content : []).find((c: { type?: string }) => c.type === 'tool_use')
-  if (!block) throw new Error(`The model sent no reply (stop: ${json.stop_reason})`)
-  return block.input
+  if (block) return block.input
+  const text: string = (Array.isArray(json.content) ? json.content : [])
+    .filter((c: { type?: string }) => c.type === 'text')
+    .map((c: { text?: string }) => c.text || '')
+    .join('')
+  const start = text.indexOf('{')
+  const end = text.lastIndexOf('}')
+  if (start < 0 || end < start) throw new Error(`The model sent no reply (stop: ${json.stop_reason}, text: ${text.slice(0, 120)})`)
+  return JSON.parse(text.slice(start, end + 1))
 }
 
 const PLAN_SCHEMA = {
