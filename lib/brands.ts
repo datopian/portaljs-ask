@@ -7,7 +7,7 @@ export interface BrandConfig {
   accentColor: string
   tagline?: string
   logoUrl?: string | null
-  /** The /demo/<slug> path this resolved from — carried through to other
+  /** The slug (/<corpus> or /demo/<brand>) this resolved from — carried through to other
    * pages (e.g. the document view) via a query param, purely so a visitor's
    * skin stays consistent when they navigate away from the ask page. */
   slug: string
@@ -42,7 +42,7 @@ export function getDefaultBrand(corpusId: CorpusId): BrandConfig {
 // - slug matches a brand-config entry -> that entry's skin + its corpusId
 // - anything else (unrecognized, missing) -> the security corpus's neutral
 //   default, per spec: an unrecognized brand can't guess which corpus was
-//   intended, so it falls back to the same corpus as the bare root domain.
+//   intended, so it falls back to the security corpus.
 export function resolveBrand(slug: string | undefined | null): BrandConfig {
   if (!slug) return getDefaultBrand('security')
   const lower = slug.toLowerCase()
@@ -50,6 +50,12 @@ export function resolveBrand(slug: string | undefined | null): BrandConfig {
   const entry = BRANDS[lower]
   if (entry) return { ...getDefaultBrand(entry.corpusId), ...entry, slug: lower }
   return getDefaultBrand('security')
+}
+
+// Where a brand's ask page lives: the neutral corpus demos sit at /<corpus>,
+// client-branded skins stay at /demo/<slug>.
+export function brandPath(slug: string): string {
+  return isCorpusId(slug) ? `/${slug}` : `/demo/${slug}`
 }
 
 export function listBrandSlugs(): string[] {

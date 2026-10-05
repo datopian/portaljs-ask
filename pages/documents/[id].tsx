@@ -6,7 +6,7 @@ import securityCorpus from '../../data/security/corpus.json'
 import governanceCorpus from '../../data/governance/corpus.json'
 import { CorpusDoc } from '../../lib/types'
 import { CORPORA, CorpusId, getCorpus } from '../../lib/corpora'
-import { resolveBrand } from '../../lib/brands'
+import { brandPath, resolveBrand } from '../../lib/brands'
 import { BrandHeader } from '../../components/BrandHeader'
 import { Footer } from '../../components/Footer'
 
@@ -50,7 +50,7 @@ export default function DocumentView({ doc, corpusId }: { doc: CorpusDoc; corpus
         <main className="flex-1 max-w-7xl mx-auto w-full px-4 sm:px-10 py-10 sm:py-14">
           <div className="max-w-3xl mx-auto">
             <Link
-              href={`/demo/${brand.slug}`}
+              href={brandPath(brand.slug)}
               className="text-sm font-medium hover:underline inline-flex items-center gap-1"
               style={{ color: brand.accentColor }}
             >
