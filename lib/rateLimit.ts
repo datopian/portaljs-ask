@@ -1,4 +1,4 @@
-// Best-effort per-IP rate limit for the public /api/ask endpoint.
+// Best-effort per-IP rate limit for the public /api/ask and /api/toronto endpoints.
 //
 // This is an in-memory fixed-window counter, not a distributed one: it's
 // scoped to a single serverless function instance, so it resets on cold
@@ -33,13 +33,16 @@ export interface RateLimitResult {
   limit: number
 }
 
-export function checkRateLimit(ip: string): RateLimitResult {
+// `scope` keeps separate demos' quotas apart: a visitor's Toronto questions
+// don't use up their security/governance questions, and vice versa.
+export function checkRateLimit(ip: string, scope = 'ask'): RateLimitResult {
   const now = Date.now()
   if (buckets.size > 5000) sweep(now)
 
-  const bucket = buckets.get(ip)
+  const key = `${scope}:${ip}`
+  const bucket = buckets.get(key)
   if (!bucket || now - bucket.windowStart > WINDOW_MS) {
-    buckets.set(ip, { count: 1, windowStart: now })
+    buckets.set(key, { count: 1, windowStart: now })
     return { allowed: true, remaining: MAX_REQUESTS_PER_WINDOW - 1, limit: MAX_REQUESTS_PER_WINDOW }
   }
 
