@@ -2,7 +2,7 @@ import Head from 'next/head'
 import { GetStaticPaths, GetStaticProps } from 'next'
 import { AskExperience } from '../../components/AskExperience'
 import { BrandConfig, resolveBrand, listBrandSlugs } from '../../lib/brands'
-import { CORPUS_IDS, getCorpus } from '../../lib/corpora'
+import { getCorpus } from '../../lib/corpora'
 import { getCorpusStats } from '../../lib/rag'
 import { CorpusStats } from '../../lib/types'
 
@@ -20,7 +20,7 @@ export default function BrandedDemo({ brand, corpusStats }: { brand: BrandConfig
 }
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  const paths = [...CORPUS_IDS, ...listBrandSlugs()].map((slug) => ({ params: { brand: slug } }))
+  const paths = listBrandSlugs().map((slug) => ({ params: { brand: slug } }))
   // fallback: 'blocking' so an unrecognized /demo/<brand> still renders
   // (resolveBrand falls back to the security corpus's neutral default)
   // instead of 404ing.

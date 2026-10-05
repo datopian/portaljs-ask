@@ -31,7 +31,7 @@ export function BrandHeader({
             </div>
           )}
           <div className="min-w-0 flex-1">
-            <Link href={`/demo/${brand.corpusId}`} className="flex items-center gap-2 group">
+            <Link href={`/${brand.corpusId}`} className="flex items-center gap-2 group">
               <h1
                 className="text-base sm:text-lg font-semibold tracking-tight truncate group-hover:opacity-80 transition-opacity"
                 style={{ color: brand.accentColor }}
