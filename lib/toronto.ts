@@ -154,7 +154,10 @@ async function callClaude(system: string, user: string, maxTokens: number, schem
       messages: [{ role: 'user', content: user }],
     }),
   })
-  if (!res.ok) throw new Error(`Anthropic request failed: ${res.status} ${res.statusText}`)
+  if (!res.ok) {
+    const detail = await res.text().catch(() => '')
+    throw new Error(`Anthropic request failed: ${res.status} ${detail.slice(0, 300)}`)
+  }
   const json = await res.json()
   const block = (Array.isArray(json.content) ? json.content : []).find((c: { type?: string }) => c.type === 'tool_use')
   if (!block) throw new Error(`The model sent no reply (stop: ${json.stop_reason})`)
