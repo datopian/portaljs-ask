@@ -472,7 +472,7 @@ const IDEAS = [
   "Short-term rentals by ward?", "New homes from building permits?", "Top reasons people call 311?", "Lowest-scoring apartment buildings?",
   "Coyote calls per year?", "When do serious collisions happen?",
 ];
-const IDEAS_SHOWN = 5;
+const IDEAS_SHOWN = 4;
 let ideaAt = 0;
 function renderSugg() {
   const ideas = Array.from({ length: IDEAS_SHOWN }, (_, i) => IDEAS[(ideaAt + i) % IDEAS.length]);
