@@ -168,7 +168,10 @@ animal_services  -- Toronto Animal Services service requests and complaints, 202
 service_requests_311  -- 311 service requests, already COUNTED per day: one row per date + ward + type + status, 2019-01-01 to 2026-08-31
   date DATE, ward VARCHAR (e.g. 'Toronto-Danforth (14)'), division VARCHAR ('Solid Waste Management Services', 'Transportation Services', 'Municipal Licensing & Standards', 'Toronto Water', 'Urban Forestry', ...),
   section VARCHAR, request_type VARCHAR (e.g. 'Road - Pot hole', 'Res / Garbage / Not Picked Up', 'Property Standards', 'Injured - Wildlife', 'Noise'), status VARCHAR,
-  requests INTEGER  -- ALWAYS use sum(requests), never count(*).`
+  requests INTEGER  -- ALWAYS use sum(requests), never count(*).
+  Notes: the City RENAMED most request types in 2025 (e.g. 'Road - Pot hole' became 'Road Pothole / Road Damage', 'Residential: Bin: Repair or Replace Lid'
+    became 'Residential Bin Lid Damaged', 'Cadaver - Wildlife' became 'Pick up Dead Wildlife'). For a topic across years, match both names with ILIKE
+    keywords (e.g. request_type ILIKE '%pot%hole%' OR request_type ILIKE '%pothole%'), or use division, which did not change. Urban Forestry requests stop after 2021.`
 
 const PLAN_SYSTEM = `You help non-technical people get answers from twenty City of Toronto open datasets (the tables below). You write DuckDB SQL; the queries run elsewhere and you never see the data at this step.
 
