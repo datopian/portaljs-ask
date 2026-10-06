@@ -60,6 +60,8 @@ portals/
   <slug>/
     portal.json           branding, catalogue, datasets, example questions, live on/off
     notes.md              what the AI knows about each table: columns, ranges, traps
+    sources.json          where each table comes from and how it's cleaned (scripts/portal-data.mjs)
+    profile.md            generated data profile with the traps to check
     instant.json          pre-computed answers to the examples (scripts/precompute.mjs)
     logo.svg              optional
 engine/ask.html           the page template every portal uses
@@ -70,7 +72,9 @@ lib/ask/
 pages/api/data/           plan, write, status endpoints
 scripts/
   build-portals.mjs       runs before dev/build: portals/ -> public/p/<slug>/ + lib/ask/portals.generated.json
+  portal-data.mjs         downloads a portal's datasets (CKAN or data packages), builds parquet, writes profile.md
   precompute.mjs          fills instant.json through the real pipeline
+.claude/skills/           portal-new, portal-verify (Claude Code skills for the team)
 public/data/<slug>/       parquet files (moving to object storage, section 5)
 ```
 
@@ -120,18 +124,26 @@ Data files are public by design (open data). A client with non-public data
 needs authenticated storage and probably the server-side engine. That's also a
 separate offer.
 
-## 6. Adding a portal (manual today; scripted in step 2)
+## 6. Adding a portal
 
-1. Pick 5 to 20 datasets from the client's catalogue.
-2. Download, clean and convert each to parquet (DuckDB). Watch for row caps on
-   CKAN datastore dumps (Toronto's capped some at 512,000 rows; download in
-   chunks), mixed date formats, mojibake, and categories renamed over time.
-3. Write `notes.md`: every table and column, date ranges, units, how to count
-   correctly, and known traps.
-4. Write `portal.json`: branding, catalogue, datasets, 10 to 20 example questions.
-5. Open a PR. On the preview, run `scripts/precompute.mjs`, read every answer,
-   and check the headline numbers against the data.
+Run the `portal-new` skill in Claude Code, or by hand:
+
+1. `portals/<slug>/portal.json` (branding, catalogue) and `sources.json` (5 to
+   20 datasets from the client's CKAN or data packages).
+2. `node scripts/portal-data.mjs <slug>`: downloads, cleans and converts the
+   data, and writes `profile.md`. It handles capped CKAN dumps (Toronto's stop
+   at 512,000 rows) and flags renamed categories, placeholder text, garbled
+   characters, "no data" markers, zeros and partial years.
+3. Resolve the profile's **Check** items in `sources.json`, then write
+   `notes.md`: every table and column, units, ranges, how to count, traps.
+4. Add `datasets` and 15 to 20 `examples` to `portal.json`.
+5. Open a PR, run `scripts/precompute.mjs` on the preview, then the
+   `portal-verify` skill.
 6. Merge. The portal is live at `/demo/<slug>`.
+
+The DataHub portal (17 datasets) took about an hour this way, most of it on the
+notes. The profile caught a duplicated series, euro countries ending in 2001,
+zeros meaning "no value", and two malformed source files.
 
 ## 7. Operating it
 
