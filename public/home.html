@@ -73,6 +73,10 @@ form.ask button { flex: none; min-height: 48px; border: 0; border-radius: var(--
 form.ask button:hover { background: var(--blue); }
 .sugg { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
 .sugg .lbl { font-size: 13px; color: var(--muted); margin-right: 4px; }
+/* Hero examples: small chips, so many fit on two lines without pushing the page down. */
+#sugg { gap: 6px; }
+#sugg .chip { padding: 3px 10px; font-size: 13px; line-height: 1.5; }
+#sugg .more { border: 0; background: none; padding: 3px 4px; font-size: 13px; color: var(--blue); cursor: pointer; text-decoration: underline; text-underline-offset: 3px; }
 .chip { border: 1px solid var(--border); background: var(--surface); color: var(--ink); padding: 7px 14px; border-radius: 999px; font-size: 14px; cursor: pointer; text-align: left; transition: border-color var(--t, .15s), background var(--t, .15s); }
 .chip:hover, .chip[aria-pressed="true"] { border-color: var(--blue); background: var(--bg); }
 .chip[aria-pressed="true"] { color: var(--blue); }
@@ -460,9 +464,26 @@ const $ = id => document.getElementById(id);
 const reduced = matchMedia("(prefers-reduced-motion: reduce)").matches;
 let drawers = [], current = null, timer = null, runId = 0;
 
+// Live examples across the connected datasets; a few show at a time, "More ideas" shows the next few.
+const IDEAS = [
+  "What causes most fires?", "Which streetcar route has the most delays?", "How many people stay in shelters each night?",
+  "Which beach is safest for swimming?", "How have pothole complaints changed?", "Which bus routes are delayed most?",
+  "How many cyclists are seriously hurt each year?", "Which restaurants were closed after inspections?", "Which month has the most weddings?",
+  "Most common street tree?", "Which library branches are busiest?", "How fast does Toronto Fire arrive?",
+  "Which wards have the most short-term rentals?", "How many new homes do building permits create each year?", "What do people call 311 about most?",
+  "Which apartment buildings score lowest?", "How many coyote calls does Animal Services get?", "When do most serious collisions happen?",
+];
+const IDEAS_SHOWN = 5;
+let ideaAt = 0;
 function renderSugg() {
-  $("sugg").innerHTML = `<span class="lbl">Try:</span>` + SUGG.map(([k, q]) => `<button class="chip" type="button" data-go="${k}" aria-pressed="${k === current}">${q}</button>`).join("");
+  const ideas = Array.from({ length: IDEAS_SHOWN }, (_, i) => IDEAS[(ideaAt + i) % IDEAS.length]);
+  $("sugg").innerHTML = `<span class="lbl">Try:</span>`
+    + SUGG.map(([k, q]) => `<button class="chip" type="button" data-go="${k}" aria-pressed="${k === current}" title="Instant answer">${q}</button>`).join("")
+    + ideas.map(q => `<button class="chip" type="button" data-ask="${escH(q)}">${escH(q)}</button>`).join("")
+    + `<button class="more" type="button" id="moreIdeas">More ideas</button>`;
   $("sugg").querySelectorAll("[data-go]").forEach(b => b.addEventListener("click", () => ask(b.dataset.go)));
+  bindAsk($("sugg"));
+  $("moreIdeas").addEventListener("click", () => { ideaAt = (ideaAt + IDEAS_SHOWN) % IDEAS.length; renderSugg(); $("moreIdeas").focus(); });
 }
 // Only the exact suggested questions use the prepared stories; anything else is asked live.
 const norm = t => t.toLowerCase().replace(/[^a-z0-9]+/g, " ").trim();
