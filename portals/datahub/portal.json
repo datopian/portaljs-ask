@@ -1,0 +1,207 @@
+{
+  "slug": "datahub",
+  "name": "Ask the world's data",
+  "owner": "DataHub core datasets (World Bank, NOAA, NASA, US Federal Reserve and others)",
+  "description": "Ask a question about the world's key datasets (economy, climate, energy, markets) and get a short data story with charts and sources.",
+  "headline": "Ask the world's data.|Get the *story.*",
+  "intro": "Type a question in plain English about the economy, climate, energy or markets. You'll get a short answer with charts, built from trusted public datasets, with every source one click away.",
+  "placeholder": "e.g. How fast is CO2 in the atmosphere rising?",
+  "theme": {
+    "accent": "#4338ca",
+    "navy": "#1e1b4b",
+    "highlight": "#f59e0b",
+    "ink": "#111827"
+  },
+  "logo": null,
+  "source": {
+    "name": "DataHub",
+    "label": "datahub.io",
+    "url": "https://datahub.io/core",
+    "licence": "public domain (ODC PDDL) and open licences as stated per dataset"
+  },
+  "catalogue": {
+    "type": "none"
+  },
+  "data": {
+    "base": "/data/datahub/",
+    "snapshot": "2026-10-06"
+  },
+  "live": true,
+  "examples": [
+    "How fast is CO2 in the atmosphere rising?",
+    "Which countries have the biggest economies?",
+    "How much has the world warmed?",
+    "Which countries have the highest inflation?",
+    "How have oil prices changed since 2000?",
+    "How much have US house prices risen?",
+    "Is the sea level rising faster?",
+    "What is the US unemployment rate over time?",
+    "How much has gold gone up?",
+    "Which countries grew fastest since 2000?",
+    "Where does the world's CO2 come from?",
+    "How much ice have glaciers lost?",
+    "How has the euro moved against the dollar?",
+    "Which US cities saw the biggest house price rises?",
+    "When was the stock market most volatile?",
+    "How have US interest rates changed?",
+    "Which countries have the most people?",
+    "How cheap is natural gas now?"
+  ],
+  "datasets": [
+    {
+      "id": "core/gdp",
+      "title": "Country, Regional and World GDP",
+      "url": "https://datahub.io/core/gdp",
+      "note": "GDP of every country and region since 1960, from the World Bank.",
+      "tables": [
+        "gdp"
+      ]
+    },
+    {
+      "id": "core/population",
+      "title": "Population figures for countries and regions",
+      "url": "https://datahub.io/core/population",
+      "note": "Population of every country and region since 1960, from the World Bank.",
+      "tables": [
+        "population"
+      ]
+    },
+    {
+      "id": "core/inflation",
+      "title": "Annual inflation by country",
+      "url": "https://datahub.io/core/inflation",
+      "note": "Consumer price inflation for every country since 1961, from the World Bank.",
+      "tables": [
+        "inflation"
+      ]
+    },
+    {
+      "id": "core/co2-ppm",
+      "title": "CO2 PPM: Trends in Atmospheric Carbon Dioxide",
+      "url": "https://datahub.io/core/co2-ppm",
+      "note": "Monthly CO2 measured at Mauna Loa since 1958, from NOAA.",
+      "tables": [
+        "co2_monthly",
+        "co2_annual"
+      ]
+    },
+    {
+      "id": "core/co2-fossil-global",
+      "title": "Global CO2 Emissions from Fossil Fuels",
+      "url": "https://datahub.io/core/co2-fossil-global",
+      "note": "Global emissions by fuel since 1750, from the Global Carbon Project.",
+      "tables": [
+        "co2_emissions"
+      ]
+    },
+    {
+      "id": "core/global-temp",
+      "title": "Global Temperature Time Series",
+      "url": "https://datahub.io/core/global-temp",
+      "note": "Global temperature anomaly since 1850, from NASA and NOAA.",
+      "tables": [
+        "temperature",
+        "temperature_monthly"
+      ]
+    },
+    {
+      "id": "core/sea-level-rise",
+      "title": "Global Average Absolute Sea Level Change",
+      "url": "https://datahub.io/core/sea-level-rise",
+      "note": "Sea level change since 1880, from the US EPA.",
+      "tables": [
+        "sea_level"
+      ]
+    },
+    {
+      "id": "core/glacier-mass-balance",
+      "title": "Glacier Mass Balance",
+      "url": "https://datahub.io/core/glacier-mass-balance",
+      "note": "Ice lost by the world's reference glaciers since 1956.",
+      "tables": [
+        "glaciers"
+      ]
+    },
+    {
+      "id": "core/oil-prices",
+      "title": "Brent and WTI Spot Prices",
+      "url": "https://datahub.io/core/oil-prices",
+      "note": "Monthly crude oil prices since 1986, from the US EIA.",
+      "tables": [
+        "oil_prices"
+      ]
+    },
+    {
+      "id": "core/natural-gas",
+      "title": "Natural Gas Prices",
+      "url": "https://datahub.io/core/natural-gas",
+      "note": "Monthly Henry Hub gas prices since 1997, from the US EIA.",
+      "tables": [
+        "gas_prices"
+      ]
+    },
+    {
+      "id": "core/gold-prices",
+      "title": "Gold Prices",
+      "url": "https://datahub.io/core/gold-prices",
+      "note": "Monthly gold price since 1833.",
+      "tables": [
+        "gold_prices"
+      ]
+    },
+    {
+      "id": "core/s-and-p-500",
+      "title": "S&P 500 Index Data",
+      "url": "https://datahub.io/core/s-and-p-500",
+      "note": "The S&P 500 with dividends, earnings and P/E since 1871 (Robert Shiller).",
+      "tables": [
+        "sp500"
+      ]
+    },
+    {
+      "id": "core/house-prices-us",
+      "title": "US House Price Index (Case-Shiller)",
+      "url": "https://datahub.io/core/house-prices-us",
+      "note": "Monthly home price index for the US and 20 cities since 1987.",
+      "tables": [
+        "us_house_prices"
+      ]
+    },
+    {
+      "id": "core/bond-yields-us-10y",
+      "title": "10-year US Government Bond Yields",
+      "url": "https://datahub.io/core/bond-yields-us-10y",
+      "note": "Monthly 10-year Treasury yield since 1953, from the Federal Reserve.",
+      "tables": [
+        "us_bond_yield"
+      ]
+    },
+    {
+      "id": "core/exchange-rates",
+      "title": "Foreign Exchange Rates against the US dollar",
+      "url": "https://datahub.io/core/exchange-rates",
+      "note": "Monthly exchange rates for 40 currencies since 1971, from the Federal Reserve.",
+      "tables": [
+        "exchange_rates"
+      ]
+    },
+    {
+      "id": "core/employment-us",
+      "title": "US Employment and Unemployment",
+      "url": "https://datahub.io/core/employment-us",
+      "note": "US employment and unemployment every year since 1941, from the BLS.",
+      "tables": [
+        "us_employment"
+      ]
+    },
+    {
+      "id": "core/finance-vix",
+      "title": "VIX: CBOE Volatility Index",
+      "url": "https://datahub.io/core/finance-vix",
+      "note": "The stock market's \"fear index\", monthly since 1990.",
+      "tables": [
+        "vix"
+      ]
+    }
+  ]
+}

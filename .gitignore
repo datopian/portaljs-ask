@@ -7,3 +7,4 @@ node_modules
 tsconfig.tsbuildinfo
 lib/ask/portals.generated.json
 public/p/
+.cache/
