@@ -40,8 +40,12 @@ draws charts, shows the story and the queries
 
 - **Example questions are pre-computed** (`portals/<slug>/instant.json`). They
   show instantly and cost nothing. Most demo visitors only click examples.
-- **Typed questions** cost about 3 to 6 US cents each (two Sonnet calls). Every
-  call's token usage is priced and logged as an `ask_ai_usage` event.
+- **Typed questions** cost about 3 to 8 US cents each (two Sonnet calls, plus a
+  third when a query needs repairing). Measured on 6 Oct 2026: about 3 cents when
+  the AI's copy of the data notes is still cached (5 minutes after the last
+  question), about 8 cents cold. At demo traffic most questions are cold, so
+  plan on 5 to 8 cents. Every call's token usage is priced and logged as an
+  `ask_ai_usage` event.
 - **Repeated questions are cached** for 30 days per portal and data snapshot:
   the plan by question, and the story by question plus exact result rows (so a
   tampered browser can't change what other visitors see).
@@ -80,7 +84,7 @@ console). The app stops itself well before that:
 | Limit | Default | Env var | Why |
 |---|---|---|---|
 | Monthly AI spend for live questions | $40 | `ASK_MONTHLY_BUDGET_USD` | Leaves $10 under the hard cap for the document demos and pre-computing |
-| Live questions per day, all portals | 30 | `ASK_DAILY_TOTAL` | At about 4 cents each, a fully used day is about $1.20, so one bad day can't eat the month |
+| Live questions per day, all portals | 30 | `ASK_DAILY_TOTAL` | At up to 8 cents each, a fully used day is about $2.40, so one bad day can't eat the month |
 | Live questions per visitor per day | 5 | `ASK_DAILY_PER_VISITOR` | Enough to be impressed, not enough to farm |
 
 When a limit is hit, the page says live questions are paused and the examples

@@ -1,0 +1,690 @@
+[
+ {
+  "q": "When is the Island ferry busiest?",
+  "queries": [
+   {
+    "id": "q1",
+    "purpose": "Average riders per day by month (complete years 2016-2025)",
+    "chart": "columns",
+    "unit": "riders per day",
+    "sql": "SELECT strftime(d, '%b') AS label, round(avg(day_total)) AS value FROM (SELECT date_trunc('day', ts) AS d, sum(tickets_redeemed) AS day_total FROM ferry WHERE year(ts) BETWEEN 2016 AND 2025 GROUP BY 1) GROUP BY month(d), strftime(d, '%b') ORDER BY month(d)",
+    "rows": [
+     {
+      "label": "Jan",
+      "value": 492
+     },
+     {
+      "label": "Feb",
+      "value": 600
+     },
+     {
+      "label": "Mar",
+      "value": 719
+     },
+     {
+      "label": "Apr",
+      "value": 1341
+     },
+     {
+      "label": "May",
+      "value": 3104
+     },
+     {
+      "label": "Jun",
+      "value": 5317
+     },
+     {
+      "label": "Jul",
+      "value": 8699
+     },
+     {
+      "label": "Aug",
+      "value": 9768
+     },
+     {
+      "label": "Sep",
+      "value": 4959
+     },
+     {
+      "label": "Oct",
+      "value": 2043
+     },
+     {
+      "label": "Nov",
+      "value": 924
+     },
+     {
+      "label": "Dec",
+      "value": 607
+     }
+    ]
+   },
+   {
+    "id": "q2",
+    "purpose": "Average riders per day by day of week (summer, Jun-Aug, 2016-2025)",
+    "chart": "columns",
+    "unit": "riders per day",
+    "sql": "SELECT strftime(d, '%a') AS label, round(avg(day_total)) AS value FROM (SELECT date_trunc('day', ts) AS d, sum(tickets_redeemed) AS day_total FROM ferry WHERE year(ts) BETWEEN 2016 AND 2025 AND month(ts) IN (6,7,8) GROUP BY 1) GROUP BY isodow(d), strftime(d, '%a') ORDER BY isodow(d)",
+    "rows": [
+     {
+      "label": "Mon",
+      "value": 6611
+     },
+     {
+      "label": "Tue",
+      "value": 5521
+     },
+     {
+      "label": "Wed",
+      "value": 6185
+     },
+     {
+      "label": "Thu",
+      "value": 6081
+     },
+     {
+      "label": "Fri",
+      "value": 7257
+     },
+     {
+      "label": "Sat",
+      "value": 12513
+     },
+     {
+      "label": "Sun",
+      "value": 11518
+     }
+    ]
+   },
+   {
+    "id": "q3",
+    "purpose": "Average riders per hour of day (summer, Jun-Aug, 2016-2025)",
+    "chart": "columns",
+    "unit": "riders per hour",
+    "sql": "SELECT lpad(CAST(h AS VARCHAR), 2, '0') || ':00' AS label, round(sum(tickets_redeemed) * 1.0 / count(DISTINCT d)) AS value FROM (SELECT hour(ts) AS h, date_trunc('day', ts) AS d, tickets_redeemed FROM ferry WHERE year(ts) BETWEEN 2016 AND 2025 AND month(ts) IN (6,7,8)) GROUP BY h ORDER BY h",
+    "rows": [
+     {
+      "label": "00:00",
+      "value": 0
+     },
+     {
+      "label": "01:00",
+      "value": 0
+     },
+     {
+      "label": "02:00",
+      "value": 0
+     },
+     {
+      "label": "03:00",
+      "value": 0
+     },
+     {
+      "label": "04:00",
+      "value": 0
+     },
+     {
+      "label": "05:00",
+      "value": 1
+     },
+     {
+      "label": "06:00",
+      "value": 33
+     },
+     {
+      "label": "07:00",
+      "value": 51
+     },
+     {
+      "label": "08:00",
+      "value": 126
+     },
+     {
+      "label": "09:00",
+      "value": 439
+     },
+     {
+      "label": "10:00",
+      "value": 835
+     },
+     {
+      "label": "11:00",
+      "value": 986
+     },
+     {
+      "label": "12:00",
+      "value": 995
+     },
+     {
+      "label": "13:00",
+      "value": 937
+     },
+     {
+      "label": "14:00",
+      "value": 884
+     },
+     {
+      "label": "15:00",
+      "value": 745
+     },
+     {
+      "label": "16:00",
+      "value": 608
+     },
+     {
+      "label": "17:00",
+      "value": 451
+     },
+     {
+      "label": "18:00",
+      "value": 341
+     },
+     {
+      "label": "19:00",
+      "value": 247
+     },
+     {
+      "label": "20:00",
+      "value": 143
+     },
+     {
+      "label": "21:00",
+      "value": 76
+     },
+     {
+      "label": "22:00",
+      "value": 39
+     },
+     {
+      "label": "23:00",
+      "value": 22
+     }
+    ]
+   }
+  ],
+  "story": {
+   "lead": "Summer Saturdays around noon are busiest.",
+   "highlight": "Summer Saturdays",
+   "sub": "Island ferry tickets redeemed, complete years 2016-2025, in 15-minute counts added up by day and hour.",
+   "stat": {
+    "value": "",
+    "caption": ""
+   },
+   "points": [
+    {
+     "h": "August is the busiest month",
+     "p": "Riders per day climb from spring to a peak in August, then fall quickly.",
+     "more": "August averages 9,768 riders a day and July 8,699. January is the quietest at 492 a day."
+    },
+    {
+     "h": "Weekends are far busier than weekdays",
+     "p": "In summer, Saturday and Sunday carry about double the weekday crowds.",
+     "more": "Saturday averages 12,513 riders and Sunday 11,518. Tuesday is the lowest at 5,521, and Friday is the busiest weekday at 7,257."
+    },
+    {
+     "h": "Midday is the peak time",
+     "p": "On summer days, ridership builds through the morning and peaks around noon.",
+     "more": "The 12:00 hour averages 995 riders, with 11:00 close at 986. By 18:00 it falls to 341, and before 08:00 it is under 60 an hour."
+    }
+   ],
+   "next": [
+    "How has yearly ferry ridership changed from 2016 to 2025?",
+    "Which summer days had the most ferry riders ever?",
+    "How do tickets sold compare with tickets redeemed by month?"
+   ]
+  },
+  "created": "2026-10-06"
+ },
+ {
+  "q": "Which subway stations have the most delays?",
+  "queries": [
+   {
+    "id": "q1",
+    "purpose": "Stations with the most delays (incidents with delay minutes above 0)",
+    "chart": "bars",
+    "unit": "delays",
+    "sql": "SELECT station AS label, count(*) AS value FROM subway_delays WHERE min_delay > 0 AND station IS NOT NULL GROUP BY station ORDER BY value DESC LIMIT 15",
+    "rows": [
+     {
+      "label": "KIPLING STATION",
+      "value": 578
+     },
+     {
+      "label": "KENNEDY BD STATION",
+      "value": 537
+     },
+     {
+      "label": "WILSON STATION",
+      "value": 513
+     },
+     {
+      "label": "BLOOR STATION",
+      "value": 504
+     },
+     {
+      "label": "FINCH STATION",
+      "value": 464
+     },
+     {
+      "label": "EGLINTON STATION",
+      "value": 446
+     },
+     {
+      "label": "DAVISVILLE STATION",
+      "value": 336
+     },
+     {
+      "label": "YONGE BD STATION",
+      "value": 323
+     },
+     {
+      "label": "COXWELL STATION",
+      "value": 299
+     },
+     {
+      "label": "ST CLAIR STATION",
+      "value": 284
+     },
+     {
+      "label": "DONLANDS STATION",
+      "value": 284
+     },
+     {
+      "label": "WARDEN STATION",
+      "value": 280
+     },
+     {
+      "label": "GREENWOOD STATION",
+      "value": 274
+     },
+     {
+      "label": "VMC STATION",
+      "value": 267
+     },
+     {
+      "label": "VICTORIA PARK STATION",
+      "value": 264
+     }
+    ]
+   },
+   {
+    "id": "q2",
+    "purpose": "Stations with the most total delay minutes",
+    "chart": "bars",
+    "unit": "minutes",
+    "sql": "SELECT station AS label, sum(min_delay) AS value FROM subway_delays WHERE min_delay > 0 AND station IS NOT NULL GROUP BY station ORDER BY value DESC LIMIT 15",
+    "rows": [
+     {
+      "label": "EGLINTON STATION",
+      "value": 4001
+     },
+     {
+      "label": "KIPLING STATION",
+      "value": 3461
+     },
+     {
+      "label": "KENNEDY BD STATION",
+      "value": 3136
+     },
+     {
+      "label": "VICTORIA PARK STATION",
+      "value": 3097
+     },
+     {
+      "label": "SHEPPARD WEST STATION",
+      "value": 3096
+     },
+     {
+      "label": "WILSON STATION",
+      "value": 3076
+     },
+     {
+      "label": "BLOOR STATION",
+      "value": 2848
+     },
+     {
+      "label": "FINCH STATION",
+      "value": 2771
+     },
+     {
+      "label": "LAWRENCE STATION",
+      "value": 2343
+     },
+     {
+      "label": "DAVISVILLE STATION",
+      "value": 2289
+     },
+     {
+      "label": "YONGE BD STATION",
+      "value": 2226
+     },
+     {
+      "label": "ST CLAIR WEST STATION",
+      "value": 2188
+     },
+     {
+      "label": "WARDEN STATION",
+      "value": 2144
+     },
+     {
+      "label": "ISLINGTON STATION",
+      "value": 2131
+     },
+     {
+      "label": "SHEPPARD-YONGE STATION",
+      "value": 2030
+     }
+    ]
+   },
+   {
+    "id": "q3",
+    "purpose": "Stations with the longest average delay (stations with at least 30 delays)",
+    "chart": "bars",
+    "unit": "minutes per delay",
+    "sql": "SELECT station AS label, round(avg(min_delay), 1) AS value FROM subway_delays WHERE min_delay > 0 AND station IS NOT NULL GROUP BY station HAVING count(*) >= 30 ORDER BY value DESC LIMIT 15",
+    "rows": [
+     {
+      "label": "WOODBINE STATION",
+      "value": 12.3
+     },
+     {
+      "label": "SHEPPARD WEST STATION",
+      "value": 12
+     },
+     {
+      "label": "ISLINGTON STATION",
+      "value": 11.9
+     },
+     {
+      "label": "VICTORIA PARK STATION",
+      "value": 11.7
+     },
+     {
+      "label": "YORKDALE STATION",
+      "value": 11.3
+     },
+     {
+      "label": "GLENCAIRN STATION",
+      "value": 11.2
+     },
+     {
+      "label": "OLD MILL STATION",
+      "value": 11
+     },
+     {
+      "label": "BROADVIEW STATION",
+      "value": 10.7
+     },
+     {
+      "label": "LAWRENCE STATION",
+      "value": 9.6
+     },
+     {
+      "label": "CHRISTIE STATION",
+      "value": 9.6
+     },
+     {
+      "label": "ROSEDALE STATION",
+      "value": 9.5
+     },
+     {
+      "label": "ST CLAIR WEST STATION",
+      "value": 9.4
+     },
+     {
+      "label": "SHEPPARD-YONGE STATION",
+      "value": 9.1
+     },
+     {
+      "label": "EGLINTON STATION",
+      "value": 9
+     },
+     {
+      "label": "LANSDOWNE STATION",
+      "value": 8.8
+     }
+    ]
+   }
+  ],
+  "story": {
+   "lead": "Kipling station has the most delays.",
+   "highlight": "Kipling station",
+   "sub": "TTC subway delay incidents with delay minutes above 0, January 2025 to August 2026.",
+   "stat": {
+    "value": "578",
+    "caption": "delays at Kipling station, the most of any station"
+   },
+   "points": [
+    {
+     "h": "Kipling, Kennedy and Wilson lead on delay count",
+     "p": "Kipling station had the most delays, followed closely by Kennedy and Wilson.",
+     "more": "Kipling had 578 delays, Kennedy (Line 2) 537, Wilson 513 and Bloor 504. Finch had 464 and Eglinton 446."
+    },
+    {
+     "h": "Eglinton loses the most minutes overall",
+     "p": "Eglinton station tops the list for total minutes of delay.",
+     "more": "Eglinton added up to 4,001 minutes, ahead of Kipling at 3,461 and Kennedy at 3,136. Victoria Park and Sheppard West each passed 3,000 minutes despite fewer delays."
+    },
+    {
+     "h": "Woodbine has the longest typical delay",
+     "p": "Among stations with at least 30 delays, Woodbine delays last longest on average.",
+     "more": "Woodbine averaged 12.3 minutes per delay, then Sheppard West at 12 and Islington at 11.9. Eglinton averaged 9 minutes."
+    }
+   ],
+   "next": [
+    "Which hours of the day have the most subway delays?",
+    "What are the most common causes of delays at Kipling station?",
+    "Which subway line has the most delays?"
+   ]
+  },
+  "created": "2026-10-06"
+ },
+ {
+  "q": "What are the most popular dog names?",
+  "queries": [
+   {
+    "id": "q1",
+    "purpose": "Top 15 dog names in 2025 by licensed dogs",
+    "chart": "bars",
+    "unit": "licensed dogs",
+    "sql": "SELECT upper(left(name, 1)) || lower(substr(name, 2)) AS label, licensed_count AS value FROM pet_names WHERE animal = 'DOG' AND year = 2025 ORDER BY licensed_count DESC LIMIT 15",
+    "rows": [
+     {
+      "label": "Luna",
+      "value": 549
+     },
+     {
+      "label": "Charlie",
+      "value": 491
+     },
+     {
+      "label": "Bella",
+      "value": 386
+     },
+     {
+      "label": "Coco",
+      "value": 342
+     },
+     {
+      "label": "Milo",
+      "value": 315
+     },
+     {
+      "label": "Daisy",
+      "value": 290
+     },
+     {
+      "label": "Max",
+      "value": 286
+     },
+     {
+      "label": "Lucy",
+      "value": 266
+     },
+     {
+      "label": "Bailey",
+      "value": 262
+     },
+     {
+      "label": "Molly",
+      "value": 258
+     },
+     {
+      "label": "Teddy",
+      "value": 249
+     },
+     {
+      "label": "Rosie",
+      "value": 237
+     },
+     {
+      "label": "Rocky",
+      "value": 229
+     },
+     {
+      "label": "Cooper",
+      "value": 224
+     },
+     {
+      "label": "Lola",
+      "value": 217
+     }
+    ]
+   },
+   {
+    "id": "q2",
+    "purpose": "Top 15 dog names, average licensed dogs per year 2020-2025",
+    "chart": "bars",
+    "unit": "licensed dogs per year",
+    "sql": "SELECT upper(left(name, 1)) || lower(substr(name, 2)) AS label, round(avg(licensed_count)) AS value FROM pet_names WHERE animal = 'DOG' AND year BETWEEN 2020 AND 2025 GROUP BY name ORDER BY value DESC LIMIT 15",
+    "rows": [
+     {
+      "label": "Charlie",
+      "value": 529
+     },
+     {
+      "label": "Luna",
+      "value": 493
+     },
+     {
+      "label": "Bella",
+      "value": 405
+     },
+     {
+      "label": "Max",
+      "value": 331
+     },
+     {
+      "label": "Coco",
+      "value": 330
+     },
+     {
+      "label": "Daisy",
+      "value": 288
+     },
+     {
+      "label": "Molly",
+      "value": 286
+     },
+     {
+      "label": "Milo",
+      "value": 285
+     },
+     {
+      "label": "Lucy",
+      "value": 275
+     },
+     {
+      "label": "Bailey",
+      "value": 273
+     },
+     {
+      "label": "Lola",
+      "value": 241
+     },
+     {
+      "label": "Buddy",
+      "value": 227
+     },
+     {
+      "label": "Rocky",
+      "value": 225
+     },
+     {
+      "label": "Cooper",
+      "value": 223
+     },
+     {
+      "label": "Maggie",
+      "value": 220
+     }
+    ]
+   },
+   {
+    "id": "q3",
+    "purpose": "How the most popular name has changed year by year",
+    "chart": "columns",
+    "unit": "licensed dogs",
+    "sql": "SELECT CAST(year AS VARCHAR) AS label, licensed_count AS value FROM pet_names WHERE animal = 'DOG' AND year BETWEEN 2020 AND 2025 AND name = (SELECT name FROM pet_names WHERE animal = 'DOG' AND year BETWEEN 2020 AND 2025 GROUP BY name ORDER BY sum(licensed_count) DESC LIMIT 1) ORDER BY year",
+    "rows": [
+     {
+      "label": "2020",
+      "value": 553
+     },
+     {
+      "label": "2021",
+      "value": 595
+     },
+     {
+      "label": "2022",
+      "value": 551
+     },
+     {
+      "label": "2023",
+      "value": 494
+     },
+     {
+      "label": "2024",
+      "value": 488
+     },
+     {
+      "label": "2025",
+      "value": 491
+     }
+    ]
+   }
+  ],
+  "story": {
+   "lead": "Luna and Charlie are Toronto's top dog names.",
+   "highlight": "Luna and Charlie",
+   "sub": "Licensed dogs in Toronto, 2020 to 2025 (top 200 names per year only).",
+   "stat": {
+    "value": "549",
+    "caption": "licensed dogs named Luna in 2025, the most of any name"
+   },
+   "points": [
+    {
+     "h": "Luna led the 2025 dog names",
+     "p": "Luna was the most common name among licensed dogs in 2025, ahead of Charlie.",
+     "more": "Luna had 549 dogs and Charlie 491. Bella was third with 386, then Coco with 342 and Milo with 315."
+    },
+    {
+     "h": "Charlie leads over the six years",
+     "p": "Averaged over 2020 to 2025, Charlie comes first and Luna second.",
+     "more": "Charlie averaged 529 dogs a year and Luna 493. Bella was third at 405. Max, Coco and Daisy followed."
+    },
+    {
+     "h": "Charlie has slipped since 2021",
+     "p": "The top name over the six years, Charlie, peaked in 2021 and has been lower since.",
+     "more": "Charlie went from 595 dogs in 2021 to 491 in 2025. It was 553 in 2020 and 488 in 2024."
+    }
+   ],
+   "next": [
+    "What are the most popular cat names?",
+    "How have Luna's numbers changed since 2020?",
+    "Which dog names are rising fastest since 2020?"
+   ]
+  },
+  "created": "2026-10-06"
+ }
+]
