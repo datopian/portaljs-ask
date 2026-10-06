@@ -386,7 +386,7 @@ const NS = "http://www.w3.org/2000/svg";
 function svgEl(tag, attrs, parent) { const e = document.createElementNS(NS, tag); for (const k in attrs) e.setAttribute(k, attrs[k]); if (parent) parent.appendChild(e); return e; }
 function tip(box, x, y, text) { let t = box.querySelector(".tip"); if (!t) { t = document.createElement("div"); t.className = "tip"; box.appendChild(t); } t.textContent = text; t.hidden = false; t.style.left = Math.max(80, Math.min(box.clientWidth - 80, x)) + "px"; t.style.top = y + "px"; }
 function untip(box) { const t = box.querySelector(".tip"); if (t) t.hidden = true; }
-function niceStep(max) { const raw = max / 4, p = Math.pow(10, Math.floor(Math.log10(raw))); const n = raw / p; return (n <= 1 ? 1 : n <= 2 ? 2 : n <= 2.5 ? 2.5 : n <= 5 ? 5 : 10) * p; }
+function niceStep(max) { if (!(max > 0)) return 1; const raw = max / 4, p = Math.pow(10, Math.floor(Math.log10(raw))); const n = raw / p; return (n <= 1 ? 1 : n <= 2 ? 2 : n <= 2.5 ? 2.5 : n <= 5 ? 5 : 10) * p; }
 function hoverable(box, svg, W, H, el, cx, cy, text) {
   const on = () => { const r = svg.getBoundingClientRect(); tip(box, cx * r.width / W, cy * r.height / H, text); };
   el.addEventListener("pointerenter", on); el.addEventListener("pointerdown", on); el.addEventListener("pointerleave", () => untip(box));
