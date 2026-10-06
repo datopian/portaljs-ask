@@ -450,16 +450,25 @@ export function useToken(token: unknown, question: string, use: 'write' | 'repai
 // Open Data catalogue (CKAN, no AI involved) so the reply can point to the
 // datasets that do exist on the portal.
 const CKAN = 'https://ckan0.cf.opendata.inter.prod-toronto.ca/api/3/action/package_search'
+// Datasets already connected as tables above; never offered as "not connected yet".
+const CONNECTED = new Set([
+  'toronto-island-ferry-ticket-counts', 'ttc-subway-delay-data', 'licensed-dog-and-cat-names', 'fire-incidents',
+  'fire-services-emergency-incident-basic-detail', 'ttc-bus-delay-data', 'ttc-streetcar-delay-data',
+  'daily-shelter-overnight-service-occupancy-capacity', 'dinesafe', 'marriage-licence-statistics', 'toronto-beaches-water-quality',
+  'short-term-rentals-registration', 'apartment-building-evaluation', 'motor-vehicle-collisions-involving-killed-or-seriously-injured-persons',
+  'deaths-of-people-experiencing-homelessness', 'library-visits', 'street-tree-data', 'building-permits-cleared-permits',
+  'toronto-animal-services-service-requests-complaints', '311-service-requests-customer-initiated',
+])
 export async function searchCatalogue(terms: string): Promise<CatalogueHit[]> {
   const q = terms.replace(/[^\p{L}\p{N}\s'-]/gu, ' ').trim().slice(0, 80)
   if (!q) return []
   try {
-    const res = await fetch(`${CKAN}?${new URLSearchParams({ q, rows: '4' })}`, { signal: AbortSignal.timeout(5000) })
+    const res = await fetch(`${CKAN}?${new URLSearchParams({ q, rows: '6' })}`, { signal: AbortSignal.timeout(5000) })
     if (!res.ok) return []
     const json = await res.json()
     const results: Record<string, unknown>[] = json?.result?.results || []
     return results
-      .filter((d) => d.is_retired !== true && d.is_retired !== 'true')
+      .filter((d) => d.is_retired !== true && d.is_retired !== 'true' && !CONNECTED.has(String(d.name)))
       .slice(0, 3)
       .map((d) => ({
         title: str(d.title, 120),
