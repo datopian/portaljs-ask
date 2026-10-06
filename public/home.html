@@ -459,19 +459,18 @@ function ranks(box, rows, o) {
 }
 
 /* ---------- page ---------- */
-const SUGG = [["ferry", "When is the Island ferry busiest?"], ["subway", "Which subway stations have the most delays?"], ["pets", "Most popular dog names?"]];
+const SUGG = [["ferry", "When is the ferry busiest?"], ["subway", "Subway stations with most delays?"], ["pets", "Most popular dog names?"]];
 const $ = id => document.getElementById(id);
 const reduced = matchMedia("(prefers-reduced-motion: reduce)").matches;
 let drawers = [], current = null, timer = null, runId = 0;
 
 // Live examples across the connected datasets; a few show at a time, "More ideas" shows the next few.
 const IDEAS = [
-  "What causes most fires?", "Which streetcar route has the most delays?", "How many people stay in shelters each night?",
-  "Which beach is safest for swimming?", "How have pothole complaints changed?", "Which bus routes are delayed most?",
-  "How many cyclists are seriously hurt each year?", "Which restaurants were closed after inspections?", "Which month has the most weddings?",
-  "Most common street tree?", "Which library branches are busiest?", "How fast does Toronto Fire arrive?",
-  "Which wards have the most short-term rentals?", "How many new homes do building permits create each year?", "What do people call 311 about most?",
-  "Which apartment buildings score lowest?", "How many coyote calls does Animal Services get?", "When do most serious collisions happen?",
+  "Top causes of fires?", "Most-delayed streetcar route?", "People in shelters each night?", "Safest beach for swimming?",
+  "Pothole complaints over time?", "Most-delayed bus routes?", "Cyclists seriously hurt per year?", "Restaurants closed after inspection?",
+  "Busiest month for weddings?", "Most common street tree?", "Busiest library branches?", "How fast does Toronto Fire arrive?",
+  "Short-term rentals by ward?", "New homes from building permits?", "Top reasons people call 311?", "Lowest-scoring apartment buildings?",
+  "Coyote calls per year?", "When do serious collisions happen?",
 ];
 const IDEAS_SHOWN = 5;
 let ideaAt = 0;
