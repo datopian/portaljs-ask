@@ -34,7 +34,7 @@ If the question can be answered (even partly) from these tables:
 
 Rules for queries:
 - 2 or 3 queries, each a different angle that helps answer the question. The first one answers it most directly.
-- Each query returns EXACTLY two columns and ONE row per label (labels are unique): "label" (short readable text, e.g. strftime(date, '%b') for months, weekday names, years as text, readable names instead of codes) and "value" (a number, rounded).
+- Each query returns EXACTLY two columns and ONE row per label (labels are unique): "label" (short readable text, e.g. strftime(date, '%b') for months, weekday names, years as text, decades as CAST((year // 10) * 10 AS VARCHAR) || 's', readable names instead of codes) and "value" (a number, rounded).
 - At most ${MAX_ROWS} rows (use LIMIT). Rankings: ORDER BY value DESC. Time or ordered categories: chronological order.
 - chart "columns" for time or ordered categories; "bars" for rankings with longer labels.
 - Never chart a rank as the value (a bigger bar would mean a worse rank); chart the underlying count instead.

@@ -1,0 +1,1154 @@
+[
+ {
+  "q": "How fast is CO2 in the atmosphere rising?",
+  "queries": [
+   {
+    "id": "q1",
+    "purpose": "Yearly rise in atmospheric CO2 at Mauna Loa, last 30 years",
+    "chart": "columns",
+    "unit": "ppm per year",
+    "sql": "SELECT CAST(year AS VARCHAR) AS label, ROUND(co2_ppm - LAG(co2_ppm) OVER (ORDER BY year), 2) AS value FROM co2_annual QUALIFY year >= (SELECT MAX(year) FROM co2_annual) - 29 ORDER BY year LIMIT 30",
+    "rows": [
+     {
+      "label": "1996",
+      "value": 1.77
+     },
+     {
+      "label": "1997",
+      "value": 1.14
+     },
+     {
+      "label": "1998",
+      "value": 2.96
+     },
+     {
+      "label": "1999",
+      "value": 1.7
+     },
+     {
+      "label": "2000",
+      "value": 1.17
+     },
+     {
+      "label": "2001",
+      "value": 1.61
+     },
+     {
+      "label": "2002",
+      "value": 2.13
+     },
+     {
+      "label": "2003",
+      "value": 2.53
+     },
+     {
+      "label": "2004",
+      "value": 1.72
+     },
+     {
+      "label": "2005",
+      "value": 2.28
+     },
+     {
+      "label": "2006",
+      "value": 2.11
+     },
+     {
+      "label": "2007",
+      "value": 1.93
+     },
+     {
+      "label": "2008",
+      "value": 1.81
+     },
+     {
+      "label": "2009",
+      "value": 1.81
+     },
+     {
+      "label": "2010",
+      "value": 2.46
+     },
+     {
+      "label": "2011",
+      "value": 1.75
+     },
+     {
+      "label": "2012",
+      "value": 2.21
+     },
+     {
+      "label": "2013",
+      "value": 2.68
+     },
+     {
+      "label": "2014",
+      "value": 2.07
+     },
+     {
+      "label": "2015",
+      "value": 2.2
+     },
+     {
+      "label": "2016",
+      "value": 3.4
+     },
+     {
+      "label": "2017",
+      "value": 2.35
+     },
+     {
+      "label": "2018",
+      "value": 1.96
+     },
+     {
+      "label": "2019",
+      "value": 2.93
+     },
+     {
+      "label": "2020",
+      "value": 2.56
+     },
+     {
+      "label": "2021",
+      "value": 2.2
+     },
+     {
+      "label": "2022",
+      "value": 2.12
+     },
+     {
+      "label": "2023",
+      "value": 2.55
+     },
+     {
+      "label": "2024",
+      "value": 3.53
+     },
+     {
+      "label": "2025",
+      "value": 2.74
+     }
+    ]
+   },
+   {
+    "id": "q2",
+    "purpose": "Average yearly rise in CO2 by decade",
+    "chart": "columns",
+    "unit": "ppm per year",
+    "sql": "SELECT CAST(decade AS VARCHAR) || 's' AS label, ROUND(AVG(diff), 2) AS value FROM (SELECT year, FLOOR(year/10)*10 AS decade, co2_ppm - LAG(co2_ppm) OVER (ORDER BY year) AS diff FROM co2_annual) WHERE diff IS NOT NULL GROUP BY decade ORDER BY decade LIMIT 30",
+    "rows": [
+     {
+      "label": "1960.0s",
+      "value": 0.86
+     },
+     {
+      "label": "1970.0s",
+      "value": 1.22
+     },
+     {
+      "label": "1980.0s",
+      "value": 1.64
+     },
+     {
+      "label": "1990.0s",
+      "value": 1.53
+     },
+     {
+      "label": "2000.0s",
+      "value": 1.91
+     },
+     {
+      "label": "2010.0s",
+      "value": 2.4
+     },
+     {
+      "label": "2020.0s",
+      "value": 2.62
+     }
+    ]
+   },
+   {
+    "id": "q3",
+    "purpose": "Annual mean CO2 level, every 5 years",
+    "chart": "columns",
+    "unit": "ppm",
+    "sql": "SELECT CAST(year AS VARCHAR) AS label, ROUND(co2_ppm, 1) AS value FROM co2_annual WHERE year % 5 = 0 OR year = (SELECT MAX(year) FROM co2_annual) ORDER BY year LIMIT 30",
+    "rows": [
+     {
+      "label": "1960",
+      "value": 316.9
+     },
+     {
+      "label": "1965",
+      "value": 320
+     },
+     {
+      "label": "1970",
+      "value": 325.7
+     },
+     {
+      "label": "1975",
+      "value": 331.1
+     },
+     {
+      "label": "1980",
+      "value": 338.8
+     },
+     {
+      "label": "1985",
+      "value": 346.4
+     },
+     {
+      "label": "1990",
+      "value": 354.5
+     },
+     {
+      "label": "1995",
+      "value": 361
+     },
+     {
+      "label": "2000",
+      "value": 369.7
+     },
+     {
+      "label": "2005",
+      "value": 380
+     },
+     {
+      "label": "2010",
+      "value": 390.1
+     },
+     {
+      "label": "2015",
+      "value": 401
+     },
+     {
+      "label": "2020",
+      "value": 414.2
+     },
+     {
+      "label": "2025",
+      "value": 427.4
+     }
+    ]
+   }
+  ],
+  "story": {
+   "lead": "CO2 is rising about 2.6 ppm a year now",
+   "highlight": "2.6 ppm a year",
+   "sub": "NOAA Mauna Loa annual mean CO2, 1959 to 2025, with yearly changes shown for 1996 to 2025.",
+   "stat": {
+    "value": "2.62 ppm",
+    "caption": "average yearly rise in CO2 in the 2020s so far, up from 0.86 in the 1960s"
+   },
+   "points": [
+    {
+     "h": "Every year adds CO2, and recent rises are bigger",
+     "p": "Over the last 30 years, CO2 rose in every single year, mostly by 2 to 3 ppm.",
+     "more": "The smallest rise was 1.14 ppm in 1997. The biggest was 3.53 ppm in 2024, followed by 3.4 ppm in 2016. In 2025 it rose 2.74 ppm."
+    },
+    {
+     "h": "Each decade has seen a faster rise",
+     "p": "The average yearly rise has grown from decade to decade, with one small dip in the 1990s.",
+     "more": "It was 0.86 ppm a year in the 1960s and 1.91 in the 2000s. It reached 2.4 in the 2010s and 2.62 in the 2020s so far. That is about three times the 1960s pace."
+    },
+    {
+     "h": "CO2 has climbed from 317 to 427 ppm",
+     "p": "The annual average level of CO2 has risen steadily since 1960.",
+     "more": "It went from 316.9 ppm in 1960 to 427.4 ppm in 2025, a rise of 110.5 ppm. The last 15 years alone added about 37 ppm, from 390.1 in 2010."
+    }
+   ],
+   "next": [
+    "How have global CO2 emissions from fossil fuels changed since 1960?",
+    "How much has global temperature risen since 1960?",
+    "Which sources of CO2 emissions have grown fastest?"
+   ]
+  },
+  "created": "2026-10-06"
+ },
+ {
+  "q": "Which countries have the biggest economies?",
+  "queries": [
+   {
+    "id": "q1",
+    "purpose": "Top 15 economies by GDP in 2023 (current US dollars)",
+    "chart": "bars",
+    "unit": "trillion US dollars (current)",
+    "sql": "SELECT country AS label, round(gdp_usd/1e12, 2) AS value FROM gdp WHERE NOT is_aggregate AND year = 2023 AND gdp_usd IS NOT NULL ORDER BY gdp_usd DESC LIMIT 15",
+    "rows": [
+     {
+      "label": "United States",
+      "value": 27.36
+     },
+     {
+      "label": "China",
+      "value": 17.79
+     },
+     {
+      "label": "Germany",
+      "value": 4.46
+     },
+     {
+      "label": "Japan",
+      "value": 4.21
+     },
+     {
+      "label": "India",
+      "value": 3.55
+     },
+     {
+      "label": "United Kingdom",
+      "value": 3.34
+     },
+     {
+      "label": "France",
+      "value": 3.03
+     },
+     {
+      "label": "Italy",
+      "value": 2.25
+     },
+     {
+      "label": "Brazil",
+      "value": 2.17
+     },
+     {
+      "label": "Canada",
+      "value": 2.14
+     },
+     {
+      "label": "Russian Federation",
+      "value": 2.02
+     },
+     {
+      "label": "Mexico",
+      "value": 1.79
+     },
+     {
+      "label": "Australia",
+      "value": 1.72
+     },
+     {
+      "label": "Korea, Rep.",
+      "value": 1.71
+     },
+     {
+      "label": "Spain",
+      "value": 1.58
+     }
+    ]
+   },
+   {
+    "id": "q2",
+    "purpose": "Top 15 economies by GDP per person in 2023 among countries with over 10 million people",
+    "chart": "bars",
+    "unit": "US dollars per person (current",
+    "sql": "SELECT g.country AS label, round(g.gdp_usd/p.population) AS value FROM gdp g JOIN population p ON g.country_code = p.country_code AND g.year = p.year WHERE NOT g.is_aggregate AND g.year = 2023 AND g.gdp_usd IS NOT NULL AND p.population > 10000000 ORDER BY value DESC LIMIT 15",
+    "rows": [
+     {
+      "label": "United States",
+      "value": 81249
+     },
+     {
+      "label": "Australia",
+      "value": 64660
+     },
+     {
+      "label": "Netherlands",
+      "value": 62545
+     },
+     {
+      "label": "Sweden",
+      "value": 56305
+     },
+     {
+      "label": "Belgium",
+      "value": 53669
+     },
+     {
+      "label": "Germany",
+      "value": 53503
+     },
+     {
+      "label": "Canada",
+      "value": 53437
+     },
+     {
+      "label": "United Kingdom",
+      "value": 48741
+     },
+     {
+      "label": "United Arab Emirates",
+      "value": 48091
+     },
+     {
+      "label": "France",
+      "value": 44329
+     },
+     {
+      "label": "Italy",
+      "value": 38228
+     },
+     {
+      "label": "Japan",
+      "value": 33834
+     },
+     {
+      "label": "Korea, Rep.",
+      "value": 33121
+     },
+     {
+      "label": "Spain",
+      "value": 32691
+     },
+     {
+      "label": "Saudi Arabia",
+      "value": 31676
+     }
+    ]
+   },
+   {
+    "id": "q3",
+    "purpose": "Top 10 economies by GDP in 2000 for comparison (current US dollars)",
+    "chart": "bars",
+    "unit": "trillion US dollars (current)",
+    "sql": "SELECT country AS label, round(gdp_usd/1e12, 2) AS value FROM gdp WHERE NOT is_aggregate AND year = 2000 AND gdp_usd IS NOT NULL ORDER BY gdp_usd DESC LIMIT 10",
+    "rows": [
+     {
+      "label": "United States",
+      "value": 10.25
+     },
+     {
+      "label": "Japan",
+      "value": 4.97
+     },
+     {
+      "label": "Germany",
+      "value": 1.95
+     },
+     {
+      "label": "United Kingdom",
+      "value": 1.67
+     },
+     {
+      "label": "France",
+      "value": 1.37
+     },
+     {
+      "label": "China",
+      "value": 1.21
+     },
+     {
+      "label": "Italy",
+      "value": 1.15
+     },
+     {
+      "label": "Canada",
+      "value": 0.74
+     },
+     {
+      "label": "Mexico",
+      "value": 0.74
+     },
+     {
+      "label": "Brazil",
+      "value": 0.66
+     }
+    ]
+   }
+  ],
+  "story": {
+   "lead": "The United States and China have the biggest economies.",
+   "highlight": "United States and China",
+   "sub": "World Bank GDP in current US dollars for 2023, with 2000 for comparison; GDP per person for countries over 10 million people.",
+   "stat": {
+    "value": "27.36 trillion",
+    "caption": "US GDP in 2023, current US dollars, the largest of any country"
+   },
+   "points": [
+    {
+     "h": "The US and China are far ahead",
+     "p": "In 2023 the United States had a GDP of 27.36 trillion dollars and China 17.79 trillion.",
+     "more": "Germany was third at 4.46 trillion, then Japan at 4.21 trillion and India at 3.55 trillion. Spain was 15th at 1.58 trillion. All figures are in current US dollars."
+    },
+    {
+     "h": "Per person, the US still leads",
+     "p": "Among countries with over 10 million people, the US had about 81,249 dollars of GDP per person.",
+     "more": "Australia was next at 64,660 dollars, then the Netherlands at 62,545. China and India are not in the top 15 on this measure. Saudi Arabia was 15th at 31,676 dollars."
+    },
+    {
+     "h": "In 2000 China ranked sixth",
+     "p": "In 2000 the United States led with 10.25 trillion dollars, and Japan was second at 4.97 trillion.",
+     "more": "China's GDP was 1.21 trillion dollars in 2000, against 17.79 trillion in 2023. India was not in the 2000 top 10 but ranked fifth in 2023. These are current dollars, so the growth includes inflation."
+    }
+   ],
+   "next": [
+    "How has China's GDP grown since 1960?",
+    "How does India's GDP per person compare with China's?",
+    "Which countries have the highest inflation in 2023?"
+   ]
+  },
+  "created": "2026-10-06"
+ },
+ {
+  "q": "How much has the world warmed?",
+  "queries": [
+   {
+    "id": "q1",
+    "purpose": "Global temperature anomaly by decade (NASA GISTEMP, above the 1951-1980 average)",
+    "chart": "columns",
+    "unit": "degrees Celsius above the 1951",
+    "sql": "SELECT CAST(CAST(floor(year/10)*10 AS INTEGER) AS VARCHAR) || 's' AS label, round(avg(anomaly_c), 2) AS value FROM temperature WHERE source = 'GISTEMP' GROUP BY floor(year/10) ORDER BY floor(year/10)",
+    "rows": [
+     {
+      "label": "1880s",
+      "value": -0.22
+     },
+     {
+      "label": "1890s",
+      "value": -0.24
+     },
+     {
+      "label": "1900s",
+      "value": -0.32
+     },
+     {
+      "label": "1910s",
+      "value": -0.34
+     },
+     {
+      "label": "1920s",
+      "value": -0.24
+     },
+     {
+      "label": "1930s",
+      "value": -0.12
+     },
+     {
+      "label": "1940s",
+      "value": 0.04
+     },
+     {
+      "label": "1950s",
+      "value": -0.05
+     },
+     {
+      "label": "1960s",
+      "value": -0.03
+     },
+     {
+      "label": "1970s",
+      "value": 0.03
+     },
+     {
+      "label": "1980s",
+      "value": 0.25
+     },
+     {
+      "label": "1990s",
+      "value": 0.39
+     },
+     {
+      "label": "2000s",
+      "value": 0.59
+     },
+     {
+      "label": "2010s",
+      "value": 0.81
+     },
+     {
+      "label": "2020s",
+      "value": 1.07
+     }
+    ]
+   },
+   {
+    "id": "q2",
+    "purpose": "Yearly anomaly over the last 30 years (NASA GISTEMP)",
+    "chart": "columns",
+    "unit": "degrees Celsius above the 1951",
+    "sql": "SELECT CAST(year AS VARCHAR) AS label, round(anomaly_c, 2) AS value FROM temperature WHERE source = 'GISTEMP' AND year >= (SELECT max(year) - 29 FROM temperature WHERE source = 'GISTEMP') ORDER BY year",
+    "rows": [
+     {
+      "label": "1996",
+      "value": 0.33
+     },
+     {
+      "label": "1997",
+      "value": 0.47
+     },
+     {
+      "label": "1998",
+      "value": 0.61
+     },
+     {
+      "label": "1999",
+      "value": 0.38
+     },
+     {
+      "label": "2000",
+      "value": 0.39
+     },
+     {
+      "label": "2001",
+      "value": 0.53
+     },
+     {
+      "label": "2002",
+      "value": 0.63
+     },
+     {
+      "label": "2003",
+      "value": 0.62
+     },
+     {
+      "label": "2004",
+      "value": 0.53
+     },
+     {
+      "label": "2005",
+      "value": 0.68
+     },
+     {
+      "label": "2006",
+      "value": 0.64
+     },
+     {
+      "label": "2007",
+      "value": 0.66
+     },
+     {
+      "label": "2008",
+      "value": 0.54
+     },
+     {
+      "label": "2009",
+      "value": 0.66
+     },
+     {
+      "label": "2010",
+      "value": 0.72
+     },
+     {
+      "label": "2011",
+      "value": 0.61
+     },
+     {
+      "label": "2012",
+      "value": 0.65
+     },
+     {
+      "label": "2013",
+      "value": 0.68
+     },
+     {
+      "label": "2014",
+      "value": 0.75
+     },
+     {
+      "label": "2015",
+      "value": 0.9
+     },
+     {
+      "label": "2016",
+      "value": 1.01
+     },
+     {
+      "label": "2017",
+      "value": 0.92
+     },
+     {
+      "label": "2018",
+      "value": 0.85
+     },
+     {
+      "label": "2019",
+      "value": 0.98
+     },
+     {
+      "label": "2020",
+      "value": 1.01
+     },
+     {
+      "label": "2021",
+      "value": 0.85
+     },
+     {
+      "label": "2022",
+      "value": 0.89
+     },
+     {
+      "label": "2023",
+      "value": 1.17
+     },
+     {
+      "label": "2024",
+      "value": 1.29
+     },
+     {
+      "label": "2025",
+      "value": 1.19
+     }
+    ]
+   },
+   {
+    "id": "q3",
+    "purpose": "Ten warmest years on record (NASA GISTEMP)",
+    "chart": "bars",
+    "unit": "degrees Celsius above the 1951",
+    "sql": "SELECT CAST(year AS VARCHAR) AS label, round(anomaly_c, 2) AS value FROM temperature WHERE source = 'GISTEMP' ORDER BY anomaly_c DESC LIMIT 10",
+    "rows": [
+     {
+      "label": "2024",
+      "value": 1.29
+     },
+     {
+      "label": "2025",
+      "value": 1.19
+     },
+     {
+      "label": "2023",
+      "value": 1.17
+     },
+     {
+      "label": "2016",
+      "value": 1.01
+     },
+     {
+      "label": "2020",
+      "value": 1.01
+     },
+     {
+      "label": "2019",
+      "value": 0.98
+     },
+     {
+      "label": "2017",
+      "value": 0.92
+     },
+     {
+      "label": "2015",
+      "value": 0.9
+     },
+     {
+      "label": "2022",
+      "value": 0.89
+     },
+     {
+      "label": "2018",
+      "value": 0.85
+     }
+    ]
+   }
+  ],
+  "story": {
+   "lead": "The world is about 1.2°C warmer than 1951-1980.",
+   "highlight": "1.2°C warmer",
+   "sub": "NASA GISTEMP global surface temperature, 1880 to 2025, compared with the 1951-1980 average.",
+   "stat": {
+    "value": "1.29°C",
+    "caption": "warmest year, 2024, above the 1951-1980 average (NASA GISTEMP)"
+   },
+   "points": [
+    {
+     "h": "Each decade has been warmer than the last",
+     "p": "Decade averages stayed below zero until the 1940s, then climbed steadily from the 1970s on.",
+     "more": "The 1910s were the coolest decade at -0.34°C. The 2020s so far average 1.07°C above the 1951-1980 average, up from 0.25°C in the 1980s."
+    },
+    {
+     "h": "Recent years are mostly above 0.8°C",
+     "p": "Yearly values rose from 0.33°C in 1996 to 1.19°C in 2025, with some ups and downs.",
+     "more": "Every year since 2015 has been at least 0.85°C above the average. 2023, 2024 and 2025 all topped 1.1°C, with 2024 the highest at 1.29°C."
+    },
+    {
+     "h": "The ten warmest years are all recent",
+     "p": "All ten warmest years on record happened between 2015 and 2025.",
+     "more": "2024 is first at 1.29°C, then 2025 at 1.19°C and 2023 at 1.17°C. 2016 and 2020 tie at 1.01°C."
+    }
+   ],
+   "next": [
+    "How much has carbon dioxide in the air risen since 1958?",
+    "How much has sea level risen since 1880?",
+    "How have global CO2 emissions changed since 1960?"
+   ]
+  },
+  "created": "2026-10-06"
+ },
+ {
+  "q": "How much have US house prices risen?",
+  "queries": [
+   {
+    "id": "q1",
+    "purpose": "US national home price index by year (January 2000 = 100), annual average",
+    "chart": "columns",
+    "unit": "index points (Jan 2000 = 100)",
+    "sql": "SELECT CAST(year(month) AS VARCHAR) AS label, ROUND(AVG(\"index\"), 1) AS value FROM us_house_prices WHERE area = 'US national' AND year(month) < 2026 GROUP BY year(month) ORDER BY year(month) LIMIT 30",
+    "rows": [
+     {
+      "label": "1987",
+      "value": 66.3
+     },
+     {
+      "label": "1988",
+      "value": 71.1
+     },
+     {
+      "label": "1989",
+      "value": 75.5
+     },
+     {
+      "label": "1990",
+      "value": 76.9
+     },
+     {
+      "label": "1991",
+      "value": 75.9
+     },
+     {
+      "label": "1992",
+      "value": 76.3
+     },
+     {
+      "label": "1993",
+      "value": 77.4
+     },
+     {
+      "label": "1994",
+      "value": 79.5
+     },
+     {
+      "label": "1995",
+      "value": 81
+     },
+     {
+      "label": "1996",
+      "value": 82.8
+     },
+     {
+      "label": "1997",
+      "value": 85.3
+     },
+     {
+      "label": "1998",
+      "value": 90.1
+     },
+     {
+      "label": "1999",
+      "value": 96.4
+     },
+     {
+      "label": "2000",
+      "value": 104.8
+     },
+     {
+      "label": "2001",
+      "value": 113.2
+     },
+     {
+      "label": "2002",
+      "value": 122.3
+     },
+     {
+      "label": "2003",
+      "value": 133.7
+     },
+     {
+      "label": "2004",
+      "value": 150.5
+     },
+     {
+      "label": "2005",
+      "value": 171.8
+     },
+     {
+      "label": "2006",
+      "value": 183.5
+     },
+     {
+      "label": "2007",
+      "value": 179.9
+     },
+     {
+      "label": "2008",
+      "value": 164.1
+     },
+     {
+      "label": "2009",
+      "value": 148.6
+     },
+     {
+      "label": "2010",
+      "value": 144.7
+     },
+     {
+      "label": "2011",
+      "value": 139.2
+     },
+     {
+      "label": "2012",
+      "value": 141
+     },
+     {
+      "label": "2013",
+      "value": 154.5
+     },
+     {
+      "label": "2014",
+      "value": 164.7
+     },
+     {
+      "label": "2015",
+      "value": 172.1
+     },
+     {
+      "label": "2016",
+      "value": 180.9
+     }
+    ]
+   },
+   {
+    "id": "q2",
+    "purpose": "Percent rise in home prices since Jan 1987 vs latest month, by metro and national",
+    "chart": "bars",
+    "unit": "% rise since January 1987 or f",
+    "sql": "WITH f AS (SELECT area, arg_min(\"index\", month) AS first_v, arg_max(\"index\", month) AS last_v FROM us_house_prices WHERE area NOT IN ('20-city composite','10-city composite') GROUP BY area) SELECT regexp_replace(area, '^[A-Z]{2}-', '') AS label, ROUND((last_v / first_v - 1) * 100, 0) AS value FROM f ORDER BY value DESC LIMIT 30",
+    "rows": [
+     {
+      "label": "San Diego",
+      "value": 724
+     },
+     {
+      "label": "Portland",
+      "value": 714
+     },
+     {
+      "label": "San Francisco",
+      "value": 696
+     },
+     {
+      "label": "Los Angeles",
+      "value": 664
+     },
+     {
+      "label": "Seattle",
+      "value": 575
+     },
+     {
+      "label": "Miami",
+      "value": 560
+     },
+     {
+      "label": "Denver",
+      "value": 533
+     },
+     {
+      "label": "Washington",
+      "value": 437
+     },
+     {
+      "label": "US national",
+      "value": 429
+     },
+     {
+      "label": "Boston",
+      "value": 419
+     },
+     {
+      "label": "Tampa",
+      "value": 384
+     },
+     {
+      "label": "Phoenix",
+      "value": 383
+     },
+     {
+      "label": "New York",
+      "value": 373
+     },
+     {
+      "label": "Charlotte",
+      "value": 357
+     },
+     {
+      "label": "Las Vegas",
+      "value": 352
+     },
+     {
+      "label": "Chicago",
+      "value": 343
+     },
+     {
+      "label": "Minneapolis",
+      "value": 301
+     },
+     {
+      "label": "Cleveland",
+      "value": 293
+     },
+     {
+      "label": "Atlanta",
+      "value": 263
+     },
+     {
+      "label": "Detroit",
+      "value": 250
+     },
+     {
+      "label": "Dallas",
+      "value": 197
+     }
+    ]
+   },
+   {
+    "id": "q3",
+    "purpose": "US national index at January each year since 2000 vs January 2000 base",
+    "chart": "columns",
+    "unit": "index points (Jan 2000 = 100)",
+    "sql": "SELECT CAST(year(month) AS VARCHAR) AS label, ROUND(\"index\", 1) AS value FROM us_house_prices WHERE area = 'US national' AND month(month) = 1 AND year(month) >= 2000 ORDER BY year(month) LIMIT 30",
+    "rows": [
+     {
+      "label": "2000",
+      "value": 100
+     },
+     {
+      "label": "2001",
+      "value": 109.2
+     },
+     {
+      "label": "2002",
+      "value": 116.4
+     },
+     {
+      "label": "2003",
+      "value": 127.7
+     },
+     {
+      "label": "2004",
+      "value": 140.7
+     },
+     {
+      "label": "2005",
+      "value": 160.1
+     },
+     {
+      "label": "2006",
+      "value": 180.8
+     },
+     {
+      "label": "2007",
+      "value": 182.7
+     },
+     {
+      "label": "2008",
+      "value": 171.1
+     },
+     {
+      "label": "2009",
+      "value": 149.4
+     },
+     {
+      "label": "2010",
+      "value": 145
+     },
+     {
+      "label": "2011",
+      "value": 139
+     },
+     {
+      "label": "2012",
+      "value": 134.2
+     },
+     {
+      "label": "2013",
+      "value": 144.3
+     },
+     {
+      "label": "2014",
+      "value": 159.4
+     },
+     {
+      "label": "2015",
+      "value": 166.2
+     },
+     {
+      "label": "2016",
+      "value": 175
+     },
+     {
+      "label": "2017",
+      "value": 184.6
+     },
+     {
+      "label": "2018",
+      "value": 196.1
+     },
+     {
+      "label": "2019",
+      "value": 204.2
+     },
+     {
+      "label": "2020",
+      "value": 212.4
+     },
+     {
+      "label": "2021",
+      "value": 236.4
+     },
+     {
+      "label": "2022",
+      "value": 281.9
+     },
+     {
+      "label": "2023",
+      "value": 292.7
+     },
+     {
+      "label": "2024",
+      "value": 310.7
+     },
+     {
+      "label": "2025",
+      "value": 323.6
+     },
+     {
+      "label": "2026",
+      "value": 326.8
+     }
+    ]
+   }
+  ],
+  "story": {
+   "lead": "US house prices have risen 429% since 1987.",
+   "highlight": "429%",
+   "sub": "S&P CoreLogic Case-Shiller home price index, January 1987 to July 2026, in current dollars (not adjusted for inflation).",
+   "stat": {
+    "value": "429%",
+    "caption": "rise in the US national home price index, January 1987 to July 2026"
+   },
+   "points": [
+    {
+     "h": "Prices climbed, fell after 2006, then recovered",
+     "p": "The national index rose from 66.3 in 1987 to a peak of 183.5 in 2006, in annual averages.",
+     "more": "It then fell for five years to 139.2 in 2011, before climbing again to 180.9 by 2016. This chart covers 1987 to 2016 only."
+    },
+    {
+     "h": "California and the West Coast rose the most",
+     "p": "San Diego (724%), Portland (714%) and San Francisco (696%) saw the biggest rises.",
+     "more": "Los Angeles rose 664% and Seattle 575%. The US national figure of 429% sits in the middle, and Dallas rose the least at 197%."
+    },
+    {
+     "h": "Prices have more than tripled since January 2000",
+     "p": "The national index went from 100 in January 2000 to 326.8 in January 2026.",
+     "more": "It fell to 134.2 in January 2012, then rose every year after. The biggest one-year jump was from 236.4 in 2021 to 281.9 in 2022."
+    }
+   ],
+   "next": [
+    "How did home prices change in San Francisco compared with Miami since 2000?",
+    "How have US 10-year bond yields moved since 2000?",
+    "How does the S&P 500 compare with home prices since 2000?"
+   ]
+  },
+  "created": "2026-10-06"
+ }
+]
