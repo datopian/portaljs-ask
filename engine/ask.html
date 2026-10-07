@@ -49,8 +49,9 @@
 [hidden] { display: none !important; }
 body { background: var(--bg); color: var(--ink); font: 16px/1.6 var(--font); -webkit-font-smoothing: antialiased; }
 p, h1, h2, h3, ul { margin: 0; }
-h1, h2, h3 { font-family: var(--display); font-weight: 600; letter-spacing: -0.015em; line-height: 1.2; text-wrap: balance; }
+h1, h2, h3 { font-family: var(--display); font-weight: 600; letter-spacing: normal; line-height: 1.25; text-wrap: balance; }
 em { font-style: normal; color: var(--blue); font-weight: inherit; }
+h2 em, h3 em { color: inherit; }
 a { color: var(--blue); }
 button, input { font: inherit; }
 :focus-visible { outline: 2px solid var(--blue); outline-offset: 3px; }
@@ -70,7 +71,7 @@ button, input { font: inherit; }
 /* hero */
 .hero { padding-block: 72px 48px; display: flex; flex-direction: column; gap: 24px; max-width: 860px; }
 .hero h1 { font-size: clamp(30px, 4.6vw, 46px); }
-.hero .sub { font-size: 16px; color: var(--muted); max-width: 54ch; }
+.hero .sub { font-size: 14px; color: var(--muted); max-width: 54ch; }
 form.ask { display: flex; align-items: center; gap: 8px; background: var(--bg); border: 1px solid #8a9caf; border-radius: var(--radius); padding: 8px; margin-top: 8px; box-shadow: 0 1px 0 rgba(3, 34, 62, .04), 0 8px 24px -12px rgba(3, 34, 62, .18); }
 form.ask:focus-within { border-color: var(--blue); }
 form.ask svg { flex: none; color: var(--muted); margin-left: 8px; }
