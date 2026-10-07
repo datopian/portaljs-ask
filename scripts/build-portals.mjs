@@ -7,7 +7,7 @@ import path from 'node:path'
 
 const root = path.resolve(path.dirname(new URL(import.meta.url).pathname), '..')
 const dir = path.join(root, 'portals')
-const { default: defaultSlug } = JSON.parse(fs.readFileSync(path.join(dir, 'index.json'), 'utf8'))
+const { default: defaultSlug, domains = {} } = JSON.parse(fs.readFileSync(path.join(dir, 'index.json'), 'utf8'))
 const template = fs.readFileSync(path.join(root, 'engine/ask.html'), 'utf8')
 
 const esc = (s) => String(s ?? '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;')
@@ -52,7 +52,7 @@ for (const slug of fs.readdirSync(dir).sort()) {
       ? ` The first example questions were answered in advance. Other questions about the ${portal.datasets.length} connected datasets are answered live: AI writes the queries, they run on the data in your browser, and AI writes the story from their results. Every number comes from the query shown under its chart. Live questions are limited each day.`
       : ` The example questions were answered in advance by AI: it wrote the queries and the story, and every number comes from the query shown under its chart.`,
   ].join('')
-  const pub = { slug, name: portal.name, live: portal.live !== false, examples: portal.examples, datasets: portal.datasets, data: portal.data, instant }
+  const pub = { slug, name: portal.name, sourceName: src.name, live: portal.live !== false, examples: portal.examples, datasets: portal.datasets, data: { base: portal.data.remote || portal.data.base, snapshot: portal.data.snapshot }, instant }
   const vals = {
     title: esc(portal.name), description: esc(portal.description), favicon: '', themeCss, logo, name: esc(portal.name),
     sourceUrl: esc(src.url), sourceName: esc(src.name), sourceLabel: esc(src.label || src.name),
@@ -69,4 +69,5 @@ for (const slug of fs.readdirSync(dir).sort()) {
   console.log(`portal ${slug}: ${portal.datasets.length} datasets, ${instant.length} instant answers${isDefault ? ' (default, served at /)' : ''}`)
 }
 if (!portals[defaultSlug]) throw new Error(`portals/index.json default "${defaultSlug}" has no folder`)
+for (const [host, slug] of Object.entries(domains)) if (!portals[slug]) throw new Error(`portals/index.json domain ${host} points to "${slug}", which has no folder`)
 fs.writeFileSync(path.join(root, 'lib/ask/portals.generated.json'), JSON.stringify({ default: defaultSlug, portals }))

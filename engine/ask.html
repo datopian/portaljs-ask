@@ -620,7 +620,7 @@ function bindAsk(root) {
 function notice(heading, text, suggestions, related) {
   $("working").hidden = true;
   $("story").innerHTML = `<section class="notice"><h2>${escH(heading)}</h2>${text ? `<p>${escH(text)}</p>` : ""}
-    ${related?.length ? `<p>The full Toronto catalogue has these, which aren't connected here yet:</p><div class="ds-list">${related.map(d => `<div class="ds"><a href="${escH(d.url)}" target="_blank" rel="noopener">${escH(d.title)} ↗</a>${d.note ? `<span>${escH(d.note)}</span>` : ""}</div>`).join("")}</div>` : ""}
+    ${related?.length ? `<p>The full ${escH(P.sourceName || P.name)} catalogue has these, which aren't connected here yet:</p><div class="ds-list">${related.map(d => `<div class="ds"><a href="${escH(d.url)}" target="_blank" rel="noopener">${escH(d.title)} ↗</a>${d.note ? `<span>${escH(d.note)}</span>` : ""}</div>`).join("")}</div>` : ""}
     ${suggestions?.length ? `<div class="sugg"><span class="lbl">Try:</span>${suggestions.map(q => `<button class="chip" type="button" data-ask="${escH(q).replace(/"/g, "&quot;")}">${escH(q)}</button>`).join("")}</div>` : ""}</section>`;
   bindAsk($("story"));
 }

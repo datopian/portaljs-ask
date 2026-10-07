@@ -31,7 +31,7 @@ export interface Portal {
   logo: string | null
   source: { name: string; label: string; url: string; licence?: string }
   catalogue: { type: 'ckan' | 'none'; api?: string; datasetUrl?: string }
-  data: { base: string; snapshot: string }
+  data: { base: string; snapshot: string; remote?: string } // base: local build path under public/; remote: where browsers load the files from, if uploaded (scripts/upload-data.mjs)
   live: boolean // false = examples-only: no question box, no AI calls
   examples: string[]
   datasets: PortalDataset[]

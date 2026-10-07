@@ -1,1 +1,1 @@
-{ "default": "datahub" }
+{ "default": "datahub", "domains": {} }

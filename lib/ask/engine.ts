@@ -85,6 +85,77 @@ Rules:
 - If the results don't really answer the question, say so plainly in "lead".
 - Write names in normal case (Luna, Kipling station), not upper case.`
 
+// A second, independent read of every live story before anyone sees it: the
+// checker compares each claim with the rows and returns exact replacements for
+// the ones that are wrong. In hand checks of saved answers, about one story in
+// two had a slip (mostly comparisons: "four times", "the only one", "every
+// year"), so this runs on every story the AI writes. ASK_CHECK=off turns it off.
+const checkSystem = (p: Portal) => `You fact-check a short data story against the query results it was written from, before anyone reads it.
+
+What the data is (${p.owner}):
+${p.notes}
+
+You get the question, the charts (purpose, SQL, result rows) and the story as JSON. Check EVERY claim in every text field against the rows and the notes above:
+- numbers, differences and ratios ("three times", "about half"); recompute them
+- counts and sums ("six of the ten", "together more than the rest": add them up)
+- rankings and absolute words: highest, lowest, only, first, every, never, always, each decade
+- periods, years and tense; partial years presented as full ones
+- claims about years, places or things that are not in the rows, stated as fact
+- causes, forecasts, or words like "dangerous", "risk" and "safest" when the rows only count events
+Reasonable rounding is fine ("about 110" for 110.5). Don't comment on style. Only report real errors or clearly misleading statements.
+
+Always answer by calling the reply tool:
+{"fixes": [{"old": "an exact substring of one story field, copied exactly including any ** markers", "new": "a correct replacement in the same plain style", "why": "the row values that show the error"}]}
+Each "old" must appear exactly once in the story. Keep replacements short; if a sentence can't be fixed simply, replace it with a plainer true statement. If nothing is wrong, return {"fixes": []}.`
+
+const CHECK_SCHEMA = {
+  type: 'object',
+  properties: {
+    fixes: {
+      type: 'array',
+      items: { type: 'object', properties: { old: { type: 'string' }, new: { type: 'string' }, why: { type: 'string' } }, required: ['old', 'new', 'why'] },
+    },
+  },
+  required: ['fixes'],
+}
+
+export interface CheckResult {
+  story: Story
+  fixes: { old: string; new: string; why: string }[] // the fixes that were applied
+}
+
+export async function checkStory(portal: Portal, question: string, results: QueryResult[], story: Story): Promise<CheckResult> {
+  if (process.env.ASK_CHECK === 'off') return { story, fixes: [] }
+  const charts = results.map(({ purpose, sql, unit, rows }, i) => `Chart ${i + 1}: ${purpose}\nUnit: ${unit}\nSQL: ${sql}\nRows: ${JSON.stringify(rows)}`)
+  const shown = { lead: story.lead, summary: story.summary, sub: story.sub, facts: story.facts, points: story.points, takeaway: story.takeaway, note: story.note }
+  const user = `Question: ${question}\n\n${charts.join('\n\n')}\n\nStory:\n${JSON.stringify(shown, null, 1)}`
+  const r = ((await callClaude(checkSystem(portal), user, 3000, CHECK_SCHEMA)) || {}) as Record<string, unknown>
+  const out: Story = JSON.parse(JSON.stringify(story))
+  // Every text field a fix may apply to, as [get, set] pairs.
+  const fields: [() => string, (v: string) => void][] = [
+    [() => out.lead, (v) => (out.lead = v)],
+    [() => out.summary, (v) => (out.summary = v)],
+    [() => out.sub, (v) => (out.sub = v)],
+    [() => out.takeaway, (v) => (out.takeaway = v)],
+    [() => out.note, (v) => (out.note = v)],
+    ...out.facts.flatMap((f): [() => string, (v: string) => void][] => [[() => f.value, (v) => (f.value = v)], [() => f.label, (v) => (f.label = v)]]),
+    ...out.points.flatMap((p): [() => string, (v: string) => void][] => [[() => p.h, (v) => (p.h = v)], [() => p.p, (v) => (p.p = v)]]),
+  ]
+  const applied: CheckResult['fixes'] = []
+  for (const f of Array.isArray(r.fixes) ? r.fixes.slice(0, 12) : []) {
+    const o = (f || {}) as Record<string, unknown>
+    const old = typeof o.old === 'string' ? o.old : '', next = str(o.new, 600), why = str(o.why, 300)
+    if (!old || old === next) continue
+    const hits = fields.filter(([get]) => get().includes(old))
+    if (hits.length !== 1 || hits[0][0]().split(old).length !== 2) continue // not found, or ambiguous
+    hits[0][1](hits[0][0]().replace(old, next))
+    applied.push({ old, new: next, why })
+  }
+  // If the checker changed the headline, the highlighted words may no longer be in it.
+  if (out.highlight && !out.lead.includes(out.highlight)) out.highlight = ''
+  return { story: out, fixes: applied }
+}
+
 export interface PlannedQuery {
   id: string
   purpose: string
@@ -327,7 +398,7 @@ export const normQuestion = (q: string) => q.toLowerCase().replace(/[^\p{L}\p{N}
 const sha = (s: string) => createHash('sha256').update(s).digest('base64url').slice(0, 32)
 export const planKey = (p: Portal, q: string) => `plan:${p.slug}:${p.data.snapshot}:${sha(normQuestion(q))}`
 export const storyKey = (p: Portal, q: string, results: QueryResult[]) =>
-  `story5:${p.slug}:${p.data.snapshot}:${sha(normQuestion(q) + JSON.stringify(results.map((r) => [r.sql, r.rows])))}`
+  `story6:${p.slug}:${p.data.snapshot}:${sha(normQuestion(q) + JSON.stringify(results.map((r) => [r.sql, r.rows])))}`
 // The headline and summary of an answer, kept per question so a shared link
 // (?q=...) can show them in link previews (pages/api/share.ts).
 export const shareKey = (p: Portal, q: string) => `share:${p.slug}:${p.data.snapshot}:${sha(normQuestion(q))}`
