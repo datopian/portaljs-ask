@@ -48,7 +48,7 @@ If the question can't be answered from these tables (another topic, or data they
 
 const REPAIR_NOTE = `Some of your queries failed when run. Fix them and reply with the same shape, containing all queries (fixed ones and ones that worked).`
 
-const writeSystem = (p: Portal) => `You turn query results into a short data story for people with no technical or statistics background, like a good newspaper explainer: it should make sense in five seconds and be worth reading for a minute.
+const writeSystem = (p: Portal) => `You turn query results into a short data story for people with no technical or statistics background, like a good newspaper explainer: it should make sense in five seconds and be worth reading for two minutes. It is one story read from top to bottom, not a set of chart captions.
 
 What the data is (${p.owner}):
 ${p.notes}
@@ -58,10 +58,11 @@ You get the question and a numbered list of charts, each with its purpose, its S
 Always answer by calling the reply tool (never plain text):
 {"lead": "the direct answer as a headline at most 10 words, e.g. \"Zimbabwe's prices rose fastest, by far.\"",
  "highlight": "the 1-3 most important words of lead, copied exactly, e.g. \"Zimbabwe\"",
- "summary": "2 or 3 sentences for someone in a hurry: the answer, the number that proves it, and what that number means in everyday terms",
+ "summary": "the opening paragraph, 3 or 4 sentences: start with the most striking fact in everyday terms, give the number that proves the answer, and set up what the reader is about to see",
  "sub": "one short line on what data and period this is based on",
  "facts": [{"value": "a number, formatted, e.g. 921.5% or 15,806 or $128,678", "label": "what it is, under 10 words"}],
- "points": [{"h": "headline for this chart, at most 10 words, saying what it shows", "p": "2 or 3 sentences about this chart"}],
+ "points": [{"h": "a chapter headline for this chart, at most 10 words, saying what it shows", "p": "a paragraph of 3 to 5 sentences that carries the story on through this chart"}],
+ "takeaway": "the closing paragraph, 2 or 3 sentences: what the chapters add up to, in plain words",
  "note": "one plain sentence the reader should keep in mind (what is counted, which years, an unusual unit), or an empty string",
  "next": ["three short follow-up questions"],
  "sources": ["one entry per number in your text that is not copied straight from a row, and per count (\"six of the ten\"): the figure and the row values it comes from, e.g. \"57.7 ppm: 2025 = 427.4, 2000 = 369.7\", \"six: 1980, 1981, 1982, 1983, 1984, 1985\""]}
@@ -69,9 +70,11 @@ Always answer by calling the reply tool (never plain text):
 How to write:
 - Everyday words and short sentences, for a curious reader who has never seen this data. No jargon: say "prices rose 921% in a year", not "CPI inflation was 921%". If a unit isn't obvious (ppm, an index), explain it once in plain words.
 - Make the numbers mean something: compare them ("more than four times the next country", "one in five", "twice as high as in 2000") or translate them ("a 921% rise means prices were about ten times higher at the end of the year"). Use only simple arithmetic on the rows, and list each one in "sources". A comparison that is wrong is far worse than none: when unsure, just give the numbers.
-- In "summary" and each "p", wrap the 2 or 3 numbers that matter most in double asterisks, e.g. **921.5%**, **four times**. No other formatting.
+- In "summary" and each "p", wrap the 2 or 3 numbers that matter most in double asterisks, e.g. **921.5%**, **four times**. No other formatting. Not in \"takeaway\".
 - "facts": exactly 3. The first is the single most telling number; the other two add something new (not the same number again). Values are plain text, no asterisks.
-- "points" has exactly one entry per chart, in the same order, and each talks about its own chart: what it shows and the one thing to notice. Don't just list the rows.
+- "points" has exactly one entry per chart, in the same order. Each is a chapter of the same story: its first sentence picks up from the one before ("But the last ten years look different.", "Go back further and the gap grows."), the middle says what this chart shows with its key numbers, and the last sentence says what it adds. Never just list the rows; never repeat the summary.
+- Chapter headlines read like story beats ("The rise keeps getting faster"), not chart labels ("Yearly rise by decade").
+- "takeaway" ties the chapters together. It may repeat a key number, but adds no new numbers, causes or forecasts.
 - "sub" states the real period, taken from the SQL and rows and the data notes above.
 
 Rules:
@@ -115,6 +118,7 @@ export interface Story {
   sub: string
   facts: { value: string; label: string }[]
   points: { h: string; p: string }[]
+  takeaway: string // closing paragraph
   note: string
   next: string[]
   sources: string[] // where each derived number in the text comes from; not shown, kept for checking
@@ -202,11 +206,12 @@ const WRITE_SCHEMA = {
       type: 'array',
       items: { type: 'object', properties: { h: { type: 'string' }, p: { type: 'string' } }, required: ['h', 'p'] },
     },
+    takeaway: { type: 'string' },
     note: { type: 'string' },
     next: { type: 'array', items: { type: 'string' } },
     sources: { type: 'array', items: { type: 'string' } },
   },
-  required: ['lead', 'highlight', 'summary', 'sub', 'facts', 'points', 'note', 'next', 'sources'],
+  required: ['lead', 'highlight', 'summary', 'sub', 'facts', 'points', 'takeaway', 'note', 'next', 'sources'],
 }
 
 const str = (v: unknown, max: number) => (typeof v === 'string' ? v.trim().slice(0, max) : '')
@@ -264,13 +269,13 @@ export async function writeStory(portal: Portal, question: string, results: Quer
   // rather than show (and cache) a story with empty chapters.
   const filled = (v: unknown) => typeof v === 'string' && v.trim() !== ''
   const complete = (x: Record<string, unknown>) =>
-    filled(x.summary) && Array.isArray(x.points) && x.points.length >= results.length && x.points.every((p) => filled((p as Record<string, unknown>)?.p))
-  let r = ((await callClaude(writeSystem(portal), user, 4000, WRITE_SCHEMA)) || {}) as Record<string, unknown>
-  if (!complete(r)) r = ((await callClaude(writeSystem(portal), user, 4000, WRITE_SCHEMA)) || {}) as Record<string, unknown>
+    filled(x.summary) && filled(x.takeaway) && Array.isArray(x.points) && x.points.length >= results.length && x.points.every((p) => filled((p as Record<string, unknown>)?.p))
+  let r = ((await callClaude(writeSystem(portal), user, 5000, WRITE_SCHEMA)) || {}) as Record<string, unknown>
+  if (!complete(r)) r = ((await callClaude(writeSystem(portal), user, 5000, WRITE_SCHEMA)) || {}) as Record<string, unknown>
   if (!complete(r)) throw new Error('The model returned an incomplete story.')
   const points = (Array.isArray(r.points) ? r.points : []).slice(0, results.length).map((p) => {
     const o = (p || {}) as Record<string, unknown>
-    return { h: str(o.h, 120), p: str(o.p, 600) }
+    return { h: str(o.h, 120), p: str(o.p, 1000) }
   })
   while (points.length < results.length) points.push({ h: results[points.length].purpose, p: '' })
   const facts = (Array.isArray(r.facts) ? r.facts : [])
@@ -283,10 +288,11 @@ export async function writeStory(portal: Portal, question: string, results: Quer
   return {
     lead: str(r.lead, 160),
     highlight: str(r.highlight, 80),
-    summary: str(r.summary, 600),
+    summary: str(r.summary, 800),
     sub: str(r.sub, 200),
     facts,
     points,
+    takeaway: str(r.takeaway, 600).replace(/\*/g, ''),
     note: str(r.note, 300),
     next: (Array.isArray(r.next) ? r.next : []).map((s) => str(s, 120)).filter(Boolean).slice(0, 3),
     sources: (Array.isArray(r.sources) ? r.sources : []).map((s) => str(s, 200)).filter(Boolean).slice(0, 20),
@@ -321,7 +327,7 @@ export const normQuestion = (q: string) => q.toLowerCase().replace(/[^\p{L}\p{N}
 const sha = (s: string) => createHash('sha256').update(s).digest('base64url').slice(0, 32)
 export const planKey = (p: Portal, q: string) => `plan:${p.slug}:${p.data.snapshot}:${sha(normQuestion(q))}`
 export const storyKey = (p: Portal, q: string, results: QueryResult[]) =>
-  `story4:${p.slug}:${p.data.snapshot}:${sha(normQuestion(q) + JSON.stringify(results.map((r) => [r.sql, r.rows])))}`
+  `story5:${p.slug}:${p.data.snapshot}:${sha(normQuestion(q) + JSON.stringify(results.map((r) => [r.sql, r.rows])))}`
 // The headline and summary of an answer, kept per question so a shared link
 // (?q=...) can show them in link previews (pages/api/share.ts).
 export const shareKey = (p: Portal, q: string) => `share:${p.slug}:${p.data.snapshot}:${sha(normQuestion(q))}`

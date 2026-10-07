@@ -120,7 +120,8 @@ form.ask button:hover { background: var(--blue); }
 .lead p.summary { color: var(--ink); font-weight: 300; font-size: 17px; line-height: 1.6; max-width: 50ch; }
 /* Key numbers in the story text: bold, with a highlighter stroke in the portal's highlight colour. */
 .num { font-weight: 600; color: var(--ink); white-space: nowrap; }
-.share-row { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 16px; }
+.lead-top { display: flex; justify-content: space-between; align-items: center; gap: 12px; }
+.share-btn.small { padding: 4px 12px; font-size: 13px; }
 .share-btn { display: inline-flex; align-items: center; gap: 8px; border: 1px solid var(--border); background: var(--bg); color: var(--ink); padding: 7px 14px; border-radius: 999px; cursor: pointer; font-size: 14px; font-weight: 600; }
 .share-btn:hover { border-color: var(--blue); color: var(--blue); }
 .share-btn svg { flex: none; }
@@ -134,8 +135,11 @@ form.ask button:hover { background: var(--blue); }
 .stat .facts span { display: block; margin-top: 6px; color: var(--on-navy-muted); font-size: 13px; line-height: 1.4; }
 .stat .bar-gold { width: 40px; height: 3px; background: var(--gold); }
 
-.chapter { display: grid; grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr); gap: 48px; align-items: start; }
-.chapter .txt { display: flex; flex-direction: column; gap: 14px; min-width: 0; padding-top: 8px; }
+.chapter { display: flex; flex-direction: column; gap: 24px; }
+.chapter .txt { display: flex; flex-direction: column; gap: 14px; min-width: 0; max-width: 66ch; }
+.chapter .figure { max-width: 900px; }
+.ending { display: flex; flex-direction: column; gap: 18px; max-width: 66ch; }
+.ending p { font-family: var(--display); font-size: clamp(20px, 2.2vw, 24px); line-height: 1.45; color: var(--ink); }
 .chapter .n { font-family: var(--mono); font-size: 12px; color: var(--muted); }
 .chapter h3 { font-size: clamp(22px, 2.5vw, 28px); }
 .chapter p { color: var(--ink); font-weight: 300; font-size: 16px; line-height: 1.65; }
@@ -197,7 +201,7 @@ footer .other-demos { margin: 0 0 8px; font-size: 13px; }
 footer .other-demos a { color: var(--blue); }
 
 @media (max-width: 860px) {
-  .lead, .chapter, .outro { grid-template-columns: minmax(0, 1fr); gap: 24px; }
+  .lead, .outro { grid-template-columns: minmax(0, 1fr); gap: 24px; }
   .story { gap: 56px; }
   .hero { padding-block: 48px 32px; }
 }
@@ -351,9 +355,10 @@ async function share(s, btn) {
   if (navigator.share && matchMedia("(pointer: coarse)").matches) {
     try { await navigator.share({ title: s.leadText, url }); return; } catch (e) { if (e.name === "AbortError") return; }
   }
+  const was = label.textContent;
   try { await navigator.clipboard.writeText(url); label.textContent = "Link copied"; }
   catch (e) { window.prompt("Copy this link:", url); return; }
-  setTimeout(() => { label.textContent = "Share this answer"; }, 2000);
+  setTimeout(() => { label.textContent = was; }, 2000);
 }
 function route(text, fromUrl) {
   const a = INSTANT[norm(text)];
@@ -403,14 +408,11 @@ function show(s) {
     <article class="story enter">
       <section class="lead">
         <div class="txt">
-          <span class="eyebrow">The answer</span>
+          <div class="lead-top"><span class="eyebrow">The answer</span><button class="share-btn small" type="button" data-share><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M10 14a5 5 0 0 0 7 0l3-3a5 5 0 0 0-7-7l-1 1"/><path d="M14 10a5 5 0 0 0-7 0l-3 3a5 5 0 0 0 7 7l1-1"/></svg><span>Share</span></button></div>
           <h2>${s.lead}</h2>
           ${s.summary ? `<p class="summary">${s.summary}</p>` : ""}
           <p>${s.sub}</p>
-          <div class="share-row">
-            <button class="share-btn" type="button" id="shareBtn"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M10 14a5 5 0 0 0 7 0l3-3a5 5 0 0 0-7-7l-1 1"/><path d="M14 10a5 5 0 0 0-7 0l-3 3a5 5 0 0 0 7 7l1-1"/></svg><span>Share this answer</span></button>
-            <span class="live-note">${s.live ? "Answered live." : "Answered earlier, the same way as live questions."} AI wrote the queries and the text; every number comes from the query results.</span>
-          </div>
+          <span class="live-note">${s.live ? "Answered live." : "Answered earlier, the same way as live questions."} AI wrote the queries and the text; every number comes from the query results.</span>
         </div>
         <div class="stat"${s.facts.length ? "" : " hidden"}>
           <span class="eyebrow">In numbers</span>
@@ -433,6 +435,11 @@ function show(s) {
             </div>
           </figure>
         </section>`).join("")}
+      ${s.takeaway ? `<section class="ending">
+        <span class="eyebrow">The bottom line</span>
+        <p>${s.takeaway}</p>
+        <div><button class="share-btn" type="button" data-share><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M10 14a5 5 0 0 0 7 0l3-3a5 5 0 0 0-7-7l-1 1"/><path d="M14 10a5 5 0 0 0-7 0l-3 3a5 5 0 0 0 7 7l1-1"/></svg><span>Share this story</span></button></div>
+      </section>` : ""}
       <section class="outro">
         <div>
           ${s.note ? `<span class="eyebrow">Keep in mind</span><p class="keep">${s.note}</p>` : ""}
@@ -445,7 +452,7 @@ function show(s) {
         </div>
       </section>
     </article>`;
-  $("shareBtn").addEventListener("click", () => share(s, $("shareBtn")));
+  $("story").querySelectorAll("[data-share]").forEach(b => b.addEventListener("click", () => share(s, b)));
   document.title = `${s.leadText} · ${P.name}`;
   $("story").querySelectorAll("[data-ex]").forEach(b => b.addEventListener("click", () => explore(s, Number(b.dataset.ex), b)));
   bindAsk($("story"));
@@ -637,7 +644,7 @@ function liveStory(question, ok, story, isLive) {
   return {
     q: question, live: isLive,
     lead: leadHTML(story.lead || "Here's what the data shows.", story.highlight), leadText: (story.lead || question).replace(/\*/g, ""),
-    summary: rich(story.summary || ""), sub: escH(story.sub || ""), note: escH(story.note || ""),
+    summary: rich(story.summary || ""), sub: escH(story.sub || ""), note: escH(story.note || ""), takeaway: escH(story.takeaway || ""),
     facts: (story.facts || (story.stat?.value ? [{ value: story.stat.value, label: story.stat.caption }] : []))
       .filter(f => f && f.value).slice(0, 3).map(f => ({ value: escH(f.value), label: escH(f.label || "") })),
     ds: dsList[0], dsList, points,
