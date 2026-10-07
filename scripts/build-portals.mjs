@@ -27,6 +27,9 @@ for (const slug of fs.readdirSync(dir).sort()) {
   portal.notes = fs.readFileSync(path.join(pdir, 'notes.md'), 'utf8')
   const instantFile = path.join(pdir, 'instant.json')
   const instant = fs.existsSync(instantFile) ? JSON.parse(fs.readFileSync(instantFile, 'utf8')) : []
+  // Headline and summary of each saved answer, for link previews of shared answers (pages/api/share.ts).
+  const norm = (q) => q.toLowerCase().replace(/[^\p{L}\p{N}]+/gu, ' ').trim()
+  portal.shares = Object.fromEntries(instant.map((a) => [norm(a.q), { q: a.q, lead: a.story.lead, summary: a.story.summary || '' }]))
   portals[slug] = portal
 
   const out = path.join(root, 'public/p', slug)

@@ -15,11 +15,15 @@ population  -- Population by country, region and world (World Bank), one row per
   population    BIGINT
   Notes: same aggregate rule as gdp. GDP per person = gdp_usd / population, joined on country_code and year.
 
-inflation  -- Consumer price inflation by country (World Bank), one row per country per year, 1961-2023
+inflation  -- Consumer price inflation by country (World Bank), one row per country per year, 1960-2024
   country, country_code, is_aggregate  -- as in gdp
   year          INTEGER
   inflation_pct DOUBLE   -- annual % change in consumer prices; some years are very large (hyperinflation)
-  Notes: same aggregate rule as gdp. Countries report different years: say which years a comparison covers.
+  Notes: same aggregate rule as gdp. Coverage is uneven: about 175 countries a year to 2023, but only 125 in 2024.
+    Argentina has no data at all. Zimbabwe and Sudan end in 2022, Russia 2021, Syria and Myanmar 2019, Venezuela 2016.
+    For "highest/lowest inflation now", don't use 2024 alone (it misses countries): use 2023, or each country's latest
+    year from 2022 on (arg_max(inflation_pct, year)), and show the year in the label. Always say which years are covered.
+    It compares a year's average prices with the year before: say "prices were 3.2 times their level a year earlier", never "by the end of the year".
 
 co2_monthly  -- Carbon dioxide in the atmosphere at Mauna Loa, Hawaii (NOAA), one row per month, March 1958 to August 2026
   month          DATE    -- first day of the month
@@ -105,6 +109,7 @@ vix  -- CBOE Volatility Index ("fear index"), monthly closing value, Jan 1990 to
 General notes:
 - The latest year in many monthly tables is partial (2026): leave it out of year-on-year comparisons or say "so far".
 - Money values are nominal (not adjusted for inflation) unless the column says real.
+- Decades: (year // 10) * 10 (integer division). year/10 is a decimal in DuckDB and gives labels like '1960.0s'.
 
 Writing notes:
 - Say which source and unit a number is in (current US dollars, million tonnes of carbon, degrees above the 1951-1980 average).

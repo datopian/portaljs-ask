@@ -49,6 +49,17 @@ draws charts, shows the story and the queries
 - **Repeated questions are cached** for 30 days per portal and data snapshot:
   the plan by question, and the story by question plus exact result rows (so a
   tampered browser can't change what other visitors see).
+- **Every answer has its own link** (`?q=...`). The page asks the question
+  again when the link is opened: examples come from `instant.json`, live
+  questions from the answer cache, so a shared link normally costs nothing.
+  `pages/api/share.ts` puts the answer's headline and summary in the link
+  preview (Slack, Teams, email).
+- **Stories** have a headline, a short summary, three key numbers, two or three
+  sentences per chart with the key numbers highlighted (`**x**`), and a "keep
+  in mind" note. The writer also returns `sources`: where each derived number
+  comes from. It isn't shown, but asking for it cut the arithmetic slips.
+  Comparisons ("four times", "six of the ten") are where the AI still slips
+  most, so pre-computed answers get a line-by-line check before they ship.
 - **Questions outside the connected datasets** get a free catalogue search
   (CKAN API, no AI) linking to matching datasets on the client's portal.
 
@@ -138,12 +149,17 @@ Run the `portal-new` skill in Claude Code, or by hand:
    `notes.md`: every table and column, units, ranges, how to count, traps.
 4. Add `datasets` and 15 to 20 `examples` to `portal.json`.
 5. Open a PR, run `scripts/precompute.mjs` on the preview, then the
-   `portal-verify` skill.
+   `portal-verify` skill. Check every claim in the saved stories against their
+   rows (counts, ratios, "highest", periods), not only the headline numbers.
+   After a change to the story format, `precompute.mjs --restory` rewrites the
+   saved stories from their existing rows.
 6. Merge. The portal is live at `/demo/<slug>`.
 
 The DataHub portal (17 datasets) took about an hour this way, most of it on the
 notes. The profile caught a duplicated series, euro countries ending in 2001,
-zeros meaning "no value", and two malformed source files.
+zeros meaning "no value", and two malformed source files. A live test later
+caught a third problem: DataHub's two inflation files are labelled the wrong
+way round (see `sources.json`). Check headline numbers against a known figure.
 
 ## 7. Operating it
 
@@ -181,3 +197,4 @@ can run them):
 | 2026-10-06 | Spend: $50 hard cap at Anthropic, $40 app budget, 30 live questions a day, 5 per visitor; examples and repeats free |
 | 2026-10-06 | Sonnet for live questions (Haiku made too many factual slips in testing) |
 | 2026-10-07 | DataHub ("Ask the world's data") is the homepage; Toronto moves to /demo/toronto |
+| 2026-10-07 | Shareable answer links with link previews; fuller stories (summary, three numbers, highlighted figures). All saved stories fact-checked by hand |

@@ -4,7 +4,15 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="description" content="{{description}}">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="{{name}}">
+<meta property="og:title" content="{{title}}">
+<meta property="og:description" content="{{description}}">
+<meta name="twitter:card" content="summary">
 <title>{{title}}</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400&display=swap">
 {{favicon}}
 <style>
 /* Layout: one page. Hero (eyebrow, huge serif headline with one italic blue word, question box, suggestion chips), then the data story appears below: answer + navy stat panel, three chapters (text left, chart right), sources, ask next. */
@@ -25,7 +33,7 @@
   --s4: #eda100;
   --on-navy: #ffffff;
   --on-navy-muted: #c9d8e6;
-  --display: Georgia, "Times New Roman", serif;
+  --display: "Source Serif 4", Georgia, "Times New Roman", serif;
   --font: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   --mono: ui-monospace, SFMono-Regular, Consolas, monospace;
   --radius: 4px;
@@ -42,10 +50,10 @@
 }
 * { box-sizing: border-box; }
 [hidden] { display: none !important; }
-body { background: var(--bg); color: var(--ink); font: 16px/1.6 var(--font); -webkit-font-smoothing: antialiased; }
+body { background: var(--bg); color: var(--ink); font: 15px/1.6 var(--font); -webkit-font-smoothing: antialiased; }
 p, h1, h2, h3, ul { margin: 0; }
 h1, h2, h3 { font-family: var(--display); font-weight: 400; letter-spacing: -0.035em; line-height: 1.08; text-wrap: balance; }
-em { font-style: italic; color: var(--blue); font-weight: 400; }
+em { font-style: normal; color: var(--blue); font-weight: inherit; }
 a { color: var(--blue); }
 button, input { font: inherit; }
 :focus-visible { outline: 2px solid var(--blue); outline-offset: 3px; }
@@ -59,17 +67,17 @@ button, input { font: inherit; }
 /* top bar */
 .bar { border-bottom: 1px solid var(--border); }
 .bar .wrap { display: flex; justify-content: space-between; align-items: center; padding-block: 14px; font-size: 14px; }
-.bar b { font-family: var(--display); font-weight: 400; font-size: 18px; letter-spacing: -0.02em; }
+.bar b { font-family: var(--display); font-weight: 400; font-size: 17px; letter-spacing: -0.02em; }
 .bar span { color: var(--muted); font-size: 13px; }
 
 /* hero */
 .hero { padding-block: 72px 48px; display: flex; flex-direction: column; gap: 24px; max-width: 860px; }
 .hero h1 { font-size: clamp(44px, 8vw, 84px); }
-.hero .sub { font-size: 18px; color: var(--muted); max-width: 54ch; }
+.hero .sub { font-size: 16px; color: var(--muted); }
 form.ask { display: flex; align-items: center; gap: 8px; background: var(--bg); border: 1px solid #8a9caf; border-radius: var(--radius); padding: 8px; margin-top: 8px; box-shadow: 0 1px 0 rgba(3, 34, 62, .04), 0 8px 24px -12px rgba(3, 34, 62, .18); }
 form.ask:focus-within { border-color: var(--blue); }
 form.ask svg { flex: none; color: var(--muted); margin-left: 8px; }
-form.ask input { flex: 1; min-width: 0; border: 0; background: transparent; color: var(--ink); font-size: 18px; padding: 10px 4px; outline: none; }
+form.ask input { flex: 1; min-width: 0; border: 0; background: transparent; color: var(--ink); font-size: 16px; font-weight: 300; padding: 10px 4px; outline: none; }
 form.ask button { flex: none; min-height: 48px; border: 0; border-radius: var(--radius); background: var(--navy); color: #fff; padding: 0 22px; font-weight: 600; cursor: pointer; }
 form.ask button:hover { background: var(--blue); }
 .sugg { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
@@ -85,7 +93,7 @@ form.ask button:hover { background: var(--blue); }
 .chip.off:hover { border-color: var(--border); }
 .hint { font-size: 14px; color: var(--muted); }
 .notice { border-top: 1px solid var(--border); padding-block: 40px 24px; display: flex; flex-direction: column; gap: 16px; max-width: 720px; }
-.notice h2 { font-family: var(--display); font-weight: 400; font-size: clamp(24px, 3vw, 32px); line-height: 1.2; letter-spacing: -0.02em; margin: 0; color: var(--ink); }
+.notice h2 { font-family: var(--display); font-weight: 400; font-size: clamp(21px, 2.6vw, 27px); line-height: 1.2; letter-spacing: -0.02em; margin: 0; color: var(--ink); }
 .notice p { color: var(--muted); margin: 0; }
 .live-note { font-size: 13px; color: var(--muted); }
 .dslink { font: inherit; letter-spacing: inherit; text-transform: inherit; color: inherit; background: none; border: 0; padding: 0; cursor: pointer; text-decoration: underline; text-decoration-color: var(--gold); text-underline-offset: 3px; }
@@ -107,24 +115,45 @@ form.ask button:hover { background: var(--blue); }
 @keyframes rise { from { opacity: .001; transform: translateY(12px); } to { opacity: 1; transform: none; } }
 .lead { display: grid; grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr); gap: 48px; align-items: stretch; }
 .lead .txt { display: flex; flex-direction: column; gap: 18px; min-width: 0; }
-.lead h2 { font-size: clamp(34px, 4.6vw, 52px); }
-.lead p { color: var(--muted); font-size: 17px; max-width: 52ch; }
+.lead h2 { font-size: clamp(29px, 3.8vw, 43px); }
+.lead p { color: var(--muted); font-size: 15px; }
+.lead p.summary { color: var(--ink); font-weight: 300; font-size: 16px; line-height: 1.65; }
+/* Key numbers in the story text: bold, with a highlighter stroke in the portal's highlight colour. */
+.num { font-weight: inherit; color: inherit; white-space: nowrap; }
+.lead-top { display: flex; justify-content: space-between; align-items: center; gap: 12px; }
+.share-btn.small { padding: 4px 12px; font-size: 13px; }
+.share-btn { display: inline-flex; align-items: center; gap: 8px; border: 1px solid var(--border); background: var(--bg); color: var(--ink); padding: 7px 14px; border-radius: 999px; cursor: pointer; font-size: 14px; font-weight: 600; }
+.share-btn:hover { border-color: var(--blue); color: var(--blue); }
+.share-btn svg { flex: none; }
 .stat { background: var(--navy); color: var(--on-navy); border-radius: var(--radius); padding: 32px; display: flex; flex-direction: column; justify-content: space-between; gap: 24px; min-width: 0; }
 .stat .eyebrow { color: var(--on-navy-muted); }
-.stat b { display: block; font-family: var(--display); font-weight: 400; font-size: clamp(56px, 7vw, 88px); letter-spacing: -0.04em; line-height: 1; color: var(--on-navy); }
+.stat b { display: block; font-family: var(--display); font-weight: 400; font-size: clamp(44px, 5.4vw, 64px); letter-spacing: -0.04em; line-height: 1; color: var(--on-navy); }
 .stat p { color: var(--on-navy-muted); font-size: 15px; max-width: 32ch; }
+.stat .big { display: flex; flex-direction: column; gap: 12px; }
+.stat .facts { display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 16px 24px; border-top: 1px solid rgba(255, 255, 255, .18); padding-top: 18px; }
+.stat .facts b { font-size: clamp(22px, 2.6vw, 28px); letter-spacing: -0.02em; }
+.stat .facts span { display: block; margin-top: 6px; color: var(--on-navy-muted); font-size: 13px; line-height: 1.4; }
 .stat .bar-gold { width: 40px; height: 3px; background: var(--gold); }
 
-.chapter { display: grid; grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr); gap: 48px; align-items: start; }
-.chapter .txt { display: flex; flex-direction: column; gap: 14px; min-width: 0; padding-top: 8px; }
+.chapter { display: flex; flex-direction: column; gap: 24px; }
+.chapter .txt { display: flex; flex-direction: column; gap: 14px; min-width: 0; }
+.ending { display: flex; flex-direction: column; gap: 18px; }
+.ending p { color: var(--ink); font-weight: 300; font-size: 16px; line-height: 1.65; }
 .chapter .n { font-family: var(--mono); font-size: 12px; color: var(--muted); }
-.chapter h3 { font-size: clamp(26px, 3vw, 34px); }
-.chapter p { color: var(--muted); }
+.chapter h3 { font-size: clamp(22px, 2.5vw, 28px); }
+.chapter p { color: var(--ink); font-weight: 300; font-size: 16px; line-height: 1.65; }
+.keep { border-left: 3px solid var(--gold); padding: 2px 0 2px 14px; color: var(--muted); font-size: 14px; }
 .figure { background: var(--surface); border-radius: var(--radius); padding: 24px 24px 16px; display: flex; flex-direction: column; gap: 14px; min-width: 0; }
 .chart { position: relative; width: 100%; }
 .chart svg { display: block; width: 100%; height: auto; overflow: visible; }
 .chart text { font-family: var(--font); font-size: 12px; fill: var(--muted); }
-.chart .lbl { fill: var(--ink); font-weight: 600; }
+.chart .lbl { fill: var(--ink); font-weight: 600; paint-order: stroke; stroke: var(--surface); stroke-width: 4px; stroke-linejoin: round; }
+.chart .axis { stroke: var(--border); }
+.fighead { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: 4px 16px; }
+.fighead b { font-weight: 600; font-size: 15px; color: var(--ink); }
+.fighead span { font-size: 13px; color: var(--muted); }
+.fighead .key { display: inline-flex; align-items: center; gap: 6px; }
+.fighead .key i { width: 10px; height: 10px; border-radius: 2px; background: var(--blue); display: inline-block; }
 .tip { position: absolute; pointer-events: none; background: var(--ink); color: var(--bg); font-size: 13px; padding: 5px 9px; border-radius: var(--radius); white-space: nowrap; transform: translate(-50%, calc(-100% - 8px)); font-variant-numeric: tabular-nums; z-index: 2; }
 .figfoot { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px 16px; font-size: 13px; border-top: 1px solid var(--border); padding-top: 12px; }
 .figfoot .src { color: var(--muted); }
@@ -146,8 +175,6 @@ pre { margin: 0; background: var(--bg); border: 1px solid var(--border); border-
 .ds a { color: var(--ink); font-weight: 600; text-decoration: none; }
 .ds a:hover { color: var(--blue); }
 .ds span { color: var(--muted); font-size: 14px; }
-.more-btn { border: 0; background: none; padding: 0; color: var(--blue); cursor: pointer; font-size: 14px; width: fit-content; }
-.more-txt { color: var(--ink); border-left: 2px solid var(--gold); padding-left: 14px; }
 .explore-btn { display: inline-flex; align-items: center; gap: 8px; border: 1px solid var(--border); background: var(--bg); color: var(--ink); padding: 6px 12px; border-radius: var(--radius); cursor: pointer; font-size: 13px; font-weight: 600; }
 .explore-btn:hover { border-color: var(--blue); color: var(--blue); }
 .ov { position: fixed; inset: 0; z-index: 50; background: rgba(3, 20, 38, .55); overflow-y: auto; padding: calc(env(safe-area-inset-top, 0px) + 32px) 16px calc(env(safe-area-inset-bottom, 0px) + 32px); display: flex; justify-content: center; align-items: flex-start; }
@@ -155,7 +182,7 @@ pre { margin: 0; background: var(--bg); border: 1px solid var(--border); border-
 .panel.enter { animation: rise .25s ease both; }
 .ph { display: flex; justify-content: space-between; align-items: flex-start; gap: 16px; }
 .ph div { display: flex; flex-direction: column; gap: 10px; }
-.ph h3 { font-size: clamp(24px, 3.4vw, 34px); }
+.ph h3 { font-size: clamp(21px, 2.8vw, 28px); }
 .close { flex: none; width: 40px; height: 40px; border: 1px solid var(--border); background: var(--bg); color: var(--ink); border-radius: var(--radius); cursor: pointer; font-size: 20px; line-height: 1; }
 .close:hover { border-color: var(--blue); }
 .ctrl { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; }
@@ -179,7 +206,7 @@ footer .other-demos { margin: 0 0 8px; font-size: 13px; }
 footer .other-demos a { color: var(--blue); }
 
 @media (max-width: 860px) {
-  .lead, .chapter, .outro { grid-template-columns: minmax(0, 1fr); gap: 24px; }
+  .lead, .outro { grid-template-columns: minmax(0, 1fr); gap: 24px; }
   .story { gap: 56px; }
   .hero { padding-block: 48px 32px; }
 }
@@ -248,29 +275,73 @@ function hoverable(box, svg, W, H, el, cx, cy, text) {
   el.addEventListener("pointerenter", on); el.addEventListener("pointerdown", on); el.addEventListener("pointerleave", () => untip(box));
 }
 function roundTop(x, y, w, h, r) { r = Math.min(r, w / 2, h); return `M${x},${y + h} V${y + r} Q${x},${y} ${x + r},${y} H${x + w - r} Q${x + w},${y} ${x + w},${y + r} V${y + h} Z`; }
+function roundBottom(x, y, w, h, r) { r = Math.min(r, w / 2, h); return `M${x},${y} V${y + h - r} Q${x},${y + h} ${x + r},${y + h} H${x + w - r} Q${x + w},${y + h} ${x + w},${y + h - r} V${y} Z`; }
 function roundRight(x, y, w, h, r) { r = Math.min(r, h / 2, w); return `M${x},${y} H${x + w - r} Q${x + w},${y} ${x + w},${y + r} V${y + h - r} Q${x + w},${y + h} ${x + w - r},${y + h} H${x} Z`; }
 
 function columns(box, data, o) {
   box.querySelector("svg")?.remove();
-  const W = box.clientWidth, H = Math.max(180, Math.min(240, W * 0.3)), m = { t: 22, r: 4, b: 24, l: 40 };
+  const W = box.clientWidth, H = Math.max(200, Math.min(300, W * 0.28)), m = { t: 24, r: 4, b: 26, l: 44 };
   const svg = svgEl("svg", { viewBox: `0 0 ${W} ${H}`, role: "img" }); box.prepend(svg);
-  const max = Math.max(...data.map(d => d.y)), step = niceStep(max), top = Math.ceil(max / step) * step;
-  const Y = v => H - m.b - v / top * (H - m.t - m.b);
-  for (let v = 0; v <= top + 1e-9; v += step) { svgEl("line", { x1: m.l, x2: W - m.r, y1: Y(v), y2: Y(v), stroke: "var(--grid)", "stroke-width": 1 }, svg); svgEl("text", { x: m.l - 8, y: Y(v) + 4, "text-anchor": "end" }, svg).textContent = short(v); }
+  const max = Math.max(...data.map(d => d.y)), min = Math.min(0, ...data.map(d => d.y)), step = niceStep((max - min) || 1);
+  const top = Math.max(0, Math.ceil(max / step) * step), lo = Math.floor(min / step) * step;
+  const Y = v => H - m.b - (v - lo) / ((top - lo) || 1) * (H - m.t - m.b), y0 = Y(0);
+  const dec = step < 1 ? (step < 0.1 ? 2 : 1) : 0;
+  for (let v = lo; v <= top + 1e-9; v += step) { svgEl("line", { x1: m.l, x2: W - m.r, y1: Y(v), y2: Y(v), stroke: Math.abs(v) < 1e-9 && lo < 0 ? "var(--muted)" : "var(--grid)", "stroke-width": 1 }, svg); svgEl("text", { x: m.l - 8, y: Y(v) + 4, "text-anchor": "end" }, svg).textContent = Math.abs(v) >= 1e3 ? short(v) : (Math.abs(v) < 1e-9 ? 0 : v).toFixed(dec); }
   const slot = (W - m.l - m.r) / data.length, bw = Math.max(4, Math.min(36, slot - 3));
   const every = o.every && W < 640 ? o.every * 2 : (o.every || (W < 480 && data.length > 8 ? 2 : 1));
   // Narrow bars: label only the tallest highlighted bar so labels don't collide.
   const hiMax = Math.max(...data.filter(d => d.hi).map(d => d.y));
   data.forEach((d, i) => {
-    const cx = m.l + slot * (i + 0.5), y = Y(d.y), h = Math.max(1, H - m.b - y);
-    svgEl("path", { d: roundTop(cx - bw / 2, H - m.b - h, bw, h, 3), fill: d.hi ? "var(--blue)" : "var(--context)" }, svg);
+    const cx = m.l + slot * (i + 0.5), neg = d.y < 0, h = Math.max(1, Math.abs(Y(d.y) - y0)), yTop = neg ? y0 : y0 - h;
+    svgEl("path", { d: neg ? roundBottom(cx - bw / 2, y0, bw, h, 3) : roundTop(cx - bw / 2, yTop, bw, h, 3), fill: d.hi ? "var(--blue)" : "var(--context)" }, svg);
     if (i % every === 0) svgEl("text", { x: cx, y: H - 6, "text-anchor": "middle" }, svg).textContent = d.x;
-    if (o.labelHi && d.hi && (slot >= 32 || d.y === hiMax)) svgEl("text", { x: cx, y: H - m.b - h - 6, "text-anchor": "middle", class: "lbl" }, svg).textContent = short(d.y);
+    const last = i === data.length - 1 && !d.hi && slot >= 14;
+    if ((o.labelHi && d.hi && (slot >= 32 || d.y === hiMax)) || last || (slot >= 56 && !d.hi)) svgEl("text", { x: cx, y: neg ? y0 + h + 14 : yTop - 6, "text-anchor": "middle", class: d.hi ? "lbl" : "" }, svg).textContent = o.val ? o.val(d.y) : short(d.y);
     const hit = svgEl("rect", { x: cx - slot / 2, y: m.t, width: slot, height: H - m.t - m.b, fill: "transparent" }, svg);
-    hoverable(box, svg, W, H, hit, cx, H - m.b - h, o.tip(d));
+    hoverable(box, svg, W, H, hit, cx, yTop, o.tip(d));
   });
 }
 
+function line(box, data, o) {
+  box.querySelector("svg")?.remove();
+  const W = box.clientWidth, H = Math.max(220, Math.min(320, W * 0.3)), m = { t: 26, r: 16, b: 26, l: 48 };
+  const svg = svgEl("svg", { viewBox: `0 0 ${W} ${H}`, role: "img" }); box.prepend(svg);
+  const ys = data.map(d => d.y), lo0 = Math.min(...ys), hi0 = Math.max(...ys);
+  // Start at zero when that doesn't flatten the line; otherwise fit the range (and always show negatives).
+  const from0 = lo0 >= 0 && lo0 < (hi0 - lo0) * 0.6;
+  const step = niceStep((from0 ? hi0 : hi0 - lo0) || 1), lo = from0 ? 0 : Math.floor(lo0 / step) * step, top = Math.ceil(hi0 / step) * step;
+  const X = i => m.l + i * (W - m.l - m.r) / Math.max(1, data.length - 1), Y = v => H - m.b - (v - lo) / ((top - lo) || 1) * (H - m.t - m.b);
+  const dec = step < 1 ? (step < 0.1 ? 2 : 1) : 0;
+  for (let v = lo; v <= top + 1e-9; v += step) {
+    svgEl("line", { x1: m.l, x2: W - m.r, y1: Y(v), y2: Y(v), stroke: Math.abs(v) < 1e-9 ? "var(--muted)" : "var(--grid)", "stroke-width": 1 }, svg);
+    svgEl("text", { x: m.l - 8, y: Y(v) + 4, "text-anchor": "end" }, svg).textContent = Math.abs(v) >= 1e3 ? short(v) : v.toFixed(dec);
+  }
+  const every = Math.ceil(data.length / (W < 520 ? 4 : 8));
+  data.forEach((d, i) => { if (i % every === 0 || i === data.length - 1 && (data.length - 1) % every > every / 2) svgEl("text", { x: X(i), y: H - 6, "text-anchor": "middle" }, svg).textContent = d.x; });
+  const pts = data.map((d, i) => `${X(i).toFixed(1)},${Y(d.y).toFixed(1)}`);
+  const base = Y(Math.max(lo, Math.min(0, top)));
+  svgEl("path", { d: `M${X(0)},${base} L${pts.join(" L")} L${X(data.length - 1)},${base} Z`, fill: "var(--blue)", opacity: 0.1 }, svg);
+  svgEl("path", { d: `M${pts.join(" L")}`, fill: "none", stroke: "var(--blue)", "stroke-width": 2, "stroke-linejoin": "round" }, svg);
+  // Label the latest value and the peak (if it isn't the latest).
+  const li = data.length - 1, pi = ys.indexOf(hi0);
+  const mark = (i, anchor) => {
+    svgEl("circle", { cx: X(i), cy: Y(data[i].y), r: 4, fill: "var(--blue)", stroke: "var(--surface)", "stroke-width": 2 }, svg);
+    svgEl("text", { x: X(i), y: Y(data[i].y) - 10, "text-anchor": anchor, class: "lbl" }, svg).textContent = `${o.val(data[i].y)} (${data[i].x})`;
+  };
+  if (pi !== li && Math.abs(X(pi) - X(li)) > 110) mark(pi, X(pi) < m.l + 60 ? "start" : "middle");
+  mark(li, "end");
+  // Hover: a guide line and dot follow the pointer.
+  const guide = svgEl("line", { y1: m.t, y2: H - m.b, stroke: "var(--muted)", "stroke-width": 1, "stroke-dasharray": "3 3", visibility: "hidden" }, svg);
+  const dot = svgEl("circle", { r: 4, fill: "var(--blue)", stroke: "var(--surface)", "stroke-width": 2, visibility: "hidden" }, svg);
+  const slot = (W - m.l - m.r) / Math.max(1, data.length - 1);
+  data.forEach((d, i) => {
+    const hit = svgEl("rect", { x: X(i) - slot / 2, y: m.t, width: slot, height: H - m.t - m.b, fill: "transparent" }, svg);
+    hoverable(box, svg, W, H, hit, X(i), Y(d.y), o.tip(d));
+    const show = () => { for (const [e, a] of [[guide, { x1: X(i), x2: X(i) }], [dot, { cx: X(i), cy: Y(d.y) }]]) { for (const k in a) e.setAttribute(k, a[k]); e.setAttribute("visibility", "visible"); } };
+    hit.addEventListener("pointerenter", show); hit.addEventListener("pointerdown", show);
+    hit.addEventListener("pointerleave", () => { guide.setAttribute("visibility", "hidden"); dot.setAttribute("visibility", "hidden"); });
+  });
+}
 function bars(box, data, o) {
   box.querySelector("svg")?.remove();
   const W = box.clientWidth, row = 28, labelW = Math.min(230, W * 0.42), valW = 56, H = data.length * row;
@@ -280,7 +351,7 @@ function bars(box, data, o) {
     const y = i * row + 5, bh = 18, w = Math.max(2, d.y / max * plot);
     svgEl("text", { x: labelW - 10, y: y + 13, "text-anchor": "end", class: d.hi ? "lbl" : "" }, svg).textContent = d.x;
     svgEl("path", { d: roundRight(labelW, y, w, bh, 3), fill: d.hi ? "var(--blue)" : "var(--context)" }, svg);
-    svgEl("text", { x: labelW + w + 6, y: y + 13 }, svg).textContent = fmt(d.y);
+    svgEl("text", { x: labelW + w + 6, y: y + 13, class: d.hi ? "lbl" : "" }, svg).textContent = o.val ? o.val(d.y) : fmt(d.y);
     const hit = svgEl("rect", { x: 0, y: y - 5, width: W, height: row, fill: "transparent" }, svg);
     hoverable(box, svg, W, H, hit, labelW + w / 2, y, o.tip(d));
   });
@@ -297,25 +368,51 @@ const REFUSED = {
   budget: ["Live questions are paused for now.", "This demo's monthly budget for live questions has been used up. The example questions still work."],
 };
 
-// Example questions: the ones with an instant (pre-computed) answer come first;
-// the rest are asked live. A few show at a time; "More ideas" shows the next few.
+// Example questions: the first view leads with ones that have an instant
+// (pre-computed) answer; the rest are asked live. "More ideas" shows a fresh,
+// shuffled set from all of them, avoiding the ones just shown where it can.
 const norm = t => t.toLowerCase().replace(/[^\p{L}\p{N}]+/gu, " ").trim();
 const INSTANT = Object.fromEntries((P.instant || []).map(a => [norm(a.q), a]));
 const FIXED = P.examples.filter(q => INSTANT[norm(q)]).slice(0, 3);
-const IDEAS = P.live ? P.examples.filter(q => !FIXED.includes(q)) : [];
-const IDEAS_SHOWN = 4;
-let ideaAt = 0;
+const POOL = P.live ? P.examples : P.examples.filter(q => INSTANT[norm(q)]);
+const SHOWN = 7;
+const shuffle = a => { a = [...a]; for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } return a; };
+const firstIdeas = () => [...FIXED, ...POOL.filter(q => !FIXED.includes(q))].slice(0, SHOWN);
+let ideas = firstIdeas();
 function renderSugg() {
-  const ideas = IDEAS.length > IDEAS_SHOWN ? Array.from({ length: IDEAS_SHOWN }, (_, i) => IDEAS[(ideaAt + i) % IDEAS.length]) : IDEAS;
   $("sugg").innerHTML = `<span class="lbl">Try:</span>`
-    + [...FIXED, ...ideas].map(q => `<button class="chip" type="button" data-ask="${escH(q).replace(/"/g, "&quot;")}" aria-pressed="${norm(q) === current}">${escH(q)}</button>`).join("")
-    + (IDEAS.length > IDEAS_SHOWN ? `<button class="more" type="button" id="moreIdeas">More ideas</button>` : "");
+    + ideas.map(q => `<button class="chip" type="button" data-ask="${escH(q).replace(/"/g, "&quot;")}" aria-pressed="${norm(q) === current}">${escH(q)}</button>`).join("")
+    + (POOL.length > SHOWN ? `<button class="more" type="button" id="moreIdeas">More ideas</button>` : "");
   bindAsk($("sugg"));
-  $("moreIdeas")?.addEventListener("click", () => { ideaAt = (ideaAt + IDEAS_SHOWN) % IDEAS.length; renderSugg(); $("moreIdeas").focus(); });
+  $("moreIdeas")?.addEventListener("click", () => {
+    const fresh = shuffle(POOL.filter(q => !ideas.includes(q)));
+    ideas = shuffle([...fresh, ...shuffle(ideas)].slice(0, SHOWN));
+    renderSugg(); $("moreIdeas").focus();
+  });
 }
-function route(text) {
+// Every answer has its own address (?q=...), so it can be shared, bookmarked and
+// reached with the back button. Opening such a link asks the question again: an
+// example shows its saved answer, a live question usually comes from the answer cache.
+const urlFor = q => location.pathname + (q ? "?" + new URLSearchParams({ q }) : "");
+function setUrl(q) {
+  const url = urlFor(q);
+  if (url === location.pathname + location.search) return;
+  try { history.pushState(null, "", url); } catch (e) {}
+}
+async function share(s, btn) {
+  const url = location.origin + urlFor(s.q), label = btn.querySelector("span");
+  if (navigator.share && matchMedia("(pointer: coarse)").matches) {
+    try { await navigator.share({ title: s.leadText, url }); return; } catch (e) { if (e.name === "AbortError") return; }
+  }
+  const was = label.textContent;
+  try { await navigator.clipboard.writeText(url); label.textContent = "Link copied"; }
+  catch (e) { window.prompt("Copy this link:", url); return; }
+  setTimeout(() => { label.textContent = was; }, 2000);
+}
+function route(text, fromUrl) {
   const a = INSTANT[norm(text)];
-  if (a) return instant(a, text);
+  if (!fromUrl) setUrl(a ? a.q : text);
+  if (a) return instant(a, text, fromUrl);
   if (P.live) return live(text);
   notice("Try one of the example questions.", "This demo answers the example questions above.", FIXED);
 }
@@ -360,15 +457,16 @@ function show(s) {
     <article class="story enter">
       <section class="lead">
         <div class="txt">
-          <span class="eyebrow">The answer</span>
+          <div class="lead-top"><span class="eyebrow">The answer</span><button class="share-btn small" type="button" data-share><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M10 14a5 5 0 0 0 7 0l3-3a5 5 0 0 0-7-7l-1 1"/><path d="M14 10a5 5 0 0 0-7 0l-3 3a5 5 0 0 0 7 7l1-1"/></svg><span>Share</span></button></div>
           <h2>${s.lead}</h2>
+          ${s.summary ? `<p class="summary">${s.summary}</p>` : ""}
           <p>${s.sub}</p>
-          <p class="live-note">${s.live ? "Answered live." : "Answered earlier, the same way as live questions."} AI wrote the queries and the text; every number comes from the query results.</p>
+          <span class="live-note">${s.live ? "Answered live." : "Answered earlier, the same way as live questions."} AI wrote the queries and the text; every number comes from the query results.</span>
         </div>
-        <div class="stat"${s.stat[0] ? "" : " hidden"}>
-          <span class="eyebrow">In one number</span>
-          <div><b>${s.stat[0]}</b></div>
-          <div style="display:flex;flex-direction:column;gap:12px"><span class="bar-gold"></span><p>${s.stat[1]}</p></div>
+        <div class="stat"${s.facts.length ? "" : " hidden"}>
+          <span class="eyebrow">In numbers</span>
+          ${s.facts[0] ? `<div class="big"><b>${s.facts[0].value}</b><span class="bar-gold"></span><p>${s.facts[0].label}</p></div>` : ""}
+          ${s.facts.length > 1 ? `<div class="facts">${s.facts.slice(1).map(f => `<div><b>${f.value}</b><span>${f.label}</span></div>`).join("")}</div>` : ""}
         </div>
       </section>
       ${s.points.map((p, i) => `
@@ -377,10 +475,9 @@ function show(s) {
             <span class="n">${String(i + 1).padStart(2, "0")} / ${String(s.points.length).padStart(2, "0")}</span>
             <h3>${p.h}</h3>
             <p>${p.p}</p>
-            ${p.more ? `<button class="more-btn" type="button" data-more="m${i}" aria-expanded="false">Read more</button>
-            <p class="more-txt" id="m${i}" hidden>${p.more}</p>` : ""}
           </div>
           <figure class="figure" style="margin:0">
+            <div class="fighead"><b>${p.fig.title}</b><span>${p.fig.unit ? p.fig.unit + (p.fig.key ? " · " : "") : ""}${p.fig.key ? `<span class="key"><i></i>${p.fig.key}</span>` : ""}</span></div>
             <div class="chart" id="ch${i}"></div>
             <div class="figfoot">
               <span class="src">Source: <a href="${dsOf(p).url}" target="_blank" rel="noopener">${dsOf(p).title} ↗</a></span>
@@ -388,8 +485,14 @@ function show(s) {
             </div>
           </figure>
         </section>`).join("")}
+      ${s.takeaway ? `<section class="ending">
+        <span class="eyebrow">The bottom line</span>
+        <p>${s.takeaway}</p>
+        <div><button class="share-btn" type="button" data-share><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M10 14a5 5 0 0 0 7 0l3-3a5 5 0 0 0-7-7l-1 1"/><path d="M14 10a5 5 0 0 0-7 0l-3 3a5 5 0 0 0 7 7l1-1"/></svg><span>Share this story</span></button></div>
+      </section>` : ""}
       <section class="outro">
         <div>
+          ${s.note ? `<span class="eyebrow">Keep in mind</span><p class="keep">${s.note}</p>` : ""}
           <span class="eyebrow">Data sources</span>
           <div class="ds-list">${dsList.map(k => DATASETS[k]).map(ds => `<div class="ds"><a href="${ds.url}" target="_blank" rel="noopener">${ds.title} ↗</a><span>${ds.note}</span></div>`).join("")}</div>
         </div>
@@ -399,9 +502,8 @@ function show(s) {
         </div>
       </section>
     </article>`;
-  $("story").querySelectorAll("[data-more]").forEach(b => b.addEventListener("click", () => {
-    const d = $(b.dataset.more), open = d.hidden; d.hidden = !open; b.setAttribute("aria-expanded", String(open)); b.textContent = open ? "Show less" : "Read more";
-  }));
+  $("story").querySelectorAll("[data-share]").forEach(b => b.addEventListener("click", () => share(s, b)));
+  document.title = `${s.leadText} · ${P.name}`;
   $("story").querySelectorAll("[data-ex]").forEach(b => b.addEventListener("click", () => explore(s, Number(b.dataset.ex), b)));
   bindAsk($("story"));
   drawers = s.points.map((p, i) => () => p.chart($("ch" + i)));
@@ -503,6 +605,8 @@ async function post(url, body) {
 }
 const niceLabel = t => /[a-z]/.test(t) || !/[A-Z]/.test(t) ? t : title(t).replace(/ Station$/, "");
 const numFmt = v => Number.isInteger(v) ? fmt(v) : fmt(Math.round(v * 10) / 10);
+// Story text: **x** marks a key number, shown highlighted.
+const rich = t => escH(t).replace(/\*\*([^*]+)\*\*/g, '<strong class="num">$1</strong>').replace(/\*/g, "");
 // Colours the AI's chosen phrase (or *asterisk* phrase) in the headline, like the prepared stories.
 const leadHTML = (t, hl) => {
   let h = escH(t).replace(/\*([^*]+)\*/g, "<em>$1</em>").replace(/\*/g, "");
@@ -525,7 +629,6 @@ async function live(question) {
   $("hint").hidden = true;
   current = null; renderSugg();
   clearTimeout(timer);
-  try { history.replaceState(null, "", location.pathname); } catch (e) {}
   $("story").innerHTML = ""; drawers = [];
   const w = $("working"); w.hidden = false;
   w.innerHTML = ["Choosing the right data", "Running the queries", "Writing the story"].map(t => `<span>${t}</span>`).join("");
@@ -573,16 +676,24 @@ function liveStory(question, ok, story, isLive) {
   const dsOfSql = sql => TABLE_DS[tablesIn(sql)[0]] || P.datasets[0].id;
   const dsList = [...new Set(ok.map(r => dsOfSql(r.q.sql)))];
   const points = ok.map(({ q, rows }, i) => {
-    const pt = story.points[i] || { h: q.purpose, p: "", more: "" };
+    const pt = story.points[i] || { h: q.purpose, p: "" };
     const data = rows.map(r => ({ x: niceLabel(r.label), y: r.value }));
     const max = Math.max(...data.map(d => d.y));
     const unit = q.unit ? " " + q.unit : "";
-    const draw = el => q.chart === "bars"
-      ? bars(el, data.map((d, j) => ({ ...d, hi: j === 0 })), { tip: d => `${d.x}: ${numFmt(d.y)}${unit}` })
-      : columns(el, data.map(d => ({ ...d, hi: d.y === max })), { tip: d => `${d.x}: ${numFmt(d.y)}${unit}`, labelHi: true, every: data.length > 14 ? Math.ceil(data.length / 12) : undefined });
+    // Long runs of years or months read best as a line; rankings as bars; short series as columns.
+    const kind = q.chart === "bars" ? "bars" : data.length > 24 && data.every(d => /^\d{4}/.test(d.x)) ? "line" : "columns";
+    const pct = /^%|percent/i.test(q.unit || ""), val = v => { const r = Math.abs(v) >= 100 ? Math.round(v * 10) / 10 : Math.round(v * 100) / 100; return fmt(r === 0 ? 0 : r) + (pct ? "%" : ""); };
+    const tipOf = d => `${d.x}: ${numFmt(d.y)}${pct ? "%" : unit}`;
+    const draw = el => kind === "bars"
+      ? bars(el, data.map((d, j) => ({ ...d, hi: j === 0 })), { tip: tipOf, val })
+      : kind === "line"
+      ? line(el, data, { tip: tipOf, val })
+      : columns(el, data.map(d => ({ ...d, hi: d.y === max })), { tip: tipOf, val, labelHi: true, every: data.length > 14 ? Math.ceil(data.length / 12) : undefined });
+    const cap = t => t ? t.charAt(0).toUpperCase() + t.slice(1) : "";
+    const fig = { title: escH(cap(q.purpose || pt.h || "")), unit: q.unit && q.unit.length < 30 ? escH(q.unit) : "", key: kind === "line" || data.length < 2 ? "" : kind === "columns" ? "highest" : data[0].y === max ? "highest" : data[0].y === Math.min(...data.map(d => d.y)) ? "lowest" : "first" };
     return {
-      h: escH(pt.h || q.purpose), p: escH(pt.p), more: pt.more ? escH(pt.more) : "", ds: dsOfSql(q.sql),
-      chart: draw,
+      h: escH(pt.h || q.purpose), p: rich([pt.p, pt.more].filter(Boolean).join(" ")), ds: dsOfSql(q.sql),
+      chart: draw, fig,
       explore: { label: "", options: [], def: null, view: () => ({
         rows: data, sql: q.sql, caption: q.purpose ? q.purpose.charAt(0).toUpperCase() + q.purpose.slice(1) + "." : "", draw,
         cols: [["", d => escH(d.x)], [q.unit ? q.unit.charAt(0).toUpperCase() + q.unit.slice(1) : "Value", d => numFmt(d.y), 1]] }) }
@@ -590,22 +701,34 @@ function liveStory(question, ok, story, isLive) {
   });
   return {
     q: question, live: isLive,
-    lead: leadHTML(story.lead || "Here's what the data shows.", story.highlight), sub: escH(story.sub || ""),
-    stat: [escH(story.stat?.value || ""), escH(story.stat?.caption || "")],
+    lead: leadHTML(story.lead || "Here's what the data shows.", story.highlight), leadText: (story.lead || question).replace(/\*/g, ""),
+    summary: rich(story.summary || ""), sub: escH(story.sub || ""), note: escH(story.note || ""), takeaway: escH(story.takeaway || ""),
+    facts: (story.facts || (story.stat?.value ? [{ value: story.stat.value, label: story.stat.caption }] : []))
+      .filter(f => f && f.value).slice(0, 3).map(f => ({ value: escH(f.value), label: escH(f.label || "") })),
     ds: dsList[0], dsList, points,
     next: story.next || []
   };
 }
 
-$("dslist").innerHTML = Object.values(DATASETS).map(d => `<a href="${d.url}" target="_blank" rel="noopener" title="${d.note}">${d.title}</a>`).join("");
-$("dsbtn").addEventListener("click", () => { const l = $("dslist"); l.hidden = !l.hidden; $("dsbtn").setAttribute("aria-expanded", String(!l.hidden)); });
 
 
 addEventListener("resize", () => { if (exDraw) exDraw(); clearTimeout(window._rt); window._rt = setTimeout(() => drawers.forEach(f => f()), 120); });
 $("dslist").innerHTML = P.datasets.map(d => `<a href="${d.url}" target="_blank" rel="noopener" title="${escH(d.note).replace(/"/g, "&quot;")}">${escH(d.title)}</a>`).join("");
 $("dsbtn").addEventListener("click", () => { const l = $("dslist"); l.hidden = !l.hidden; $("dsbtn").setAttribute("aria-expanded", String(!l.hidden)); });
 renderSugg();
-if (FIXED.length) instant(INSTANT[norm(FIXED[0])], null, true);
+function fromAddress(first) {
+  const q = (new URLSearchParams(location.search).get("q") || "").trim().slice(0, 300);
+  if (q) {
+    route(q, true);
+    if (first) $("ask").scrollIntoView();
+  } else if (FIXED.length) {
+    instant(INSTANT[norm(FIXED[0])], null, true);
+    document.title = DEFAULT_TITLE;
+  }
+}
+const DEFAULT_TITLE = document.title;
+addEventListener("popstate", () => fromAddress(false));
+fromAddress(true);
 </script>
 
 </body>

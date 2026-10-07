@@ -13,6 +13,12 @@ export interface PortalDataset {
   tables: string[] // the DuckDB tables (parquet files) built from it
 }
 
+export interface Share {
+  q: string
+  lead: string
+  summary: string
+}
+
 export interface Portal {
   slug: string
   name: string
@@ -30,6 +36,7 @@ export interface Portal {
   examples: string[]
   datasets: PortalDataset[]
   notes: string // what the AI knows about the tables (portals/<slug>/notes.md)
+  shares: Record<string, Share> // saved answers' headlines by normalised question, for link previews
 }
 
 const PORTALS = (registry as unknown as { portals: Record<string, Portal> }).portals
