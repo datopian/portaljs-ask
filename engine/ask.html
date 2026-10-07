@@ -315,21 +315,27 @@ const REFUSED = {
   budget: ["Live questions are paused for now.", "This demo's monthly budget for live questions has been used up. The example questions still work."],
 };
 
-// Example questions: the ones with an instant (pre-computed) answer come first;
-// the rest are asked live. A few show at a time; "More ideas" shows the next few.
+// Example questions: the first view leads with ones that have an instant
+// (pre-computed) answer; the rest are asked live. "More ideas" shows a fresh,
+// shuffled set from all of them, avoiding the ones just shown where it can.
 const norm = t => t.toLowerCase().replace(/[^\p{L}\p{N}]+/gu, " ").trim();
 const INSTANT = Object.fromEntries((P.instant || []).map(a => [norm(a.q), a]));
 const FIXED = P.examples.filter(q => INSTANT[norm(q)]).slice(0, 3);
-const IDEAS = P.live ? P.examples.filter(q => !FIXED.includes(q)) : [];
-const IDEAS_SHOWN = 4;
-let ideaAt = 0;
+const POOL = P.live ? P.examples : P.examples.filter(q => INSTANT[norm(q)]);
+const SHOWN = 7;
+const shuffle = a => { a = [...a]; for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } return a; };
+const firstIdeas = () => [...FIXED, ...POOL.filter(q => !FIXED.includes(q))].slice(0, SHOWN);
+let ideas = firstIdeas();
 function renderSugg() {
-  const ideas = IDEAS.length > IDEAS_SHOWN ? Array.from({ length: IDEAS_SHOWN }, (_, i) => IDEAS[(ideaAt + i) % IDEAS.length]) : IDEAS;
   $("sugg").innerHTML = `<span class="lbl">Try:</span>`
-    + [...FIXED, ...ideas].map(q => `<button class="chip" type="button" data-ask="${escH(q).replace(/"/g, "&quot;")}" aria-pressed="${norm(q) === current}">${escH(q)}</button>`).join("")
-    + (IDEAS.length > IDEAS_SHOWN ? `<button class="more" type="button" id="moreIdeas">More ideas</button>` : "");
+    + ideas.map(q => `<button class="chip" type="button" data-ask="${escH(q).replace(/"/g, "&quot;")}" aria-pressed="${norm(q) === current}">${escH(q)}</button>`).join("")
+    + (POOL.length > SHOWN ? `<button class="more" type="button" id="moreIdeas">More ideas</button>` : "");
   bindAsk($("sugg"));
-  $("moreIdeas")?.addEventListener("click", () => { ideaAt = (ideaAt + IDEAS_SHOWN) % IDEAS.length; renderSugg(); $("moreIdeas").focus(); });
+  $("moreIdeas")?.addEventListener("click", () => {
+    const fresh = shuffle(POOL.filter(q => !ideas.includes(q)));
+    ideas = shuffle([...fresh, ...shuffle(ideas)].slice(0, SHOWN));
+    renderSugg(); $("moreIdeas").focus();
+  });
 }
 // Every answer has its own address (?q=...), so it can be shared, bookmarked and
 // reached with the back button. Opening such a link asks the question again: an
