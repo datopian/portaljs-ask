@@ -23,6 +23,7 @@ inflation  -- Consumer price inflation by country (World Bank), one row per coun
     Argentina has no data at all. Zimbabwe and Sudan end in 2022, Russia 2021, Syria and Myanmar 2019, Venezuela 2016.
     For "highest/lowest inflation now", don't use 2024 alone (it misses countries): use 2023, or each country's latest
     year from 2022 on (arg_max(inflation_pct, year)), and show the year in the label. Always say which years are covered.
+    It compares a year's average prices with the year before: say "prices were 3.2 times their level a year earlier", never "by the end of the year".
 
 co2_monthly  -- Carbon dioxide in the atmosphere at Mauna Loa, Hawaii (NOAA), one row per month, March 1958 to August 2026
   month          DATE    -- first day of the month

@@ -4456,255 +4456,257 @@
   "queries": [
    {
     "id": "q1",
-    "purpose": "Highest consumer price inflation in 2023 (latest year)",
+    "purpose": "Highest recent inflation, each country's latest year from 2022 on",
     "chart": "bars",
-    "unit": "% per year",
-    "sql": "SELECT country AS label, ROUND(inflation_pct, 1) AS value FROM inflation WHERE NOT is_aggregate AND year = 2023 AND inflation_pct IS NOT NULL ORDER BY value DESC LIMIT 15",
+    "unit": "% annual consumer price inflat",
+    "sql": "SELECT country || ' (' || CAST(yr AS VARCHAR) || ')' AS label, ROUND(v, 1) AS value FROM (SELECT country, max(year) AS yr, arg_max(inflation_pct, year) AS v FROM inflation WHERE NOT is_aggregate AND year >= 2022 AND inflation_pct IS NOT NULL GROUP BY country) ORDER BY value DESC LIMIT 15",
     "rows": [
      {
-      "label": "Zimbabwe",
-      "value": 921.5
+      "label": "Lebanon (2023)",
+      "value": 221.3
      },
      {
-      "label": "Sudan",
-      "value": 213.7
+      "label": "Sudan (2022)",
+      "value": 138.8
      },
      {
-      "label": "Argentina",
-      "value": 135.4
+      "label": "Zimbabwe (2022)",
+      "value": 104.7
      },
      {
-      "label": "Turkiye",
-      "value": 68.2
+      "label": "Turkiye (2024)",
+      "value": 58.5
      },
      {
-      "label": "Ghana",
-      "value": 33.1
+      "label": "Iran, Islamic Rep. (2023)",
+      "value": 44.6
      },
      {
-      "label": "Ethiopia",
-      "value": 33
+      "label": "Haiti (2023)",
+      "value": 36.8
      },
      {
-      "label": "Suriname",
-      "value": 32.3
+      "label": "Egypt, Arab Rep. (2023)",
+      "value": 33.9
      },
      {
-      "label": "Haiti",
-      "value": 31.5
+      "label": "Malawi (2024)",
+      "value": 32.2
      },
      {
-      "label": "Iran, Islamic Rep.",
-      "value": 30.5
+      "label": "Ethiopia (2023)",
+      "value": 30.2
      },
      {
-      "label": "Sierra Leone",
-      "value": 29.2
+      "label": "Sierra Leone (2024)",
+      "value": 28.6
      },
      {
-      "label": "Pakistan",
-      "value": 26
+      "label": "Angola (2024)",
+      "value": 28.2
      },
      {
-      "label": "Egypt, Arab Rep.",
-      "value": 24.8
+      "label": "Nigeria (2023)",
+      "value": 24.7
      },
      {
-      "label": "Lao PDR",
-      "value": 24.4
+      "label": "Lao PDR (2024)",
+      "value": 23.1
      },
      {
-      "label": "Malawi",
+      "label": "Ghana (2024)",
       "value": 22.8
      },
      {
-      "label": "Mongolia",
-      "value": 21.8
+      "label": "Sao Tome and Principe (2023)",
+      "value": 21.3
      }
     ]
    },
    {
     "id": "q2",
-    "purpose": "Average inflation 2019-2023 (countries with at least 4 years reported)",
+    "purpose": "Highest inflation in 2023, the latest year with near-full coverage",
     "chart": "bars",
-    "unit": "% per year",
-    "sql": "SELECT country AS label, ROUND(AVG(inflation_pct), 1) AS value FROM inflation WHERE NOT is_aggregate AND year BETWEEN 2019 AND 2023 AND inflation_pct IS NOT NULL GROUP BY country HAVING COUNT(*) >= 4 ORDER BY value DESC LIMIT 15",
+    "unit": "% annual consumer price inflat",
+    "sql": "SELECT country AS label, ROUND(inflation_pct, 1) AS value FROM inflation WHERE NOT is_aggregate AND year = 2023 AND inflation_pct IS NOT NULL ORDER BY value DESC LIMIT 15",
     "rows": [
      {
-      "label": "Zimbabwe",
-      "value": 426.4
-     },
-     {
-      "label": "Sudan",
-      "value": 146.7
-     },
-     {
-      "label": "Cuba",
-      "value": 109
-     },
-     {
       "label": "Lebanon",
-      "value": 87.9
-     },
-     {
-      "label": "Syrian Arab Republic",
-      "value": 78
-     },
-     {
-      "label": "Argentina",
-      "value": 69.7
+      "value": 221.3
      },
      {
       "label": "Turkiye",
-      "value": 44.4
-     },
-     {
-      "label": "Iran, Islamic Rep.",
-      "value": 42.4
+      "value": 53.9
      },
      {
       "label": "Suriname",
-      "value": 38.8
+      "value": 51.6
      },
      {
-      "label": "Libya",
-      "value": 25.4
+      "label": "Sierra Leone",
+      "value": 47.6
      },
      {
-      "label": "Ethiopia",
-      "value": 24.1
-     },
-     {
-      "label": "Haiti",
-      "value": 23.8
-     },
-     {
-      "label": "Angola",
-      "value": 20
-     },
-     {
-      "label": "Ukraine",
-      "value": 19.3
+      "label": "Iran, Islamic Rep.",
+      "value": 44.6
      },
      {
       "label": "Ghana",
-      "value": 18.2
+      "value": 38.1
+     },
+     {
+      "label": "Haiti",
+      "value": 36.8
+     },
+     {
+      "label": "Egypt, Arab Rep.",
+      "value": 33.9
+     },
+     {
+      "label": "Lao PDR",
+      "value": 31.2
+     },
+     {
+      "label": "Pakistan",
+      "value": 30.8
+     },
+     {
+      "label": "Ethiopia",
+      "value": 30.2
+     },
+     {
+      "label": "Malawi",
+      "value": 28.8
+     },
+     {
+      "label": "Burundi",
+      "value": 26.9
+     },
+     {
+      "label": "Nigeria",
+      "value": 24.7
+     },
+     {
+      "label": "Sao Tome and Principe",
+      "value": 21.3
      }
     ]
    },
    {
     "id": "q3",
-    "purpose": "Highest single-year inflation ever recorded, with the year",
+    "purpose": "Highest single-year inflation on record since 1960",
     "chart": "bars",
-    "unit": "% per year",
-    "sql": "WITH ranked AS (SELECT country, year, inflation_pct, row_number() OVER (PARTITION BY country ORDER BY inflation_pct DESC) AS rn FROM inflation WHERE NOT is_aggregate AND inflation_pct IS NOT NULL) SELECT country || ' (' || CAST(year AS VARCHAR) || ')' AS label, ROUND(inflation_pct, 1) AS value FROM ranked WHERE rn = 1 ORDER BY value DESC LIMIT 15",
+    "unit": "% annual consumer price inflat",
+    "sql": "SELECT country || ' (' || CAST(arg_max(year, inflation_pct) AS VARCHAR) || ')' AS label, ROUND(max(inflation_pct), 0) AS value FROM inflation WHERE NOT is_aggregate AND inflation_pct IS NOT NULL GROUP BY country ORDER BY value DESC LIMIT 15",
     "rows": [
      {
       "label": "Congo, Dem. Rep. (1994)",
-      "value": 26762
-     },
-     {
-      "label": "Georgia (1993)",
-      "value": 15444.4
-     },
-     {
-      "label": "Nicaragua (1988)",
-      "value": 13611.6
+      "value": 23773
      },
      {
       "label": "Bolivia (1985)",
-      "value": 12338.7
-     },
-     {
-      "label": "Bosnia and Herzegovina (1993)",
-      "value": 7544.8
+      "value": 11750
      },
      {
       "label": "Peru (1990)",
-      "value": 6261.2
-     },
-     {
-      "label": "Angola (1996)",
-      "value": 4800.5
-     },
-     {
-      "label": "Armenia (1994)",
-      "value": 4107.3
+      "value": 7482
      },
      {
       "label": "Ukraine (1993)",
-      "value": 3333.6
+      "value": 4735
      },
      {
-      "label": "Turkmenistan (1992)",
-      "value": 3089.2
+      "label": "Angola (1996)",
+      "value": 4145
      },
      {
-      "label": "Argentina (1989)",
-      "value": 3046.1
+      "label": "Armenia (1994)",
+      "value": 3374
      },
      {
       "label": "Brazil (1990)",
-      "value": 2737
+      "value": 2948
      },
      {
       "label": "Belarus (1994)",
-      "value": 1945.7
+      "value": 2221
      },
      {
       "label": "Kazakhstan (1994)",
-      "value": 1546.7
+      "value": 1877
      },
      {
-      "label": "Russian Federation (1992)",
-      "value": 1490.4
+      "label": "Azerbaijan (1994)",
+      "value": 1662
+     },
+     {
+      "label": "Moldova (1993)",
+      "value": 1614
+     },
+     {
+      "label": "Croatia (1993)",
+      "value": 1500
+     },
+     {
+      "label": "Slovenia (1989)",
+      "value": 1281
+     },
+     {
+      "label": "Indonesia (1966)",
+      "value": 1136
+     },
+     {
+      "label": "Bulgaria (1997)",
+      "value": 1058
      }
     ]
    }
   ],
   "story": {
-   "lead": "Zimbabwe's prices rose fastest, by far.",
-   "highlight": "Zimbabwe",
-   "summary": "In 2023, Zimbabwe had the highest inflation of any country: **921.5%**. That means prices were about ten times their level a year earlier. Sudan (**213.7%**) and Argentina (**135.4%**) came next, and Zimbabwe also leads over the last five years.",
-   "sub": "World Bank consumer price inflation by country: 2023, the 2019-2023 average, and every year from 1961 to 2023.",
+   "lead": "Lebanon's prices rose fastest recently, up 221%.",
+   "highlight": "Lebanon",
+   "summary": "Lebanon had the highest recent inflation: prices rose **221.3%** in 2023, so prices were about three times their level a year earlier. That is more than four times the 2023 rate in Turkiye (**53.9%**), the next country in 2023. The all-time record is far higher: **23,773%** in Congo (Dem. Rep.) in 1994.",
+   "sub": "World Bank consumer price data, 1960–2024; recent ranking uses each country's latest year from 2022 on.",
    "facts": [
     {
-     "value": "921.5%",
-     "label": "Zimbabwe's price rise in 2023"
+     "value": "221.3%",
+     "label": "Lebanon's price rise in 2023, the highest recently"
     },
     {
-     "value": "426.4%",
-     "label": "Zimbabwe's average yearly rise, 2019-2023"
+     "value": "138.8%",
+     "label": "Sudan's price rise in 2022, second on the recent list"
     },
     {
-     "value": "26,762%",
-     "label": "Worst year on record: Congo, Dem. Rep., 1994"
+     "value": "23,773%",
+     "label": "Record: Congo (Dem. Rep.), 1994"
     }
    ],
    "points": [
     {
-     "h": "Zimbabwe's 2023 inflation was more than four times Sudan's",
-     "p": "Zimbabwe's prices rose **921.5%** in 2023, against **213.7%** in Sudan and **135.4%** in Argentina. Zimbabwe's rise was more than four times Sudan's. By tenth place, Sierra Leone, the rate had dropped to **29.2%**."
+     "h": "Lebanon, Sudan and Zimbabwe top the recent list",
+     "p": "This ranks each country by its latest year from 2022 on, so the years differ. Lebanon (**221.3%** in 2023), Sudan (**138.8%**, 2022) and Zimbabwe (**104.7%**, 2022) are the only three above 100%. Turkiye follows at **58.5%** in 2024."
     },
     {
-     "h": "Over five years, Zimbabwe and Sudan still lead",
-     "p": "Averaged over 2019-2023, Zimbabwe's prices rose **426.4%** a year and Sudan's **146.7%**. Cuba (**109%**) and Lebanon (**87.9%**) join the list here, though they are not in the 2023 top 15. Only countries with at least four years of figures are counted."
+     "h": "In 2023 alone, Lebanon stands far above the rest",
+     "p": "Looking only at 2023, when nearly all countries have data, Lebanon's **221.3%** is more than four times Turkiye's **53.9%**. Suriname (**51.6%**) and Sierra Leone (**47.6%**) come next. By the 15th place, Sao Tome and Principe, prices still rose **21.3%**."
     },
     {
-     "h": "The record highs are all from the 1980s and 1990s",
-     "p": "The highest single year on record is Congo, Dem. Rep. in 1994 at **26,762%**. Georgia in 1993 (**15,444.4%**) and Nicaragua in 1988 (**13,611.6%**) follow. Zimbabwe's 2023 rate of 921.5% is far below these peaks."
+     "h": "The worst years on record were far more extreme",
+     "p": "Congo (Dem. Rep.) hit **23,773%** in 1994, and Bolivia **11,750%** in 1985. That means prices in Congo were roughly 240 times their level a year earlier. Most of the worst years were in the 1980s and 1990s."
     }
    ],
-   "note": "Inflation is the yearly rise in consumer prices; some countries did not report every year, so the 2019-2023 list only includes countries with at least four years of data.",
+   "note": "Years differ by country in the first chart, because some countries have no data after 2022 or 2023; Argentina has no data at all.",
    "next": [
     "Which countries had the lowest inflation in 2023?",
-    "How has inflation in the United States changed since 1961?",
-    "How did Argentina's inflation change over the last 20 years?"
+    "How did inflation in Turkiye change since 2000?",
+    "How has world inflation changed since 1960?"
    ],
    "sources": [
-    "More than four times: 921.5 / 213.7 = 4.3",
-    "Sierra Leone is tenth in the 2023 list at 29.2%",
-    "Zimbabwe's 921.5% means prices about ten times higher: 100% rise = 2x, 921.5% rise = about 10.2x"
+    "about three times as much: 221.3% rise means prices x3.2",
+    "more than four times: 221.3 / 53.9 = 4.1",
+    "roughly 240 times higher: 23,773% rise means prices x about 238",
+    "Most of the worst years in the 1980s and 1990s: 1985, 1990, 1993, 1994, 1996, 1989, 1997 all in 1980s–1990s; only Indonesia 1966 is earlier",
+    "only three above 100%: Lebanon 221.3, Sudan 138.8, Zimbabwe 104.7; next is Turkiye 58.5"
    ]
   },
   "created": "2026-10-07"
