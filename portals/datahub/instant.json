@@ -4450,5 +4450,309 @@
    ]
   },
   "created": "2026-10-07"
+ },
+ {
+  "q": "Which US cities saw the biggest house price rises?",
+  "queries": [
+   {
+    "id": "q1",
+    "purpose": "Price rise since January 2000 to each city's latest month, top 20 cities",
+    "chart": "bars",
+    "unit": "% rise since Jan 2000",
+    "sql": "SELECT regexp_replace(area, '^[A-Z]{2}-', '') AS label, round(arg_max(\"index\", month) - 100, 0) AS value FROM us_house_prices WHERE regexp_matches(area, '^[A-Z]{2}-') GROUP BY area ORDER BY value DESC LIMIT 20",
+    "rows": [
+     {
+      "label": "Los Angeles",
+      "value": 353
+     },
+     {
+      "label": "Miami",
+      "value": 352
+     },
+     {
+      "label": "San Diego",
+      "value": 350
+     },
+     {
+      "label": "Seattle",
+      "value": 293
+     },
+     {
+      "label": "Tampa",
+      "value": 274
+     },
+     {
+      "label": "San Francisco",
+      "value": 271
+     },
+     {
+      "label": "Boston",
+      "value": 264
+     },
+     {
+      "label": "New York",
+      "value": 252
+     },
+     {
+      "label": "Washington",
+      "value": 244
+     },
+     {
+      "label": "Portland",
+      "value": 234
+     },
+     {
+      "label": "Phoenix",
+      "value": 226
+     },
+     {
+      "label": "Denver",
+      "value": 218
+     },
+     {
+      "label": "Las Vegas",
+      "value": 200
+     },
+     {
+      "label": "Dallas",
+      "value": 197
+     },
+     {
+      "label": "Charlotte",
+      "value": 190
+     },
+     {
+      "label": "Minneapolis",
+      "value": 153
+     },
+     {
+      "label": "Atlanta",
+      "value": 153
+     },
+     {
+      "label": "Chicago",
+      "value": 137
+     },
+     {
+      "label": "Cleveland",
+      "value": 111
+     },
+     {
+      "label": "Detroit",
+      "value": 104
+     }
+    ]
+   },
+   {
+    "id": "q2",
+    "purpose": "Price rise over the last 10 years (latest month vs 10 years earlier), top 20 cities",
+    "chart": "bars",
+    "unit": "% rise over 10 years",
+    "sql": "WITH last AS (SELECT area, max(month) AS m FROM us_house_prices WHERE regexp_matches(area, '^[A-Z]{2}-') GROUP BY area) SELECT regexp_replace(l.area, '^[A-Z]{2}-', '') AS label, round((n.\"index\" / o.\"index\" - 1) * 100, 0) AS value FROM last l JOIN us_house_prices n ON n.area = l.area AND n.month = l.m JOIN us_house_prices o ON o.area = l.area AND o.month = l.m - INTERVAL 10 YEAR ORDER BY value DESC LIMIT 20",
+    "rows": [
+     {
+      "label": "Miami",
+      "value": 111
+     },
+     {
+      "label": "Tampa",
+      "value": 105
+     },
+     {
+      "label": "Charlotte",
+      "value": 105
+     },
+     {
+      "label": "Phoenix",
+      "value": 103
+     },
+     {
+      "label": "San Diego",
+      "value": 99
+     },
+     {
+      "label": "Las Vegas",
+      "value": 98
+     },
+     {
+      "label": "Seattle",
+      "value": 94
+     },
+     {
+      "label": "New York",
+      "value": 92
+     },
+     {
+      "label": "Atlanta",
+      "value": 92
+     },
+     {
+      "label": "Detroit",
+      "value": 92
+     },
+     {
+      "label": "Boston",
+      "value": 91
+     },
+     {
+      "label": "Cleveland",
+      "value": 88
+     },
+     {
+      "label": "Los Angeles",
+      "value": 82
+     },
+     {
+      "label": "Dallas",
+      "value": 80
+     },
+     {
+      "label": "Chicago",
+      "value": 75
+     },
+     {
+      "label": "Denver",
+      "value": 71
+     },
+     {
+      "label": "Minneapolis",
+      "value": 65
+     },
+     {
+      "label": "Portland",
+      "value": 63
+     },
+     {
+      "label": "San Francisco",
+      "value": 62
+     },
+     {
+      "label": "Washington",
+      "value": 59
+     }
+    ]
+   },
+   {
+    "id": "q3",
+    "purpose": "Price rise over the last 5 years (latest month vs 5 years earlier), top 20 cities",
+    "chart": "bars",
+    "unit": "% rise over 5 years",
+    "sql": "WITH last AS (SELECT area, max(month) AS m FROM us_house_prices WHERE regexp_matches(area, '^[A-Z]{2}-') GROUP BY area) SELECT regexp_replace(l.area, '^[A-Z]{2}-', '') AS label, round((n.\"index\" / o.\"index\" - 1) * 100, 0) AS value FROM last l JOIN us_house_prices n ON n.area = l.area AND n.month = l.m JOIN us_house_prices o ON o.area = l.area AND o.month = l.m - INTERVAL 5 YEAR ORDER BY value DESC LIMIT 20",
+    "rows": [
+     {
+      "label": "Miami",
+      "value": 49
+     },
+     {
+      "label": "New York",
+      "value": 46
+     },
+     {
+      "label": "Chicago",
+      "value": 43
+     },
+     {
+      "label": "Charlotte",
+      "value": 40
+     },
+     {
+      "label": "Cleveland",
+      "value": 36
+     },
+     {
+      "label": "Atlanta",
+      "value": 36
+     },
+     {
+      "label": "Detroit",
+      "value": 35
+     },
+     {
+      "label": "Tampa",
+      "value": 33
+     },
+     {
+      "label": "Boston",
+      "value": 32
+     },
+     {
+      "label": "San Diego",
+      "value": 29
+     },
+     {
+      "label": "Los Angeles",
+      "value": 28
+     },
+     {
+      "label": "Las Vegas",
+      "value": 25
+     },
+     {
+      "label": "Dallas",
+      "value": 24
+     },
+     {
+      "label": "Washington",
+      "value": 23
+     },
+     {
+      "label": "Phoenix",
+      "value": 20
+     },
+     {
+      "label": "Minneapolis",
+      "value": 18
+     },
+     {
+      "label": "Seattle",
+      "value": 15
+     },
+     {
+      "label": "Denver",
+      "value": 14
+     },
+     {
+      "label": "Portland",
+      "value": 12
+     },
+     {
+      "label": "San Francisco",
+      "value": 11
+     }
+    ]
+   }
+  ],
+  "story": {
+   "lead": "Los Angeles, Miami and San Diego rose most.",
+   "highlight": "Los Angeles",
+   "sub": "S&P CoreLogic Case-Shiller home price index, January 2000 to each city's latest month in 2026, 20 US cities.",
+   "stat": {
+    "value": "353%",
+    "caption": "Los Angeles home price rise since January 2000, the biggest of any city"
+   },
+   "points": [
+    {
+     "h": "Three California and Florida cities lead since 2000",
+     "p": "Los Angeles, Miami and San Diego all more than tripled in price since January 2000.",
+     "more": "Los Angeles is up 353%, Miami 352% and San Diego 350%. Seattle follows at 293%. Detroit, at 104%, is the lowest of the 20, followed by Cleveland at 111%."
+    },
+    {
+     "h": "Miami leads the last 10 years too",
+     "p": "Miami prices roughly doubled over ten years, with Tampa, Charlotte and Phoenix close behind.",
+     "more": "Miami is up 111%, Tampa and Charlotte 105% each, and Phoenix 103%. Washington is lowest of the 20 at 59%, and San Francisco is up 62%."
+    },
+    {
+     "h": "The last five years favour different cities",
+     "p": "Miami still leads, but New York and Chicago now rank second and third.",
+     "more": "Miami is up 49%, New York 46% and Chicago 43%. Los Angeles is up 28%. San Francisco is lowest at 11%, just behind Portland at 12%."
+    }
+   ],
+   "next": [
+    "How have house prices changed in Miami since 1987?",
+    "How do US national house prices compare with the 20-city composite?",
+    "How have mortgage-era bond yields moved since 2000?"
+   ]
+  },
+  "created": "2026-10-07"
  }
 ]
