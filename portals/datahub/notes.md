@@ -76,7 +76,8 @@ us_house_prices  -- S&P CoreLogic Case-Shiller home price index, not seasonally 
   month  DATE     -- 1987-01 to 2026-07
   area   VARCHAR  -- 'US national', '20-city composite', '10-city composite', or a metro as 'STATE-City', e.g. 'CA-San Francisco', 'NY-New York', 'FL-Miami'
   index  DOUBLE   -- January 2000 = 100 (so 300 means prices tripled since 2000)
-  Notes: these start later than 1987: Phoenix and Minneapolis 1989, Seattle 1990, Detroit 1991, Dallas and the 20-city composite 2000.
+  Notes: areas end in different months (US national: Jul 2026, most cities: Jun 2026): for "latest" use each area's own last month, e.g. arg_max(index, month) per area, never month = (SELECT max(month) ...).
+    These start later than 1987: Phoenix and Minneapolis 1989, Seattle 1990, Detroit 1991, Dallas and the 20-city composite 2000.
     Show the area as the city name ('San Francisco'), e.g. regexp_replace(area, '^[A-Z]{2}-', '').
 
 us_bond_yield  -- US 10-year government bond yield (Federal Reserve), monthly, Apr 1953 to Aug 2026

@@ -43,7 +43,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     previous = (Array.isArray(repair.previous) ? repair.previous : []).slice(0, MAX_QUERIES)
     token = repair.token
   } else {
-    const cached = await cacheGet<Plan>(key)
+    const cached = req.body?.refresh && isAdmin(req) ? null : await cacheGet<Plan>(key)
     if (cached) {
       log('ask_plan_cached', { portal: portal.slug, ip, question })
       return reply(cached, issueToken(portal.slug, question, false), true)

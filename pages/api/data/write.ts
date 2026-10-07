@@ -29,7 +29,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   if (!t) return res.status(403).json({ error: 'This question has expired. Please ask it again.' })
 
   const key = storyKey(portal, question, results)
-  const cached = await cacheGet<Story>(key)
+  const cached = req.body?.refresh && isAdmin(req) ? null : await cacheGet<Story>(key)
   if (cached) {
     log('ask_write_cached', { portal: portal.slug, ip, question })
     return res.status(200).json({ ...cached, cached: true })

@@ -235,7 +235,13 @@ export async function writeStory(portal: Portal, question: string, results: Quer
   const today = new Date().toISOString().slice(0, 10)
   const charts = results.map(({ purpose, sql, unit, rows }, i) => `Chart ${i + 1}: ${purpose}\nUnit: ${unit}\nSQL: ${sql}\nRows: ${JSON.stringify(rows)}`)
   const user = `Today is ${today}. The data was downloaded on ${portal.data.snapshot}.\nQuestion: ${question}\n\n${charts.join('\n\n')}\n\nWrite exactly ${results.length} points, one per chart.`
-  const r = ((await callClaude(writeSystem(portal), user, 1200, WRITE_SCHEMA)) || {}) as Record<string, unknown>
+  // Now and then the reply comes back with only the headline filled in; ask once more, then give up
+  // rather than show (and cache) a story with empty chapters.
+  const complete = (x: Record<string, unknown>) =>
+    Array.isArray(x.points) && x.points.length >= results.length && x.points.every((p) => typeof (p as Record<string, unknown>)?.p === 'string' && ((p as Record<string, string>).p || '').trim())
+  let r = ((await callClaude(writeSystem(portal), user, 1500, WRITE_SCHEMA)) || {}) as Record<string, unknown>
+  if (!complete(r)) r = ((await callClaude(writeSystem(portal), user, 1500, WRITE_SCHEMA)) || {}) as Record<string, unknown>
+  if (!complete(r)) throw new Error('The model returned an incomplete story.')
   const stat = (r.stat || {}) as Record<string, unknown>
   const points = (Array.isArray(r.points) ? r.points : []).slice(0, results.length).map((p) => {
     const o = (p || {}) as Record<string, unknown>

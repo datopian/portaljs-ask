@@ -9,7 +9,8 @@
 //
 // Needs the `duckdb` CLI. ASK_ADMIN_TOKEN (same value as on the deployment)
 // lets these requests skip the daily limits; their AI cost still counts towards
-// the monthly budget. Existing answers are kept unless --force.
+// the monthly budget. Existing answers are kept unless --force, which also
+// bypasses the server's answer cache.
 import fs from 'node:fs'
 import path from 'node:path'
 import { execFileSync } from 'node:child_process'
@@ -38,7 +39,7 @@ async function post(endpoint, body) {
   const res = await fetch(`${api}${endpoint}`, {
     method: 'POST',
     headers: { 'content-type': 'application/json', 'x-ask-admin': process.env.ASK_ADMIN_TOKEN || '' },
-    body: JSON.stringify({ portal: slug, ...body }),
+    body: JSON.stringify({ portal: slug, ...(force ? { refresh: true } : {}), ...body }),
   })
   const json = await res.json().catch(() => ({}))
   if (!res.ok) throw new Error(`${endpoint} ${res.status}: ${json.error || 'failed'}`)
