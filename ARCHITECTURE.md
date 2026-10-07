@@ -180,3 +180,4 @@ can run them):
 | 2026-10-06 | Config-per-portal engine; Toronto is the first portal. Hand-built Toronto stories replaced by pre-computed live answers |
 | 2026-10-06 | Spend: $50 hard cap at Anthropic, $40 app budget, 30 live questions a day, 5 per visitor; examples and repeats free |
 | 2026-10-06 | Sonnet for live questions (Haiku made too many factual slips in testing) |
+| 2026-10-07 | DataHub ("Ask the world's data") is the homepage; Toronto moves to /demo/toronto |
