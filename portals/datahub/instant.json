@@ -235,52 +235,50 @@
    }
   ],
   "story": {
-   "lead": "CO2 is rising faster than ever, about 2.7 ppm a year",
-   "highlight": "faster than ever",
-   "summary": "The air's CO2 level rose **2.74 ppm** in 2025, and **3.53 ppm** in 2024, the biggest jump in the last 30 years. The yearly rise in the 2020s averages **2.62 ppm**, about **three times** the 1960s pace of **0.86 ppm**. The total has gone from 316.9 ppm in 1960 to **427.4 ppm** in 2025.",
-   "sub": "Yearly average CO2 measured at Mauna Loa, Hawaii (NOAA), 1959 to 2025. ppm means parts per million: molecules of CO2 per million molecules of air.",
+   "lead": "CO2 in the air is rising about 2.7 ppm a year",
+   "highlight": "2.7 ppm a year",
+   "summary": "Carbon dioxide in the air is climbing faster than it used to. In the 1960s it rose by **0.86 ppm** a year on average; in the 2020s so far the average is **2.62 ppm** a year, about three times as fast. \"ppm\" means parts per million: a count of CO2 molecules in every million molecules of air. Measured at Mauna Loa in Hawaii, the yearly average reached **427.4 ppm** in 2025.",
+   "sub": "Yearly average CO2 at Mauna Loa, Hawaii (NOAA), 1959–2025",
    "facts": [
     {
      "value": "2.74 ppm",
-     "label": "rise in CO2 in 2025"
+     "label": "rise from 2024 to 2025"
     },
     {
      "value": "3.53 ppm",
-     "label": "biggest yearly rise in 30 years (2024)"
+     "label": "biggest rise in the last 30 years (2024)"
     },
     {
      "value": "427.4 ppm",
-     "label": "CO2 level in 2025, up from 316.9 in 1960"
+     "label": "average CO2 level in 2025"
     }
    ],
    "points": [
     {
-     "h": "Each year adds more CO2, and recent years add the most",
-     "p": "The rise varies from year to year. It was as low as **1.14 ppm** in 1997 and as high as **3.53 ppm** in 2024. Since 2016, no year has risen by less than about 2 ppm."
+     "h": "Every recent year adds more than 1 ppm",
+     "p": "Start with the last 30 years. In every one of them CO2 went up, never down. Yearly rises ranged from **1.14 ppm** in 1997 to **3.53 ppm** in 2024. The small rises sit near the start of this period, and the biggest ones are recent: 2016 (3.40) and 2024 (3.53). The latest year, 2025, added **2.74 ppm**."
     },
     {
-     "h": "The yearly rise has tripled since the 1960s",
-     "p": "The average yearly rise grew in almost every decade, from **0.86 ppm** in the 1960s to **2.4 ppm** in the 2010s. The 2020s figure of **2.62 ppm** covers 2020 to 2025 only. The 1990s were the one small dip, at 1.53 against 1.64 in the 1980s."
+     "h": "Each decade has climbed faster than the last",
+     "p": "Averaging by decade smooths out the ups and downs of single years. The pattern is clear: **0.86 ppm** a year in the 1960s, **1.64** in the 1980s, **2.40** in the 2010s and **2.62** in the 2020s so far. The only dip was in the 1990s, at 1.53, slightly below the 1980s. Apart from that, the speed of the rise has gone up decade after decade."
     },
     {
-     "h": "CO2 has climbed from 317 to 427 ppm since 1960",
-     "p": "The level rose **29.5 ppm** in the 25 years from 1960 to 1985. It then rose **37.3 ppm** in just the 15 years from 2010 to 2025. The climb is getting steeper."
+     "h": "The total has gone from 317 to 427 ppm",
+     "p": "These faster yearly rises add up. The yearly average was **316.9 ppm** in 1960 and **427.4 ppm** in 2025. That is a gain of about **110 ppm** in 65 years. Roughly half of it came in the last 25 years: from 369.7 in 2000 to 427.4 in 2025, a gain of about **58 ppm**. The level is higher, and it is also climbing faster."
     }
    ],
-   "note": "These are yearly averages from one station in Hawaii, which is used as a measure of the whole atmosphere. The 2020s decade average covers 2020 to 2025 only.",
+   "takeaway": "CO2 has risen in every one of the last 30 years, and the yearly rise has grown from under 1 ppm in the 1960s to more than 2.6 ppm now. That speed-up has pushed the average level from about 317 to 427 ppm.",
+   "note": "Figures are yearly averages from one station in Hawaii, which is used as a measure of the global level.",
    "next": [
-    "How much CO2 do humans emit each year from fossil fuels?",
+    "How much CO2 do fossil fuels and cement release each year?",
     "How much has global temperature risen since 1960?",
-    "Which year had the hottest global temperature on record?"
+    "How much have the world's glaciers lost since 1956?"
    ],
    "sources": [
-    "three times: 2.62 / 0.86 = 3.05 (2020s and 1960s decade averages)",
-    "29.5 ppm: 1985 = 346.4, 1960 = 316.9",
-    "37.3 ppm: 2025 = 427.4, 2010 = 390.1",
-    "15 years: 2025 minus 2010",
-    "25 years: 1985 minus 1960",
-    "about 2 ppm: lowest value from 2016 to 2025 is 1.96 (2018)",
-    "1.53 vs 1.64: 1990s and 1980s averages"
+    "110.5 ppm: 2025 = 427.4, 1960 = 316.9",
+    "57.7 ppm: 2025 = 427.4, 2000 = 369.7",
+    "about three times: 2020s = 2.62, 1960s = 0.86 (ratio 3.05)",
+    "about half: 57.7 of 110.5 ppm (52%)"
    ]
   },
   "created": "2026-10-07"
@@ -4663,50 +4661,53 @@
    }
   ],
   "story": {
-   "lead": "Lebanon's prices rose fastest recently, up 221%.",
+   "lead": "Lebanon has the highest recent inflation, by far.",
    "highlight": "Lebanon",
-   "summary": "Lebanon had the highest recent inflation: prices rose **221.3%** in 2023, so prices were about three times their level a year earlier. That is more than four times the 2023 rate in Turkiye (**53.9%**), the next country in 2023. The all-time record is far higher: **23,773%** in Congo (Dem. Rep.) in 1994.",
-   "sub": "World Bank consumer price data, 1960–2024; recent ranking uses each country's latest year from 2022 on.",
+   "summary": "In 2023, prices in Lebanon rose **221.3%**. That means prices were about **3.2 times** their level a year earlier. No other country with recent figures comes close, though Sudan (**138.8%** in 2022) and Zimbabwe (**104.7%** in 2022) were also very high in their last reported years. Below, we look at the latest figures, then a single year (2023) so countries are fairly compared, then the worst years on record since 1960.",
+   "sub": "World Bank yearly consumer price inflation, 1960–2024; recent charts use each country's latest year from 2022 on.",
    "facts": [
     {
      "value": "221.3%",
-     "label": "Lebanon's price rise in 2023, the highest recently"
+     "label": "Lebanon's price rise in 2023, the highest recent figure"
     },
     {
      "value": "138.8%",
-     "label": "Sudan's price rise in 2022, second on the recent list"
+     "label": "Sudan's price rise in 2022, its last year of data"
     },
     {
      "value": "23,773%",
-     "label": "Record: Congo (Dem. Rep.), 1994"
+     "label": "Congo (Dem. Rep.) in 1994, the highest on record"
     }
    ],
    "points": [
     {
-     "h": "Lebanon, Sudan and Zimbabwe top the recent list",
-     "p": "This ranks each country by its latest year from 2022 on, so the years differ. Lebanon (**221.3%** in 2023), Sudan (**138.8%**, 2022) and Zimbabwe (**104.7%**, 2022) are the only three above 100%. Turkiye follows at **58.5%** in 2024."
+     "h": "Lebanon leads, with Sudan and Zimbabwe behind",
+     "p": "Take each country's most recent figure from 2022 onward, and Lebanon is on top with a **221.3%** rise in 2023. Sudan comes next at **138.8%** and Zimbabwe at **104.7%**, but both only have figures up to 2022. Turkiye follows at **58.5%** in 2024, and Iran, Haiti, Egypt, Malawi and Ethiopia all sit between 30% and 45%. Every country in this top 15 saw prices rise by more than a fifth in its latest year, so the gap to the top three is large."
     },
     {
-     "h": "In 2023 alone, Lebanon stands far above the rest",
-     "p": "Looking only at 2023, when nearly all countries have data, Lebanon's **221.3%** is more than four times Turkiye's **53.9%**. Suriname (**51.6%**) and Sierra Leone (**47.6%**) come next. By the 15th place, Sao Tome and Principe, prices still rose **21.3%**."
+     "h": "Compare the same year and Lebanon still stands alone",
+     "p": "The first list mixes different years, so here is 2023 alone, when nearly every country has a figure. Lebanon is still first at **221.3%**, about **four times** Turkiye in second place at **53.9%**. Suriname (**51.6%**) and Sierra Leone (**47.6%**) are close behind Turkiye. Sudan and Zimbabwe drop out because they have no figures after 2022. Even so, the 15th country, Sao Tome and Principe, saw prices rise **21.3%** in one year."
     },
     {
-     "h": "The worst years on record were far more extreme",
-     "p": "Congo (Dem. Rep.) hit **23,773%** in 1994, and Bolivia **11,750%** in 1985. That means prices in Congo were roughly 240 times their level a year earlier. Most of the worst years were in the 1980s and 1990s."
+     "h": "Today's worst is mild next to the record years",
+     "p": "Go back to 1960 and today's numbers shrink. The Democratic Republic of the Congo hit **23,773%** in 1994, which means prices rose to roughly **238 times** their level a year before. Bolivia reached **11,750%** in 1985 and Peru **7,482%** in 1990. All 15 of these record years fall between 1966 and 1997, and none is recent. Lebanon's 2023 rise is large, but the Congo's 1994 peak is about **107 times** bigger."
     }
    ],
-   "note": "Years differ by country in the first chart, because some countries have no data after 2022 or 2023; Argentina has no data at all.",
+   "takeaway": "Lebanon has the highest inflation in the latest data, with Sudan, Zimbabwe and Turkiye also high. But the worst episodes on record, mostly in the 1980s and 1990s, were far more extreme than anything seen recently.",
+   "note": "Coverage is uneven: Sudan and Zimbabwe end in 2022, and 2024 has fewer countries, so the first chart mixes years shown in each label.",
    "next": [
     "Which countries had the lowest inflation in 2023?",
-    "How did inflation in Turkiye change since 2000?",
-    "How has world inflation changed since 1960?"
+    "How did Turkiye's inflation change from 2000 to 2024?",
+    "How did world inflation change from 1960 to 2024?"
    ],
    "sources": [
-    "about three times as much: 221.3% rise means prices x3.2",
-    "more than four times: 221.3 / 53.9 = 4.1",
-    "roughly 240 times higher: 23,773% rise means prices x about 238",
-    "Most of the worst years in the 1980s and 1990s: 1985, 1990, 1993, 1994, 1996, 1989, 1997 all in 1980s–1990s; only Indonesia 1966 is earlier",
-    "only three above 100%: Lebanon 221.3, Sudan 138.8, Zimbabwe 104.7; next is Turkiye 58.5"
+    "3.2 times: 221.3% rise means 1 + 2.213 = 3.213 times the level a year earlier",
+    "about four times: Lebanon 221.3 / Turkiye 53.9 = 4.1 (2023)",
+    "about 238 times: 23,773% rise means 1 + 237.73 = 238.7 times the level a year before",
+    "about 107 times: Congo 23,773 / Lebanon 221.3 = 107.4",
+    "all 15 between 1966 and 1997: years 1994, 1985, 1990, 1993, 1996, 1994, 1990, 1994, 1994, 1994, 1993, 1993, 1989, 1966, 1997",
+    "between 30% and 45%: Iran 44.6, Haiti 36.8, Egypt 33.9, Malawi 32.2, Ethiopia 30.2 (latest years)",
+    "more than a fifth: lowest value in chart 1 is Sao Tome and Principe 21.3"
    ]
   },
   "created": "2026-10-07"

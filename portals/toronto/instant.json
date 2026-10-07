@@ -1146,10 +1146,10 @@
    }
   ],
   "story": {
-   "lead": "The 504 King is the most-delayed streetcar route.",
-   "highlight": "504 King",
-   "summary": "The 504 King had **3,269** delays and **77,703** lost minutes, the most of any streetcar route. The 501 Queen is a very close second, with **3,255** delays. The King route's lost minutes add up to about **54 days** of delay.",
-   "sub": "TTC streetcar delay records, 1 January 2025 to 31 August 2026; only incidents with at least one minute of delay.",
+   "lead": "King is the most-delayed streetcar route.",
+   "highlight": "King",
+   "summary": "The 504 King streetcar had more delays than any other route: **3,269** between January 2025 and August 2026. The 501 Queen was almost level with it, at **3,255**. Dundas and Carlton follow, well behind. Next we look at how often routes were held up, how much time was lost, and how long each hold-up lasted.",
+   "sub": "TTC streetcar delays with at least one minute lost, 1 January 2025 to 31 August 2026.",
    "facts": [
     {
      "value": "3,269",
@@ -1160,34 +1160,34 @@
      "label": "minutes lost on the 504 King"
     },
     {
-     "value": "35 minutes",
-     "label": "average delay on the 301 Queen night route"
+     "value": "35",
+     "label": "average minutes per delay on 301 Queen Night"
     }
    ],
    "points": [
     {
-     "h": "King and Queen are almost tied for most delays",
-     "p": "The 504 King had **3,269** delays and the 501 Queen had **3,255**, only 14 apart. The 505 Dundas (**2,491**) and 506 Carlton (**2,349**) follow. The four routes are well ahead of the rest."
+     "h": "King and Queen are almost tied at the top",
+     "p": "Counting delays gives a very close race. The 504 King had **3,269** and the 501 Queen had **3,255**, only 14 apart. Dundas (**2,491**) and Carlton (**2,349**) came next. Kingston Road was fifth with **1,552**, so the top four stand well clear of the rest."
     },
     {
-     "h": "King also loses the most minutes, with Queen close behind",
-     "p": "The 504 King lost **77,703** minutes in total, and the 501 Queen lost **74,034**. That is about 3,700 more minutes for King. The 505 Dundas and 506 Carlton come next, at **59,316** and **56,379**."
+     "h": "King takes the lead once lost time is added up",
+     "p": "Counting minutes, King pulls ahead. Its delays added up to **77,703** minutes, against **74,034** for Queen. That is about 3,700 minutes more. Dundas (**59,316**) and Carlton (**56,379**) stay third and fourth. The order at the top matches the order by number of delays, so King is the most-delayed route on both counts."
     },
     {
-     "h": "Night routes have the longest delays when they happen",
-     "p": "The 301 Queen night route averaged **35** minutes per delay, the longest of any route. Among day routes, the 506 Carlton is highest at **24** minutes. The 510 Spadina is lowest at **14.9** minutes, so its delays are the shortest."
+     "h": "Night routes have the longest single delays",
+     "p": "The delays on a route can be short or long. The night routes were the worst: the 301 Queen Night lost **35** minutes per delay on average, and the 306 Carlton Night lost **31.8**. Among the busy daytime routes, Carlton (**24**), Dundas and King (**23.8** each) lost the most time per delay. Spadina had the shortest, at **14.9** minutes. So King is hit often, and each delay costs a good deal of time."
     }
    ],
-   "note": "Only routes with at least 100 delays are in the averages chart. Minutes lost are the total across all delays on a route.",
+   "takeaway": "The 504 King comes out on top for both the number of delays and the minutes lost, with Queen close behind. Dundas and Carlton follow. Night routes have the longest delays each time, but they have far fewer of them.",
+   "note": "Only incidents with at least one minute of delay are counted, and the data does not say how many riders were affected.",
    "next": [
-    "Which subway station has the most delays?",
     "Which hours of the day have the most streetcar delays?",
-    "Which causes of streetcar delays are the most common?"
+    "What are the most common causes of streetcar delays on King?",
+    "Which bus routes have the most delays?"
    ],
    "sources": [
-    "about 54 days: 77,703 minutes / 60 = 1,295 hours / 24 = 54",
-    "about 3,700 more minutes: 77,703 - 74,034 = 3,669",
-    "14 apart: 3,269 - 3,255"
+    "14 apart: 3,269 − 3,255 (504 King and 501 Queen delays)",
+    "about 3,700 minutes more: 77,703 − 74,034 = 3,669"
    ]
   },
   "created": "2026-10-07"
