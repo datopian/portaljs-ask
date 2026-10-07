@@ -56,19 +56,19 @@ ${p.notes}
 You get the question and a numbered list of charts, each with its purpose, its SQL and its result rows (label, value).
 
 Always answer by calling the reply tool (never plain text):
-{"workings": ["before writing, one line for every number you will write that isn't copied straight from a row, and every count or comparison, showing the arithmetic or the items counted, e.g. \"427.4 - 369.7 = 57.7\", \"top 10 in 1980-1985: 1980, 1981, 1982, 1983, 1984, 1985 = 6\", \"921.5 / 213.7 = 4.3\""],
- "lead": "the direct answer as a headline, at most 10 words, e.g. \"Zimbabwe's prices rose fastest, by far.\"",
+{"lead": "the direct answer as a headline at most 10 words, e.g. \"Zimbabwe's prices rose fastest, by far.\"",
  "highlight": "the 1-3 most important words of lead, copied exactly, e.g. \"Zimbabwe\"",
  "summary": "2 or 3 sentences for someone in a hurry: the answer, the number that proves it, and what that number means in everyday terms",
  "sub": "one short line on what data and period this is based on",
  "facts": [{"value": "a number, formatted, e.g. 921.5% or 15,806 or $128,678", "label": "what it is, under 10 words"}],
  "points": [{"h": "headline for this chart, at most 10 words, saying what it shows", "p": "2 or 3 sentences about this chart"}],
  "note": "one plain sentence the reader should keep in mind (what is counted, which years, an unusual unit), or an empty string",
- "next": ["three short follow-up questions"]}
+ "next": ["three short follow-up questions"],
+ "sources": ["one entry per number in your text that is not copied straight from a row, and per count (\"six of the ten\"): the figure and the row values it comes from, e.g. \"57.7 ppm: 2025 = 427.4, 2000 = 369.7\", \"six: 1980, 1981, 1982, 1983, 1984, 1985\""]}
 
 How to write:
 - Everyday words and short sentences, for a curious reader who has never seen this data. No jargon: say "prices rose 921% in a year", not "CPI inflation was 921%". If a unit isn't obvious (ppm, an index), explain it once in plain words.
-- Make the numbers mean something: compare them ("more than four times the next country", "one in five", "twice as high as in 2000") or translate them ("a 921% rise means prices were about ten times higher at the end of the year"). Use only simple arithmetic on the rows, and only comparisons you have worked out in "workings". A comparison that is wrong is far worse than none: when unsure, just give the numbers.
+- Make the numbers mean something: compare them ("more than four times the next country", "one in five", "twice as high as in 2000") or translate them ("a 921% rise means prices were about ten times higher at the end of the year"). Use only simple arithmetic on the rows, and list each one in "sources". A comparison that is wrong is far worse than none: when unsure, just give the numbers.
 - In "summary" and each "p", wrap the 2 or 3 numbers that matter most in double asterisks, e.g. **921.5%**, **four times**. No other formatting.
 - "facts": exactly 3. The first is the single most telling number; the other two add something new (not the same number again). Values are plain text, no asterisks.
 - "points" has exactly one entry per chart, in the same order, and each talks about its own chart: what it shows and the one thing to notice. Don't just list the rows.
@@ -117,7 +117,7 @@ export interface Story {
   points: { h: string; p: string }[]
   note: string
   next: string[]
-  workings: string[] // the AI's arithmetic for the comparisons in the text; not shown, kept for checking
+  sources: string[] // where each derived number in the text comes from; not shown, kept for checking
 }
 
 // The reply comes back as a "reply" tool call, so the API hands us parsed
@@ -190,7 +190,6 @@ const PLAN_SCHEMA = {
 const WRITE_SCHEMA = {
   type: 'object',
   properties: {
-    workings: { type: 'array', items: { type: 'string' } },
     lead: { type: 'string' },
     highlight: { type: 'string' },
     summary: { type: 'string' },
@@ -205,8 +204,9 @@ const WRITE_SCHEMA = {
     },
     note: { type: 'string' },
     next: { type: 'array', items: { type: 'string' } },
+    sources: { type: 'array', items: { type: 'string' } },
   },
-  required: ['workings', 'lead', 'highlight', 'summary', 'sub', 'facts', 'points', 'note', 'next'],
+  required: ['lead', 'highlight', 'summary', 'sub', 'facts', 'points', 'note', 'next', 'sources'],
 }
 
 const str = (v: unknown, max: number) => (typeof v === 'string' ? v.trim().slice(0, max) : '')
@@ -289,7 +289,7 @@ export async function writeStory(portal: Portal, question: string, results: Quer
     points,
     note: str(r.note, 300),
     next: (Array.isArray(r.next) ? r.next : []).map((s) => str(s, 120)).filter(Boolean).slice(0, 3),
-    workings: (Array.isArray(r.workings) ? r.workings : []).map((s) => str(s, 200)).filter(Boolean).slice(0, 20),
+    sources: (Array.isArray(r.sources) ? r.sources : []).map((s) => str(s, 200)).filter(Boolean).slice(0, 20),
   }
 }
 
@@ -321,7 +321,7 @@ export const normQuestion = (q: string) => q.toLowerCase().replace(/[^\p{L}\p{N}
 const sha = (s: string) => createHash('sha256').update(s).digest('base64url').slice(0, 32)
 export const planKey = (p: Portal, q: string) => `plan:${p.slug}:${p.data.snapshot}:${sha(normQuestion(q))}`
 export const storyKey = (p: Portal, q: string, results: QueryResult[]) =>
-  `story3:${p.slug}:${p.data.snapshot}:${sha(normQuestion(q) + JSON.stringify(results.map((r) => [r.sql, r.rows])))}`
+  `story4:${p.slug}:${p.data.snapshot}:${sha(normQuestion(q) + JSON.stringify(results.map((r) => [r.sql, r.rows])))}`
 // The headline and summary of an answer, kept per question so a shared link
 // (?q=...) can show them in link previews (pages/api/share.ts).
 export const shareKey = (p: Portal, q: string) => `share:${p.slug}:${p.data.snapshot}:${sha(normQuestion(q))}`

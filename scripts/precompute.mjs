@@ -96,7 +96,7 @@ for (const question of portal.examples) {
       instant[have] = { ...old, story, created: new Date().toISOString().slice(0, 10) }
       fs.writeFileSync(instantFile, JSON.stringify(instant, null, 1) + '\n')
       const odd = unmatched(story, old.queries)
-      console.log(`+ ${question}\n  ${story.lead}\n  ${story.summary}\n  W: ${(story.workings || []).join(' | ')}\n  ${story.facts.map((f) => `${f.value} ${f.label}`).join(' | ')}${odd.length ? `\n  ? ${odd.join(' | ')}` : ''}`)
+      console.log(`+ ${question}\n  ${story.lead}\n  ${story.summary}\n  S: ${(story.sources || []).join(' | ')}\n  ${story.facts.map((f) => `${f.value} ${f.label}`).join(' | ')}${odd.length ? `\n  ? ${odd.join(' | ')}` : ''}`)
       continue
     }
     let plan = await post('/api/data/plan', { question })
