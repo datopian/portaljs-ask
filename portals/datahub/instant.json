@@ -1156,7 +1156,7 @@
   "queries": [
    {
     "id": "q1",
-    "purpose": "Average Brent crude price per year since 2000 (2026 so far)",
+    "purpose": "Average Brent crude price per year since 2000",
     "chart": "columns",
     "unit": "US dollars per barrel (nominal",
     "sql": "SELECT CAST(year(month) AS VARCHAR) AS label, ROUND(AVG(usd_per_barrel), 1) AS value FROM oil_prices WHERE benchmark = 'Brent' AND year(month) >= 2000 GROUP BY year(month) ORDER BY year(month) LIMIT 30",
@@ -1273,7 +1273,124 @@
    },
    {
     "id": "q2",
-    "purpose": "Same view with the US WTI benchmark for comparison",
+    "purpose": "Highest monthly Brent price in each year since 2000",
+    "chart": "columns",
+    "unit": "US dollars per barrel (nominal",
+    "sql": "SELECT CAST(year(month) AS VARCHAR) AS label, ROUND(MAX(usd_per_barrel), 1) AS value FROM oil_prices WHERE benchmark = 'Brent' AND year(month) >= 2000 GROUP BY year(month) ORDER BY year(month) LIMIT 30",
+    "rows": [
+     {
+      "label": "2000",
+      "value": 33.1
+     },
+     {
+      "label": "2001",
+      "value": 28.3
+     },
+     {
+      "label": "2002",
+      "value": 28.4
+     },
+     {
+      "label": "2003",
+      "value": 32.8
+     },
+     {
+      "label": "2004",
+      "value": 49.8
+     },
+     {
+      "label": "2005",
+      "value": 64
+     },
+     {
+      "label": "2006",
+      "value": 73.7
+     },
+     {
+      "label": "2007",
+      "value": 92.4
+     },
+     {
+      "label": "2008",
+      "value": 132.7
+     },
+     {
+      "label": "2009",
+      "value": 76.7
+     },
+     {
+      "label": "2010",
+      "value": 91.5
+     },
+     {
+      "label": "2011",
+      "value": 123.3
+     },
+     {
+      "label": "2012",
+      "value": 125.5
+     },
+     {
+      "label": "2013",
+      "value": 116.1
+     },
+     {
+      "label": "2014",
+      "value": 111.8
+     },
+     {
+      "label": "2015",
+      "value": 64.1
+     },
+     {
+      "label": "2016",
+      "value": 53.3
+     },
+     {
+      "label": "2017",
+      "value": 64.4
+     },
+     {
+      "label": "2018",
+      "value": 81
+     },
+     {
+      "label": "2019",
+      "value": 71.3
+     },
+     {
+      "label": "2020",
+      "value": 63.7
+     },
+     {
+      "label": "2021",
+      "value": 83.5
+     },
+     {
+      "label": "2022",
+      "value": 122.7
+     },
+     {
+      "label": "2023",
+      "value": 93.7
+     },
+     {
+      "label": "2024",
+      "value": 89.9
+     },
+     {
+      "label": "2025",
+      "value": 79.3
+     },
+     {
+      "label": "2026",
+      "value": 117.3
+     }
+    ]
+   },
+   {
+    "id": "q3",
+    "purpose": "Average WTI price per year since 2000, for comparison with Brent",
     "chart": "columns",
     "unit": "US dollars per barrel (nominal",
     "sql": "SELECT CAST(year(month) AS VARCHAR) AS label, ROUND(AVG(usd_per_barrel), 1) AS value FROM oil_prices WHERE benchmark = 'WTI' AND year(month) >= 2000 GROUP BY year(month) ORDER BY year(month) LIMIT 30",
@@ -1387,67 +1504,38 @@
       "value": 83.4
      }
     ]
-   },
-   {
-    "id": "q3",
-    "purpose": "Highest monthly Brent price in each period of years (peaks and slumps)",
-    "chart": "columns",
-    "unit": "US dollars per barrel (nominal",
-    "sql": "SELECT CAST((year(month) // 5) * 5 AS VARCHAR) || 's block' AS label, ROUND(MAX(usd_per_barrel), 1) AS value FROM oil_prices WHERE benchmark = 'Brent' AND year(month) >= 2000 GROUP BY (year(month) // 5) * 5 ORDER BY (year(month) // 5) * 5 LIMIT 30",
-    "rows": [
-     {
-      "label": "2000s block",
-      "value": 49.8
-     },
-     {
-      "label": "2005s block",
-      "value": 132.7
-     },
-     {
-      "label": "2010s block",
-      "value": 125.5
-     },
-     {
-      "label": "2015s block",
-      "value": 81
-     },
-     {
-      "label": "2020s block",
-      "value": 122.7
-     },
-     {
-      "label": "2025s block",
-      "value": 117.3
-     }
-    ]
    }
   ],
   "story": {
-   "lead": "Oil prices rose sharply since 2000, with big swings.",
-   "highlight": "rose sharply",
-   "sub": "Monthly Brent and WTI crude spot prices (US EIA), averaged by year, 2000 to 2026 so far, in nominal US dollars per barrel.",
+   "lead": "Oil prices roughly tripled, with big swings",
+   "highlight": "tripled",
+   "sub": "Brent and WTI crude oil, yearly averages in nominal US dollars per barrel, 2000 to 2026 (2026 is a partial year)",
    "stat": {
-    "value": "",
-    "caption": ""
+    "value": "$28.5 to $90.6",
+    "caption": "Average Brent price per barrel, 2000 versus 2026 so far (current dollars)"
    },
    "points": [
     {
-     "h": "Average Brent crude price per year since 2000 (2026 so far)",
-     "p": "",
-     "more": ""
+     "h": "Brent rose, crashed, and rose again",
+     "p": "The yearly average Brent price climbed from $28.5 in 2000 to a peak of $111.7 in 2012.",
+     "more": "It fell to $52.4 in 2015 and $43.5 in 2016, then dropped to $41.8 in 2020. It reached $100.8 in 2022 and stands at $90.6 so far in 2026. These are current dollars, not adjusted for inflation."
     },
     {
-     "h": "Same view with the US WTI benchmark for comparison",
-     "p": "",
-     "more": ""
+     "h": "Monthly peaks were far above the averages",
+     "p": "The highest single month was $132.7 in 2008, with 2026 reaching $117.3 so far.",
+     "more": "Peaks also hit $125.5 in 2012 and $122.7 in 2022. In 2008 the top month was about $36 above that year's $96.8 average."
     },
     {
-     "h": "Highest monthly Brent price in each period of years (peaks and slumps)",
-     "p": "",
-     "more": ""
+     "h": "WTI followed Brent but ran lower",
+     "p": "The US benchmark WTI moved in step with Brent, from $30.3 in 2000 to $83.4 in 2026 so far.",
+     "more": "WTI was below Brent in most years since 2011, for example $94.9 against $111.3 in 2011. Its peak yearly average was $99.6 in 2008."
     }
    ],
-   "next": []
+   "next": [
+    "How did the gas price change since 2000?",
+    "How did the price of gold compare with oil since 2000?",
+    "How did global CO2 emissions change over the same years?"
+   ]
   },
   "created": "2026-10-07"
  },

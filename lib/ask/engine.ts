@@ -228,7 +228,14 @@ export async function planQueries(portal: Portal, question: string, failed?: { s
       .map((f) => `SQL: ${f.sql}\nError: ${f.error}`)
       .join('\n\n')}`
   }
-  return cleanPlan(await callClaude(planSystem(portal), user, 1500, PLAN_SCHEMA))
+  // The model's thinking counts towards max_tokens, so leave room; output is billed by actual use.
+  // A reply cut short comes back without queries: try once more.
+  try {
+    return cleanPlan(await callClaude(planSystem(portal), user, 4000, PLAN_SCHEMA))
+  } catch (err) {
+    if (!(err instanceof Error && err.message === 'The model returned no queries.')) throw err
+    return cleanPlan(await callClaude(planSystem(portal), user, 4000, PLAN_SCHEMA))
+  }
 }
 
 export async function writeStory(portal: Portal, question: string, results: QueryResult[]): Promise<Story> {
@@ -239,8 +246,8 @@ export async function writeStory(portal: Portal, question: string, results: Quer
   // rather than show (and cache) a story with empty chapters.
   const complete = (x: Record<string, unknown>) =>
     Array.isArray(x.points) && x.points.length >= results.length && x.points.every((p) => typeof (p as Record<string, unknown>)?.p === 'string' && ((p as Record<string, string>).p || '').trim())
-  let r = ((await callClaude(writeSystem(portal), user, 1500, WRITE_SCHEMA)) || {}) as Record<string, unknown>
-  if (!complete(r)) r = ((await callClaude(writeSystem(portal), user, 1500, WRITE_SCHEMA)) || {}) as Record<string, unknown>
+  let r = ((await callClaude(writeSystem(portal), user, 3000, WRITE_SCHEMA)) || {}) as Record<string, unknown>
+  if (!complete(r)) r = ((await callClaude(writeSystem(portal), user, 3000, WRITE_SCHEMA)) || {}) as Record<string, unknown>
   if (!complete(r)) throw new Error('The model returned an incomplete story.')
   const stat = (r.stat || {}) as Record<string, unknown>
   const points = (Array.isArray(r.points) ? r.points : []).slice(0, results.length).map((p) => {
