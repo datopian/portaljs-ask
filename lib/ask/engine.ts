@@ -233,7 +233,7 @@ function cleanPlan(raw: unknown): Plan {
         id: str(o.id, 10) || `q${i + 1}`,
         purpose: str(o.purpose, 160),
         chart: o.chart === 'bars' ? 'bars' : 'columns',
-        unit: str(o.unit, 30),
+        unit: str(o.unit, 60),
         sql: str(o.sql, 3000),
       }
     })
@@ -312,7 +312,7 @@ export function cleanResults(raw: unknown): QueryResult[] | null {
       return { label: str(String(r.label ?? ''), 60), value: Number(r.value) }
     })
     if (rows.some((r) => !Number.isFinite(r.value))) return null
-    out.push({ id: str(o.id, 10), purpose: str(o.purpose, 160), sql: str(o.sql, 3000), unit: str(o.unit, 30), rows })
+    out.push({ id: str(o.id, 10), purpose: str(o.purpose, 160), sql: str(o.sql, 3000), unit: str(o.unit, 60), rows })
   }
   return out
 }

@@ -73,11 +73,11 @@ button, input { font: inherit; }
 /* hero */
 .hero { padding-block: 72px 48px; display: flex; flex-direction: column; gap: 24px; max-width: 860px; }
 .hero h1 { font-size: clamp(44px, 8vw, 84px); }
-.hero .sub { font-size: 16px; color: var(--muted); max-width: 54ch; }
+.hero .sub { font-size: 16px; color: var(--muted); }
 form.ask { display: flex; align-items: center; gap: 8px; background: var(--bg); border: 1px solid #8a9caf; border-radius: var(--radius); padding: 8px; margin-top: 8px; box-shadow: 0 1px 0 rgba(3, 34, 62, .04), 0 8px 24px -12px rgba(3, 34, 62, .18); }
 form.ask:focus-within { border-color: var(--blue); }
 form.ask svg { flex: none; color: var(--muted); margin-left: 8px; }
-form.ask input { flex: 1; min-width: 0; border: 0; background: transparent; color: var(--ink); font-size: 17px; padding: 10px 4px; outline: none; }
+form.ask input { flex: 1; min-width: 0; border: 0; background: transparent; color: var(--ink); font-size: 16px; font-weight: 300; padding: 10px 4px; outline: none; }
 form.ask button { flex: none; min-height: 48px; border: 0; border-radius: var(--radius); background: var(--navy); color: #fff; padding: 0 22px; font-weight: 600; cursor: pointer; }
 form.ask button:hover { background: var(--blue); }
 .sugg { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
@@ -117,7 +117,7 @@ form.ask button:hover { background: var(--blue); }
 .lead .txt { display: flex; flex-direction: column; gap: 18px; min-width: 0; }
 .lead h2 { font-size: clamp(29px, 3.8vw, 43px); }
 .lead p { color: var(--muted); font-size: 15px; }
-.lead p.summary { color: var(--ink); font-weight: 300; font-size: 17px; line-height: 1.6; }
+.lead p.summary { color: var(--ink); font-weight: 300; font-size: 16px; line-height: 1.65; }
 /* Key numbers in the story text: bold, with a highlighter stroke in the portal's highlight colour. */
 .num { font-weight: inherit; color: inherit; white-space: nowrap; }
 .lead-top { display: flex; justify-content: space-between; align-items: center; gap: 12px; }
@@ -138,7 +138,7 @@ form.ask button:hover { background: var(--blue); }
 .chapter { display: flex; flex-direction: column; gap: 24px; }
 .chapter .txt { display: flex; flex-direction: column; gap: 14px; min-width: 0; }
 .ending { display: flex; flex-direction: column; gap: 18px; }
-.ending p { font-family: var(--font); font-weight: 300; font-size: clamp(18px, 2vw, 20px); line-height: 1.55; color: var(--ink); }
+.ending p { color: var(--ink); font-weight: 300; font-size: 16px; line-height: 1.65; }
 .chapter .n { font-family: var(--mono); font-size: 12px; color: var(--muted); }
 .chapter h3 { font-size: clamp(22px, 2.5vw, 28px); }
 .chapter p { color: var(--ink); font-weight: 300; font-size: 16px; line-height: 1.65; }
@@ -147,7 +147,13 @@ form.ask button:hover { background: var(--blue); }
 .chart { position: relative; width: 100%; }
 .chart svg { display: block; width: 100%; height: auto; overflow: visible; }
 .chart text { font-family: var(--font); font-size: 12px; fill: var(--muted); }
-.chart .lbl { fill: var(--ink); font-weight: 600; }
+.chart .lbl { fill: var(--ink); font-weight: 600; paint-order: stroke; stroke: var(--surface); stroke-width: 4px; stroke-linejoin: round; }
+.chart .axis { stroke: var(--border); }
+.fighead { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: 4px 16px; }
+.fighead b { font-weight: 600; font-size: 15px; color: var(--ink); }
+.fighead span { font-size: 13px; color: var(--muted); }
+.fighead .key { display: inline-flex; align-items: center; gap: 6px; }
+.fighead .key i { width: 10px; height: 10px; border-radius: 2px; background: var(--blue); display: inline-block; }
 .tip { position: absolute; pointer-events: none; background: var(--ink); color: var(--bg); font-size: 13px; padding: 5px 9px; border-radius: var(--radius); white-space: nowrap; transform: translate(-50%, calc(-100% - 8px)); font-variant-numeric: tabular-nums; z-index: 2; }
 .figfoot { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px 16px; font-size: 13px; border-top: 1px solid var(--border); padding-top: 12px; }
 .figfoot .src { color: var(--muted); }
@@ -269,29 +275,73 @@ function hoverable(box, svg, W, H, el, cx, cy, text) {
   el.addEventListener("pointerenter", on); el.addEventListener("pointerdown", on); el.addEventListener("pointerleave", () => untip(box));
 }
 function roundTop(x, y, w, h, r) { r = Math.min(r, w / 2, h); return `M${x},${y + h} V${y + r} Q${x},${y} ${x + r},${y} H${x + w - r} Q${x + w},${y} ${x + w},${y + r} V${y + h} Z`; }
+function roundBottom(x, y, w, h, r) { r = Math.min(r, w / 2, h); return `M${x},${y} V${y + h - r} Q${x},${y + h} ${x + r},${y + h} H${x + w - r} Q${x + w},${y + h} ${x + w},${y + h - r} V${y} Z`; }
 function roundRight(x, y, w, h, r) { r = Math.min(r, h / 2, w); return `M${x},${y} H${x + w - r} Q${x + w},${y} ${x + w},${y + r} V${y + h - r} Q${x + w},${y + h} ${x + w - r},${y + h} H${x} Z`; }
 
 function columns(box, data, o) {
   box.querySelector("svg")?.remove();
-  const W = box.clientWidth, H = Math.max(180, Math.min(240, W * 0.3)), m = { t: 22, r: 4, b: 24, l: 40 };
+  const W = box.clientWidth, H = Math.max(200, Math.min(300, W * 0.28)), m = { t: 24, r: 4, b: 26, l: 44 };
   const svg = svgEl("svg", { viewBox: `0 0 ${W} ${H}`, role: "img" }); box.prepend(svg);
-  const max = Math.max(...data.map(d => d.y)), step = niceStep(max), top = Math.ceil(max / step) * step;
-  const Y = v => H - m.b - v / top * (H - m.t - m.b);
-  for (let v = 0; v <= top + 1e-9; v += step) { svgEl("line", { x1: m.l, x2: W - m.r, y1: Y(v), y2: Y(v), stroke: "var(--grid)", "stroke-width": 1 }, svg); svgEl("text", { x: m.l - 8, y: Y(v) + 4, "text-anchor": "end" }, svg).textContent = short(v); }
+  const max = Math.max(...data.map(d => d.y)), min = Math.min(0, ...data.map(d => d.y)), step = niceStep((max - min) || 1);
+  const top = Math.max(0, Math.ceil(max / step) * step), lo = Math.floor(min / step) * step;
+  const Y = v => H - m.b - (v - lo) / ((top - lo) || 1) * (H - m.t - m.b), y0 = Y(0);
+  const dec = step < 1 ? (step < 0.1 ? 2 : 1) : 0;
+  for (let v = lo; v <= top + 1e-9; v += step) { svgEl("line", { x1: m.l, x2: W - m.r, y1: Y(v), y2: Y(v), stroke: Math.abs(v) < 1e-9 && lo < 0 ? "var(--muted)" : "var(--grid)", "stroke-width": 1 }, svg); svgEl("text", { x: m.l - 8, y: Y(v) + 4, "text-anchor": "end" }, svg).textContent = Math.abs(v) >= 1e3 ? short(v) : (Math.abs(v) < 1e-9 ? 0 : v).toFixed(dec); }
   const slot = (W - m.l - m.r) / data.length, bw = Math.max(4, Math.min(36, slot - 3));
   const every = o.every && W < 640 ? o.every * 2 : (o.every || (W < 480 && data.length > 8 ? 2 : 1));
   // Narrow bars: label only the tallest highlighted bar so labels don't collide.
   const hiMax = Math.max(...data.filter(d => d.hi).map(d => d.y));
   data.forEach((d, i) => {
-    const cx = m.l + slot * (i + 0.5), y = Y(d.y), h = Math.max(1, H - m.b - y);
-    svgEl("path", { d: roundTop(cx - bw / 2, H - m.b - h, bw, h, 3), fill: d.hi ? "var(--blue)" : "var(--context)" }, svg);
+    const cx = m.l + slot * (i + 0.5), neg = d.y < 0, h = Math.max(1, Math.abs(Y(d.y) - y0)), yTop = neg ? y0 : y0 - h;
+    svgEl("path", { d: neg ? roundBottom(cx - bw / 2, y0, bw, h, 3) : roundTop(cx - bw / 2, yTop, bw, h, 3), fill: d.hi ? "var(--blue)" : "var(--context)" }, svg);
     if (i % every === 0) svgEl("text", { x: cx, y: H - 6, "text-anchor": "middle" }, svg).textContent = d.x;
-    if (o.labelHi && d.hi && (slot >= 32 || d.y === hiMax)) svgEl("text", { x: cx, y: H - m.b - h - 6, "text-anchor": "middle", class: "lbl" }, svg).textContent = short(d.y);
+    const last = i === data.length - 1 && !d.hi && slot >= 14;
+    if ((o.labelHi && d.hi && (slot >= 32 || d.y === hiMax)) || last || (slot >= 56 && !d.hi)) svgEl("text", { x: cx, y: neg ? y0 + h + 14 : yTop - 6, "text-anchor": "middle", class: d.hi ? "lbl" : "" }, svg).textContent = o.val ? o.val(d.y) : short(d.y);
     const hit = svgEl("rect", { x: cx - slot / 2, y: m.t, width: slot, height: H - m.t - m.b, fill: "transparent" }, svg);
-    hoverable(box, svg, W, H, hit, cx, H - m.b - h, o.tip(d));
+    hoverable(box, svg, W, H, hit, cx, yTop, o.tip(d));
   });
 }
 
+function line(box, data, o) {
+  box.querySelector("svg")?.remove();
+  const W = box.clientWidth, H = Math.max(220, Math.min(320, W * 0.3)), m = { t: 26, r: 16, b: 26, l: 48 };
+  const svg = svgEl("svg", { viewBox: `0 0 ${W} ${H}`, role: "img" }); box.prepend(svg);
+  const ys = data.map(d => d.y), lo0 = Math.min(...ys), hi0 = Math.max(...ys);
+  // Start at zero when that doesn't flatten the line; otherwise fit the range (and always show negatives).
+  const from0 = lo0 >= 0 && lo0 < (hi0 - lo0) * 0.6;
+  const step = niceStep((from0 ? hi0 : hi0 - lo0) || 1), lo = from0 ? 0 : Math.floor(lo0 / step) * step, top = Math.ceil(hi0 / step) * step;
+  const X = i => m.l + i * (W - m.l - m.r) / Math.max(1, data.length - 1), Y = v => H - m.b - (v - lo) / ((top - lo) || 1) * (H - m.t - m.b);
+  const dec = step < 1 ? (step < 0.1 ? 2 : 1) : 0;
+  for (let v = lo; v <= top + 1e-9; v += step) {
+    svgEl("line", { x1: m.l, x2: W - m.r, y1: Y(v), y2: Y(v), stroke: Math.abs(v) < 1e-9 ? "var(--muted)" : "var(--grid)", "stroke-width": 1 }, svg);
+    svgEl("text", { x: m.l - 8, y: Y(v) + 4, "text-anchor": "end" }, svg).textContent = Math.abs(v) >= 1e3 ? short(v) : v.toFixed(dec);
+  }
+  const every = Math.ceil(data.length / (W < 520 ? 4 : 8));
+  data.forEach((d, i) => { if (i % every === 0 || i === data.length - 1 && (data.length - 1) % every > every / 2) svgEl("text", { x: X(i), y: H - 6, "text-anchor": "middle" }, svg).textContent = d.x; });
+  const pts = data.map((d, i) => `${X(i).toFixed(1)},${Y(d.y).toFixed(1)}`);
+  const base = Y(Math.max(lo, Math.min(0, top)));
+  svgEl("path", { d: `M${X(0)},${base} L${pts.join(" L")} L${X(data.length - 1)},${base} Z`, fill: "var(--blue)", opacity: 0.1 }, svg);
+  svgEl("path", { d: `M${pts.join(" L")}`, fill: "none", stroke: "var(--blue)", "stroke-width": 2, "stroke-linejoin": "round" }, svg);
+  // Label the latest value and the peak (if it isn't the latest).
+  const li = data.length - 1, pi = ys.indexOf(hi0);
+  const mark = (i, anchor) => {
+    svgEl("circle", { cx: X(i), cy: Y(data[i].y), r: 4, fill: "var(--blue)", stroke: "var(--surface)", "stroke-width": 2 }, svg);
+    svgEl("text", { x: X(i), y: Y(data[i].y) - 10, "text-anchor": anchor, class: "lbl" }, svg).textContent = `${o.val(data[i].y)} (${data[i].x})`;
+  };
+  if (pi !== li && Math.abs(X(pi) - X(li)) > 110) mark(pi, X(pi) < m.l + 60 ? "start" : "middle");
+  mark(li, "end");
+  // Hover: a guide line and dot follow the pointer.
+  const guide = svgEl("line", { y1: m.t, y2: H - m.b, stroke: "var(--muted)", "stroke-width": 1, "stroke-dasharray": "3 3", visibility: "hidden" }, svg);
+  const dot = svgEl("circle", { r: 4, fill: "var(--blue)", stroke: "var(--surface)", "stroke-width": 2, visibility: "hidden" }, svg);
+  const slot = (W - m.l - m.r) / Math.max(1, data.length - 1);
+  data.forEach((d, i) => {
+    const hit = svgEl("rect", { x: X(i) - slot / 2, y: m.t, width: slot, height: H - m.t - m.b, fill: "transparent" }, svg);
+    hoverable(box, svg, W, H, hit, X(i), Y(d.y), o.tip(d));
+    const show = () => { for (const [e, a] of [[guide, { x1: X(i), x2: X(i) }], [dot, { cx: X(i), cy: Y(d.y) }]]) { for (const k in a) e.setAttribute(k, a[k]); e.setAttribute("visibility", "visible"); } };
+    hit.addEventListener("pointerenter", show); hit.addEventListener("pointerdown", show);
+    hit.addEventListener("pointerleave", () => { guide.setAttribute("visibility", "hidden"); dot.setAttribute("visibility", "hidden"); });
+  });
+}
 function bars(box, data, o) {
   box.querySelector("svg")?.remove();
   const W = box.clientWidth, row = 28, labelW = Math.min(230, W * 0.42), valW = 56, H = data.length * row;
@@ -301,7 +351,7 @@ function bars(box, data, o) {
     const y = i * row + 5, bh = 18, w = Math.max(2, d.y / max * plot);
     svgEl("text", { x: labelW - 10, y: y + 13, "text-anchor": "end", class: d.hi ? "lbl" : "" }, svg).textContent = d.x;
     svgEl("path", { d: roundRight(labelW, y, w, bh, 3), fill: d.hi ? "var(--blue)" : "var(--context)" }, svg);
-    svgEl("text", { x: labelW + w + 6, y: y + 13 }, svg).textContent = fmt(d.y);
+    svgEl("text", { x: labelW + w + 6, y: y + 13, class: d.hi ? "lbl" : "" }, svg).textContent = o.val ? o.val(d.y) : fmt(d.y);
     const hit = svgEl("rect", { x: 0, y: y - 5, width: W, height: row, fill: "transparent" }, svg);
     hoverable(box, svg, W, H, hit, labelW + w / 2, y, o.tip(d));
   });
@@ -427,6 +477,7 @@ function show(s) {
             <p>${p.p}</p>
           </div>
           <figure class="figure" style="margin:0">
+            <div class="fighead"><b>${p.fig.title}</b><span>${p.fig.unit ? p.fig.unit + (p.fig.key ? " · " : "") : ""}${p.fig.key ? `<span class="key"><i></i>${p.fig.key}</span>` : ""}</span></div>
             <div class="chart" id="ch${i}"></div>
             <div class="figfoot">
               <span class="src">Source: <a href="${dsOf(p).url}" target="_blank" rel="noopener">${dsOf(p).title} ↗</a></span>
@@ -629,12 +680,20 @@ function liveStory(question, ok, story, isLive) {
     const data = rows.map(r => ({ x: niceLabel(r.label), y: r.value }));
     const max = Math.max(...data.map(d => d.y));
     const unit = q.unit ? " " + q.unit : "";
-    const draw = el => q.chart === "bars"
-      ? bars(el, data.map((d, j) => ({ ...d, hi: j === 0 })), { tip: d => `${d.x}: ${numFmt(d.y)}${unit}` })
-      : columns(el, data.map(d => ({ ...d, hi: d.y === max })), { tip: d => `${d.x}: ${numFmt(d.y)}${unit}`, labelHi: true, every: data.length > 14 ? Math.ceil(data.length / 12) : undefined });
+    // Long runs of years or months read best as a line; rankings as bars; short series as columns.
+    const kind = q.chart === "bars" ? "bars" : data.length > 24 && data.every(d => /^\d{4}/.test(d.x)) ? "line" : "columns";
+    const pct = /^%|percent/i.test(q.unit || ""), val = v => { const r = Math.abs(v) >= 100 ? Math.round(v * 10) / 10 : Math.round(v * 100) / 100; return fmt(r === 0 ? 0 : r) + (pct ? "%" : ""); };
+    const tipOf = d => `${d.x}: ${numFmt(d.y)}${pct ? "%" : unit}`;
+    const draw = el => kind === "bars"
+      ? bars(el, data.map((d, j) => ({ ...d, hi: j === 0 })), { tip: tipOf, val })
+      : kind === "line"
+      ? line(el, data, { tip: tipOf, val })
+      : columns(el, data.map(d => ({ ...d, hi: d.y === max })), { tip: tipOf, val, labelHi: true, every: data.length > 14 ? Math.ceil(data.length / 12) : undefined });
+    const cap = t => t ? t.charAt(0).toUpperCase() + t.slice(1) : "";
+    const fig = { title: escH(cap(q.purpose || pt.h || "")), unit: q.unit && q.unit.length < 30 ? escH(q.unit) : "", key: kind === "line" || data.length < 2 ? "" : kind === "columns" ? "highest" : data[0].y === max ? "highest" : data[0].y === Math.min(...data.map(d => d.y)) ? "lowest" : "first" };
     return {
       h: escH(pt.h || q.purpose), p: rich([pt.p, pt.more].filter(Boolean).join(" ")), ds: dsOfSql(q.sql),
-      chart: draw,
+      chart: draw, fig,
       explore: { label: "", options: [], def: null, view: () => ({
         rows: data, sql: q.sql, caption: q.purpose ? q.purpose.charAt(0).toUpperCase() + q.purpose.slice(1) + "." : "", draw,
         cols: [["", d => escH(d.x)], [q.unit ? q.unit.charAt(0).toUpperCase() + q.unit.slice(1) : "Value", d => numFmt(d.y), 1]] }) }
