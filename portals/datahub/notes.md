@@ -109,6 +109,7 @@ vix  -- CBOE Volatility Index ("fear index"), monthly closing value, Jan 1990 to
 General notes:
 - The latest year in many monthly tables is partial (2026): leave it out of year-on-year comparisons or say "so far".
 - Money values are nominal (not adjusted for inflation) unless the column says real.
+- Decades: (year // 10) * 10 (integer division). year/10 is a decimal in DuckDB and gives labels like '1960.0s'.
 
 Writing notes:
 - Say which source and unit a number is in (current US dollars, million tonnes of carbon, degrees above the 1951-1980 average).

@@ -136,34 +136,34 @@
     "purpose": "Average yearly rise in CO2 by decade",
     "chart": "columns",
     "unit": "ppm per year",
-    "sql": "SELECT CAST(decade AS VARCHAR) || 's' AS label, ROUND(AVG(diff), 2) AS value FROM (SELECT year, FLOOR(year/10)*10 AS decade, co2_ppm - LAG(co2_ppm) OVER (ORDER BY year) AS diff FROM co2_annual) WHERE diff IS NOT NULL GROUP BY decade ORDER BY decade LIMIT 30",
+    "sql": "SELECT CAST(decade AS VARCHAR) || 's' AS label, ROUND(AVG(diff), 2) AS value FROM (SELECT year, (year // 10) * 10 AS decade, co2_ppm - LAG(co2_ppm) OVER (ORDER BY year) AS diff FROM co2_annual) WHERE diff IS NOT NULL GROUP BY decade ORDER BY decade LIMIT 30",
     "rows": [
      {
-      "label": "1960.0s",
+      "label": "1960s",
       "value": 0.86
      },
      {
-      "label": "1970.0s",
+      "label": "1970s",
       "value": 1.22
      },
      {
-      "label": "1980.0s",
+      "label": "1980s",
       "value": 1.64
      },
      {
-      "label": "1990.0s",
+      "label": "1990s",
       "value": 1.53
      },
      {
-      "label": "2000.0s",
+      "label": "2000s",
       "value": 1.91
      },
      {
-      "label": "2010.0s",
+      "label": "2010s",
       "value": 2.4
      },
      {
-      "label": "2020.0s",
+      "label": "2020s",
       "value": 2.62
      }
     ]
