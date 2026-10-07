@@ -1,17 +1,19 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
 import { clientIp } from '../../../lib/rateLimit'
 import { cacheGet, cachePut, checkAndCount } from '../../../lib/ask/guard'
-import { MAX_QUESTION_LENGTH, Story, cleanResults, shareKey, storyKey, useToken, writeStory } from '../../../lib/ask/engine'
+import { MAX_QUESTION_LENGTH, Story, checkStory, cleanResults, shareKey, storyKey, useToken, writeStory } from '../../../lib/ask/engine'
 import { isAdmin, log, REFUSAL_STATUS } from '../../../lib/ask/http'
 import { getPortal } from '../../../lib/ask/portals'
 
-export const config = { maxDuration: 30 }
+export const config = { maxDuration: 60 }
 
 // Step 2 of a live question: the AI writes the story from the query results
 // the browser computed. Needs the signed token from a /api/data/plan call. A
 // story already written for the same question and the same result rows comes
 // from the cache; if the plan came from the cache (so wasn't counted) and the
-// story isn't cached, this is the step that counts against the limits.
+// story isn't cached, this is the step that counts against the limits. Every
+// new story is fact-checked against the rows (checkStory) before it is cached
+// and shown; if the check itself fails, the story is shown unchecked.
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   if (req.method !== 'POST') {
     res.setHeader('Allow', 'POST')
@@ -44,7 +46,15 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
   const startedAt = Date.now()
   try {
-    const story = await writeStory(portal, question, results)
+    const written = await writeStory(portal, question, results)
+    let story = written
+    try {
+      const checked = await checkStory(portal, question, results, written)
+      story = checked.story
+      log('ask_check_ok', { portal: portal.slug, question, fixes: checked.fixes })
+    } catch (err) {
+      log('ask_check_error', { portal: portal.slug, question, error: err instanceof Error ? err.message : 'Unknown error' })
+    }
     await cachePut(key, story)
     await cachePut(shareKey(portal, question), { q: question, lead: story.lead, summary: story.summary })
     log('ask_write_ok', { portal: portal.slug, ip, question, queries: results.length, durationMs: Date.now() - startedAt })

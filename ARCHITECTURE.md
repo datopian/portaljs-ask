@@ -40,8 +40,9 @@ draws charts, shows the story and the queries
 
 - **Example questions are pre-computed** (`portals/<slug>/instant.json`). They
   show instantly and cost nothing. Most demo visitors only click examples.
-- **Typed questions** cost about 3 to 8 US cents each (two Sonnet calls, plus a
-  third when a query needs repairing). Measured on 6 Oct 2026: about 3 cents when
+- **Typed questions** cost about 3 to 8 US cents each before the fact check
+  (two Sonnet calls, plus a third when a query needs repairing; the check adds a
+  third or fourth, see below). Measured on 6 Oct 2026: about 3 cents when
   the AI's copy of the data notes is still cached (5 minutes after the last
   question), about 8 cents cold. At demo traffic most questions are cold, so
   plan on 5 to 8 cents. Every call's token usage is priced and logged as an
@@ -54,12 +55,20 @@ draws charts, shows the story and the queries
   questions from the answer cache, so a shared link normally costs nothing.
   `pages/api/share.ts` puts the answer's headline and summary in the link
   preview (Slack, Teams, email).
-- **Stories** have a headline, a short summary, three key numbers, two or three
-  sentences per chart with the key numbers highlighted (`**x**`), and a "keep
-  in mind" note. The writer also returns `sources`: where each derived number
-  comes from. It isn't shown, but asking for it cut the arithmetic slips.
-  Comparisons ("four times", "six of the ten") are where the AI still slips
-  most, so pre-computed answers get a line-by-line check before they ship.
+- **Stories** read as one story: a headline, an opening paragraph, three key
+  numbers, a chapter of 3 to 5 sentences per chart that carries on from the one
+  before, "the bottom line" and a "keep in mind" note. The writer also returns
+  `sources`: where each derived number comes from. It isn't shown, but asking
+  for it cut the arithmetic slips.
+- **Every new story is fact-checked automatically** before anyone sees it
+  (`checkStory` in `lib/ask/engine.ts`): a second AI call compares each claim
+  with the rows and returns exact replacements for the wrong ones, which are
+  applied before the story is cached. Hand checks of the saved answers found a
+  slip in about one story in two, mostly comparisons ("four times", "the only
+  one", "every year"), so this runs on every live question. It adds about 2 to
+  3 cents and a few seconds per question; repeats stay free. Fixes are logged as
+  `ask_check_ok`; `ASK_CHECK=off` turns it off. Pre-computed answers still get a
+  line-by-line human check before they ship.
 - **Questions outside the connected datasets** get a free catalogue search
   (CKAN API, no AI) linking to matching datasets on the client's portal.
 
@@ -85,11 +94,13 @@ scripts/
   build-portals.mjs       runs before dev/build: portals/ -> public/p/<slug>/ + lib/ask/portals.generated.json
   portal-data.mjs         downloads a portal's datasets (CKAN or data packages), builds parquet, writes profile.md
   precompute.mjs          fills instant.json through the real pipeline
-.claude/skills/           portal-new, portal-verify (Claude Code skills for the team)
+.claude/skills/           portal-new, portal-verify, portal-refresh, ask-cost-report (Claude Code skills for the team)
+scripts/upload-data.mjs   uploads a portal's parquet files to Vercel Blob
 public/data/<slug>/       parquet files (moving to object storage, section 5)
 ```
 
-Routes: `/` is the default portal, `/demo/<slug>` is every portal.
+Routes: `/` is the default portal, `/demo/<slug>` is every portal, and a client's
+own domain shows their portal at its root (section 6).
 
 ## 4. Cost and limits
 
@@ -122,7 +133,7 @@ repeats are free.
 |---|---|---|---|
 | App | Vercel, personal team | Vercel, Datopian's paid team | Now: the free plan doesn't allow commercial use |
 | Limits and answer cache | In memory per instance | Upstash Redis via the Vercel Marketplace (free tier) | Now |
-| Data files | `public/data/<slug>/` in git (31 MB for Toronto) | Object storage: Vercel Blob, or Cloudflare R2 if downloads grow (R2 has no transfer fees). Set `data.base` in `portal.json` to the bucket URL | Before the third portal |
+| Data files | `public/data/<slug>/` in git (31 MB for Toronto) | Object storage: Vercel Blob, or Cloudflare R2 if downloads grow (R2 has no transfer fees). `scripts/upload-data.mjs <slug>` uploads them; set the printed URL as `data.remote` in `portal.json` (`data.base` stays the local build path) | Before the third portal |
 | AI | Anthropic API, shared key | A dedicated key and workspace for this product, with its own spend cap | Now |
 
 Why browser-side queries: no database to run or pay for, it scales with
@@ -161,6 +172,14 @@ zeros meaning "no value", and two malformed source files. A live test later
 caught a third problem: DataHub's two inflation files are labelled the wrong
 way round (see `sources.json`). Check headline numbers against a known figure.
 
+**On the client's own domain** (e.g. `ask.example.org`):
+1. Add `"<host>": "<slug>"` to `domains` in `portals/index.json` (the build
+   checks the slug exists). Their portal then shows at that domain's root;
+   `/demo/<slug>` keeps working.
+2. Add the domain to the Vercel project, and have the client point a CNAME at
+   `cname.vercel-dns.com` (Vercel shows the exact record). HTTPS is automatic.
+3. Open `https://<host>/` and one shared answer link (`?q=...`) to check both.
+
 ## 7. Operating it
 
 - **Weekly**: spend and refusals (`/api/data/status`, `ask_*` events in Vercel logs).
@@ -198,3 +217,5 @@ can run them):
 | 2026-10-06 | Sonnet for live questions (Haiku made too many factual slips in testing) |
 | 2026-10-07 | DataHub ("Ask the world's data") is the homepage; Toronto moves to /demo/toronto |
 | 2026-10-07 | Shareable answer links with link previews; fuller stories (summary, three numbers, highlighted figures). All saved stories fact-checked by hand |
+| 2026-10-07 | Stories rewritten as one narrative (opening, connected chapters, bottom line); clearer charts |
+| 2026-10-07 | Automatic fact check on every live story (about 2 to 3 cents more per question); client domains; data upload to object storage; portal-refresh and ask-cost-report skills |
