@@ -10,6 +10,10 @@ const portalSlugs = fs.readdirSync(portalsDir).filter((f) => fs.statSync(path.jo
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
+  experimental: {
+    // pages/api/share.ts reads the built portal pages.
+    outputFileTracingIncludes: { '/api/share': ['./public/p/**/*'] },
+  },
   async redirects() {
     // The neutral demos moved from /demo/<corpus> to /<corpus>; keep links
     // already sent in sales emails working. Not permanent, so browsers don't
@@ -22,9 +26,15 @@ const nextConfig = {
   async rewrites() {
     // The homepage is the default portal; every portal is also at /demo/<slug>.
     return {
+      // A shared answer (?q=...) goes through pages/api/share.ts, which puts the
+      // answer's headline in the page's link preview; the page itself is the same.
       beforeFiles: [
+        { source: '/', has: [{ type: 'query', key: 'q' }], destination: `/api/share?portal=${defaultPortal}` },
         { source: '/', destination: `/p/${defaultPortal}/index.html` },
-        ...portalSlugs.map((slug) => ({ source: `/demo/${slug}`, destination: `/p/${slug}/index.html` })),
+        ...portalSlugs.flatMap((slug) => [
+          { source: `/demo/${slug}`, has: [{ type: 'query', key: 'q' }], destination: `/api/share?portal=${slug}` },
+          { source: `/demo/${slug}`, destination: `/p/${slug}/index.html` },
+        ]),
       ],
     }
   },

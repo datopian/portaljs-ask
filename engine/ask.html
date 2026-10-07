@@ -4,6 +4,11 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="description" content="{{description}}">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="{{name}}">
+<meta property="og:title" content="{{title}}">
+<meta property="og:description" content="{{description}}">
+<meta name="twitter:card" content="summary">
 <title>{{title}}</title>
 {{favicon}}
 <style>
@@ -108,18 +113,30 @@ form.ask button:hover { background: var(--blue); }
 .lead { display: grid; grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr); gap: 48px; align-items: stretch; }
 .lead .txt { display: flex; flex-direction: column; gap: 18px; min-width: 0; }
 .lead h2 { font-size: clamp(34px, 4.6vw, 52px); }
-.lead p { color: var(--muted); font-size: 17px; max-width: 52ch; }
+.lead p { color: var(--muted); font-size: 15px; max-width: 56ch; }
+.lead p.summary { color: var(--ink); font-size: clamp(18px, 2vw, 21px); line-height: 1.55; max-width: 44ch; }
+/* Key numbers in the story text: bold, with a highlighter stroke in the portal's highlight colour. */
+.num { font-weight: 650; color: var(--ink); white-space: nowrap; padding: 0 .1em; background: linear-gradient(to top, color-mix(in srgb, var(--gold) 45%, transparent) .42em, transparent .42em); }
+.share-row { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 16px; }
+.share-btn { display: inline-flex; align-items: center; gap: 8px; border: 1px solid var(--border); background: var(--bg); color: var(--ink); padding: 7px 14px; border-radius: 999px; cursor: pointer; font-size: 14px; font-weight: 600; }
+.share-btn:hover { border-color: var(--blue); color: var(--blue); }
+.share-btn svg { flex: none; }
 .stat { background: var(--navy); color: var(--on-navy); border-radius: var(--radius); padding: 32px; display: flex; flex-direction: column; justify-content: space-between; gap: 24px; min-width: 0; }
 .stat .eyebrow { color: var(--on-navy-muted); }
-.stat b { display: block; font-family: var(--display); font-weight: 400; font-size: clamp(56px, 7vw, 88px); letter-spacing: -0.04em; line-height: 1; color: var(--on-navy); }
+.stat b { display: block; font-family: var(--display); font-weight: 400; font-size: clamp(52px, 6.5vw, 80px); letter-spacing: -0.04em; line-height: 1; color: var(--on-navy); }
 .stat p { color: var(--on-navy-muted); font-size: 15px; max-width: 32ch; }
+.stat .big { display: flex; flex-direction: column; gap: 12px; }
+.stat .facts { display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 16px 24px; border-top: 1px solid rgba(255, 255, 255, .18); padding-top: 18px; }
+.stat .facts b { font-size: clamp(26px, 3vw, 32px); letter-spacing: -0.02em; }
+.stat .facts span { display: block; margin-top: 6px; color: var(--on-navy-muted); font-size: 13px; line-height: 1.4; }
 .stat .bar-gold { width: 40px; height: 3px; background: var(--gold); }
 
 .chapter { display: grid; grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr); gap: 48px; align-items: start; }
 .chapter .txt { display: flex; flex-direction: column; gap: 14px; min-width: 0; padding-top: 8px; }
 .chapter .n { font-family: var(--mono); font-size: 12px; color: var(--muted); }
 .chapter h3 { font-size: clamp(26px, 3vw, 34px); }
-.chapter p { color: var(--muted); }
+.chapter p { color: var(--ink); font-size: 17px; line-height: 1.65; }
+.keep { border-left: 3px solid var(--gold); padding: 2px 0 2px 14px; color: var(--muted); font-size: 15px; }
 .figure { background: var(--surface); border-radius: var(--radius); padding: 24px 24px 16px; display: flex; flex-direction: column; gap: 14px; min-width: 0; }
 .chart { position: relative; width: 100%; }
 .chart svg { display: block; width: 100%; height: auto; overflow: visible; }
@@ -146,8 +163,6 @@ pre { margin: 0; background: var(--bg); border: 1px solid var(--border); border-
 .ds a { color: var(--ink); font-weight: 600; text-decoration: none; }
 .ds a:hover { color: var(--blue); }
 .ds span { color: var(--muted); font-size: 14px; }
-.more-btn { border: 0; background: none; padding: 0; color: var(--blue); cursor: pointer; font-size: 14px; width: fit-content; }
-.more-txt { color: var(--ink); border-left: 2px solid var(--gold); padding-left: 14px; }
 .explore-btn { display: inline-flex; align-items: center; gap: 8px; border: 1px solid var(--border); background: var(--bg); color: var(--ink); padding: 6px 12px; border-radius: var(--radius); cursor: pointer; font-size: 13px; font-weight: 600; }
 .explore-btn:hover { border-color: var(--blue); color: var(--blue); }
 .ov { position: fixed; inset: 0; z-index: 50; background: rgba(3, 20, 38, .55); overflow-y: auto; padding: calc(env(safe-area-inset-top, 0px) + 32px) 16px calc(env(safe-area-inset-bottom, 0px) + 32px); display: flex; justify-content: center; align-items: flex-start; }
@@ -313,9 +328,28 @@ function renderSugg() {
   bindAsk($("sugg"));
   $("moreIdeas")?.addEventListener("click", () => { ideaAt = (ideaAt + IDEAS_SHOWN) % IDEAS.length; renderSugg(); $("moreIdeas").focus(); });
 }
-function route(text) {
+// Every answer has its own address (?q=...), so it can be shared, bookmarked and
+// reached with the back button. Opening such a link asks the question again: an
+// example shows its saved answer, a live question usually comes from the answer cache.
+const urlFor = q => location.pathname + (q ? "?" + new URLSearchParams({ q }) : "");
+function setUrl(q) {
+  const url = urlFor(q);
+  if (url === location.pathname + location.search) return;
+  try { history.pushState(null, "", url); } catch (e) {}
+}
+async function share(s, btn) {
+  const url = location.origin + urlFor(s.q), label = btn.querySelector("span");
+  if (navigator.share && matchMedia("(pointer: coarse)").matches) {
+    try { await navigator.share({ title: s.leadText, url }); return; } catch (e) { if (e.name === "AbortError") return; }
+  }
+  try { await navigator.clipboard.writeText(url); label.textContent = "Link copied"; }
+  catch (e) { window.prompt("Copy this link:", url); return; }
+  setTimeout(() => { label.textContent = "Share this answer"; }, 2000);
+}
+function route(text, fromUrl) {
   const a = INSTANT[norm(text)];
-  if (a) return instant(a, text);
+  if (!fromUrl) setUrl(a ? a.q : text);
+  if (a) return instant(a, text, fromUrl);
   if (P.live) return live(text);
   notice("Try one of the example questions.", "This demo answers the example questions above.", FIXED);
 }
@@ -362,13 +396,17 @@ function show(s) {
         <div class="txt">
           <span class="eyebrow">The answer</span>
           <h2>${s.lead}</h2>
+          ${s.summary ? `<p class="summary">${s.summary}</p>` : ""}
           <p>${s.sub}</p>
-          <p class="live-note">${s.live ? "Answered live." : "Answered earlier, the same way as live questions."} AI wrote the queries and the text; every number comes from the query results.</p>
+          <div class="share-row">
+            <button class="share-btn" type="button" id="shareBtn"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M10 14a5 5 0 0 0 7 0l3-3a5 5 0 0 0-7-7l-1 1"/><path d="M14 10a5 5 0 0 0-7 0l-3 3a5 5 0 0 0 7 7l1-1"/></svg><span>Share this answer</span></button>
+            <span class="live-note">${s.live ? "Answered live." : "Answered earlier, the same way as live questions."} AI wrote the queries and the text; every number comes from the query results.</span>
+          </div>
         </div>
-        <div class="stat"${s.stat[0] ? "" : " hidden"}>
-          <span class="eyebrow">In one number</span>
-          <div><b>${s.stat[0]}</b></div>
-          <div style="display:flex;flex-direction:column;gap:12px"><span class="bar-gold"></span><p>${s.stat[1]}</p></div>
+        <div class="stat"${s.facts.length ? "" : " hidden"}>
+          <span class="eyebrow">In numbers</span>
+          ${s.facts[0] ? `<div class="big"><b>${s.facts[0].value}</b><span class="bar-gold"></span><p>${s.facts[0].label}</p></div>` : ""}
+          ${s.facts.length > 1 ? `<div class="facts">${s.facts.slice(1).map(f => `<div><b>${f.value}</b><span>${f.label}</span></div>`).join("")}</div>` : ""}
         </div>
       </section>
       ${s.points.map((p, i) => `
@@ -377,8 +415,6 @@ function show(s) {
             <span class="n">${String(i + 1).padStart(2, "0")} / ${String(s.points.length).padStart(2, "0")}</span>
             <h3>${p.h}</h3>
             <p>${p.p}</p>
-            ${p.more ? `<button class="more-btn" type="button" data-more="m${i}" aria-expanded="false">Read more</button>
-            <p class="more-txt" id="m${i}" hidden>${p.more}</p>` : ""}
           </div>
           <figure class="figure" style="margin:0">
             <div class="chart" id="ch${i}"></div>
@@ -390,6 +426,7 @@ function show(s) {
         </section>`).join("")}
       <section class="outro">
         <div>
+          ${s.note ? `<span class="eyebrow">Keep in mind</span><p class="keep">${s.note}</p>` : ""}
           <span class="eyebrow">Data sources</span>
           <div class="ds-list">${dsList.map(k => DATASETS[k]).map(ds => `<div class="ds"><a href="${ds.url}" target="_blank" rel="noopener">${ds.title} ↗</a><span>${ds.note}</span></div>`).join("")}</div>
         </div>
@@ -399,9 +436,8 @@ function show(s) {
         </div>
       </section>
     </article>`;
-  $("story").querySelectorAll("[data-more]").forEach(b => b.addEventListener("click", () => {
-    const d = $(b.dataset.more), open = d.hidden; d.hidden = !open; b.setAttribute("aria-expanded", String(open)); b.textContent = open ? "Show less" : "Read more";
-  }));
+  $("shareBtn").addEventListener("click", () => share(s, $("shareBtn")));
+  document.title = `${s.leadText} · ${P.name}`;
   $("story").querySelectorAll("[data-ex]").forEach(b => b.addEventListener("click", () => explore(s, Number(b.dataset.ex), b)));
   bindAsk($("story"));
   drawers = s.points.map((p, i) => () => p.chart($("ch" + i)));
@@ -503,6 +539,8 @@ async function post(url, body) {
 }
 const niceLabel = t => /[a-z]/.test(t) || !/[A-Z]/.test(t) ? t : title(t).replace(/ Station$/, "");
 const numFmt = v => Number.isInteger(v) ? fmt(v) : fmt(Math.round(v * 10) / 10);
+// Story text: **x** marks a key number, shown highlighted.
+const rich = t => escH(t).replace(/\*\*([^*]+)\*\*/g, '<strong class="num">$1</strong>').replace(/\*/g, "");
 // Colours the AI's chosen phrase (or *asterisk* phrase) in the headline, like the prepared stories.
 const leadHTML = (t, hl) => {
   let h = escH(t).replace(/\*([^*]+)\*/g, "<em>$1</em>").replace(/\*/g, "");
@@ -525,7 +563,6 @@ async function live(question) {
   $("hint").hidden = true;
   current = null; renderSugg();
   clearTimeout(timer);
-  try { history.replaceState(null, "", location.pathname); } catch (e) {}
   $("story").innerHTML = ""; drawers = [];
   const w = $("working"); w.hidden = false;
   w.innerHTML = ["Choosing the right data", "Running the queries", "Writing the story"].map(t => `<span>${t}</span>`).join("");
@@ -573,7 +610,7 @@ function liveStory(question, ok, story, isLive) {
   const dsOfSql = sql => TABLE_DS[tablesIn(sql)[0]] || P.datasets[0].id;
   const dsList = [...new Set(ok.map(r => dsOfSql(r.q.sql)))];
   const points = ok.map(({ q, rows }, i) => {
-    const pt = story.points[i] || { h: q.purpose, p: "", more: "" };
+    const pt = story.points[i] || { h: q.purpose, p: "" };
     const data = rows.map(r => ({ x: niceLabel(r.label), y: r.value }));
     const max = Math.max(...data.map(d => d.y));
     const unit = q.unit ? " " + q.unit : "";
@@ -581,7 +618,7 @@ function liveStory(question, ok, story, isLive) {
       ? bars(el, data.map((d, j) => ({ ...d, hi: j === 0 })), { tip: d => `${d.x}: ${numFmt(d.y)}${unit}` })
       : columns(el, data.map(d => ({ ...d, hi: d.y === max })), { tip: d => `${d.x}: ${numFmt(d.y)}${unit}`, labelHi: true, every: data.length > 14 ? Math.ceil(data.length / 12) : undefined });
     return {
-      h: escH(pt.h || q.purpose), p: escH(pt.p), more: pt.more ? escH(pt.more) : "", ds: dsOfSql(q.sql),
+      h: escH(pt.h || q.purpose), p: rich([pt.p, pt.more].filter(Boolean).join(" ")), ds: dsOfSql(q.sql),
       chart: draw,
       explore: { label: "", options: [], def: null, view: () => ({
         rows: data, sql: q.sql, caption: q.purpose ? q.purpose.charAt(0).toUpperCase() + q.purpose.slice(1) + "." : "", draw,
@@ -590,22 +627,34 @@ function liveStory(question, ok, story, isLive) {
   });
   return {
     q: question, live: isLive,
-    lead: leadHTML(story.lead || "Here's what the data shows.", story.highlight), sub: escH(story.sub || ""),
-    stat: [escH(story.stat?.value || ""), escH(story.stat?.caption || "")],
+    lead: leadHTML(story.lead || "Here's what the data shows.", story.highlight), leadText: (story.lead || question).replace(/\*/g, ""),
+    summary: rich(story.summary || ""), sub: escH(story.sub || ""), note: escH(story.note || ""),
+    facts: (story.facts || (story.stat?.value ? [{ value: story.stat.value, label: story.stat.caption }] : []))
+      .filter(f => f && f.value).slice(0, 3).map(f => ({ value: escH(f.value), label: escH(f.label || "") })),
     ds: dsList[0], dsList, points,
     next: story.next || []
   };
 }
 
-$("dslist").innerHTML = Object.values(DATASETS).map(d => `<a href="${d.url}" target="_blank" rel="noopener" title="${d.note}">${d.title}</a>`).join("");
-$("dsbtn").addEventListener("click", () => { const l = $("dslist"); l.hidden = !l.hidden; $("dsbtn").setAttribute("aria-expanded", String(!l.hidden)); });
 
 
 addEventListener("resize", () => { if (exDraw) exDraw(); clearTimeout(window._rt); window._rt = setTimeout(() => drawers.forEach(f => f()), 120); });
 $("dslist").innerHTML = P.datasets.map(d => `<a href="${d.url}" target="_blank" rel="noopener" title="${escH(d.note).replace(/"/g, "&quot;")}">${escH(d.title)}</a>`).join("");
 $("dsbtn").addEventListener("click", () => { const l = $("dslist"); l.hidden = !l.hidden; $("dsbtn").setAttribute("aria-expanded", String(!l.hidden)); });
 renderSugg();
-if (FIXED.length) instant(INSTANT[norm(FIXED[0])], null, true);
+function fromAddress(first) {
+  const q = (new URLSearchParams(location.search).get("q") || "").trim().slice(0, 300);
+  if (q) {
+    route(q, true);
+    if (first) $("ask").scrollIntoView();
+  } else if (FIXED.length) {
+    instant(INSTANT[norm(FIXED[0])], null, true);
+    document.title = DEFAULT_TITLE;
+  }
+}
+const DEFAULT_TITLE = document.title;
+addEventListener("popstate", () => fromAddress(false));
+fromAddress(true);
 </script>
 
 </body>

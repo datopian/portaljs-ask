@@ -5,12 +5,15 @@
 // the API writes the story. Results go to portals/<slug>/instant.json; review
 // the printed answers before committing.
 //
-//   ASK_ADMIN_TOKEN=... node scripts/precompute.mjs <slug> --api https://<deployment> [--only "question"] [--force]
+//   ASK_ADMIN_TOKEN=... node scripts/precompute.mjs <slug> --api https://<deployment> [--only "question"] [--force | --restory]
 //
 // Needs the `duckdb` CLI. ASK_ADMIN_TOKEN (same value as on the deployment)
 // lets these requests skip the daily limits; their AI cost still counts towards
 // the monthly budget. Existing answers are kept unless --force, which also
-// bypasses the server's answer cache.
+// bypasses the server's answer cache. --restory keeps each saved answer's queries
+// and rows (already checked) and only has the story written again, e.g. after
+// the story format changes. Highlighted numbers that don't appear in the rows
+// are printed with "?": check those by hand (they can be fair calculations).
 import fs from 'node:fs'
 import path from 'node:path'
 import { execFileSync } from 'node:child_process'
@@ -21,8 +24,9 @@ const opt = (name) => { const i = args.indexOf(name); return i > 0 ? args[i + 1]
 const api = (opt('--api') || '').replace(/\/$/, '')
 const only = opt('--only')
 const force = args.includes('--force')
+const restory = args.includes('--restory')
 if (!slug || !api) {
-  console.error('Usage: node scripts/precompute.mjs <slug> --api https://<deployment> [--only "question"] [--force]')
+  console.error('Usage: node scripts/precompute.mjs <slug> --api https://<deployment> [--only "question"] [--force | --restory]')
   process.exit(1)
 }
 
@@ -57,6 +61,21 @@ function runQuery(sql) {
   return rows
 }
 
+// Numbers the story highlights (**x** and the facts) that no row value matches, at the usual scales and roundings.
+function unmatched(story, queries) {
+  const values = queries.flatMap((q) => q.rows.map((r) => r.value))
+  const said = [...(story.summary || '').matchAll(/\*\*([^*]+)\*\*/g), ...story.points.flatMap((p) => [...(p.p || '').matchAll(/\*\*([^*]+)\*\*/g)])].map((m) => m[1])
+    .concat((story.facts || []).map((f) => f.value))
+  const near = (a, b) => Math.abs(a - b) <= Math.max(0.051, Math.abs(b) * 0.006)
+  return said.filter((t) => {
+    const m = t.replace(/,/g, '').match(/-?\d+(\.\d+)?/)
+    if (!m) return false // words like "four times"
+    let n = Number(m[0])
+    const scale = /trillion/i.test(t) ? 1e12 : /billion|bn\b/i.test(t) ? 1e9 : /million|\dM\b/i.test(t) ? 1e6 : /\d\s*(k|thousand)\b/i.test(t) ? 1e3 : 1
+    return !values.some((v) => [1, scale].some((s) => near(n * s, v) || near(n, v / s) || near(n, Math.round(v / s)))) && !(/^(1[89]|20)\d\d$/.test(m[0]))
+  })
+}
+
 const runAll = (queries) => queries.map((q) => {
   try { return { q, rows: runQuery(q.sql) } } catch (e) { return { q, error: String(e.stderr || e.message || e).slice(0, 400) } }
 })
@@ -64,8 +83,22 @@ const runAll = (queries) => queries.map((q) => {
 for (const question of portal.examples) {
   if (only && norm(only) !== norm(question)) continue
   const have = instant.findIndex((a) => norm(a.q) === norm(question))
-  if (have >= 0 && !force) { console.log(`= ${question} (kept)`); continue }
+  if (restory && have < 0) { console.log(`! ${question}: no saved answer to rewrite`); continue }
+  if (have >= 0 && !force && !restory) { console.log(`= ${question} (kept)`); continue }
   try {
+    if (restory) {
+      // The plan call only issues the token the write step needs; it is normally an answer-cache hit.
+      const plan = await post('/api/data/plan', { question })
+      const old = instant[have]
+      const results = old.queries.map(({ id, purpose, sql, unit, rows }) => ({ id, purpose, sql, unit, rows }))
+      const story = await post('/api/data/write', { question, token: plan.token, results })
+      delete story.cached
+      instant[have] = { ...old, story, created: new Date().toISOString().slice(0, 10) }
+      fs.writeFileSync(instantFile, JSON.stringify(instant, null, 1) + '\n')
+      const odd = unmatched(story, old.queries)
+      console.log(`+ ${question}\n  ${story.lead}\n  ${story.summary}\n  ${story.facts.map((f) => `${f.value} ${f.label}`).join(' | ')}${odd.length ? `\n  ? ${odd.join(' | ')}` : ''}`)
+      continue
+    }
     let plan = await post('/api/data/plan', { question })
     if (!plan.answerable) { console.log(`! ${question}: not answerable: ${plan.message}`); continue }
     let ran = runAll(plan.queries)
@@ -83,7 +116,8 @@ for (const question of portal.examples) {
     if (have >= 0) instant[have] = answer
     else instant.push(answer)
     fs.writeFileSync(instantFile, JSON.stringify(instant, null, 1) + '\n')
-    console.log(`+ ${question}\n  ${story.lead} | ${story.stat.value} ${story.stat.caption}\n  ${story.points.map((p) => p.h).join(' / ')}`)
+    const odd = unmatched(story, answer.queries)
+    console.log(`+ ${question}\n  ${story.lead}\n  ${story.summary}${odd.length ? `\n  ? ${odd.join(' | ')}` : ''}`)
   } catch (e) {
     console.log(`! ${question}: ${e.message}`)
   }

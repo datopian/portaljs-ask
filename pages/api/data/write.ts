@@ -1,7 +1,7 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
 import { clientIp } from '../../../lib/rateLimit'
 import { cacheGet, cachePut, checkAndCount } from '../../../lib/ask/guard'
-import { MAX_QUESTION_LENGTH, Story, cleanResults, storyKey, useToken, writeStory } from '../../../lib/ask/engine'
+import { MAX_QUESTION_LENGTH, Story, cleanResults, shareKey, storyKey, useToken, writeStory } from '../../../lib/ask/engine'
 import { isAdmin, log, REFUSAL_STATUS } from '../../../lib/ask/http'
 import { getPortal } from '../../../lib/ask/portals'
 
@@ -46,6 +46,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   try {
     const story = await writeStory(portal, question, results)
     await cachePut(key, story)
+    await cachePut(shareKey(portal, question), { q: question, lead: story.lead, summary: story.summary })
     log('ask_write_ok', { portal: portal.slug, ip, question, queries: results.length, durationMs: Date.now() - startedAt })
     return res.status(200).json(story)
   } catch (err) {

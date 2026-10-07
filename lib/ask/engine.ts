@@ -48,7 +48,7 @@ If the question can't be answered from these tables (another topic, or data they
 
 const REPAIR_NOTE = `Some of your queries failed when run. Fix them and reply with the same shape, containing all queries (fixed ones and ones that worked).`
 
-const writeSystem = (p: Portal) => `You turn query results into a short, plain-English data story for non-technical readers.
+const writeSystem = (p: Portal) => `You turn query results into a short data story for people with no technical or statistics background, like a good newspaper explainer: it should make sense in five seconds and be worth reading for a minute.
 
 What the data is (${p.owner}):
 ${p.notes}
@@ -56,22 +56,30 @@ ${p.notes}
 You get the question and a numbered list of charts, each with its purpose, its SQL and its result rows (label, value).
 
 Always answer by calling the reply tool (never plain text):
-{"lead": "the direct answer in at most 9 words, e.g. \"Line 1 has the most delays.\"",
- "highlight": "the 1-3 most important words of lead, copied exactly, e.g. \"Line 1\"",
+{"lead": "the direct answer as a headline, at most 10 words, e.g. \"Zimbabwe's prices rose fastest, by far.\"",
+ "highlight": "the 1-3 most important words of lead, copied exactly, e.g. \"Zimbabwe\"",
+ "summary": "2 or 3 sentences for someone in a hurry: the answer, the number that proves it, and what that number means in everyday terms",
  "sub": "one short line on what data and period this is based on",
- "stat": {"value": "the single most telling number, formatted, e.g. 48% or 15,806", "caption": "what that number is, under 12 words"},
- "points": [{"h": "headline for this chart, at most 9 words", "p": "one short sentence about what this chart shows", "more": "one or two sentences with extra facts from this chart's rows"}],
+ "facts": [{"value": "a number, formatted, e.g. 921.5% or 15,806 or $128,678", "label": "what it is, under 10 words"}],
+ "points": [{"h": "headline for this chart, at most 10 words, saying what it shows", "p": "2 or 3 sentences about this chart"}],
+ "note": "one plain sentence the reader should keep in mind (what is counted, which years, an unusual unit), or an empty string",
  "next": ["three short follow-up questions"]}
 
-Rules:
-- "points" has exactly one entry per chart, in the same order, and every entry has all three fields filled in. Each point talks about its own chart.
+How to write:
+- Everyday words and short sentences, for a curious reader who has never seen this data. No jargon: say "prices rose 921% in a year", not "CPI inflation was 921%". If a unit isn't obvious (ppm, an index), explain it once in plain words.
+- Make the numbers mean something: compare them ("more than four times the next country", "one in five", "twice as high as in 2000") or translate them ("a 921% rise means prices were about ten times higher at the end of the year"). Use only simple arithmetic on the rows.
+- In "summary" and each "p", wrap the 2 or 3 numbers that matter most in double asterisks, e.g. **921.5%**, **four times**. No other formatting.
+- "facts": exactly 3. The first is the single most telling number; the other two add something new (not the same number again). Values are plain text, no asterisks.
+- "points" has exactly one entry per chart, in the same order, and each talks about its own chart: what it shows and the one thing to notice. Don't just list the rows.
 - "sub" states the real period, taken from the SQL and rows and the data notes above.
-- Every number you write must appear in the rows or be a simple calculation from them (sum, share, difference, ratio). Never invent numbers.
+
+Rules:
+- Every number you write must appear in the rows or be a simple calculation from them (sum, share, difference, ratio). Never invent numbers. Round sensibly ("about 27,000%") when it reads better.
 - Only describe what the numbers show. Never explain why (no causes, motives, tourism, weather, the pandemic as a reason, data quality, "limited data"), unless the rows themselves show it. Calling 2020 the pandemic year is fine.
 - Only mention things that are in the rows. If a row looks odd or tiny, leave it out rather than comment on it.
 - "next" questions must be answerable from the columns listed above (any of the tables). Never suggest things the tables don't have.
 - If the results don't really answer the question, say so plainly in "lead".
-- Plain words, no jargon, no markdown. Write names in normal case (Luna, Kipling station), not upper case.`
+- Write names in normal case (Luna, Kipling station), not upper case.`
 
 export interface PlannedQuery {
   id: string
@@ -102,9 +110,11 @@ export interface QueryResult {
 export interface Story {
   lead: string
   highlight: string
+  summary: string // **x** marks a highlighted number
   sub: string
-  stat: { value: string; caption: string }
-  points: { h: string; p: string; more: string }[]
+  facts: { value: string; label: string }[]
+  points: { h: string; p: string }[]
+  note: string
   next: string[]
 }
 
@@ -180,15 +190,20 @@ const WRITE_SCHEMA = {
   properties: {
     lead: { type: 'string' },
     highlight: { type: 'string' },
+    summary: { type: 'string' },
     sub: { type: 'string' },
-    stat: { type: 'object', properties: { value: { type: 'string' }, caption: { type: 'string' } }, required: ['value', 'caption'] },
+    facts: {
+      type: 'array',
+      items: { type: 'object', properties: { value: { type: 'string' }, label: { type: 'string' } }, required: ['value', 'label'] },
+    },
     points: {
       type: 'array',
-      items: { type: 'object', properties: { h: { type: 'string' }, p: { type: 'string' }, more: { type: 'string' } }, required: ['h', 'p', 'more'] },
+      items: { type: 'object', properties: { h: { type: 'string' }, p: { type: 'string' } }, required: ['h', 'p'] },
     },
+    note: { type: 'string' },
     next: { type: 'array', items: { type: 'string' } },
   },
-  required: ['lead', 'highlight', 'sub', 'stat', 'points', 'next'],
+  required: ['lead', 'highlight', 'summary', 'sub', 'facts', 'points', 'note', 'next'],
 }
 
 const str = (v: unknown, max: number) => (typeof v === 'string' ? v.trim().slice(0, max) : '')
@@ -244,23 +259,32 @@ export async function writeStory(portal: Portal, question: string, results: Quer
   const user = `Today is ${today}. The data was downloaded on ${portal.data.snapshot}.\nQuestion: ${question}\n\n${charts.join('\n\n')}\n\nWrite exactly ${results.length} points, one per chart.`
   // Now and then the reply comes back with only the headline filled in; ask once more, then give up
   // rather than show (and cache) a story with empty chapters.
+  const filled = (v: unknown) => typeof v === 'string' && v.trim() !== ''
   const complete = (x: Record<string, unknown>) =>
-    Array.isArray(x.points) && x.points.length >= results.length && x.points.every((p) => typeof (p as Record<string, unknown>)?.p === 'string' && ((p as Record<string, string>).p || '').trim())
-  let r = ((await callClaude(writeSystem(portal), user, 3000, WRITE_SCHEMA)) || {}) as Record<string, unknown>
-  if (!complete(r)) r = ((await callClaude(writeSystem(portal), user, 3000, WRITE_SCHEMA)) || {}) as Record<string, unknown>
+    filled(x.summary) && Array.isArray(x.points) && x.points.length >= results.length && x.points.every((p) => filled((p as Record<string, unknown>)?.p))
+  let r = ((await callClaude(writeSystem(portal), user, 4000, WRITE_SCHEMA)) || {}) as Record<string, unknown>
+  if (!complete(r)) r = ((await callClaude(writeSystem(portal), user, 4000, WRITE_SCHEMA)) || {}) as Record<string, unknown>
   if (!complete(r)) throw new Error('The model returned an incomplete story.')
-  const stat = (r.stat || {}) as Record<string, unknown>
   const points = (Array.isArray(r.points) ? r.points : []).slice(0, results.length).map((p) => {
     const o = (p || {}) as Record<string, unknown>
-    return { h: str(o.h, 120), p: str(o.p, 300), more: str(o.more, 500) }
+    return { h: str(o.h, 120), p: str(o.p, 600) }
   })
-  while (points.length < results.length) points.push({ h: results[points.length].purpose, p: '', more: '' })
+  while (points.length < results.length) points.push({ h: results[points.length].purpose, p: '' })
+  const facts = (Array.isArray(r.facts) ? r.facts : [])
+    .map((f) => {
+      const o = (f || {}) as Record<string, unknown>
+      return { value: str(o.value, 24).replace(/\*/g, ''), label: str(o.label, 100) }
+    })
+    .filter((f) => f.value && f.label)
+    .slice(0, 3)
   return {
     lead: str(r.lead, 160),
     highlight: str(r.highlight, 80),
+    summary: str(r.summary, 600),
     sub: str(r.sub, 200),
-    stat: { value: str(stat.value, 24), caption: str(stat.caption, 140) },
+    facts,
     points,
+    note: str(r.note, 300),
     next: (Array.isArray(r.next) ? r.next : []).map((s) => str(s, 120)).filter(Boolean).slice(0, 3),
   }
 }
@@ -293,7 +317,11 @@ export const normQuestion = (q: string) => q.toLowerCase().replace(/[^\p{L}\p{N}
 const sha = (s: string) => createHash('sha256').update(s).digest('base64url').slice(0, 32)
 export const planKey = (p: Portal, q: string) => `plan:${p.slug}:${p.data.snapshot}:${sha(normQuestion(q))}`
 export const storyKey = (p: Portal, q: string, results: QueryResult[]) =>
-  `story:${p.slug}:${p.data.snapshot}:${sha(normQuestion(q) + JSON.stringify(results.map((r) => [r.sql, r.rows])))}`
+  `story2:${p.slug}:${p.data.snapshot}:${sha(normQuestion(q) + JSON.stringify(results.map((r) => [r.sql, r.rows])))}`
+// The headline and summary of an answer, kept per question so a shared link
+// (?q=...) can show them in link previews (pages/api/share.ts).
+export const shareKey = (p: Portal, q: string) => `share:${p.slug}:${p.data.snapshot}:${sha(normQuestion(q))}`
+
 
 // ---- tokens ----
 // A short-lived signed token ties the write step (and at most one query repair)
