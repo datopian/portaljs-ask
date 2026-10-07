@@ -1,0 +1,4778 @@
+[
+ {
+  "q": "When is the Island ferry busiest?",
+  "queries": [
+   {
+    "id": "q1",
+    "purpose": "Average riders per day by month (complete years 2016-2025)",
+    "chart": "columns",
+    "unit": "riders per day",
+    "sql": "SELECT strftime(d, '%b') AS label, round(avg(day_total)) AS value FROM (SELECT date_trunc('day', ts) AS d, sum(tickets_redeemed) AS day_total FROM ferry WHERE year(ts) BETWEEN 2016 AND 2025 GROUP BY 1) GROUP BY month(d), strftime(d, '%b') ORDER BY month(d)",
+    "rows": [
+     {
+      "label": "Jan",
+      "value": 492
+     },
+     {
+      "label": "Feb",
+      "value": 600
+     },
+     {
+      "label": "Mar",
+      "value": 719
+     },
+     {
+      "label": "Apr",
+      "value": 1341
+     },
+     {
+      "label": "May",
+      "value": 3104
+     },
+     {
+      "label": "Jun",
+      "value": 5317
+     },
+     {
+      "label": "Jul",
+      "value": 8699
+     },
+     {
+      "label": "Aug",
+      "value": 9768
+     },
+     {
+      "label": "Sep",
+      "value": 4959
+     },
+     {
+      "label": "Oct",
+      "value": 2043
+     },
+     {
+      "label": "Nov",
+      "value": 924
+     },
+     {
+      "label": "Dec",
+      "value": 607
+     }
+    ]
+   },
+   {
+    "id": "q2",
+    "purpose": "Average riders per day by day of week (summer, Jun-Aug, 2016-2025)",
+    "chart": "columns",
+    "unit": "riders per day",
+    "sql": "SELECT strftime(d, '%a') AS label, round(avg(day_total)) AS value FROM (SELECT date_trunc('day', ts) AS d, sum(tickets_redeemed) AS day_total FROM ferry WHERE year(ts) BETWEEN 2016 AND 2025 AND month(ts) IN (6,7,8) GROUP BY 1) GROUP BY isodow(d), strftime(d, '%a') ORDER BY isodow(d)",
+    "rows": [
+     {
+      "label": "Mon",
+      "value": 6611
+     },
+     {
+      "label": "Tue",
+      "value": 5521
+     },
+     {
+      "label": "Wed",
+      "value": 6185
+     },
+     {
+      "label": "Thu",
+      "value": 6081
+     },
+     {
+      "label": "Fri",
+      "value": 7257
+     },
+     {
+      "label": "Sat",
+      "value": 12513
+     },
+     {
+      "label": "Sun",
+      "value": 11518
+     }
+    ]
+   },
+   {
+    "id": "q3",
+    "purpose": "Average riders per hour of day (summer, Jun-Aug, 2016-2025)",
+    "chart": "columns",
+    "unit": "riders per hour",
+    "sql": "SELECT lpad(CAST(h AS VARCHAR), 2, '0') || ':00' AS label, round(sum(tickets_redeemed) * 1.0 / count(DISTINCT d)) AS value FROM (SELECT hour(ts) AS h, date_trunc('day', ts) AS d, tickets_redeemed FROM ferry WHERE year(ts) BETWEEN 2016 AND 2025 AND month(ts) IN (6,7,8)) GROUP BY h ORDER BY h",
+    "rows": [
+     {
+      "label": "00:00",
+      "value": 0
+     },
+     {
+      "label": "01:00",
+      "value": 0
+     },
+     {
+      "label": "02:00",
+      "value": 0
+     },
+     {
+      "label": "03:00",
+      "value": 0
+     },
+     {
+      "label": "04:00",
+      "value": 0
+     },
+     {
+      "label": "05:00",
+      "value": 1
+     },
+     {
+      "label": "06:00",
+      "value": 33
+     },
+     {
+      "label": "07:00",
+      "value": 51
+     },
+     {
+      "label": "08:00",
+      "value": 126
+     },
+     {
+      "label": "09:00",
+      "value": 439
+     },
+     {
+      "label": "10:00",
+      "value": 835
+     },
+     {
+      "label": "11:00",
+      "value": 986
+     },
+     {
+      "label": "12:00",
+      "value": 995
+     },
+     {
+      "label": "13:00",
+      "value": 937
+     },
+     {
+      "label": "14:00",
+      "value": 884
+     },
+     {
+      "label": "15:00",
+      "value": 745
+     },
+     {
+      "label": "16:00",
+      "value": 608
+     },
+     {
+      "label": "17:00",
+      "value": 451
+     },
+     {
+      "label": "18:00",
+      "value": 341
+     },
+     {
+      "label": "19:00",
+      "value": 247
+     },
+     {
+      "label": "20:00",
+      "value": 143
+     },
+     {
+      "label": "21:00",
+      "value": 76
+     },
+     {
+      "label": "22:00",
+      "value": 39
+     },
+     {
+      "label": "23:00",
+      "value": 22
+     }
+    ]
+   }
+  ],
+  "story": {
+   "lead": "Summer Saturdays around noon are busiest.",
+   "highlight": "Summer Saturdays",
+   "sub": "Island ferry tickets redeemed, complete years 2016-2025, in 15-minute counts added up by day and hour.",
+   "stat": {
+    "value": "",
+    "caption": ""
+   },
+   "points": [
+    {
+     "h": "August is the busiest month",
+     "p": "Riders per day climb from spring to a peak in August, then fall quickly.",
+     "more": "August averages 9,768 riders a day and July 8,699. January is the quietest at 492 a day."
+    },
+    {
+     "h": "Weekends are far busier than weekdays",
+     "p": "In summer, Saturday and Sunday carry about double the weekday crowds.",
+     "more": "Saturday averages 12,513 riders and Sunday 11,518. Tuesday is the lowest at 5,521, and Friday is the busiest weekday at 7,257."
+    },
+    {
+     "h": "Midday is the peak time",
+     "p": "On summer days, ridership builds through the morning and peaks around noon.",
+     "more": "The 12:00 hour averages 995 riders, with 11:00 close at 986. By 18:00 it falls to 341, and before 08:00 it is under 60 an hour."
+    }
+   ],
+   "next": [
+    "How has yearly ferry ridership changed from 2016 to 2025?",
+    "Which summer days had the most ferry riders ever?",
+    "How do tickets sold compare with tickets redeemed by month?"
+   ]
+  },
+  "created": "2026-10-06"
+ },
+ {
+  "q": "Which subway stations have the most delays?",
+  "queries": [
+   {
+    "id": "q1",
+    "purpose": "Stations with the most delays (incidents with delay minutes above 0)",
+    "chart": "bars",
+    "unit": "delays",
+    "sql": "SELECT station AS label, count(*) AS value FROM subway_delays WHERE min_delay > 0 AND station IS NOT NULL GROUP BY station ORDER BY value DESC LIMIT 15",
+    "rows": [
+     {
+      "label": "KIPLING STATION",
+      "value": 578
+     },
+     {
+      "label": "KENNEDY BD STATION",
+      "value": 537
+     },
+     {
+      "label": "WILSON STATION",
+      "value": 513
+     },
+     {
+      "label": "BLOOR STATION",
+      "value": 504
+     },
+     {
+      "label": "FINCH STATION",
+      "value": 464
+     },
+     {
+      "label": "EGLINTON STATION",
+      "value": 446
+     },
+     {
+      "label": "DAVISVILLE STATION",
+      "value": 336
+     },
+     {
+      "label": "YONGE BD STATION",
+      "value": 323
+     },
+     {
+      "label": "COXWELL STATION",
+      "value": 299
+     },
+     {
+      "label": "ST CLAIR STATION",
+      "value": 284
+     },
+     {
+      "label": "DONLANDS STATION",
+      "value": 284
+     },
+     {
+      "label": "WARDEN STATION",
+      "value": 280
+     },
+     {
+      "label": "GREENWOOD STATION",
+      "value": 274
+     },
+     {
+      "label": "VMC STATION",
+      "value": 267
+     },
+     {
+      "label": "VICTORIA PARK STATION",
+      "value": 264
+     }
+    ]
+   },
+   {
+    "id": "q2",
+    "purpose": "Stations with the most total delay minutes",
+    "chart": "bars",
+    "unit": "minutes",
+    "sql": "SELECT station AS label, sum(min_delay) AS value FROM subway_delays WHERE min_delay > 0 AND station IS NOT NULL GROUP BY station ORDER BY value DESC LIMIT 15",
+    "rows": [
+     {
+      "label": "EGLINTON STATION",
+      "value": 4001
+     },
+     {
+      "label": "KIPLING STATION",
+      "value": 3461
+     },
+     {
+      "label": "KENNEDY BD STATION",
+      "value": 3136
+     },
+     {
+      "label": "VICTORIA PARK STATION",
+      "value": 3097
+     },
+     {
+      "label": "SHEPPARD WEST STATION",
+      "value": 3096
+     },
+     {
+      "label": "WILSON STATION",
+      "value": 3076
+     },
+     {
+      "label": "BLOOR STATION",
+      "value": 2848
+     },
+     {
+      "label": "FINCH STATION",
+      "value": 2771
+     },
+     {
+      "label": "LAWRENCE STATION",
+      "value": 2343
+     },
+     {
+      "label": "DAVISVILLE STATION",
+      "value": 2289
+     },
+     {
+      "label": "YONGE BD STATION",
+      "value": 2226
+     },
+     {
+      "label": "ST CLAIR WEST STATION",
+      "value": 2188
+     },
+     {
+      "label": "WARDEN STATION",
+      "value": 2144
+     },
+     {
+      "label": "ISLINGTON STATION",
+      "value": 2131
+     },
+     {
+      "label": "SHEPPARD-YONGE STATION",
+      "value": 2030
+     }
+    ]
+   },
+   {
+    "id": "q3",
+    "purpose": "Stations with the longest average delay (stations with at least 30 delays)",
+    "chart": "bars",
+    "unit": "minutes per delay",
+    "sql": "SELECT station AS label, round(avg(min_delay), 1) AS value FROM subway_delays WHERE min_delay > 0 AND station IS NOT NULL GROUP BY station HAVING count(*) >= 30 ORDER BY value DESC LIMIT 15",
+    "rows": [
+     {
+      "label": "WOODBINE STATION",
+      "value": 12.3
+     },
+     {
+      "label": "SHEPPARD WEST STATION",
+      "value": 12
+     },
+     {
+      "label": "ISLINGTON STATION",
+      "value": 11.9
+     },
+     {
+      "label": "VICTORIA PARK STATION",
+      "value": 11.7
+     },
+     {
+      "label": "YORKDALE STATION",
+      "value": 11.3
+     },
+     {
+      "label": "GLENCAIRN STATION",
+      "value": 11.2
+     },
+     {
+      "label": "OLD MILL STATION",
+      "value": 11
+     },
+     {
+      "label": "BROADVIEW STATION",
+      "value": 10.7
+     },
+     {
+      "label": "LAWRENCE STATION",
+      "value": 9.6
+     },
+     {
+      "label": "CHRISTIE STATION",
+      "value": 9.6
+     },
+     {
+      "label": "ROSEDALE STATION",
+      "value": 9.5
+     },
+     {
+      "label": "ST CLAIR WEST STATION",
+      "value": 9.4
+     },
+     {
+      "label": "SHEPPARD-YONGE STATION",
+      "value": 9.1
+     },
+     {
+      "label": "EGLINTON STATION",
+      "value": 9
+     },
+     {
+      "label": "LANSDOWNE STATION",
+      "value": 8.8
+     }
+    ]
+   }
+  ],
+  "story": {
+   "lead": "Kipling station has the most delays.",
+   "highlight": "Kipling station",
+   "sub": "TTC subway delay incidents with delay minutes above 0, January 2025 to August 2026.",
+   "stat": {
+    "value": "578",
+    "caption": "delays at Kipling station, the most of any station"
+   },
+   "points": [
+    {
+     "h": "Kipling, Kennedy and Wilson lead on delay count",
+     "p": "Kipling station had the most delays, followed closely by Kennedy and Wilson.",
+     "more": "Kipling had 578 delays, Kennedy (Line 2) 537, Wilson 513 and Bloor 504. Finch had 464 and Eglinton 446."
+    },
+    {
+     "h": "Eglinton loses the most minutes overall",
+     "p": "Eglinton station tops the list for total minutes of delay.",
+     "more": "Eglinton added up to 4,001 minutes, ahead of Kipling at 3,461 and Kennedy at 3,136. Victoria Park and Sheppard West each passed 3,000 minutes despite fewer delays."
+    },
+    {
+     "h": "Woodbine has the longest typical delay",
+     "p": "Among stations with at least 30 delays, Woodbine delays last longest on average.",
+     "more": "Woodbine averaged 12.3 minutes per delay, then Sheppard West at 12 and Islington at 11.9. Eglinton averaged 9 minutes."
+    }
+   ],
+   "next": [
+    "Which hours of the day have the most subway delays?",
+    "What are the most common causes of delays at Kipling station?",
+    "Which subway line has the most delays?"
+   ]
+  },
+  "created": "2026-10-06"
+ },
+ {
+  "q": "What are the most popular dog names?",
+  "queries": [
+   {
+    "id": "q1",
+    "purpose": "Top 15 dog names in 2025 by licensed dogs",
+    "chart": "bars",
+    "unit": "licensed dogs",
+    "sql": "SELECT upper(left(name, 1)) || lower(substr(name, 2)) AS label, licensed_count AS value FROM pet_names WHERE animal = 'DOG' AND year = 2025 ORDER BY licensed_count DESC LIMIT 15",
+    "rows": [
+     {
+      "label": "Luna",
+      "value": 549
+     },
+     {
+      "label": "Charlie",
+      "value": 491
+     },
+     {
+      "label": "Bella",
+      "value": 386
+     },
+     {
+      "label": "Coco",
+      "value": 342
+     },
+     {
+      "label": "Milo",
+      "value": 315
+     },
+     {
+      "label": "Daisy",
+      "value": 290
+     },
+     {
+      "label": "Max",
+      "value": 286
+     },
+     {
+      "label": "Lucy",
+      "value": 266
+     },
+     {
+      "label": "Bailey",
+      "value": 262
+     },
+     {
+      "label": "Molly",
+      "value": 258
+     },
+     {
+      "label": "Teddy",
+      "value": 249
+     },
+     {
+      "label": "Rosie",
+      "value": 237
+     },
+     {
+      "label": "Rocky",
+      "value": 229
+     },
+     {
+      "label": "Cooper",
+      "value": 224
+     },
+     {
+      "label": "Lola",
+      "value": 217
+     }
+    ]
+   },
+   {
+    "id": "q2",
+    "purpose": "Top 15 dog names, average licensed dogs per year 2020-2025",
+    "chart": "bars",
+    "unit": "licensed dogs per year",
+    "sql": "SELECT upper(left(name, 1)) || lower(substr(name, 2)) AS label, round(avg(licensed_count)) AS value FROM pet_names WHERE animal = 'DOG' AND year BETWEEN 2020 AND 2025 GROUP BY name ORDER BY value DESC LIMIT 15",
+    "rows": [
+     {
+      "label": "Charlie",
+      "value": 529
+     },
+     {
+      "label": "Luna",
+      "value": 493
+     },
+     {
+      "label": "Bella",
+      "value": 405
+     },
+     {
+      "label": "Max",
+      "value": 331
+     },
+     {
+      "label": "Coco",
+      "value": 330
+     },
+     {
+      "label": "Daisy",
+      "value": 288
+     },
+     {
+      "label": "Molly",
+      "value": 286
+     },
+     {
+      "label": "Milo",
+      "value": 285
+     },
+     {
+      "label": "Lucy",
+      "value": 275
+     },
+     {
+      "label": "Bailey",
+      "value": 273
+     },
+     {
+      "label": "Lola",
+      "value": 241
+     },
+     {
+      "label": "Buddy",
+      "value": 227
+     },
+     {
+      "label": "Rocky",
+      "value": 225
+     },
+     {
+      "label": "Cooper",
+      "value": 223
+     },
+     {
+      "label": "Maggie",
+      "value": 220
+     }
+    ]
+   },
+   {
+    "id": "q3",
+    "purpose": "How the most popular name has changed year by year",
+    "chart": "columns",
+    "unit": "licensed dogs",
+    "sql": "SELECT CAST(year AS VARCHAR) AS label, licensed_count AS value FROM pet_names WHERE animal = 'DOG' AND year BETWEEN 2020 AND 2025 AND name = (SELECT name FROM pet_names WHERE animal = 'DOG' AND year BETWEEN 2020 AND 2025 GROUP BY name ORDER BY sum(licensed_count) DESC LIMIT 1) ORDER BY year",
+    "rows": [
+     {
+      "label": "2020",
+      "value": 553
+     },
+     {
+      "label": "2021",
+      "value": 595
+     },
+     {
+      "label": "2022",
+      "value": 551
+     },
+     {
+      "label": "2023",
+      "value": 494
+     },
+     {
+      "label": "2024",
+      "value": 488
+     },
+     {
+      "label": "2025",
+      "value": 491
+     }
+    ]
+   }
+  ],
+  "story": {
+   "lead": "Luna and Charlie are Toronto's top dog names.",
+   "highlight": "Luna and Charlie",
+   "sub": "Licensed dogs in Toronto, 2020 to 2025 (top 200 names per year only).",
+   "stat": {
+    "value": "549",
+    "caption": "licensed dogs named Luna in 2025, the most of any name"
+   },
+   "points": [
+    {
+     "h": "Luna led the 2025 dog names",
+     "p": "Luna was the most common name among licensed dogs in 2025, ahead of Charlie.",
+     "more": "Luna had 549 dogs and Charlie 491. Bella was third with 386, then Coco with 342 and Milo with 315."
+    },
+    {
+     "h": "Charlie leads over the six years",
+     "p": "Averaged over 2020 to 2025, Charlie comes first and Luna second.",
+     "more": "Charlie averaged 529 dogs a year and Luna 493. Bella was third at 405. Max, Coco and Daisy followed."
+    },
+    {
+     "h": "Charlie has slipped since 2021",
+     "p": "The top name over the six years, Charlie, peaked in 2021 and has been lower since.",
+     "more": "Charlie went from 595 dogs in 2021 to 491 in 2025. It was 553 in 2020 and 488 in 2024."
+    }
+   ],
+   "next": [
+    "What are the most popular cat names?",
+    "How have Luna's numbers changed since 2020?",
+    "Which dog names are rising fastest since 2020?"
+   ]
+  },
+  "created": "2026-10-06"
+ },
+ {
+  "q": "Top causes of fires?",
+  "queries": [
+   {
+    "id": "q1",
+    "purpose": "Most common recorded causes of fires, 2011-2024",
+    "chart": "bars",
+    "unit": "fires",
+    "sql": "SELECT regexp_replace(possible_cause, '^[0-9]+ - ', '') AS label, count(*) AS value FROM fire_incidents WHERE incident_type LIKE '01%' AND possible_cause IS NOT NULL GROUP BY 1 ORDER BY value DESC LIMIT 12",
+    "rows": [
+     {
+      "label": "Undetermined",
+      "value": 4012
+     },
+     {
+      "label": "Electrical Failure",
+      "value": 3134
+     },
+     {
+      "label": "Improperly Discarded",
+      "value": 2255
+     },
+     {
+      "label": "Other Unintended Cause",
+      "value": 1990
+     },
+     {
+      "label": "Unattended",
+      "value": 1928
+     },
+     {
+      "label": "Other unintentional cause, not classified",
+      "value": 1597
+     },
+     {
+      "label": "Misuse of ignition source/material ignited",
+      "value": 1382
+     },
+     {
+      "label": "Unintentional, cause undetermined",
+      "value": 1278
+     },
+     {
+      "label": "Improper handling of ignition source or ignited material",
+      "value": 1091
+     },
+     {
+      "label": "Mechanical/Electrical Failure",
+      "value": 960
+     },
+     {
+      "label": "Mechanical Failure",
+      "value": 865
+     },
+     {
+      "label": "Design/Construction/Installation/Maintenance Deficiency",
+      "value": 705
+     }
+    ]
+   },
+   {
+    "id": "q2",
+    "purpose": "Known causes only (excluding undetermined/unknown)",
+    "chart": "bars",
+    "unit": "fires",
+    "sql": "SELECT regexp_replace(possible_cause, '^[0-9]+ - ', '') AS label, count(*) AS value FROM fire_incidents WHERE incident_type LIKE '01%' AND possible_cause IS NOT NULL AND possible_cause NOT LIKE '99%' AND possible_cause NOT LIKE '88%' AND possible_cause NOT ILIKE '%undetermined%' AND possible_cause NOT ILIKE '%under investigation%' GROUP BY 1 ORDER BY value DESC LIMIT 12",
+    "rows": [
+     {
+      "label": "Electrical Failure",
+      "value": 3134
+     },
+     {
+      "label": "Improperly Discarded",
+      "value": 2255
+     },
+     {
+      "label": "Other Unintended Cause",
+      "value": 1990
+     },
+     {
+      "label": "Unattended",
+      "value": 1928
+     },
+     {
+      "label": "Other unintentional cause, not classified",
+      "value": 1597
+     },
+     {
+      "label": "Misuse of ignition source/material ignited",
+      "value": 1382
+     },
+     {
+      "label": "Improper handling of ignition source or ignited material",
+      "value": 1091
+     },
+     {
+      "label": "Mechanical/Electrical Failure",
+      "value": 960
+     },
+     {
+      "label": "Mechanical Failure",
+      "value": 865
+     },
+     {
+      "label": "Design/Construction/Installation/Maintenance Deficiency",
+      "value": 705
+     },
+     {
+      "label": "Routine maintenance deficiency, eg creosote, lint, grease buildup",
+      "value": 698
+     },
+     {
+      "label": "Intentional",
+      "value": 617
+     }
+    ]
+   },
+   {
+    "id": "q3",
+    "purpose": "Causes of fires in homes with deadly or serious impact: civilian casualties by cause",
+    "chart": "bars",
+    "unit": "civilian casualties",
+    "sql": "SELECT regexp_replace(possible_cause, '^[0-9]+ - ', '') AS label, sum(civilian_casualties) AS value FROM fire_incidents WHERE incident_type LIKE '01%' AND possible_cause IS NOT NULL AND possible_cause NOT LIKE '99%' GROUP BY 1 HAVING sum(civilian_casualties) > 0 ORDER BY value DESC LIMIT 10",
+    "rows": [
+     {
+      "label": "Unattended",
+      "value": 350
+     },
+     {
+      "label": "Improper handling of ignition source or ignited material",
+      "value": 170
+     },
+     {
+      "label": "Electrical Failure",
+      "value": 164
+     },
+     {
+      "label": "Other unintentional cause, not classified",
+      "value": 136
+     },
+     {
+      "label": "Improperly Discarded",
+      "value": 118
+     },
+     {
+      "label": "Misuse of ignition source/material ignited",
+      "value": 104
+     },
+     {
+      "label": "Unintentional, cause undetermined",
+      "value": 95
+     },
+     {
+      "label": "Other Unintended Cause",
+      "value": 87
+     },
+     {
+      "label": "Used or Placed too close to combustibles",
+      "value": 81
+     },
+     {
+      "label": "Other misuse of ignition source/material ignited",
+      "value": 67
+     }
+    ]
+   }
+  ],
+  "story": {
+   "lead": "Electrical failure is the top known fire cause.",
+   "highlight": "Electrical failure",
+   "sub": "Fires Toronto Fire Services attended, 2011 to 2024, by the cause recorded for each fire.",
+   "stat": {
+    "value": "3,134",
+    "caption": "fires blamed on electrical failure, the top known cause, 2011-2024"
+   },
+   "points": [
+    {
+     "h": "Most fires have an undetermined cause",
+     "p": "The most common entry is Undetermined, with 4,012 fires, ahead of electrical failure at 3,134.",
+     "more": "Improperly discarded items follow with 2,255 fires, then other unintended cause (1,990) and unattended (1,928). Several of the listed causes are similar catch-all labels."
+    },
+    {
+     "h": "Electrical failure leads among known causes",
+     "p": "With unknown causes removed, electrical failure is still first at 3,134 fires.",
+     "more": "Improperly discarded (2,255) and other unintended cause (1,990) come next. Unattended is fourth with 1,928 fires. Intentional fires are 617."
+    },
+    {
+     "h": "Unattended fires cause the most civilian casualties",
+     "p": "Unattended fires are linked to 350 civilian casualties, more than any other cause.",
+     "more": "That is about double the next cause, improper handling of ignition source or ignited material (170). Electrical failure is third with 164, and improperly discarded is fifth with 118."
+    }
+   ],
+   "next": [
+    "How many fires happen each year in Toronto?",
+    "Which wards have the most fires?",
+    "How often were smoke alarms present in fires with casualties?"
+   ]
+  },
+  "created": "2026-10-06"
+ },
+ {
+  "q": "Most-delayed streetcar route?",
+  "queries": [
+   {
+    "id": "q1",
+    "purpose": "Number of delays by streetcar route",
+    "chart": "bars",
+    "unit": "delays",
+    "sql": "SELECT route AS label, count(*) AS value FROM streetcar_delays WHERE min_delay > 0 AND route IS NOT NULL GROUP BY 1 ORDER BY value DESC LIMIT 15",
+    "rows": [
+     {
+      "label": "504 KING",
+      "value": 3269
+     },
+     {
+      "label": "501 QUEEN",
+      "value": 3255
+     },
+     {
+      "label": "505 DUNDAS",
+      "value": 2491
+     },
+     {
+      "label": "506 CARLTON",
+      "value": 2349
+     },
+     {
+      "label": "503 KINGSTON ROAD",
+      "value": 1552
+     },
+     {
+      "label": "510 SPADINA",
+      "value": 1361
+     },
+     {
+      "label": "512 ST. CLAIR",
+      "value": 1298
+     },
+     {
+      "label": "511 BATHURST",
+      "value": 813
+     },
+     {
+      "label": "507 LONG BRANCH",
+      "value": 673
+     },
+     {
+      "label": "509 HARBOURFRONT",
+      "value": 472
+     },
+     {
+      "label": "301 QUEEN NIGHT",
+      "value": 172
+     },
+     {
+      "label": "306 CARLTON NIGHT",
+      "value": 120
+     },
+     {
+      "label": "304 KING NIGHT",
+      "value": 107
+     },
+     {
+      "label": "508 LAKESHORE",
+      "value": 87
+     },
+     {
+      "label": "305 DUNDAS NIGHT",
+      "value": 81
+     }
+    ]
+   },
+   {
+    "id": "q2",
+    "purpose": "Total delay minutes by streetcar route",
+    "chart": "bars",
+    "unit": "minutes",
+    "sql": "SELECT route AS label, sum(min_delay) AS value FROM streetcar_delays WHERE min_delay > 0 AND route IS NOT NULL GROUP BY 1 ORDER BY value DESC LIMIT 15",
+    "rows": [
+     {
+      "label": "504 KING",
+      "value": 77703
+     },
+     {
+      "label": "501 QUEEN",
+      "value": 74034
+     },
+     {
+      "label": "505 DUNDAS",
+      "value": 59316
+     },
+     {
+      "label": "506 CARLTON",
+      "value": 56379
+     },
+     {
+      "label": "503 KINGSTON ROAD",
+      "value": 32035
+     },
+     {
+      "label": "512 ST. CLAIR",
+      "value": 23149
+     },
+     {
+      "label": "510 SPADINA",
+      "value": 20294
+     },
+     {
+      "label": "511 BATHURST",
+      "value": 16450
+     },
+     {
+      "label": "507 LONG BRANCH",
+      "value": 13869
+     },
+     {
+      "label": "509 HARBOURFRONT",
+      "value": 11203
+     },
+     {
+      "label": "301 QUEEN NIGHT",
+      "value": 6027
+     },
+     {
+      "label": "306 CARLTON NIGHT",
+      "value": 3810
+     },
+     {
+      "label": "508 LAKESHORE",
+      "value": 3295
+     },
+     {
+      "label": "304 KING NIGHT",
+      "value": 3108
+     },
+     {
+      "label": "305 DUNDAS NIGHT",
+      "value": 2078
+     }
+    ]
+   },
+   {
+    "id": "q3",
+    "purpose": "Average minutes per delay by route (routes with 100+ delays)",
+    "chart": "bars",
+    "unit": "minutes per delay",
+    "sql": "SELECT route AS label, round(avg(min_delay), 1) AS value FROM streetcar_delays WHERE min_delay > 0 AND route IS NOT NULL GROUP BY 1 HAVING count(*) >= 100 ORDER BY value DESC LIMIT 15",
+    "rows": [
+     {
+      "label": "301 QUEEN NIGHT",
+      "value": 35
+     },
+     {
+      "label": "306 CARLTON NIGHT",
+      "value": 31.8
+     },
+     {
+      "label": "304 KING NIGHT",
+      "value": 29
+     },
+     {
+      "label": "506 CARLTON",
+      "value": 24
+     },
+     {
+      "label": "505 DUNDAS",
+      "value": 23.8
+     },
+     {
+      "label": "504 KING",
+      "value": 23.8
+     },
+     {
+      "label": "509 HARBOURFRONT",
+      "value": 23.7
+     },
+     {
+      "label": "501 QUEEN",
+      "value": 22.7
+     },
+     {
+      "label": "507 LONG BRANCH",
+      "value": 20.6
+     },
+     {
+      "label": "503 KINGSTON ROAD",
+      "value": 20.6
+     },
+     {
+      "label": "511 BATHURST",
+      "value": 20.2
+     },
+     {
+      "label": "512 ST. CLAIR",
+      "value": 17.8
+     },
+     {
+      "label": "510 SPADINA",
+      "value": 14.9
+     }
+    ]
+   }
+  ],
+  "story": {
+   "lead": "The 504 King is the most-delayed streetcar route.",
+   "highlight": "504 King",
+   "sub": "TTC streetcar delay records, 1 January 2025 to 31 August 2026, counting only incidents with at least one minute of delay.",
+   "stat": {
+    "value": "77,703",
+    "caption": "total delay minutes on the 504 King, the most of any route"
+   },
+   "points": [
+    {
+     "h": "504 King and 501 Queen are nearly tied",
+     "p": "The 504 King had 3,269 delays, just ahead of the 501 Queen with 3,255.",
+     "more": "The 505 Dundas (2,491) and 506 Carlton (2,349) come next. The 503 Kingston Road has 1,552, and every other route has fewer than 1,400."
+    },
+    {
+     "h": "504 King loses the most time overall",
+     "p": "Added up, delays on the 504 King cost 77,703 minutes, more than any other route.",
+     "more": "The 501 Queen follows with 74,034 minutes, then the 505 Dundas with 59,316 and the 506 Carlton with 56,379. The top four routes are well ahead of the rest."
+    },
+    {
+     "h": "Night routes have the longest delays",
+     "p": "Night routes average the most minutes per delay, led by the 301 Queen Night at 35.",
+     "more": "Among day routes, the 506 Carlton averages 24 minutes, with the 505 Dundas and 504 King both at 23.8. The 510 Spadina has the shortest at 14.9 minutes."
+    }
+   ],
+   "next": [
+    "Which hours of the day have the most streetcar delays?",
+    "What are the most common causes of delay on the 504 King?",
+    "Which bus routes have the most delays?"
+   ]
+  },
+  "created": "2026-10-06"
+ },
+ {
+  "q": "People in shelters each night?",
+  "queries": [
+   {
+    "id": "q1",
+    "purpose": "Average people in shelters per night, by year",
+    "chart": "columns",
+    "unit": "people per night",
+    "sql": "SELECT CAST(year(date) AS VARCHAR) AS label, round(avg(n)) AS value FROM (SELECT date, sum(service_users) AS n FROM shelter_occupancy GROUP BY 1) GROUP BY year(date) ORDER BY year(date)",
+    "rows": [
+     {
+      "label": "2021",
+      "value": 6382
+     },
+     {
+      "label": "2022",
+      "value": 8012
+     },
+     {
+      "label": "2023",
+      "value": 9010
+     },
+     {
+      "label": "2024",
+      "value": 9766
+     },
+     {
+      "label": "2025",
+      "value": 9215
+     },
+     {
+      "label": "2026",
+      "value": 8209
+     }
+    ]
+   },
+   {
+    "id": "q2",
+    "purpose": "Average people per night by month, last 24 months of full data",
+    "chart": "columns",
+    "unit": "people per night",
+    "sql": "SELECT strftime(m, '%b %Y') AS label, value FROM (SELECT date_trunc('month', date) AS m, round(avg(n)) AS value FROM (SELECT date, sum(service_users) AS n FROM shelter_occupancy WHERE date < DATE '2026-10-01' GROUP BY 1) GROUP BY 1 ORDER BY 1 DESC LIMIT 24) ORDER BY m",
+    "rows": [
+     {
+      "label": "Oct 2024",
+      "value": 9604
+     },
+     {
+      "label": "Nov 2024",
+      "value": 9623
+     },
+     {
+      "label": "Dec 2024",
+      "value": 9879
+     },
+     {
+      "label": "Jan 2025",
+      "value": 10228
+     },
+     {
+      "label": "Feb 2025",
+      "value": 10150
+     },
+     {
+      "label": "Mar 2025",
+      "value": 9778
+     },
+     {
+      "label": "Apr 2025",
+      "value": 9447
+     },
+     {
+      "label": "May 2025",
+      "value": 9181
+     },
+     {
+      "label": "Jun 2025",
+      "value": 9065
+     },
+     {
+      "label": "Jul 2025",
+      "value": 8900
+     },
+     {
+      "label": "Aug 2025",
+      "value": 8765
+     },
+     {
+      "label": "Sep 2025",
+      "value": 8649
+     },
+     {
+      "label": "Oct 2025",
+      "value": 8698
+     },
+     {
+      "label": "Nov 2025",
+      "value": 8742
+     },
+     {
+      "label": "Dec 2025",
+      "value": 9035
+     },
+     {
+      "label": "Jan 2026",
+      "value": 9217
+     },
+     {
+      "label": "Feb 2026",
+      "value": 9206
+     },
+     {
+      "label": "Mar 2026",
+      "value": 8742
+     },
+     {
+      "label": "Apr 2026",
+      "value": 8391
+     },
+     {
+      "label": "May 2026",
+      "value": 7990
+     },
+     {
+      "label": "Jun 2026",
+      "value": 7816
+     },
+     {
+      "label": "Jul 2026",
+      "value": 7756
+     },
+     {
+      "label": "Aug 2026",
+      "value": 7640
+     },
+     {
+      "label": "Sep 2026",
+      "value": 7324
+     }
+    ]
+   },
+   {
+    "id": "q3",
+    "purpose": "Average people per night by sector, 2025",
+    "chart": "bars",
+    "unit": "people per night",
+    "sql": "SELECT sector AS label, round(avg(n)) AS value FROM (SELECT date, sector, sum(service_users) AS n FROM shelter_occupancy WHERE year(date) = 2025 GROUP BY 1, 2) GROUP BY sector ORDER BY value DESC LIMIT 10",
+    "rows": [
+     {
+      "label": "Mixed Adult",
+      "value": 2831
+     },
+     {
+      "label": "Families",
+      "value": 2484
+     },
+     {
+      "label": "Men",
+      "value": 2099
+     },
+     {
+      "label": "Women",
+      "value": 1082
+     },
+     {
+      "label": "Youth",
+      "value": 719
+     }
+    ]
+   }
+  ],
+  "story": {
+   "lead": "About 7,300 people a night now, down from peak.",
+   "highlight": "down from peak",
+   "sub": "Nightly shelter totals, Jan 2021 to Oct 2026 (2026 is a partial year); monthly view covers Oct 2024 to Sep 2026.",
+   "stat": {
+    "value": "7,324",
+    "caption": "average people in shelters per night in September 2026"
+   },
+   "points": [
+    {
+     "h": "Nightly numbers peaked in 2024, then fell",
+     "p": "The yearly average rose from 6,382 in 2021 to 9,766 in 2024, then dropped.",
+     "more": "2025 averaged 9,215 people a night. So far in 2026 the average is 8,209, which is about 1,550 below the 2024 peak."
+    },
+    {
+     "h": "Numbers have fallen steadily over two years",
+     "p": "Monthly averages were above 10,000 in early 2025 and are now near 7,300.",
+     "more": "January 2025 was the high at 10,228 a night. September 2026 was the low at 7,324. Each winter was higher than the months before and after it, but the 2026 winter peak (9,217) was below the 2025 one."
+    },
+    {
+     "h": "Mixed adult shelters held the most people",
+     "p": "In 2025, mixed adult programs averaged 2,831 people a night, ahead of every other group.",
+     "more": "Families came next at 2,484, then men at 2,099 and women at 1,082. Youth had the fewest at 719 a night."
+    }
+   ],
+   "next": [
+    "Which shelter sectors have fallen the most since 2024?",
+    "How many people were in shelters on the coldest winter nights versus summer nights?",
+    "How did deaths of people experiencing homelessness change from 2022 to 2024?"
+   ]
+  },
+  "created": "2026-10-06"
+ },
+ {
+  "q": "Safest beach for swimming?",
+  "queries": [
+   {
+    "id": "q1",
+    "purpose": "Share of beach-days with E. coli over 100 (unsafe), last 5 seasons",
+    "chart": "bars",
+    "unit": "% of days unsafe",
+    "sql": "SELECT beach AS label, round(100.0 * avg(CASE WHEN d_ecoli > 100 THEN 1 ELSE 0 END), 1) AS value FROM (SELECT beach, date, avg(ecoli) AS d_ecoli FROM beach_water WHERE ecoli IS NOT NULL AND date >= DATE '2021-01-01' GROUP BY beach, date) GROUP BY beach HAVING count(*) >= 30 ORDER BY value ASC LIMIT 30",
+    "rows": [
+     {
+      "label": "Gibraltar Point Beach",
+      "value": 4.3
+     },
+     {
+      "label": "Hanlan's Point Beach",
+      "value": 6.6
+     },
+     {
+      "label": "Cherry Beach",
+      "value": 7.7
+     },
+     {
+      "label": "Ward's Island Beach",
+      "value": 9.8
+     },
+     {
+      "label": "Woodbine Beaches",
+      "value": 12.6
+     },
+     {
+      "label": "Bluffer's Beach Park",
+      "value": 16.4
+     },
+     {
+      "label": "Kew Balmy Beach",
+      "value": 22.8
+     },
+     {
+      "label": "Centre Island Beach",
+      "value": 35.3
+     },
+     {
+      "label": "Marie Curtis Park East Beach",
+      "value": 35.7
+     },
+     {
+      "label": "Sunnyside Beach",
+      "value": 36.8
+     }
+    ]
+   },
+   {
+    "id": "q2",
+    "purpose": "Typical (median) E. coli level per beach, last 5 seasons",
+    "chart": "bars",
+    "unit": "E. coli per 100 mL",
+    "sql": "SELECT beach AS label, round(median(d_ecoli), 1) AS value FROM (SELECT beach, date, avg(ecoli) AS d_ecoli FROM beach_water WHERE ecoli IS NOT NULL AND date >= DATE '2021-01-01' GROUP BY beach, date) GROUP BY beach HAVING count(*) >= 30 ORDER BY value ASC LIMIT 30",
+    "rows": [
+     {
+      "label": "Gibraltar Point Beach",
+      "value": 14
+     },
+     {
+      "label": "Ward's Island Beach",
+      "value": 14
+     },
+     {
+      "label": "Hanlan's Point Beach",
+      "value": 14
+     },
+     {
+      "label": "Cherry Beach",
+      "value": 14
+     },
+     {
+      "label": "Bluffer's Beach Park",
+      "value": 22
+     },
+     {
+      "label": "Woodbine Beaches",
+      "value": 26
+     },
+     {
+      "label": "Kew Balmy Beach",
+      "value": 36.7
+     },
+     {
+      "label": "Marie Curtis Park East Beach",
+      "value": 56
+     },
+     {
+      "label": "Centre Island Beach",
+      "value": 56
+     },
+     {
+      "label": "Sunnyside Beach",
+      "value": 74
+     }
+    ]
+   },
+   {
+    "id": "q3",
+    "purpose": "Days sampled per beach, to show how much data backs each result",
+    "chart": "bars",
+    "unit": "days sampled",
+    "sql": "SELECT beach AS label, count(*) AS value FROM (SELECT beach, date FROM beach_water WHERE ecoli IS NOT NULL AND date >= DATE '2021-01-01' GROUP BY beach, date) GROUP BY beach ORDER BY value DESC LIMIT 30",
+    "rows": [
+     {
+      "label": "Woodbine Beaches",
+      "value": 651
+     },
+     {
+      "label": "Kew Balmy Beach",
+      "value": 650
+     },
+     {
+      "label": "Cherry Beach",
+      "value": 649
+     },
+     {
+      "label": "Sunnyside Beach",
+      "value": 641
+     },
+     {
+      "label": "Bluffer's Beach Park",
+      "value": 640
+     },
+     {
+      "label": "Ward's Island Beach",
+      "value": 624
+     },
+     {
+      "label": "Hanlan's Point Beach",
+      "value": 617
+     },
+     {
+      "label": "Marie Curtis Park East Beach",
+      "value": 614
+     },
+     {
+      "label": "Centre Island Beach",
+      "value": 609
+     },
+     {
+      "label": "Gibraltar Point Beach",
+      "value": 601
+     }
+    ]
+   }
+  ],
+  "story": {
+   "lead": "Gibraltar Point Beach is the safest for swimming.",
+   "highlight": "Gibraltar Point Beach",
+   "sub": "Based on E. coli samples at 10 Toronto beaches, swimming seasons from 2021 to 2026.",
+   "stat": {
+    "value": "4.3%",
+    "caption": "of sampled days Gibraltar Point Beach was over the unsafe limit of 100"
+   },
+   "points": [
+    {
+     "h": "Gibraltar Point has the fewest unsafe days",
+     "p": "Gibraltar Point Beach was unsafe on 4.3% of sampled days, the lowest of any beach.",
+     "more": "Hanlan's Point (6.6%) and Cherry Beach (7.7%) follow. Sunnyside Beach was worst at 36.8%, with Marie Curtis Park East (35.7%) and Centre Island (35.3%) close behind."
+    },
+    {
+     "h": "Four beaches share the lowest typical level",
+     "p": "Gibraltar Point, Ward's Island, Hanlan's Point and Cherry Beach all have a median of 14 E. coli per 100 mL.",
+     "more": "Sunnyside Beach has the highest median at 74, about five times higher. Bluffer's Beach Park (22) and Woodbine Beaches (26) are the next best."
+    },
+    {
+     "h": "Every beach has about 600 or more sampled days",
+     "p": "Each beach was sampled on at least 601 days, so the comparison rests on a lot of readings.",
+     "more": "Woodbine Beaches has the most, at 651 days. Gibraltar Point has the fewest, at 601, which is still plenty."
+    }
+   ],
+   "next": [
+    "Which beach had the most unsafe days in 2025?",
+    "Has water quality at Sunnyside Beach improved since 2007?",
+    "Which month has the most unsafe beach days?"
+   ]
+  },
+  "created": "2026-10-06"
+ },
+ {
+  "q": "Pothole complaints over time?",
+  "queries": [
+   {
+    "id": "q1",
+    "purpose": "Pothole requests per year (2026 partial, Jan-Aug)",
+    "chart": "columns",
+    "unit": "requests",
+    "sql": "SELECT CAST(year(date) AS VARCHAR) AS label, sum(requests) AS value FROM service_requests_311 WHERE request_type ILIKE '%pot%hole%' OR request_type ILIKE '%pothole%' GROUP BY year(date) ORDER BY year(date)",
+    "rows": [
+     {
+      "label": "2019",
+      "value": 18495
+     },
+     {
+      "label": "2020",
+      "value": 8295
+     },
+     {
+      "label": "2021",
+      "value": 4432
+     },
+     {
+      "label": "2022",
+      "value": 10063
+     },
+     {
+      "label": "2023",
+      "value": 15578
+     },
+     {
+      "label": "2024",
+      "value": 6948
+     },
+     {
+      "label": "2025",
+      "value": 11718
+     },
+     {
+      "label": "2026",
+      "value": 23976
+     }
+    ]
+   },
+   {
+    "id": "q2",
+    "purpose": "Pothole requests by month, average across all years (seasonality)",
+    "chart": "columns",
+    "unit": "requests per year",
+    "sql": "SELECT strftime(date, '%b') AS label, round(sum(requests) * 1.0 / count(DISTINCT year(date))) AS value FROM service_requests_311 WHERE request_type ILIKE '%pot%hole%' OR request_type ILIKE '%pothole%' GROUP BY month(date), strftime(date, '%b') ORDER BY month(date)",
+    "rows": [
+     {
+      "label": "Jan",
+      "value": 924
+     },
+     {
+      "label": "Feb",
+      "value": 1962
+     },
+     {
+      "label": "Mar",
+      "value": 2706
+     },
+     {
+      "label": "Apr",
+      "value": 1851
+     },
+     {
+      "label": "May",
+      "value": 1394
+     },
+     {
+      "label": "Jun",
+      "value": 926
+     },
+     {
+      "label": "Jul",
+      "value": 755
+     },
+     {
+      "label": "Aug",
+      "value": 554
+     },
+     {
+      "label": "Sep",
+      "value": 423
+     },
+     {
+      "label": "Oct",
+      "value": 385
+     },
+     {
+      "label": "Nov",
+      "value": 359
+     },
+     {
+      "label": "Dec",
+      "value": 521
+     }
+    ]
+   },
+   {
+    "id": "q3",
+    "purpose": "Pothole requests by month, last 24 months",
+    "chart": "columns",
+    "unit": "requests",
+    "sql": "SELECT strftime(m, '%b %Y') AS label, value FROM (SELECT date_trunc('month', date) AS m, sum(requests) AS value FROM service_requests_311 WHERE (request_type ILIKE '%pot%hole%' OR request_type ILIKE '%pothole%') AND date >= DATE '2024-09-01' AND date < DATE '2026-09-01' GROUP BY 1) ORDER BY m",
+    "rows": [
+     {
+      "label": "Sep 2024",
+      "value": 346
+     },
+     {
+      "label": "Oct 2024",
+      "value": 349
+     },
+     {
+      "label": "Nov 2024",
+      "value": 304
+     },
+     {
+      "label": "Dec 2024",
+      "value": 310
+     },
+     {
+      "label": "Jan 2025",
+      "value": 489
+     },
+     {
+      "label": "Feb 2025",
+      "value": 1244
+     },
+     {
+      "label": "Mar 2025",
+      "value": 3250
+     },
+     {
+      "label": "Apr 2025",
+      "value": 1331
+     },
+     {
+      "label": "May 2025",
+      "value": 1159
+     },
+     {
+      "label": "Jun 2025",
+      "value": 950
+     },
+     {
+      "label": "Jul 2025",
+      "value": 748
+     },
+     {
+      "label": "Aug 2025",
+      "value": 563
+     },
+     {
+      "label": "Sep 2025",
+      "value": 484
+     },
+     {
+      "label": "Oct 2025",
+      "value": 474
+     },
+     {
+      "label": "Nov 2025",
+      "value": 419
+     },
+     {
+      "label": "Dec 2025",
+      "value": 607
+     },
+     {
+      "label": "Jan 2026",
+      "value": 1911
+     },
+     {
+      "label": "Feb 2026",
+      "value": 5067
+     },
+     {
+      "label": "Mar 2026",
+      "value": 6227
+     },
+     {
+      "label": "Apr 2026",
+      "value": 4672
+     },
+     {
+      "label": "May 2026",
+      "value": 2674
+     },
+     {
+      "label": "Jun 2026",
+      "value": 1609
+     },
+     {
+      "label": "Jul 2026",
+      "value": 1187
+     },
+     {
+      "label": "Aug 2026",
+      "value": 629
+     }
+    ]
+   }
+  ],
+  "story": {
+   "lead": "Pothole complaints jumped to a record in 2026.",
+   "highlight": "record in 2026",
+   "sub": "311 pothole requests, Jan 2019 to Aug 2026; 2026 covers only Jan to Aug.",
+   "stat": {
+    "value": "23,976",
+    "caption": "pothole requests in just the first eight months of 2026"
+   },
+   "points": [
+    {
+     "h": "2026 already tops every full year",
+     "p": "Yearly pothole requests have swung up and down, and 2026 is the highest so far.",
+     "more": "The 2026 total of 23,976 is already above 2019, the highest full year, at 18,495. The lowest year was 2021, at 4,432."
+    },
+    {
+     "h": "Complaints peak in late winter",
+     "p": "On average, requests climb in February and peak in March, then fade through the year.",
+     "more": "March averages 2,706 requests a year, against 359 in November, the quietest month. February and April are the next busiest at 1,962 and 1,851."
+    },
+    {
+     "h": "Early 2026 far outpaced early 2025",
+     "p": "The last two springs both peaked in March, but 2026 was much bigger.",
+     "more": "March 2026 had 6,227 requests, against 3,250 in March 2025. February 2026 reached 5,067, against 1,244 a year earlier. By August 2026, the monthly count had dropped to 629."
+    }
+   ],
+   "next": [
+    "Which wards report the most potholes?",
+    "How many pothole requests are still open versus closed?",
+    "How do pothole requests compare with other road complaints?"
+   ]
+  },
+  "created": "2026-10-06"
+ },
+ {
+  "q": "Most-delayed bus routes?",
+  "queries": [
+   {
+    "id": "q1",
+    "purpose": "Bus routes with the most delays (incidents)",
+    "chart": "bars",
+    "unit": "delays",
+    "sql": "SELECT route AS label, count(*) AS value FROM bus_delays WHERE min_delay > 0 AND route IS NOT NULL GROUP BY route ORDER BY value DESC LIMIT 15",
+    "rows": [
+     {
+      "label": "52 LAWRENCE WEST",
+      "value": 2179
+     },
+     {
+      "label": "102 MARKHAM ROAD",
+      "value": 1904
+     },
+     {
+      "label": "32 EGLINTON WEST",
+      "value": 1878
+     },
+     {
+      "label": "29 DUFFERIN",
+      "value": 1674
+     },
+     {
+      "label": "7 BATHURST",
+      "value": 1618
+     },
+     {
+      "label": "939 FINCH EXPRESS",
+      "value": 1595
+     },
+     {
+      "label": "63 OSSINGTON",
+      "value": 1492
+     },
+     {
+      "label": "54 LAWRENCE EAST",
+      "value": 1488
+     },
+     {
+      "label": "116 MORNINGSIDE",
+      "value": 1438
+     },
+     {
+      "label": "85 SHEPPARD EAST",
+      "value": 1399
+     },
+     {
+      "label": "86 SCARBOROUGH",
+      "value": 1397
+     },
+     {
+      "label": "95 YORK MILLS",
+      "value": 1379
+     },
+     {
+      "label": "36 FINCH WEST",
+      "value": 1367
+     },
+     {
+      "label": "35 JANE",
+      "value": 1367
+     },
+     {
+      "label": "165 WESTON ROAD NORTH",
+      "value": 1357
+     }
+    ]
+   },
+   {
+    "id": "q2",
+    "purpose": "Bus routes with the most total delay minutes",
+    "chart": "bars",
+    "unit": "minutes",
+    "sql": "SELECT route AS label, sum(min_delay) AS value FROM bus_delays WHERE min_delay > 0 AND route IS NOT NULL GROUP BY route ORDER BY value DESC LIMIT 15",
+    "rows": [
+     {
+      "label": "52 LAWRENCE WEST",
+      "value": 48648
+     },
+     {
+      "label": "97 YONGE",
+      "value": 47951
+     },
+     {
+      "label": "29 DUFFERIN",
+      "value": 42364
+     },
+     {
+      "label": "102 MARKHAM ROAD",
+      "value": 40086
+     },
+     {
+      "label": "37 ISLINGTON",
+      "value": 34447
+     },
+     {
+      "label": "63 OSSINGTON",
+      "value": 33943
+     },
+     {
+      "label": "54 LAWRENCE EAST",
+      "value": 29981
+     },
+     {
+      "label": "939 FINCH EXPRESS",
+      "value": 29184
+     },
+     {
+      "label": "32 EGLINTON WEST",
+      "value": 29083
+     },
+     {
+      "label": "86 SCARBOROUGH",
+      "value": 28049
+     },
+     {
+      "label": "96 WILSON",
+      "value": 27483
+     },
+     {
+      "label": "35 JANE",
+      "value": 26747
+     },
+     {
+      "label": "7 BATHURST",
+      "value": 25576
+     },
+     {
+      "label": "53 STEELES EAST",
+      "value": 25117
+     },
+     {
+      "label": "64 MAIN",
+      "value": 24957
+     }
+    ]
+   },
+   {
+    "id": "q3",
+    "purpose": "Routes with the longest average delay (routes with at least 100 delays)",
+    "chart": "bars",
+    "unit": "minutes per delay",
+    "sql": "SELECT route AS label, round(avg(min_delay), 1) AS value FROM bus_delays WHERE min_delay > 0 AND route IS NOT NULL GROUP BY route HAVING count(*) >= 100 ORDER BY value DESC LIMIT 15",
+    "rows": [
+     {
+      "label": "162 LAWRENCE-DONWAY",
+      "value": 106.5
+     },
+     {
+      "label": "77 SWANSEA",
+      "value": 86.3
+     },
+     {
+      "label": "55 WARREN PARK",
+      "value": 70.6
+     },
+     {
+      "label": "107 YORK UNIVERSITY HE",
+      "value": 70.1
+     },
+     {
+      "label": "160 BATHURST NORTH",
+      "value": 67.3
+     },
+     {
+      "label": "33 FOREST HILL",
+      "value": 65.4
+     },
+     {
+      "label": "334 EGLINTON EAST",
+      "value": 58.1
+     },
+     {
+      "label": "13 AVENUE ROAD",
+      "value": 57.4
+     },
+     {
+      "label": "59 MAPLE LEAF",
+      "value": 55.6
+     },
+     {
+      "label": "26 DUPONT",
+      "value": 55
+     },
+     {
+      "label": "87 COSBURN",
+      "value": 54.8
+     },
+     {
+      "label": "104 FAYWOOD",
+      "value": 53.2
+     },
+     {
+      "label": "97 YONGE",
+      "value": 52.9
+     },
+     {
+      "label": "127 DAVENPORT",
+      "value": 52.1
+     },
+     {
+      "label": "101 DOWNSVIEW PARK",
+      "value": 50.7
+     }
+    ]
+   }
+  ],
+  "story": {
+   "lead": "Lawrence West is the most-delayed bus route.",
+   "highlight": "Lawrence West",
+   "sub": "TTC bus delay incidents with at least one minute of delay, 1 January 2025 to 31 August 2026.",
+   "stat": {
+    "value": "2,179",
+    "caption": "delays on the 52 Lawrence West, the most of any bus route"
+   },
+   "points": [
+    {
+     "h": "52 Lawrence West has the most delays",
+     "p": "The 52 Lawrence West had more delay incidents than any other bus route.",
+     "more": "It had 2,179 delays, ahead of the 102 Markham Road with 1,904 and the 32 Eglinton West with 1,878. The 15th route on the list, the 165 Weston Road North, still had 1,357."
+    },
+    {
+     "h": "Lawrence West also loses the most minutes",
+     "p": "By total minutes lost, the 52 Lawrence West is first again, with the 97 Yonge close behind.",
+     "more": "The 52 Lawrence West lost 48,648 minutes and the 97 Yonge lost 47,951. The 97 Yonge is not in the top 15 for number of delays, so its delays must be long ones. The 29 Dufferin is third with 42,364 minutes."
+    },
+    {
+     "h": "A few routes have very long delays",
+     "p": "Some routes have far longer average delays than the busiest ones, among routes with at least 100 delays.",
+     "more": "The 162 Lawrence-Donway averages 106.5 minutes per delay and the 77 Swansea 86.3. The 55 Warren Park comes third at 70.6 minutes. The 15th route on this list still averages 50.7 minutes."
+    }
+   ],
+   "next": [
+    "Which streetcar routes have the most delays?",
+    "What are the most common causes of bus delays?",
+    "Which hours of the day have the most bus delays?"
+   ]
+  },
+  "created": "2026-10-06"
+ },
+ {
+  "q": "Cyclists seriously hurt per year?",
+  "queries": [
+   {
+    "id": "q1",
+    "purpose": "Cyclists killed or seriously injured per year",
+    "chart": "columns",
+    "unit": "people",
+    "sql": "SELECT CAST(year(collision_time) AS VARCHAR) AS label, count(*) AS value FROM ksi_collisions WHERE road_user = 'cyclist' AND injury IN ('Fatal','Major') AND year(collision_time) BETWEEN 2006 AND 2025 GROUP BY year(collision_time) ORDER BY year(collision_time) LIMIT 30",
+    "rows": [
+     {
+      "label": "2006",
+      "value": 51
+     },
+     {
+      "label": "2007",
+      "value": 39
+     },
+     {
+      "label": "2008",
+      "value": 40
+     },
+     {
+      "label": "2009",
+      "value": 39
+     },
+     {
+      "label": "2010",
+      "value": 40
+     },
+     {
+      "label": "2011",
+      "value": 51
+     },
+     {
+      "label": "2012",
+      "value": 68
+     },
+     {
+      "label": "2013",
+      "value": 64
+     },
+     {
+      "label": "2014",
+      "value": 45
+     },
+     {
+      "label": "2015",
+      "value": 51
+     },
+     {
+      "label": "2016",
+      "value": 38
+     },
+     {
+      "label": "2017",
+      "value": 52
+     },
+     {
+      "label": "2018",
+      "value": 44
+     },
+     {
+      "label": "2019",
+      "value": 47
+     },
+     {
+      "label": "2020",
+      "value": 33
+     },
+     {
+      "label": "2021",
+      "value": 21
+     },
+     {
+      "label": "2022",
+      "value": 36
+     },
+     {
+      "label": "2023",
+      "value": 45
+     },
+     {
+      "label": "2024",
+      "value": 43
+     },
+     {
+      "label": "2025",
+      "value": 33
+     }
+    ]
+   },
+   {
+    "id": "q2",
+    "purpose": "Cyclists killed per year",
+    "chart": "columns",
+    "unit": "people",
+    "sql": "SELECT CAST(year(collision_time) AS VARCHAR) AS label, count(*) AS value FROM ksi_collisions WHERE road_user = 'cyclist' AND injury = 'Fatal' AND year(collision_time) BETWEEN 2006 AND 2025 GROUP BY year(collision_time) ORDER BY year(collision_time) LIMIT 30",
+    "rows": [
+     {
+      "label": "2006",
+      "value": 3
+     },
+     {
+      "label": "2007",
+      "value": 3
+     },
+     {
+      "label": "2008",
+      "value": 2
+     },
+     {
+      "label": "2009",
+      "value": 1
+     },
+     {
+      "label": "2010",
+      "value": 2
+     },
+     {
+      "label": "2011",
+      "value": 2
+     },
+     {
+      "label": "2012",
+      "value": 3
+     },
+     {
+      "label": "2013",
+      "value": 4
+     },
+     {
+      "label": "2014",
+      "value": 3
+     },
+     {
+      "label": "2015",
+      "value": 4
+     },
+     {
+      "label": "2016",
+      "value": 1
+     },
+     {
+      "label": "2017",
+      "value": 4
+     },
+     {
+      "label": "2018",
+      "value": 4
+     },
+     {
+      "label": "2019",
+      "value": 1
+     },
+     {
+      "label": "2020",
+      "value": 4
+     },
+     {
+      "label": "2021",
+      "value": 1
+     },
+     {
+      "label": "2022",
+      "value": 2
+     },
+     {
+      "label": "2023",
+      "value": 1
+     },
+     {
+      "label": "2024",
+      "value": 7
+     },
+     {
+      "label": "2025",
+      "value": 2
+     }
+    ]
+   },
+   {
+    "id": "q3",
+    "purpose": "Average cyclists seriously hurt or killed per month of the year, 2016-2025",
+    "chart": "columns",
+    "unit": "people per year",
+    "sql": "SELECT strftime(collision_time, '%b') AS label, round(count(*) / 10.0, 1) AS value FROM ksi_collisions WHERE road_user = 'cyclist' AND injury IN ('Fatal','Major') AND year(collision_time) BETWEEN 2016 AND 2025 GROUP BY month(collision_time), strftime(collision_time, '%b') ORDER BY month(collision_time) LIMIT 12",
+    "rows": [
+     {
+      "label": "Jan",
+      "value": 0.8
+     },
+     {
+      "label": "Feb",
+      "value": 0.8
+     },
+     {
+      "label": "Mar",
+      "value": 1.6
+     },
+     {
+      "label": "Apr",
+      "value": 2.3
+     },
+     {
+      "label": "May",
+      "value": 4.5
+     },
+     {
+      "label": "Jun",
+      "value": 5.5
+     },
+     {
+      "label": "Jul",
+      "value": 5.4
+     },
+     {
+      "label": "Aug",
+      "value": 4.9
+     },
+     {
+      "label": "Sep",
+      "value": 4.9
+     },
+     {
+      "label": "Oct",
+      "value": 3.9
+     },
+     {
+      "label": "Nov",
+      "value": 3.2
+     },
+     {
+      "label": "Dec",
+      "value": 1.4
+     }
+    ]
+   }
+  ],
+  "story": {
+   "lead": "About 40 cyclists a year are seriously hurt.",
+   "highlight": "About 40 cyclists",
+   "sub": "Cyclists killed or seriously injured in Toronto collisions, 2006 to 2025, from the City's KSI collision data.",
+   "stat": {
+    "value": "33",
+    "caption": "cyclists killed or seriously injured in 2025"
+   },
+   "points": [
+    {
+     "h": "Yearly numbers have mostly stayed between 33 and 52",
+     "p": "Cyclists killed or seriously injured peaked in 2012 and were lowest in 2021.",
+     "more": "The peak was 68 people in 2012, and the low was 21 in 2021. Since then the count rose to 45 in 2023, then fell to 43 in 2024 and 33 in 2025."
+    },
+    {
+     "h": "Deaths are few, but 2024 stood out",
+     "p": "Between 1 and 7 cyclists were killed each year.",
+     "more": "2024 had 7 deaths, the most in any year shown. 2025 had 2, and 2023 and 2021 each had 1."
+    },
+    {
+     "h": "Summer is the most dangerous time",
+     "p": "Most cyclist serious injuries happen from May to September.",
+     "more": "June averaged 5.5 people a year and July 5.4. January and February averaged just 0.8 each."
+    }
+   ],
+   "next": [
+    "Which roads have the most cyclist serious injuries?",
+    "How many pedestrians are killed or seriously injured each year?",
+    "What time of day do serious cyclist collisions happen?"
+   ]
+  },
+  "created": "2026-10-06"
+ },
+ {
+  "q": "Restaurants closed after inspection?",
+  "queries": [
+   {
+    "id": "q1",
+    "purpose": "Closure inspections per month",
+    "chart": "columns",
+    "unit": "inspections",
+    "sql": "SELECT strftime(inspection_date, '%Y-%m') AS label, count(DISTINCT establishment_id || inspection_date::VARCHAR) AS value FROM dinesafe WHERE status = 'Closed' GROUP BY 1 ORDER BY 1 LIMIT 30",
+    "rows": [
+     {
+      "label": "2024-01",
+      "value": 1
+     },
+     {
+      "label": "2024-03",
+      "value": 1
+     },
+     {
+      "label": "2024-05",
+      "value": 2
+     },
+     {
+      "label": "2024-06",
+      "value": 1
+     },
+     {
+      "label": "2024-07",
+      "value": 4
+     },
+     {
+      "label": "2024-08",
+      "value": 3
+     },
+     {
+      "label": "2024-10",
+      "value": 4
+     },
+     {
+      "label": "2024-11",
+      "value": 2
+     },
+     {
+      "label": "2024-12",
+      "value": 3
+     },
+     {
+      "label": "2025-02",
+      "value": 1
+     },
+     {
+      "label": "2025-03",
+      "value": 1
+     },
+     {
+      "label": "2025-04",
+      "value": 1
+     },
+     {
+      "label": "2025-06",
+      "value": 2
+     },
+     {
+      "label": "2025-07",
+      "value": 1
+     },
+     {
+      "label": "2025-08",
+      "value": 2
+     },
+     {
+      "label": "2025-09",
+      "value": 5
+     },
+     {
+      "label": "2025-10",
+      "value": 5
+     },
+     {
+      "label": "2025-11",
+      "value": 3
+     },
+     {
+      "label": "2025-12",
+      "value": 8
+     },
+     {
+      "label": "2026-01",
+      "value": 1
+     },
+     {
+      "label": "2026-02",
+      "value": 4
+     },
+     {
+      "label": "2026-03",
+      "value": 6
+     },
+     {
+      "label": "2026-04",
+      "value": 5
+     },
+     {
+      "label": "2026-05",
+      "value": 3
+     },
+     {
+      "label": "2026-06",
+      "value": 6
+     },
+     {
+      "label": "2026-07",
+      "value": 3
+     },
+     {
+      "label": "2026-08",
+      "value": 2
+     },
+     {
+      "label": "2026-09",
+      "value": 2
+     }
+    ]
+   },
+   {
+    "id": "q2",
+    "purpose": "Share of inspections ending in each result",
+    "chart": "bars",
+    "unit": "inspections",
+    "sql": "SELECT status AS label, count(DISTINCT establishment_id || inspection_date::VARCHAR) AS value FROM dinesafe WHERE status IS NOT NULL GROUP BY 1 ORDER BY 2 DESC LIMIT 30",
+    "rows": [
+     {
+      "label": "Pass",
+      "value": 75678
+     },
+     {
+      "label": "Conditional Pass",
+      "value": 4790
+     },
+     {
+      "label": "Closed",
+      "value": 82
+     },
+     {
+      "label": "Temporarily Not Operating",
+      "value": 1
+     }
+    ]
+   },
+   {
+    "id": "q3",
+    "purpose": "Establishments closed most often",
+    "chart": "bars",
+    "unit": "closures",
+    "sql": "SELECT establishment || ' (' || address || ')' AS label, count(DISTINCT inspection_date) AS value FROM dinesafe WHERE status = 'Closed' GROUP BY establishment, address, establishment_id ORDER BY 2 DESC, 1 LIMIT 15",
+    "rows": [
+     {
+      "label": "ALEXANDRO'S TAKE OUT (5 Queens Quay  W None M5J 2H1)",
+      "value": 2
+     },
+     {
+      "label": "ALI'S WRAPS (40 St George St None M5S 2E4)",
+      "value": 1
+     },
+     {
+      "label": "ANIMAL LIBRATION KITCHEN (100 Broadview Ave Unit-202 M4M 3H3)",
+      "value": 1
+     },
+     {
+      "label": "AUGUST 8 EGLINTON (10 Lebovic Ave Unit-8 M1L 4V9)",
+      "value": 1
+     },
+     {
+      "label": "BABU CATERING & TAKE OUT (4810 Sheppard Ave E Unit-201 M1S 4N6)",
+      "value": 1
+     },
+     {
+      "label": "BAR ARDO (169 King St E None M5A 1J4)",
+      "value": 1
+     },
+     {
+      "label": "BARBURRITO (419 Yonge St Ste-419 M5B 1T1)",
+      "value": 1
+     },
+     {
+      "label": "BELMONT EVENT SPACE (655 Dixon Rd MAIN M9W 1J3)",
+      "value": 1
+     },
+     {
+      "label": "Bakerberry's (1450 Whitehorse Rd None M3J 3A7)",
+      "value": 1
+     },
+     {
+      "label": "CAFFE'IN (100 St George St None M5S 3G3)",
+      "value": 1
+     },
+     {
+      "label": "CHINA FOOD (854 Millwood Rd None M4G 1W6)",
+      "value": 1
+     },
+     {
+      "label": "CHO MING'S RESTAURANT (1711 Jane St None M9N 2S3)",
+      "value": 1
+     },
+     {
+      "label": "CHOCO CHOO (35 St Joseph St None M4Y 1J8)",
+      "value": 1
+     },
+     {
+      "label": "COLLEGE STREET BAGELS (697 College St None M6G 1B9)",
+      "value": 1
+     },
+     {
+      "label": "Chinese Bakery (433 Dundas St W None M5T 1G6)",
+      "value": 1
+     }
+    ]
+   }
+  ],
+  "story": {
+   "lead": "Very few: only 82 inspections ended in a closure.",
+   "highlight": "82 inspections",
+   "sub": "Based on DineSafe inspections from November 2023 to early October 2026; closures appear from January 2024 to September 2026.",
+   "stat": {
+    "value": "82",
+    "caption": "inspections ended in a closure, about 1 in 1,000"
+   },
+   "points": [
+    {
+     "h": "Closures stay in single digits each month",
+     "p": "Closures per month ranged from 1 to 8 in the months that had any.",
+     "more": "December 2025 was the highest month with 8 closures. March and June 2026 each had 6. There were 21 closures in 2024, 29 in 2025 and 32 in the first nine months of 2026."
+    },
+    {
+     "h": "Nearly all inspections end in a pass",
+     "p": "Most inspections pass, a small share get a conditional pass, and closures are rare.",
+     "more": "Of about 80,551 inspections, 75,678 were a pass (94%) and 4,790 were a conditional pass (6%). 82 were closures, and 1 was marked temporarily not operating."
+    },
+    {
+     "h": "Almost no place has been closed twice",
+     "p": "Only one establishment shows up with more than one closure.",
+     "more": "Alexandro's Take Out at 5 Queens Quay W was closed on 2 different dates. Every other place in the top 15 was closed once, including Ali's Wraps, Bar Ardo and Barburrito."
+    }
+   ],
+   "next": [
+    "Which infractions are most common in inspections that end in closure?",
+    "How many inspections end in a conditional pass each month?",
+    "How many crucial infractions were found each year?"
+   ]
+  },
+  "created": "2026-10-06"
+ },
+ {
+  "q": "Busiest month for weddings?",
+  "queries": [
+   {
+    "id": "q1",
+    "purpose": "Average marriage licences issued per calendar month (full years 2011-2025)",
+    "chart": "columns",
+    "unit": "licences per month",
+    "sql": "SELECT strftime(month, '%b') AS label, round(avg(total)) AS value FROM (SELECT month, sum(licences) AS total FROM marriage_licences WHERE year(month) BETWEEN 2011 AND 2025 GROUP BY month) GROUP BY label, month(month) ORDER BY month(month)",
+    "rows": [
+     {
+      "label": "Jan",
+      "value": 767
+     },
+     {
+      "label": "Feb",
+      "value": 788
+     },
+     {
+      "label": "Mar",
+      "value": 1104
+     },
+     {
+      "label": "Apr",
+      "value": 1225
+     },
+     {
+      "label": "May",
+      "value": 1526
+     },
+     {
+      "label": "Jun",
+      "value": 1731
+     },
+     {
+      "label": "Jul",
+      "value": 1995
+     },
+     {
+      "label": "Aug",
+      "value": 1938
+     },
+     {
+      "label": "Sep",
+      "value": 1403
+     },
+     {
+      "label": "Oct",
+      "value": 1087
+     },
+     {
+      "label": "Nov",
+      "value": 801
+     },
+     {
+      "label": "Dec",
+      "value": 730
+     }
+    ]
+   },
+   {
+    "id": "q2",
+    "purpose": "Total licences by month for the most recent full years (2022-2025 average)",
+    "chart": "columns",
+    "unit": "licences per month",
+    "sql": "SELECT strftime(month, '%b') AS label, round(avg(total)) AS value FROM (SELECT month, sum(licences) AS total FROM marriage_licences WHERE year(month) BETWEEN 2022 AND 2025 GROUP BY month) GROUP BY label, month(month) ORDER BY month(month)",
+    "rows": [
+     {
+      "label": "Jan",
+      "value": 813
+     },
+     {
+      "label": "Feb",
+      "value": 809
+     },
+     {
+      "label": "Mar",
+      "value": 1173
+     },
+     {
+      "label": "Apr",
+      "value": 1380
+     },
+     {
+      "label": "May",
+      "value": 1644
+     },
+     {
+      "label": "Jun",
+      "value": 1975
+     },
+     {
+      "label": "Jul",
+      "value": 2166
+     },
+     {
+      "label": "Aug",
+      "value": 2101
+     },
+     {
+      "label": "Sep",
+      "value": 1466
+     },
+     {
+      "label": "Oct",
+      "value": 1087
+     },
+     {
+      "label": "Nov",
+      "value": 842
+     },
+     {
+      "label": "Dec",
+      "value": 750
+     }
+    ]
+   },
+   {
+    "id": "q3",
+    "purpose": "Which civic centres issue the most licences in the busiest months (average, all full years)",
+    "chart": "bars",
+    "unit": "licences per year",
+    "sql": "SELECT CASE civic_centre WHEN 'TO' THEN 'Toronto City Hall' WHEN 'NY' THEN 'North York' WHEN 'SC' THEN 'Scarborough' WHEN 'ET' THEN 'Etobicoke' END AS label, round(sum(licences) / 15.0) AS value FROM marriage_licences WHERE year(month) BETWEEN 2011 AND 2025 GROUP BY civic_centre ORDER BY value DESC",
+    "rows": [
+     {
+      "label": "Toronto City Hall",
+      "value": 8374
+     },
+     {
+      "label": "North York",
+      "value": 3379
+     },
+     {
+      "label": "Scarborough",
+      "value": 2034
+     },
+     {
+      "label": "Etobicoke",
+      "value": 1308
+     }
+    ]
+   }
+  ],
+  "story": {
+   "lead": "July is the busiest month for marriage licences.",
+   "highlight": "July",
+   "sub": "Marriage licences issued in Toronto, monthly, 2011 to 2025 (full years only). Licences are a sign of weddings, not a count of them.",
+   "stat": {
+    "value": "1,995",
+    "caption": "average licences issued in July, 2011 to 2025"
+   },
+   "points": [
+    {
+     "h": "July and August lead; winter is quietest",
+     "p": "Licences climb from winter to a peak in July, then drop after August.",
+     "more": "July averages 1,995 licences and August 1,938. December is the lowest at 730, with January at 767 and November at 801."
+    },
+    {
+     "h": "Recent years show the same summer peak",
+     "p": "From 2022 to 2025, July is still on top, with August close behind.",
+     "more": "July averages 2,166 licences and August 2,101, both higher than the long-run averages. December is lowest at 750."
+    },
+    {
+     "h": "Toronto City Hall issues over half of all licences",
+     "p": "City Hall issues far more licences each year than the other three civic centres.",
+     "more": "Toronto City Hall averages 8,374 licences a year, North York 3,379, Scarborough 2,034 and Etobicoke 1,308. This is a yearly average across all months."
+    }
+   ],
+   "next": [
+    "How have yearly marriage licences changed since 2011?",
+    "Which civic centre has grown or shrunk the most over time?",
+    "Did licences drop in 2020 and when did they recover?"
+   ]
+  },
+  "created": "2026-10-06"
+ },
+ {
+  "q": "Most common street tree?",
+  "queries": [
+   {
+    "id": "q1",
+    "purpose": "Most common street tree types",
+    "chart": "bars",
+    "unit": "trees",
+    "sql": "SELECT common_name AS label, count(*) AS value FROM street_trees WHERE common_name IS NOT NULL GROUP BY 1 ORDER BY value DESC LIMIT 15",
+    "rows": [
+     {
+      "label": "Maple, Norway",
+      "value": 69468
+     },
+     {
+      "label": "Honey locust",
+      "value": 27758
+     },
+     {
+      "label": "Spruce, Colorado blue",
+      "value": 24086
+     },
+     {
+      "label": "Oak, red",
+      "value": 23707
+     },
+     {
+      "label": "Linden, littleleaf",
+      "value": 21366
+     },
+     {
+      "label": "Maple, silver",
+      "value": 19876
+     },
+     {
+      "label": "Lilac, Japanese",
+      "value": 17580
+     },
+     {
+      "label": "Kentucky coffeetree",
+      "value": 17352
+     },
+     {
+      "label": "Apple, Sargents",
+      "value": 16897
+     },
+     {
+      "label": "Ginkgo",
+      "value": 16324
+     },
+     {
+      "label": "Honey locust Skyline",
+      "value": 16227
+     },
+     {
+      "label": "Maple, Freeman Autumn Blaze",
+      "value": 15025
+     },
+     {
+      "label": "Hackberry",
+      "value": 14129
+     },
+     {
+      "label": "Serviceberry",
+      "value": 12062
+     },
+     {
+      "label": "Honey locust Shademaster",
+      "value": 11773
+     }
+    ]
+   },
+   {
+    "id": "q2",
+    "purpose": "Most common tree genus (first part of botanical name)",
+    "chart": "bars",
+    "unit": "trees",
+    "sql": "SELECT split_part(botanical_name, ' ', 1) AS label, count(*) AS value FROM street_trees WHERE botanical_name IS NOT NULL AND botanical_name <> '' GROUP BY 1 ORDER BY value DESC LIMIT 15",
+    "rows": [
+     {
+      "label": "Acer",
+      "value": 185621
+     },
+     {
+      "label": "Gleditsia",
+      "value": 59904
+     },
+     {
+      "label": "Quercus",
+      "value": 51575
+     },
+     {
+      "label": "Tilia",
+      "value": 46275
+     },
+     {
+      "label": "Picea",
+      "value": 41128
+     },
+     {
+      "label": "Ulmus",
+      "value": 29554
+     },
+     {
+      "label": "Gymnocladus",
+      "value": 21482
+     },
+     {
+      "label": "Malus",
+      "value": 18970
+     },
+     {
+      "label": "Syringa",
+      "value": 18666
+     },
+     {
+      "label": "Pinus",
+      "value": 17552
+     },
+     {
+      "label": "ginkgo",
+      "value": 17053
+     },
+     {
+      "label": "Celtis",
+      "value": 14147
+     },
+     {
+      "label": "Betula",
+      "value": 12514
+     },
+     {
+      "label": "Amelanchier",
+      "value": 12079
+     },
+     {
+      "label": "Aesculus",
+      "value": 11913
+     }
+    ]
+   },
+   {
+    "id": "q3",
+    "purpose": "Norway maple street trees by ward",
+    "chart": "columns",
+    "unit": "trees",
+    "sql": "SELECT CAST(ward AS VARCHAR) AS label, count(*) AS value FROM street_trees WHERE common_name = 'Maple, Norway' AND ward IS NOT NULL GROUP BY ward ORDER BY ward LIMIT 30",
+    "rows": [
+     {
+      "label": "1",
+      "value": 4720
+     },
+     {
+      "label": "2",
+      "value": 7606
+     },
+     {
+      "label": "3",
+      "value": 4738
+     },
+     {
+      "label": "4",
+      "value": 2506
+     },
+     {
+      "label": "5",
+      "value": 2623
+     },
+     {
+      "label": "6",
+      "value": 2577
+     },
+     {
+      "label": "7",
+      "value": 1953
+     },
+     {
+      "label": "8",
+      "value": 3256
+     },
+     {
+      "label": "9",
+      "value": 1554
+     },
+     {
+      "label": "10",
+      "value": 700
+     },
+     {
+      "label": "11",
+      "value": 2250
+     },
+     {
+      "label": "12",
+      "value": 3262
+     },
+     {
+      "label": "13",
+      "value": 693
+     },
+     {
+      "label": "14",
+      "value": 1864
+     },
+     {
+      "label": "15",
+      "value": 5104
+     },
+     {
+      "label": "16",
+      "value": 2722
+     },
+     {
+      "label": "17",
+      "value": 3160
+     },
+     {
+      "label": "18",
+      "value": 2915
+     },
+     {
+      "label": "19",
+      "value": 1814
+     },
+     {
+      "label": "20",
+      "value": 1609
+     },
+     {
+      "label": "21",
+      "value": 1494
+     },
+     {
+      "label": "22",
+      "value": 3017
+     },
+     {
+      "label": "23",
+      "value": 2927
+     },
+     {
+      "label": "24",
+      "value": 1929
+     },
+     {
+      "label": "25",
+      "value": 2474
+     }
+    ]
+   }
+  ],
+  "story": {
+   "lead": "Norway maple is the most common street tree.",
+   "highlight": "Norway maple",
+   "sub": "Based on the current inventory of 688,335 City-owned street trees in Toronto, as downloaded in October 2026.",
+   "stat": {
+    "value": "69,468",
+    "caption": "Norway maple street trees, more than any other type"
+   },
+   "points": [
+    {
+     "h": "Norway maple far ahead of other trees",
+     "p": "Norway maple has 69,468 street trees, the most of any type.",
+     "more": "Honey locust is next with 27,758, then Colorado blue spruce with 24,086. Norway maple has about 2.5 times as many as honey locust. Honey locust also shows up as two more varieties, Skyline (16,227) and Shademaster (11,773)."
+    },
+    {
+     "h": "Maples are the biggest group by genus",
+     "p": "The maple genus, Acer, has 185,621 street trees, the most of any genus.",
+     "more": "Next are honey locust (Gleditsia) with 59,904 and oak (Quercus) with 51,575. Linden (Tilia) has 46,275 and spruce (Picea) has 41,128."
+    },
+    {
+     "h": "Norway maples are found in every ward",
+     "p": "Every ward has Norway maples, but the numbers vary a lot between wards.",
+     "more": "Ward 2 has the most with 7,606, followed by ward 15 with 5,104 and ward 3 with 4,738. Wards 13 and 10 have the fewest, with 693 and 700."
+    }
+   ],
+   "next": [
+    "Which ward has the most street trees overall?",
+    "How thick are the trunks of Norway maples compared with other trees?",
+    "Which streets have the most street trees?"
+   ]
+  },
+  "created": "2026-10-07"
+ },
+ {
+  "q": "Busiest library branches?",
+  "queries": [
+   {
+    "id": "q1",
+    "purpose": "Top 15 branches by visits in 2024",
+    "chart": "bars",
+    "unit": "visits",
+    "sql": "SELECT branch AS label, visits AS value FROM library_visits WHERE year = 2024 ORDER BY value DESC LIMIT 15",
+    "rows": [
+     {
+      "label": "North York Central Library",
+      "value": 1276231
+     },
+     {
+      "label": "Toronto Reference Library",
+      "value": 1148744
+     },
+     {
+      "label": "Bloor/Gladstone",
+      "value": 272078
+     },
+     {
+      "label": "Ethennonnhawahstihnen' (formely Bayview) ",
+      "value": 270302
+     },
+     {
+      "label": "Albion",
+      "value": 267042
+     },
+     {
+      "label": "Parkdale",
+      "value": 246404
+     },
+     {
+      "label": "Woodside Square",
+      "value": 244687
+     },
+     {
+      "label": "Cedarbrae",
+      "value": 237936
+     },
+     {
+      "label": "Northern District",
+      "value": 235891
+     },
+     {
+      "label": "Richview",
+      "value": 229873
+     },
+     {
+      "label": "Maryvale",
+      "value": 221367
+     },
+     {
+      "label": "Lillian H. Smith",
+      "value": 215257
+     },
+     {
+      "label": "Runnymede",
+      "value": 212437
+     },
+     {
+      "label": "Bridlewood",
+      "value": 209878
+     },
+     {
+      "label": "York Woods",
+      "value": 203796
+     }
+    ]
+   },
+   {
+    "id": "q2",
+    "purpose": "Top 15 branches by average yearly visits, 2012-2024",
+    "chart": "bars",
+    "unit": "visits per year",
+    "sql": "SELECT branch AS label, round(avg(visits)) AS value FROM (SELECT branch, year, sum(visits) AS visits FROM library_visits GROUP BY 1, 2) GROUP BY branch ORDER BY value DESC LIMIT 15",
+    "rows": [
+     {
+      "label": "Toronto Reference Library",
+      "value": 1126591
+     },
+     {
+      "label": "North York Central Library",
+      "value": 1094294
+     },
+     {
+      "label": "Fairview",
+      "value": 353584
+     },
+     {
+      "label": "Woodside Square",
+      "value": 317971
+     },
+     {
+      "label": "Bridlewood",
+      "value": 314829
+     },
+     {
+      "label": "Bloor/Gladstone",
+      "value": 297236
+     },
+     {
+      "label": "Cedarbrae",
+      "value": 290543
+     },
+     {
+      "label": "Richview",
+      "value": 288701
+     },
+     {
+      "label": "Northern District",
+      "value": 281404
+     },
+     {
+      "label": "Agincourt",
+      "value": 280830
+     },
+     {
+      "label": "Albion",
+      "value": 272051
+     },
+     {
+      "label": "Parkdale",
+      "value": 269892
+     },
+     {
+      "label": "Lillian H. Smith",
+      "value": 261192
+     },
+     {
+      "label": "Malvern",
+      "value": 251722
+     },
+     {
+      "label": "Runnymede",
+      "value": 248186
+     }
+    ]
+   },
+   {
+    "id": "q3",
+    "purpose": "Total visits across all branches per year",
+    "chart": "columns",
+    "unit": "visits",
+    "sql": "SELECT CAST(year AS VARCHAR) AS label, sum(visits) AS value FROM library_visits GROUP BY year ORDER BY year LIMIT 30",
+    "rows": [
+     {
+      "label": "2012",
+      "value": 18872613
+     },
+     {
+      "label": "2013",
+      "value": 18485394
+     },
+     {
+      "label": "2014",
+      "value": 18335931
+     },
+     {
+      "label": "2015",
+      "value": 18153077
+     },
+     {
+      "label": "2016",
+      "value": 18232367
+     },
+     {
+      "label": "2017",
+      "value": 17370032
+     },
+     {
+      "label": "2018",
+      "value": 17577373
+     },
+     {
+      "label": "2019",
+      "value": 17248761
+     },
+     {
+      "label": "2020",
+      "value": 5557751
+     },
+     {
+      "label": "2021",
+      "value": 4029488
+     },
+     {
+      "label": "2022",
+      "value": 9566486
+     },
+     {
+      "label": "2023",
+      "value": 12507823
+     },
+     {
+      "label": "2024",
+      "value": 13431636
+     }
+    ]
+   }
+  ],
+  "story": {
+   "lead": "North York Central is the busiest branch.",
+   "highlight": "North York Central",
+   "sub": "Toronto Public Library visits per branch, 2012 to 2024, with a closer look at 2024.",
+   "stat": {
+    "value": "",
+    "caption": ""
+   },
+   "points": [
+    {
+     "h": "Two big libraries lead 2024 by a wide margin",
+     "p": "North York Central and the Toronto Reference Library each had over 1.1 million visits in 2024.",
+     "more": "The next branch, Bloor/Gladstone, had 272,078 visits. That is roughly a fifth of North York Central's 1,276,231."
+    },
+    {
+     "h": "Over 2012 to 2024, the Reference Library leads",
+     "p": "Averaged across all years, the Toronto Reference Library comes first, with North York Central close behind.",
+     "more": "The Reference Library averaged 1,126,591 visits a year and North York Central 1,094,294. Fairview is third at 353,584, and Woodside Square, Bridlewood and Bloor/Gladstone follow."
+    },
+    {
+     "h": "Total visits are still below the 2012 level",
+     "p": "Visits across all branches fell sharply in 2020 and 2021 and have been rising since.",
+     "more": "Visits were 18,872,613 in 2012 and 17,248,761 in 2019. They dropped to 4,029,488 in 2021, then climbed to 13,431,636 in 2024."
+    }
+   ],
+   "next": [
+    "Which branches gained the most visits between 2022 and 2024?",
+    "How did visits at the Toronto Reference Library change from 2019 to 2024?",
+    "Which branches had the fewest visits in 2024?"
+   ]
+  },
+  "created": "2026-10-07"
+ },
+ {
+  "q": "How fast does Toronto Fire arrive?",
+  "queries": [
+   {
+    "id": "q1",
+    "purpose": "Typical (median) response time by year, all calls",
+    "chart": "columns",
+    "unit": "minutes",
+    "sql": "SELECT CAST(year(alarm_time) AS VARCHAR) AS label, round(median(response_minutes), 1) AS value FROM fire_calls WHERE response_minutes IS NOT NULL AND response_minutes >= 0 GROUP BY year(alarm_time) ORDER BY year(alarm_time) LIMIT 30",
+    "rows": [
+     {
+      "label": "2018",
+      "value": 4.9
+     },
+     {
+      "label": "2019",
+      "value": 4.9
+     },
+     {
+      "label": "2020",
+      "value": 5
+     },
+     {
+      "label": "2021",
+      "value": 5.2
+     },
+     {
+      "label": "2022",
+      "value": 5.3
+     },
+     {
+      "label": "2023",
+      "value": 5.1
+     },
+     {
+      "label": "2024",
+      "value": 5.1
+     }
+    ]
+   },
+   {
+    "id": "q2",
+    "purpose": "Typical (median) response time by type of call",
+    "chart": "bars",
+    "unit": "minutes",
+    "sql": "SELECT call_type AS label, round(median(response_minutes), 1) AS value FROM fire_calls WHERE response_minutes IS NOT NULL AND response_minutes >= 0 GROUP BY call_type ORDER BY value DESC LIMIT 30",
+    "rows": [
+     {
+      "label": "Non Emergency",
+      "value": 7.4
+     },
+     {
+      "label": "CBRN & Hazardous Materials",
+      "value": 6
+     },
+     {
+      "label": "Carbon Monoxide",
+      "value": 6
+     },
+     {
+      "label": "Other Emergency Events",
+      "value": 5.8
+     },
+     {
+      "label": "Vehicle Incident",
+      "value": 5.5
+     },
+     {
+      "label": "Technical Rescue",
+      "value": 5.3
+     },
+     {
+      "label": "Emergency Fire",
+      "value": 5
+     },
+     {
+      "label": "Medical",
+      "value": 5
+     }
+    ]
+   },
+   {
+    "id": "q3",
+    "purpose": "Typical (median) response time by hour of day",
+    "chart": "columns",
+    "unit": "minutes",
+    "sql": "SELECT CAST(hour(alarm_time) AS VARCHAR) AS label, round(median(response_minutes), 1) AS value FROM fire_calls WHERE response_minutes IS NOT NULL AND response_minutes >= 0 GROUP BY hour(alarm_time) ORDER BY hour(alarm_time) LIMIT 30",
+    "rows": [
+     {
+      "label": "0",
+      "value": 5.5
+     },
+     {
+      "label": "1",
+      "value": 5.7
+     },
+     {
+      "label": "2",
+      "value": 5.7
+     },
+     {
+      "label": "3",
+      "value": 5.8
+     },
+     {
+      "label": "4",
+      "value": 5.8
+     },
+     {
+      "label": "5",
+      "value": 5.8
+     },
+     {
+      "label": "6",
+      "value": 5.4
+     },
+     {
+      "label": "7",
+      "value": 5
+     },
+     {
+      "label": "8",
+      "value": 4.9
+     },
+     {
+      "label": "9",
+      "value": 4.9
+     },
+     {
+      "label": "10",
+      "value": 4.9
+     },
+     {
+      "label": "11",
+      "value": 4.9
+     },
+     {
+      "label": "12",
+      "value": 4.9
+     },
+     {
+      "label": "13",
+      "value": 4.9
+     },
+     {
+      "label": "14",
+      "value": 5
+     },
+     {
+      "label": "15",
+      "value": 5
+     },
+     {
+      "label": "16",
+      "value": 5
+     },
+     {
+      "label": "17",
+      "value": 4.9
+     },
+     {
+      "label": "18",
+      "value": 4.9
+     },
+     {
+      "label": "19",
+      "value": 4.9
+     },
+     {
+      "label": "20",
+      "value": 4.9
+     },
+     {
+      "label": "21",
+      "value": 4.9
+     },
+     {
+      "label": "22",
+      "value": 5.1
+     },
+     {
+      "label": "23",
+      "value": 5.3
+     }
+    ]
+   }
+  ],
+  "story": {
+   "lead": "Toronto Fire typically arrives in about five minutes.",
+   "highlight": "about five minutes",
+   "sub": "Based on every Toronto Fire call with a recorded response time, 2018 to 2024.",
+   "stat": {
+    "value": "5.1 min",
+    "caption": "typical (median) response time in 2024, alarm to first truck arriving"
+   },
+   "points": [
+    {
+     "h": "Response time has barely changed since 2018",
+     "p": "The typical response stayed between 4.9 and 5.3 minutes every year.",
+     "more": "It was 4.9 minutes in 2018 and 2019, peaked at 5.3 in 2022, and was 5.1 in both 2023 and 2024."
+    },
+    {
+     "h": "Medical and fire calls get the quickest response",
+     "p": "Medical and emergency fire calls both have a typical response of 5 minutes.",
+     "more": "Carbon monoxide and hazardous materials calls take 6 minutes. Non-emergency calls take longest at 7.4 minutes."
+    },
+    {
+     "h": "Overnight responses are slower than daytime ones",
+     "p": "Typical response is 4.9 minutes through most of the day but longer overnight.",
+     "more": "It reaches 5.8 minutes between 3 and 5 am. It drops to 5 minutes by 7 am and stays near 4.9 through the evening."
+    }
+   ],
+   "next": [
+    "Which wards have the slowest fire response times?",
+    "How many fire calls are medical calls each year?",
+    "Do fires with smoke alarms have fewer casualties?"
+   ]
+  },
+  "created": "2026-10-07"
+ },
+ {
+  "q": "Short-term rentals by ward?",
+  "queries": [
+   {
+    "id": "q1",
+    "purpose": "Registered short-term rental operators by ward",
+    "chart": "bars",
+    "unit": "registrations",
+    "sql": "SELECT coalesce(ward_name, 'Unknown') || ' (' || CAST(ward AS VARCHAR) || ')' AS label, count(*) AS value FROM short_term_rentals WHERE ward IS NOT NULL GROUP BY ward, ward_name ORDER BY value DESC LIMIT 25",
+    "rows": [
+     {
+      "label": "Spadina-Fort York (10)",
+      "value": 2669
+     },
+     {
+      "label": "Toronto Centre (13)",
+      "value": 984
+     },
+     {
+      "label": "University-Rosedale (11)",
+      "value": 827
+     },
+     {
+      "label": "Davenport (9)",
+      "value": 571
+     },
+     {
+      "label": "Parkdale-High Park (4)",
+      "value": 414
+     },
+     {
+      "label": "Toronto-Danforth (14)",
+      "value": 403
+     },
+     {
+      "label": "Etobicoke-Lakeshore (3)",
+      "value": 376
+     },
+     {
+      "label": "Beaches-East York (19)",
+      "value": 327
+     },
+     {
+      "label": "Willowdale (18)",
+      "value": 280
+     },
+     {
+      "label": "Toronto-St. Paul's (12)",
+      "value": 233
+     },
+     {
+      "label": "Scarborough Southwest (20)",
+      "value": 178
+     },
+     {
+      "label": "York South-Weston (5)",
+      "value": 161
+     },
+     {
+      "label": "Eglinton-Lawrence (8)",
+      "value": 156
+     },
+     {
+      "label": "Etobicoke Centre (2)",
+      "value": 147
+     },
+     {
+      "label": "York Centre (6)",
+      "value": 136
+     },
+     {
+      "label": "Don Valley North (17)",
+      "value": 124
+     },
+     {
+      "label": "Don Valley West (15)",
+      "value": 110
+     },
+     {
+      "label": "Scarborough Centre (21)",
+      "value": 104
+     },
+     {
+      "label": "Scarborough-Agincourt (22)",
+      "value": 93
+     },
+     {
+      "label": "Scarborough-Rouge Park (25)",
+      "value": 85
+     },
+     {
+      "label": "Scarborough-Guildwood (24)",
+      "value": 76
+     },
+     {
+      "label": "Etobicoke North (1)",
+      "value": 76
+     },
+     {
+      "label": "Don Valley East (16)",
+      "value": 74
+     },
+     {
+      "label": "Humber River-Black Creek (7)",
+      "value": 74
+     },
+     {
+      "label": "Scarborough North (23)",
+      "value": 64
+     }
+    ]
+   },
+   {
+    "id": "q2",
+    "purpose": "Condominium registrations by ward",
+    "chart": "bars",
+    "unit": "registrations",
+    "sql": "SELECT coalesce(ward_name, 'Unknown') || ' (' || CAST(ward AS VARCHAR) || ')' AS label, count(*) AS value FROM short_term_rentals WHERE ward IS NOT NULL AND property_type = 'Condominium' GROUP BY ward, ward_name ORDER BY value DESC LIMIT 25",
+    "rows": [
+     {
+      "label": "Spadina-Fort York (10)",
+      "value": 2171
+     },
+     {
+      "label": "Toronto Centre (13)",
+      "value": 668
+     },
+     {
+      "label": "University-Rosedale (11)",
+      "value": 343
+     },
+     {
+      "label": "Etobicoke-Lakeshore (3)",
+      "value": 124
+     },
+     {
+      "label": "Willowdale (18)",
+      "value": 78
+     },
+     {
+      "label": "Toronto-St. Paul's (12)",
+      "value": 58
+     },
+     {
+      "label": "Davenport (9)",
+      "value": 29
+     },
+     {
+      "label": "Eglinton-Lawrence (8)",
+      "value": 20
+     },
+     {
+      "label": "Etobicoke Centre (2)",
+      "value": 18
+     },
+     {
+      "label": "Toronto-Danforth (14)",
+      "value": 17
+     },
+     {
+      "label": "Parkdale-High Park (4)",
+      "value": 17
+     },
+     {
+      "label": "Scarborough-Agincourt (22)",
+      "value": 17
+     },
+     {
+      "label": "York Centre (6)",
+      "value": 17
+     },
+     {
+      "label": "Don Valley East (16)",
+      "value": 16
+     },
+     {
+      "label": "York South-Weston (5)",
+      "value": 14
+     },
+     {
+      "label": "Don Valley North (17)",
+      "value": 13
+     },
+     {
+      "label": "Scarborough Southwest (20)",
+      "value": 8
+     },
+     {
+      "label": "Beaches-East York (19)",
+      "value": 8
+     },
+     {
+      "label": "Humber River-Black Creek (7)",
+      "value": 6
+     },
+     {
+      "label": "Etobicoke North (1)",
+      "value": 4
+     },
+     {
+      "label": "Scarborough-Rouge Park (25)",
+      "value": 4
+     },
+     {
+      "label": "Scarborough Centre (21)",
+      "value": 4
+     },
+     {
+      "label": "Scarborough-Guildwood (24)",
+      "value": 4
+     },
+     {
+      "label": "Don Valley West (15)",
+      "value": 3
+     },
+     {
+      "label": "Scarborough North (23)",
+      "value": 2
+     }
+    ]
+   },
+   {
+    "id": "q3",
+    "purpose": "Houses (single/semi-detached) registrations by ward",
+    "chart": "bars",
+    "unit": "registrations",
+    "sql": "SELECT coalesce(ward_name, 'Unknown') || ' (' || CAST(ward AS VARCHAR) || ')' AS label, count(*) AS value FROM short_term_rentals WHERE ward IS NOT NULL AND property_type = 'Single/Semi-detached House' GROUP BY ward, ward_name ORDER BY value DESC LIMIT 25",
+    "rows": [
+     {
+      "label": "Davenport (9)",
+      "value": 341
+     },
+     {
+      "label": "Toronto-Danforth (14)",
+      "value": 288
+     },
+     {
+      "label": "Parkdale-High Park (4)",
+      "value": 263
+     },
+     {
+      "label": "Beaches-East York (19)",
+      "value": 262
+     },
+     {
+      "label": "University-Rosedale (11)",
+      "value": 245
+     },
+     {
+      "label": "Etobicoke-Lakeshore (3)",
+      "value": 188
+     },
+     {
+      "label": "Willowdale (18)",
+      "value": 179
+     },
+     {
+      "label": "Scarborough Southwest (20)",
+      "value": 151
+     },
+     {
+      "label": "Toronto-St. Paul's (12)",
+      "value": 130
+     },
+     {
+      "label": "York South-Weston (5)",
+      "value": 129
+     },
+     {
+      "label": "Etobicoke Centre (2)",
+      "value": 120
+     },
+     {
+      "label": "Eglinton-Lawrence (8)",
+      "value": 105
+     },
+     {
+      "label": "Don Valley North (17)",
+      "value": 100
+     },
+     {
+      "label": "Spadina-Fort York (10)",
+      "value": 89
+     },
+     {
+      "label": "York Centre (6)",
+      "value": 85
+     },
+     {
+      "label": "Don Valley West (15)",
+      "value": 83
+     },
+     {
+      "label": "Scarborough Centre (21)",
+      "value": 79
+     },
+     {
+      "label": "Toronto Centre (13)",
+      "value": 73
+     },
+     {
+      "label": "Scarborough-Rouge Park (25)",
+      "value": 72
+     },
+     {
+      "label": "Scarborough-Agincourt (22)",
+      "value": 64
+     },
+     {
+      "label": "Etobicoke North (1)",
+      "value": 64
+     },
+     {
+      "label": "Scarborough-Guildwood (24)",
+      "value": 63
+     },
+     {
+      "label": "Humber River-Black Creek (7)",
+      "value": 54
+     },
+     {
+      "label": "Scarborough North (23)",
+      "value": 51
+     },
+     {
+      "label": "Don Valley East (16)",
+      "value": 45
+     }
+    ]
+   }
+  ],
+  "story": {
+   "lead": "Spadina-Fort York has the most short-term rentals.",
+   "highlight": "Spadina-Fort York",
+   "sub": "Current snapshot of registered short-term rental operators across Toronto's 25 wards, downloaded October 2026.",
+   "stat": {
+    "value": "2,669",
+    "caption": "registered operators in Spadina-Fort York, the most of any ward"
+   },
+   "points": [
+    {
+     "h": "Downtown wards dominate registrations",
+     "p": "Spadina-Fort York has 2,669 registrations, far ahead of every other ward.",
+     "more": "Toronto Centre (984) and University-Rosedale (827) come next. These three wards hold about 51% of all 8,742 registrations. Scarborough North has the fewest at 64."
+    },
+    {
+     "h": "Condos explain the downtown lead",
+     "p": "Spadina-Fort York has 2,171 condominium registrations, well ahead of any other ward.",
+     "more": "That is about 81% of the ward's registrations. Toronto Centre has 668 condos and University-Rosedale 343. Most wards have fewer than 30."
+    },
+    {
+     "h": "Houses are spread across more wards",
+     "p": "Davenport leads house registrations with 341, followed by Toronto-Danforth with 288.",
+     "more": "Parkdale-High Park (263) and Beaches-East York (262) follow. Spadina-Fort York has only 89 houses, and Toronto Centre has 73."
+    }
+   ],
+   "next": [
+    "Which wards have the most apartment short-term rentals?",
+    "Which wards have the most fires?",
+    "Which wards have the lowest apartment evaluation scores?"
+   ]
+  },
+  "created": "2026-10-07"
+ },
+ {
+  "q": "New homes from building permits?",
+  "queries": [
+   {
+    "id": "q1",
+    "purpose": "New dwelling units created by permits issued each year",
+    "chart": "columns",
+    "unit": "homes (dwelling units)",
+    "sql": "SELECT CAST(year(issued_date) AS VARCHAR) AS label, round(sum(units_created)) AS value FROM building_permits WHERE issued_date >= DATE '2017-01-01' AND issued_date < DATE '2026-01-01' GROUP BY year(issued_date) ORDER BY year(issued_date)",
+    "rows": [
+     {
+      "label": "2017",
+      "value": 9163
+     },
+     {
+      "label": "2018",
+      "value": 13126
+     },
+     {
+      "label": "2019",
+      "value": 11785
+     },
+     {
+      "label": "2020",
+      "value": 14184
+     },
+     {
+      "label": "2021",
+      "value": 15109
+     },
+     {
+      "label": "2022",
+      "value": 8718
+     },
+     {
+      "label": "2023",
+      "value": 9311
+     },
+     {
+      "label": "2024",
+      "value": 4180
+     },
+     {
+      "label": "2025",
+      "value": 2063
+     }
+    ]
+   },
+   {
+    "id": "q2",
+    "purpose": "Net new homes each year (created minus lost)",
+    "chart": "columns",
+    "unit": "homes (dwelling units)",
+    "sql": "SELECT CAST(year(issued_date) AS VARCHAR) AS label, round(sum(coalesce(units_created,0) - coalesce(units_lost,0))) AS value FROM building_permits WHERE issued_date >= DATE '2017-01-01' AND issued_date < DATE '2026-01-01' GROUP BY year(issued_date) ORDER BY year(issued_date)",
+    "rows": [
+     {
+      "label": "2017",
+      "value": 7781
+     },
+     {
+      "label": "2018",
+      "value": 11723
+     },
+     {
+      "label": "2019",
+      "value": 10556
+     },
+     {
+      "label": "2020",
+      "value": 12868
+     },
+     {
+      "label": "2021",
+      "value": 13565
+     },
+     {
+      "label": "2022",
+      "value": 7654
+     },
+     {
+      "label": "2023",
+      "value": 7767
+     },
+     {
+      "label": "2024",
+      "value": 3409
+     },
+     {
+      "label": "2025",
+      "value": 1363
+     }
+    ]
+   },
+   {
+    "id": "q3",
+    "purpose": "Homes created by type of structure, 2017-2025",
+    "chart": "bars",
+    "unit": "homes (dwelling units)",
+    "sql": "SELECT structure_type AS label, round(sum(units_created)) AS value FROM building_permits WHERE issued_date >= DATE '2017-01-01' AND issued_date < DATE '2026-01-01' AND structure_type IS NOT NULL GROUP BY structure_type HAVING sum(units_created) > 0 ORDER BY value DESC LIMIT 12",
+    "rows": [
+     {
+      "label": "Mixed Use/Res w Non Res",
+      "value": 39798
+     },
+     {
+      "label": "Apartment Building",
+      "value": 28518
+     },
+     {
+      "label": "SFD - Detached",
+      "value": 6073
+     },
+     {
+      "label": "2 Unit - Detached",
+      "value": 3330
+     },
+     {
+      "label": "SFD - Townhouse",
+      "value": 2071
+     },
+     {
+      "label": "Stacked Townhouses",
+      "value": 1544
+     },
+     {
+      "label": "Multiple Unit Building",
+      "value": 1342
+     },
+     {
+      "label": "3+ Unit - Detached",
+      "value": 1100
+     },
+     {
+      "label": "2 Unit - Semi-detached",
+      "value": 956
+     },
+     {
+      "label": "Laneway / Rear Yard Suite",
+      "value": 921
+     },
+     {
+      "label": "SFD - Semi-Detached",
+      "value": 522
+     },
+     {
+      "label": "Multiple Use/Non Residential",
+      "value": 469
+     }
+    ]
+   }
+  ],
+  "story": {
+   "lead": "Permits created 87,639 homes, peaking in 2021.",
+   "highlight": "87,639 homes",
+   "sub": "Building permits issued 2017 to 2025 that are now closed or finished, counting dwelling units created.",
+   "stat": {
+    "value": "",
+    "caption": ""
+   },
+   "points": [
+    {
+     "h": "New homes peaked in 2021, then fell",
+     "p": "Homes created by permits rose to 15,109 in 2021, then dropped each year to 2,063 in 2025.",
+     "more": "2020 had 14,184 homes and 2018 had 13,126. After 2023 (9,311), the count fell to 4,180 in 2024 and 2,063 in 2025."
+    },
+    {
+     "h": "Net new homes follow the same pattern",
+     "p": "After subtracting homes lost, the yearly totals are lower but rise and fall the same way.",
+     "more": "Net new homes were highest in 2021 at 13,565 and lowest in 2025 at 1,363. In 2025, 700 homes were lost against 2,063 created."
+    },
+    {
+     "h": "Mixed-use and apartment buildings dominate",
+     "p": "Most new homes came from mixed-use buildings and apartment buildings, not houses.",
+     "more": "Mixed use with shops or offices added 39,798 homes and apartment buildings 28,518, together 68,316. Detached houses added 6,073 and laneway or rear yard suites added 921."
+    }
+   ],
+   "next": [
+    "Which wards had the most new homes from building permits?",
+    "How many demolition permits were issued each year since 2017?",
+    "How much did new house construction cost each year?"
+   ]
+  },
+  "created": "2026-10-07"
+ },
+ {
+  "q": "Top reasons people call 311?",
+  "queries": [
+   {
+    "id": "q1",
+    "purpose": "Most common request types, 2019 to Aug 2026 (names changed in 2025, so renamed types count separately)",
+    "chart": "bars",
+    "unit": "requests",
+    "sql": "SELECT request_type AS label, sum(requests) AS value FROM service_requests_311 GROUP BY 1 ORDER BY value DESC LIMIT 15",
+    "rows": [
+     {
+      "label": "Residential: Bin: Repair or Replace Lid",
+      "value": 101371
+     },
+     {
+      "label": "Property Standards",
+      "value": 81495
+     },
+     {
+      "label": "Injured - Wildlife",
+      "value": 73186
+     },
+     {
+      "label": "Road - Pot hole",
+      "value": 62390
+     },
+     {
+      "label": "Res / Garbage / Not Picked Up",
+      "value": 61069
+     },
+     {
+      "label": "Residential Furniture / Not Picked Up",
+      "value": 57489
+     },
+     {
+      "label": "Sewer Service Line-Blocked",
+      "value": 55224
+     },
+     {
+      "label": "Res / Organic Green Bin / Not Picked Up",
+      "value": 50036
+     },
+     {
+      "label": "Res / Recycle / Not Picked Up",
+      "value": 49476
+     },
+     {
+      "label": "Residential: Bin: Repair or Replace Body/Handle",
+      "value": 45646
+     },
+     {
+      "label": "Cadaver - Wildlife",
+      "value": 41894
+     },
+     {
+      "label": "All / Hazardous Waste / Pick Up Request",
+      "value": 39463
+     },
+     {
+      "label": "INJUR/DIST WILDLIFE",
+      "value": 37805
+     },
+     {
+      "label": "Residential Bin Lid Damaged",
+      "value": 37270
+     },
+     {
+      "label": "CADAVER WILDLIFE",
+      "value": 36982
+     }
+    ]
+   },
+   {
+    "id": "q2",
+    "purpose": "Requests by City division (unaffected by 2025 renaming)",
+    "chart": "bars",
+    "unit": "requests",
+    "sql": "SELECT division AS label, sum(requests) AS value FROM service_requests_311 GROUP BY 1 ORDER BY value DESC LIMIT 12",
+    "rows": [
+     {
+      "label": "Solid Waste Management Services",
+      "value": 1133635
+     },
+     {
+      "label": "Transportation Services",
+      "value": 800318
+     },
+     {
+      "label": "Municipal Licensing & Standards",
+      "value": 749891
+     },
+     {
+      "label": "Toronto Water",
+      "value": 271647
+     },
+     {
+      "label": "Urban Forestry",
+      "value": 85741
+     },
+     {
+      "label": "311",
+      "value": 52997
+     },
+     {
+      "label": "Unknown",
+      "value": 14627
+     },
+     {
+      "label": "Parks and Recreation",
+      "value": 7285
+     },
+     {
+      "label": "City of Toronto",
+      "value": 340
+     }
+    ]
+   },
+   {
+    "id": "q3",
+    "purpose": "Most common request types in 2025 (current names)",
+    "chart": "bars",
+    "unit": "requests",
+    "sql": "SELECT request_type AS label, sum(requests) AS value FROM service_requests_311 WHERE date >= DATE '2025-01-01' AND date < DATE '2026-01-01' GROUP BY 1 ORDER BY value DESC LIMIT 15",
+    "rows": [
+     {
+      "label": "Residential Bin Lid Damaged",
+      "value": 24448
+     },
+     {
+      "label": "Property Standards and Maintenance Violations",
+      "value": 17079
+     },
+     {
+      "label": "Pick up Dead Wildlife",
+      "value": 15513
+     },
+     {
+      "label": "Injured - Wildlife",
+      "value": 15192
+     },
+     {
+      "label": "Road Pothole / Road Damage",
+      "value": 11304
+     },
+     {
+      "label": "Residential Bin Body or Handle Damaged",
+      "value": 11238
+     },
+     {
+      "label": "Sidewalk Snow Clearing Required",
+      "value": 10241
+     },
+     {
+      "label": "Res / Garbage / Not Picked Up",
+      "value": 9159
+     },
+     {
+      "label": "Residential Furniture / Not Picked Up",
+      "value": 8634
+     },
+     {
+      "label": "Res / Recycle / Not Picked Up",
+      "value": 8370
+     },
+     {
+      "label": "Res / Organic Green Bin / Not Picked Up",
+      "value": 8008
+     },
+     {
+      "label": "Clean up Illegal Dumping on City Road Allowance",
+      "value": 6970
+     },
+     {
+      "label": "Sewer Service Line-Blocked",
+      "value": 6712
+     },
+     {
+      "label": "Road Plowing Request",
+      "value": 6435
+     },
+     {
+      "label": "Clean up Debris on Road",
+      "value": 6426
+     }
+    ]
+   }
+  ],
+  "story": {
+   "lead": "Bin repairs, missed pickups and wildlife lead 311 calls.",
+   "highlight": "Bin repairs",
+   "sub": "311 service requests in Toronto, January 2019 to August 2026, with a closer look at 2025.",
+   "stat": {
+    "value": "1,133,635",
+    "caption": "requests to Solid Waste Management Services, the busiest City division"
+   },
+   "points": [
+    {
+     "h": "Damaged bin lids top the all-time list",
+     "p": "Repairing or replacing a bin lid is the single most common request type, with 101,371 requests.",
+     "more": "Property Standards (81,495) and injured wildlife (73,186) come next. Pothole repair has 62,390 requests. Because names changed in 2025, the renamed bin lid type adds another 37,270 on its own line."
+    },
+    {
+     "h": "Garbage and waste make up the biggest share",
+     "p": "Solid Waste Management Services handles more requests than any other division, at 1,133,635.",
+     "more": "Transportation Services follows with 800,318 and Municipal Licensing & Standards with 749,891. Toronto Water has 271,647. Solid Waste alone is about 36% of all requests."
+    },
+    {
+     "h": "In 2025, bin lids and property standards led",
+     "p": "Damaged bin lids led 2025 with 24,448 requests, ahead of property standards at 17,079.",
+     "more": "Wildlife was next: dead wildlife pickup (15,513) and injured wildlife (15,192). Potholes had 11,304 requests and sidewalk snow clearing 10,241."
+    }
+   ],
+   "next": [
+    "Which wards make the most pothole requests?",
+    "How many 311 requests come in each month of the year?",
+    "Which wards have the most garbage not picked up requests?"
+   ]
+  },
+  "created": "2026-10-07"
+ },
+ {
+  "q": "Lowest-scoring apartment buildings?",
+  "queries": [
+   {
+    "id": "q1",
+    "purpose": "15 lowest-scoring buildings (latest evaluation)",
+    "chart": "bars",
+    "unit": "score out of 100",
+    "sql": "SELECT label, value FROM (SELECT address AS label, round(score, 1) AS value FROM apartment_evaluations WHERE score IS NOT NULL AND address IS NOT NULL QUALIFY row_number() OVER (PARTITION BY address ORDER BY evaluation_date DESC) = 1 ORDER BY score ASC LIMIT 15) ORDER BY value DESC",
+    "rows": [
+     {
+      "label": "21 DENISON RD E",
+      "value": 62
+     },
+     {
+      "label": "1449 KINGSTON RD",
+      "value": 62
+     },
+     {
+      "label": "608 DAWES RD",
+      "value": 60
+     },
+     {
+      "label": "51 MADISON AVE",
+      "value": 58
+     },
+     {
+      "label": "115 EGLINTON AVE W",
+      "value": 58
+     },
+     {
+      "label": "1182 QUEEN ST W",
+      "value": 54
+     },
+     {
+      "label": "409 HURON ST",
+      "value": 53
+     },
+     {
+      "label": "394 DOVERCOURT RD",
+      "value": 53
+     },
+     {
+      "label": "675 DOVERCOURT RD",
+      "value": 51
+     },
+     {
+      "label": "546 INDIAN GRV",
+      "value": 50
+     },
+     {
+      "label": "2900 KEELE ST",
+      "value": 49
+     },
+     {
+      "label": "500 DAWES RD",
+      "value": 45
+     },
+     {
+      "label": "15 GORE VALE AVE",
+      "value": 45
+     },
+     {
+      "label": "711 BLOOR ST W",
+      "value": 23
+     },
+     {
+      "label": "2 PROSPECT ST",
+      "value": 18
+     }
+    ]
+   },
+   {
+    "id": "q2",
+    "purpose": "Average latest score by owner type",
+    "chart": "bars",
+    "unit": "average score out of 100",
+    "sql": "SELECT CASE property_type WHEN 'TCHC' THEN 'Toronto Community Housing' WHEN 'SOCIAL HOUSING' THEN 'Social housing' WHEN 'PRIVATE' THEN 'Private' ELSE property_type END AS label, round(avg(score), 1) AS value FROM (SELECT * FROM apartment_evaluations WHERE score IS NOT NULL AND address IS NOT NULL QUALIFY row_number() OVER (PARTITION BY address ORDER BY evaluation_date DESC) = 1) GROUP BY property_type ORDER BY value DESC",
+    "rows": [
+     {
+      "label": "Social housing",
+      "value": 91
+     },
+     {
+      "label": "Private",
+      "value": 90.5
+     },
+     {
+      "label": "Toronto Community Housing",
+      "value": 90.4
+     }
+    ]
+   },
+   {
+    "id": "q3",
+    "purpose": "Wards with the lowest average building score",
+    "chart": "bars",
+    "unit": "average score out of 100",
+    "sql": "SELECT label, value FROM (SELECT ward_name AS label, round(avg(score), 1) AS value FROM (SELECT * FROM apartment_evaluations WHERE score IS NOT NULL AND address IS NOT NULL AND ward_name IS NOT NULL QUALIFY row_number() OVER (PARTITION BY address ORDER BY evaluation_date DESC) = 1) GROUP BY ward_name ORDER BY avg(score) ASC LIMIT 10) ORDER BY value DESC",
+    "rows": [
+     {
+      "label": "Spadina-Fort York",
+      "value": 90.2
+     },
+     {
+      "label": "Scarborough Southwest",
+      "value": 89.7
+     },
+     {
+      "label": "Toronto Centre",
+      "value": 89.5
+     },
+     {
+      "label": "Scarborough Centre",
+      "value": 89.1
+     },
+     {
+      "label": "Toronto-Danforth",
+      "value": 89.1
+     },
+     {
+      "label": "Scarborough-Guildwood",
+      "value": 88.9
+     },
+     {
+      "label": "University-Rosedale",
+      "value": 87.9
+     },
+     {
+      "label": "York South-Weston",
+      "value": 87.9
+     },
+     {
+      "label": "Davenport",
+      "value": 86.3
+     },
+     {
+      "label": "Scarborough-Rouge Park",
+      "value": 86
+     }
+    ]
+   }
+  ],
+  "story": {
+   "lead": "2 Prospect St scores lowest, at 18 out of 100.",
+   "highlight": "2 Prospect St",
+   "sub": "Latest RentSafeTO evaluation of each apartment building, June 2023 to October 2026.",
+   "stat": {
+    "value": "",
+    "caption": ""
+   },
+   "points": [
+    {
+     "h": "Two buildings fall far below the rest",
+     "p": "2 Prospect St (18) and 711 Bloor St W (23) are the two lowest scores.",
+     "more": "The next lowest are 500 Dawes Rd and 15 Gore Vale Ave, both at 45. The 15th lowest building scores 62, so the bottom 15 span from 18 to 62."
+    },
+    {
+     "h": "Owner type makes almost no difference",
+     "p": "Average scores are very close across all three owner types.",
+     "more": "Social housing averages 91, private buildings 90.5 and Toronto Community Housing 90.4. That is a gap of only 0.6 points."
+    },
+    {
+     "h": "Even the lowest wards average 86 or more",
+     "p": "The ten lowest wards all average between 86 and 90.2.",
+     "more": "Scarborough-Rouge Park is lowest at 86, followed by Davenport at 86.3. University-Rosedale and York South-Weston are both at 87.9."
+    }
+   ],
+   "next": [
+    "How many buildings score below 70?",
+    "Do older buildings score lower than newer ones?",
+    "Which wards have the most buildings evaluated?"
+   ]
+  },
+  "created": "2026-10-07"
+ },
+ {
+  "q": "Coyote calls per year?",
+  "queries": [
+   {
+    "id": "q1",
+    "purpose": "Coyote response requests to Animal Services per year (2026 is partial)",
+    "chart": "columns",
+    "unit": "requests",
+    "sql": "SELECT CAST(year AS VARCHAR) || CASE WHEN year = 2026 THEN ' (part year)' ELSE '' END AS label, count(*) AS value FROM animal_services WHERE request_type ILIKE '%coyot%' GROUP BY year ORDER BY year LIMIT 30",
+    "rows": [
+     {
+      "label": "2023",
+      "value": 2781
+     },
+     {
+      "label": "2024",
+      "value": 3088
+     },
+     {
+      "label": "2025",
+      "value": 5399
+     },
+     {
+      "label": "2026 (part year)",
+      "value": 3837
+     }
+    ]
+   },
+   {
+    "id": "q2",
+    "purpose": "Coyote-related 311 requests per year (2026 is partial)",
+    "chart": "columns",
+    "unit": "requests",
+    "sql": "SELECT CAST(year(date) AS VARCHAR) || CASE WHEN year(date) = 2026 THEN ' (part year)' ELSE '' END AS label, sum(requests) AS value FROM service_requests_311 WHERE request_type ILIKE '%coyot%' GROUP BY year(date) ORDER BY year(date) LIMIT 30",
+    "rows": [
+     {
+      "label": "2019",
+      "value": 127
+     },
+     {
+      "label": "2020",
+      "value": 127
+     },
+     {
+      "label": "2021",
+      "value": 88
+     },
+     {
+      "label": "2022",
+      "value": 162
+     },
+     {
+      "label": "2023",
+      "value": 226
+     },
+     {
+      "label": "2024",
+      "value": 365
+     },
+     {
+      "label": "2025",
+      "value": 498
+     },
+     {
+      "label": "2026 (part year)",
+      "value": 369
+     }
+    ]
+   },
+   {
+    "id": "q3",
+    "purpose": "Coyote-related 311 requests by month of year, full years 2019-2025",
+    "chart": "columns",
+    "unit": "requests",
+    "sql": "SELECT strftime(date, '%b') AS label, sum(requests) AS value FROM service_requests_311 WHERE request_type ILIKE '%coyot%' AND year(date) BETWEEN 2019 AND 2025 GROUP BY month(date), strftime(date, '%b') ORDER BY month(date) LIMIT 12",
+    "rows": [
+     {
+      "label": "Jan",
+      "value": 104
+     },
+     {
+      "label": "Feb",
+      "value": 125
+     },
+     {
+      "label": "Mar",
+      "value": 106
+     },
+     {
+      "label": "Apr",
+      "value": 116
+     },
+     {
+      "label": "May",
+      "value": 145
+     },
+     {
+      "label": "Jun",
+      "value": 101
+     },
+     {
+      "label": "Jul",
+      "value": 173
+     },
+     {
+      "label": "Aug",
+      "value": 122
+     },
+     {
+      "label": "Sep",
+      "value": 144
+     },
+     {
+      "label": "Oct",
+      "value": 151
+     },
+     {
+      "label": "Nov",
+      "value": 168
+     },
+     {
+      "label": "Dec",
+      "value": 138
+     }
+    ]
+   }
+  ],
+  "story": {
+   "lead": "Coyote calls nearly doubled in 2025.",
+   "highlight": "nearly doubled",
+   "sub": "Animal Services coyote requests 2023 to 2 Oct 2026 and 311 coyote requests 2019 to Aug 2026.",
+   "stat": {
+    "value": "5,399",
+    "caption": "coyote requests to Animal Services in 2025, up from 3,088 in 2024"
+   },
+   "points": [
+    {
+     "h": "Animal Services coyote requests jumped in 2025",
+     "p": "Requests rose from 2,781 in 2023 to 5,399 in 2025.",
+     "more": "2024 had 3,088 requests. 2026 already has 3,837 so far, with the year not yet finished."
+    },
+    {
+     "h": "311 coyote requests have climbed since 2021",
+     "p": "311 coyote requests grew from 88 in 2021 to 498 in 2025.",
+     "more": "2019 and 2020 each had 127. 2026 has 369 so far, and the year is not over."
+    },
+    {
+     "h": "Coyote requests show no strong season",
+     "p": "Across 2019 to 2025, every month had between 101 and 173 requests.",
+     "more": "July was highest with 173, followed by November with 168. June was lowest with 101, then January with 104."
+    }
+   ],
+   "next": [
+    "Which types of Animal Services requests grew most from 2023 to 2025?",
+    "How many injured wildlife requests came in per year in 311?",
+    "Which wards send the most 311 requests about wildlife?"
+   ]
+  },
+  "created": "2026-10-07"
+ },
+ {
+  "q": "When do serious collisions happen?",
+  "queries": [
+   {
+    "id": "q1",
+    "purpose": "Serious collisions by hour of day",
+    "chart": "columns",
+    "unit": "collisions",
+    "sql": "SELECT lpad(CAST(hour(collision_time) AS VARCHAR), 2, '0') || ':00' AS label, count(DISTINCT collision_id) AS value FROM ksi_collisions WHERE collision_time IS NOT NULL GROUP BY hour(collision_time) ORDER BY hour(collision_time)",
+    "rows": [
+     {
+      "label": "00:00",
+      "value": 223
+     },
+     {
+      "label": "01:00",
+      "value": 178
+     },
+     {
+      "label": "02:00",
+      "value": 199
+     },
+     {
+      "label": "03:00",
+      "value": 162
+     },
+     {
+      "label": "04:00",
+      "value": 84
+     },
+     {
+      "label": "05:00",
+      "value": 132
+     },
+     {
+      "label": "06:00",
+      "value": 254
+     },
+     {
+      "label": "07:00",
+      "value": 247
+     },
+     {
+      "label": "08:00",
+      "value": 292
+     },
+     {
+      "label": "09:00",
+      "value": 313
+     },
+     {
+      "label": "10:00",
+      "value": 316
+     },
+     {
+      "label": "11:00",
+      "value": 323
+     },
+     {
+      "label": "12:00",
+      "value": 335
+     },
+     {
+      "label": "13:00",
+      "value": 347
+     },
+     {
+      "label": "14:00",
+      "value": 419
+     },
+     {
+      "label": "15:00",
+      "value": 452
+     },
+     {
+      "label": "16:00",
+      "value": 436
+     },
+     {
+      "label": "17:00",
+      "value": 507
+     },
+     {
+      "label": "18:00",
+      "value": 531
+     },
+     {
+      "label": "19:00",
+      "value": 453
+     },
+     {
+      "label": "20:00",
+      "value": 422
+     },
+     {
+      "label": "21:00",
+      "value": 391
+     },
+     {
+      "label": "22:00",
+      "value": 336
+     },
+     {
+      "label": "23:00",
+      "value": 268
+     }
+    ]
+   },
+   {
+    "id": "q2",
+    "purpose": "Serious collisions by day of week",
+    "chart": "columns",
+    "unit": "collisions",
+    "sql": "SELECT strftime(collision_time, '%A') AS label, count(DISTINCT collision_id) AS value FROM ksi_collisions WHERE collision_time IS NOT NULL GROUP BY strftime(collision_time, '%A'), isodow(collision_time) ORDER BY isodow(collision_time)",
+    "rows": [
+     {
+      "label": "Monday",
+      "value": 1024
+     },
+     {
+      "label": "Tuesday",
+      "value": 1138
+     },
+     {
+      "label": "Wednesday",
+      "value": 1127
+     },
+     {
+      "label": "Thursday",
+      "value": 1092
+     },
+     {
+      "label": "Friday",
+      "value": 1216
+     },
+     {
+      "label": "Saturday",
+      "value": 1057
+     },
+     {
+      "label": "Sunday",
+      "value": 966
+     }
+    ]
+   },
+   {
+    "id": "q3",
+    "purpose": "Serious collisions by month of year (all years combined)",
+    "chart": "columns",
+    "unit": "collisions",
+    "sql": "SELECT strftime(collision_time, '%b') AS label, count(DISTINCT collision_id) AS value FROM ksi_collisions WHERE collision_time IS NOT NULL GROUP BY strftime(collision_time, '%b'), month(collision_time) ORDER BY month(collision_time)",
+    "rows": [
+     {
+      "label": "Jan",
+      "value": 523
+     },
+     {
+      "label": "Feb",
+      "value": 455
+     },
+     {
+      "label": "Mar",
+      "value": 505
+     },
+     {
+      "label": "Apr",
+      "value": 518
+     },
+     {
+      "label": "May",
+      "value": 639
+     },
+     {
+      "label": "Jun",
+      "value": 774
+     },
+     {
+      "label": "Jul",
+      "value": 720
+     },
+     {
+      "label": "Aug",
+      "value": 753
+     },
+     {
+      "label": "Sep",
+      "value": 771
+     },
+     {
+      "label": "Oct",
+      "value": 734
+     },
+     {
+      "label": "Nov",
+      "value": 651
+     },
+     {
+      "label": "Dec",
+      "value": 577
+     }
+    ]
+   }
+  ],
+  "story": {
+   "lead": "Evenings, Fridays and summer-to-autumn months.",
+   "highlight": "Evenings",
+   "sub": "7,620 serious collisions (someone killed or seriously injured) in Toronto, 2006 to September 2026.",
+   "stat": {
+    "value": "",
+    "caption": ""
+   },
+   "points": [
+    {
+     "h": "The evening rush hour is the peak",
+     "p": "Serious collisions climb through the afternoon and peak at 6pm.",
+     "more": "The 6pm hour has 531 collisions, followed by 507 at 5pm. The three hours from 5pm to 8pm hold 1,491 collisions, about 20% of all. The quietest hour is 4am, with 84."
+    },
+    {
+     "h": "Friday is the worst day",
+     "p": "Weekdays see more serious collisions than the weekend, with Friday highest.",
+     "more": "Friday has 1,216 collisions and Sunday has the fewest at 966. Tuesday and Wednesday are close behind Friday, at 1,138 and 1,127."
+    },
+    {
+     "h": "June to October is the busiest stretch",
+     "p": "Serious collisions rise from spring and stay high until autumn.",
+     "more": "June is highest with 774 collisions, and September (771) and August (753) are close. February is lowest at 455, so June has about 70% more."
+    }
+   ],
+   "next": [
+    "Which road users are most often hurt in serious collisions?",
+    "Are serious collisions at night more likely to be fatal?",
+    "Which neighbourhoods have the most serious collisions?"
+   ]
+  },
+  "created": "2026-10-07"
+ }
+]

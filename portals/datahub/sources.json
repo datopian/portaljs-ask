@@ -1,0 +1,120 @@
+{
+  "type": "datapackage",
+  "tables": {
+    "gdp": {
+      "dataset": "https://datahub.io/core/gdp",
+      "resource": "gdp",
+      "sql": "SELECT \"Country Name\" AS country, \"Country Code\" AS country_code, \"Country Code\" IN ('AFE','AFW','ARB','CEB','CSS','EAP','EAR','EAS','ECA','ECS','EMU','EUU','FCS','HIC','HPC','IBD','IBT','IDA','IDB','IDX','INX','LAC','LCN','LDC','LIC','LMC','LMY','LTE','MEA','MIC','MNA','NAC','OED','OSS','PRE','PSS','PST','SAS','SSA','SSF','SST','TEA','TEC','TLA','TMN','TSA','TSS','UMC','WLD') AS is_aggregate, CAST(\"Year\" AS INTEGER) AS year, \"Value\" AS gdp_usd FROM raw"
+    },
+    "population": {
+      "dataset": "https://datahub.io/core/population",
+      "resource": "population",
+      "sql": "SELECT \"Country Name\" AS country, \"Country Code\" AS country_code, \"Country Code\" IN ('AFE','AFW','ARB','CEB','CSS','EAP','EAR','EAS','ECA','ECS','EMU','EUU','FCS','HIC','HPC','IBD','IBT','IDA','IDB','IDX','INX','LAC','LCN','LDC','LIC','LMC','LMY','LTE','MEA','MIC','MNA','NAC','OED','OSS','PRE','PSS','PST','SAS','SSA','SSF','SST','TEA','TEC','TLA','TMN','TSA','TSS','UMC','WLD') AS is_aggregate, CAST(\"Year\" AS INTEGER) AS year, CAST(\"Value\" AS BIGINT) AS population FROM raw"
+    },
+    "inflation": {
+      "dataset": "https://datahub.io/core/inflation",
+      "resource": "inflation-consumer",
+      "sql": "SELECT \"Country\" AS country, \"Country Code\" AS country_code, \"Country Code\" IN ('AFE','AFW','ARB','CEB','CSS','EAP','EAR','EAS','ECA','ECS','EMU','EUU','FCS','HIC','HPC','IBD','IBT','IDA','IDB','IDX','INX','LAC','LCN','LDC','LIC','LMC','LMY','LTE','MEA','MIC','MNA','NAC','OED','OSS','PRE','PSS','PST','SAS','SSA','SSF','SST','TEA','TEC','TLA','TMN','TSA','TSS','UMC','WLD') AS is_aggregate, CAST(\"Year\" AS INTEGER) AS year, \"Inflation\" AS inflation_pct FROM raw"
+    },
+    "co2_monthly": {
+      "dataset": "https://datahub.io/core/co2-ppm",
+      "resource": "co2-mm-mlo",
+      "read": {
+        "names": [
+          "month",
+          "decimal_date",
+          "average",
+          "deseasonalized",
+          "days",
+          "sdev",
+          "unc"
+        ]
+      },
+      "sql": "SELECT CAST(strptime(month, '%Y-%m') AS DATE) AS month, CASE WHEN average > 0 THEN average END AS co2_ppm, CASE WHEN deseasonalized > 0 THEN deseasonalized END AS co2_ppm_trend FROM raw"
+    },
+    "co2_annual": {
+      "dataset": "https://datahub.io/core/co2-ppm",
+      "resource": "co2-annmean-mlo",
+      "sql": "SELECT CAST(\"Year\" AS INTEGER) AS year, \"Mean\" AS co2_ppm FROM raw"
+    },
+    "co2_emissions": {
+      "dataset": "https://datahub.io/core/co2-fossil-global",
+      "resource": "global",
+      "sql": "SELECT CAST(\"Year\" AS INTEGER) AS year, \"Total\" AS total_mt_carbon, \"Gas Fuel\" AS gas, \"Liquid Fuel\" AS liquid, \"Solid Fuel\" AS solid, \"Cement\" AS cement, \"Gas Flaring\" AS flaring, \"Per Capita\" AS per_capita_t_carbon FROM raw"
+    },
+    "temperature": {
+      "dataset": "https://datahub.io/core/global-temp",
+      "resource": "annual",
+      "sql": "SELECT \"Source\" AS source, CAST(\"Year\" AS INTEGER) AS year, \"Mean\" AS anomaly_c FROM raw"
+    },
+    "temperature_monthly": {
+      "dataset": "https://datahub.io/core/global-temp",
+      "resource": "monthly",
+      "sql": "SELECT \"Source\" AS source, CAST(strptime(\"Year\", '%Y-%m') AS DATE) AS month, \"Mean\" AS anomaly_c FROM raw"
+    },
+    "sea_level": {
+      "dataset": "https://datahub.io/core/sea-level-rise",
+      "resource": "epa-sea-level",
+      "sql": "SELECT CAST(\"Year\" AS INTEGER) AS year, \"CSIRO Adjusted Sea Level\" AS csiro_inches, \"NOAA Adjusted Sea Level\" AS noaa_inches FROM raw"
+    },
+    "glaciers": {
+      "dataset": "https://datahub.io/core/glacier-mass-balance",
+      "resource": "glaciers",
+      "sql": "SELECT CAST(\"Year\" AS INTEGER) AS year, \"Mean cumulative mass balance\" AS cumulative_mass_balance_mwe, \"Number of observations\" AS observations FROM raw"
+    },
+    "oil_prices": {
+      "dataset": "https://datahub.io/core/oil-prices",
+      "resource": "brent-month",
+      "inputs": {
+        "wti": {
+          "dataset": "https://datahub.io/core/oil-prices",
+          "resource": "wti-month"
+        }
+      },
+      "sql": "SELECT 'Brent' AS benchmark, CAST(\"Date\" AS DATE) AS month, \"Price\" AS usd_per_barrel FROM raw UNION ALL SELECT 'WTI', CAST(\"Date\" AS DATE), \"Price\" FROM wti"
+    },
+    "gas_prices": {
+      "dataset": "https://datahub.io/core/natural-gas",
+      "resource": "monthly-processed",
+      "sql": "SELECT CAST(\"Date\" AS DATE) AS month, \"Price\" AS usd_per_mmbtu FROM raw"
+    },
+    "gold_prices": {
+      "dataset": "https://datahub.io/core/gold-prices",
+      "resource": "monthly-processed",
+      "sql": "SELECT CAST(\"Date\" AS DATE) AS month, \"Price\" AS usd_per_ounce FROM raw"
+    },
+    "sp500": {
+      "dataset": "https://datahub.io/core/s-and-p-500",
+      "resource": "data",
+      "sql": "SELECT CAST(\"Date\" AS DATE) AS month, nullif(\"SP500\", 0) AS sp500, nullif(\"Dividend\", 0) AS dividend, nullif(\"Earnings\", 0) AS earnings, nullif(\"Real Price\", 0) AS real_price, nullif(\"PE10\", 0) AS pe10 FROM raw"
+    },
+    "us_house_prices": {
+      "dataset": "https://datahub.io/core/house-prices-us",
+      "resource": "cities-nsa",
+      "sql": "SELECT CAST(\"Date\" AS DATE) AS month, CASE area WHEN 'National-US' THEN 'US national' WHEN 'Composite-10' THEN '10-city composite' WHEN 'Composite-20' THEN '20-city composite' ELSE area END AS area, nullif(index, 0) AS index FROM (UNPIVOT raw ON COLUMNS(* EXCLUDE (\"Date\")) INTO NAME area VALUE index) WHERE index IS NOT NULL"
+    },
+    "us_bond_yield": {
+      "dataset": "https://datahub.io/core/bond-yields-us-10y",
+      "resource": "monthly",
+      "sql": "SELECT CAST(\"Date\" AS DATE) AS month, \"Rate\" AS yield_pct FROM raw"
+    },
+    "exchange_rates": {
+      "dataset": "https://datahub.io/core/exchange-rates",
+      "resource": "monthly",
+      "sql": "SELECT CAST(\"Date\" AS DATE) AS month, \"Country\" AS country, \"Exchange rate\" AS rate FROM raw"
+    },
+    "us_employment": {
+      "dataset": "https://datahub.io/core/employment-us",
+      "resource": "aat1",
+      "read": {
+        "null_padding": true
+      },
+      "sql": "SELECT CAST(year AS INTEGER) AS year, population AS population_thousands, labor_force AS labor_force_thousands, employed_total AS employed_thousands, unemployed AS unemployed_thousands, unemployed_percent AS unemployment_rate_pct, employed_percent AS employment_population_ratio_pct FROM raw QUALIFY row_number() OVER (PARTITION BY year ORDER BY population) = 1"
+    },
+    "vix": {
+      "dataset": "https://datahub.io/core/finance-vix",
+      "resource": "vix-monthly",
+      "sql": "SELECT CAST(\"Date\" AS DATE) AS month, \"Close\" AS vix FROM raw"
+    }
+  }
+}

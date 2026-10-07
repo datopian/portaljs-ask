@@ -3,13 +3,14 @@
   "private": true,
   "version": "0.1.0",
   "scripts": {
-    "dev": "next dev",
-    "build": "next build",
+    "dev": "npm run portals && next dev",
+    "build": "npm run portals && next build",
     "start": "next start",
     "ingest:security": "node scripts/ingest-security.mjs",
     "ingest:governance": "node scripts/ingest-governance.mjs",
     "embed:security": "node --env-file=.env.local scripts/embed.mjs security",
-    "embed:governance": "node --env-file=.env.local scripts/embed.mjs governance"
+    "embed:governance": "node --env-file=.env.local scripts/embed.mjs governance",
+    "portals": "node scripts/build-portals.mjs"
   },
   "dependencies": {
     "next": "^14.2.35",

@@ -1,4 +1,5 @@
-// Best-effort per-IP rate limit for the public /api/ask and /api/toronto endpoints.
+// Best-effort per-IP rate limit for the document-search /api/ask endpoints.
+// (Live data questions use the shared limits in lib/ask/guard.ts instead.)
 //
 // This is an in-memory fixed-window counter, not a distributed one: it's
 // scoped to a single serverless function instance, so it resets on cold

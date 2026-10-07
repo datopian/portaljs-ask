@@ -1,0 +1,612 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="{{description}}">
+<title>{{title}}</title>
+{{favicon}}
+<style>
+/* Layout: one page. Hero (eyebrow, huge serif headline with one italic blue word, question box, suggestion chips), then the data story appears below: answer + navy stat panel, three chapters (text left, chart right), sources, ask next. */
+:root {
+  --bg: #ffffff;
+  --surface: #f3f5f8;
+  --ink: #03223e;
+  --muted: #526274;
+  --border: #d7dfe7;
+  --grid: #e9eef3;
+  --blue: #094f9a;
+  --navy: #003566;
+  --gold: #fdc400;
+  --context: #c5d1dc;
+  --s1: #2a78d6;
+  --s2: #eb6834;
+  --s3: #1baf7a;
+  --s4: #eda100;
+  --on-navy: #ffffff;
+  --on-navy-muted: #c9d8e6;
+  --display: Georgia, "Times New Roman", serif;
+  --font: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --mono: ui-monospace, SFMono-Regular, Consolas, monospace;
+  --radius: 4px;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0b1622; --surface: #12202e; --ink: #e8eef5; --muted: #9fb0c1; --border: #233446; --grid: #1a2939;
+    --blue: #7db3ee; --navy: #0f2f52; --context: #33475b; --s1: #3987e5; --s2: #d95926; --s3: #199e70; --s4: #c98500; --on-navy-muted: #a9c0d6; color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0b1622; --surface: #12202e; --ink: #e8eef5; --muted: #9fb0c1; --border: #233446; --grid: #1a2939;
+  --blue: #7db3ee; --navy: #0f2f52; --context: #33475b; --s1: #3987e5; --s2: #d95926; --s3: #199e70; --s4: #c98500; --on-navy-muted: #a9c0d6; color-scheme: dark;
+}
+* { box-sizing: border-box; }
+[hidden] { display: none !important; }
+body { background: var(--bg); color: var(--ink); font: 16px/1.6 var(--font); -webkit-font-smoothing: antialiased; }
+p, h1, h2, h3, ul { margin: 0; }
+h1, h2, h3 { font-family: var(--display); font-weight: 400; letter-spacing: -0.035em; line-height: 1.08; text-wrap: balance; }
+em { font-style: italic; color: var(--blue); font-weight: 400; }
+a { color: var(--blue); }
+button, input { font: inherit; }
+:focus-visible { outline: 2px solid var(--blue); outline-offset: 3px; }
+.wrap { max-width: 1120px; margin: 0 auto; padding-inline: 24px; }
+.eyebrow { font-family: var(--mono); font-size: 11px; letter-spacing: .1em; text-transform: uppercase; color: var(--blue); display: flex; align-items: center; gap: 10px; }
+.eyebrow a { color: inherit; text-decoration: underline; text-decoration-color: var(--gold); text-underline-offset: 3px; }
+.bar a { color: inherit; text-decoration: underline; text-decoration-color: var(--border); text-underline-offset: 3px; }
+.bar a:hover { color: var(--blue); }
+.eyebrow::before { content: ""; width: 8px; height: 8px; background: var(--gold); flex: none; }
+
+/* top bar */
+.bar { border-bottom: 1px solid var(--border); }
+.bar .wrap { display: flex; justify-content: space-between; align-items: center; padding-block: 14px; font-size: 14px; }
+.bar b { font-family: var(--display); font-weight: 400; font-size: 18px; letter-spacing: -0.02em; }
+.bar span { color: var(--muted); font-size: 13px; }
+
+/* hero */
+.hero { padding-block: 72px 48px; display: flex; flex-direction: column; gap: 24px; max-width: 860px; }
+.hero h1 { font-size: clamp(44px, 8vw, 84px); }
+.hero .sub { font-size: 18px; color: var(--muted); max-width: 54ch; }
+form.ask { display: flex; align-items: center; gap: 8px; background: var(--bg); border: 1px solid #8a9caf; border-radius: var(--radius); padding: 8px; margin-top: 8px; box-shadow: 0 1px 0 rgba(3, 34, 62, .04), 0 8px 24px -12px rgba(3, 34, 62, .18); }
+form.ask:focus-within { border-color: var(--blue); }
+form.ask svg { flex: none; color: var(--muted); margin-left: 8px; }
+form.ask input { flex: 1; min-width: 0; border: 0; background: transparent; color: var(--ink); font-size: 18px; padding: 10px 4px; outline: none; }
+form.ask button { flex: none; min-height: 48px; border: 0; border-radius: var(--radius); background: var(--navy); color: #fff; padding: 0 22px; font-weight: 600; cursor: pointer; }
+form.ask button:hover { background: var(--blue); }
+.sugg { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+.sugg .lbl { font-size: 13px; color: var(--muted); margin-right: 4px; }
+/* Hero examples: small chips, so many fit on two lines without pushing the page down. */
+#sugg { gap: 6px; }
+#sugg .chip { padding: 3px 10px; font-size: 13px; line-height: 1.5; }
+#sugg .more { border: 0; background: none; padding: 3px 4px; font-size: 13px; color: var(--blue); cursor: pointer; text-decoration: underline; text-underline-offset: 3px; }
+.chip { border: 1px solid var(--border); background: var(--surface); color: var(--ink); padding: 7px 14px; border-radius: 999px; font-size: 14px; cursor: pointer; text-align: left; transition: border-color var(--t, .15s), background var(--t, .15s); }
+.chip:hover, .chip[aria-pressed="true"] { border-color: var(--blue); background: var(--bg); }
+.chip[aria-pressed="true"] { color: var(--blue); }
+.chip.off { cursor: default; color: var(--muted); background: transparent; }
+.chip.off:hover { border-color: var(--border); }
+.hint { font-size: 14px; color: var(--muted); }
+.notice { border-top: 1px solid var(--border); padding-block: 40px 24px; display: flex; flex-direction: column; gap: 16px; max-width: 720px; }
+.notice h2 { font-family: var(--display); font-weight: 400; font-size: clamp(24px, 3vw, 32px); line-height: 1.2; letter-spacing: -0.02em; margin: 0; color: var(--ink); }
+.notice p { color: var(--muted); margin: 0; }
+.live-note { font-size: 13px; color: var(--muted); }
+.dslink { font: inherit; letter-spacing: inherit; text-transform: inherit; color: inherit; background: none; border: 0; padding: 0; cursor: pointer; text-decoration: underline; text-decoration-color: var(--gold); text-underline-offset: 3px; }
+.connected { border: 1px solid var(--border); background: var(--surface); padding: 16px 20px; display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 260px), 1fr)); gap: 6px 24px; font-size: 14px; }
+.connected a { color: var(--ink); text-decoration: none; }
+.connected a:hover { color: var(--blue); text-decoration: underline; }
+.ds-list { display: flex; flex-direction: column; gap: 12px; }
+
+/* working steps */
+.working { display: flex; flex-wrap: wrap; gap: 8px 24px; padding-block: 8px 40px; font-family: var(--mono); font-size: 12px; color: var(--muted); }
+.working span { display: flex; align-items: center; gap: 8px; opacity: .35; transition: opacity .2s; }
+.working span.on { opacity: 1; }
+.working span::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: var(--border); }
+.working span.done::before { background: var(--blue); }
+
+/* story */
+.story { border-top: 1px solid var(--border); padding-block: 56px 24px; display: flex; flex-direction: column; gap: 72px; }
+.story.enter { animation: rise .5s ease both; }
+@keyframes rise { from { opacity: .001; transform: translateY(12px); } to { opacity: 1; transform: none; } }
+.lead { display: grid; grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr); gap: 48px; align-items: stretch; }
+.lead .txt { display: flex; flex-direction: column; gap: 18px; min-width: 0; }
+.lead h2 { font-size: clamp(34px, 4.6vw, 52px); }
+.lead p { color: var(--muted); font-size: 17px; max-width: 52ch; }
+.stat { background: var(--navy); color: var(--on-navy); border-radius: var(--radius); padding: 32px; display: flex; flex-direction: column; justify-content: space-between; gap: 24px; min-width: 0; }
+.stat .eyebrow { color: var(--on-navy-muted); }
+.stat b { display: block; font-family: var(--display); font-weight: 400; font-size: clamp(56px, 7vw, 88px); letter-spacing: -0.04em; line-height: 1; color: var(--on-navy); }
+.stat p { color: var(--on-navy-muted); font-size: 15px; max-width: 32ch; }
+.stat .bar-gold { width: 40px; height: 3px; background: var(--gold); }
+
+.chapter { display: grid; grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr); gap: 48px; align-items: start; }
+.chapter .txt { display: flex; flex-direction: column; gap: 14px; min-width: 0; padding-top: 8px; }
+.chapter .n { font-family: var(--mono); font-size: 12px; color: var(--muted); }
+.chapter h3 { font-size: clamp(26px, 3vw, 34px); }
+.chapter p { color: var(--muted); }
+.figure { background: var(--surface); border-radius: var(--radius); padding: 24px 24px 16px; display: flex; flex-direction: column; gap: 14px; min-width: 0; }
+.chart { position: relative; width: 100%; }
+.chart svg { display: block; width: 100%; height: auto; overflow: visible; }
+.chart text { font-family: var(--font); font-size: 12px; fill: var(--muted); }
+.chart .lbl { fill: var(--ink); font-weight: 600; }
+.tip { position: absolute; pointer-events: none; background: var(--ink); color: var(--bg); font-size: 13px; padding: 5px 9px; border-radius: var(--radius); white-space: nowrap; transform: translate(-50%, calc(-100% - 8px)); font-variant-numeric: tabular-nums; z-index: 2; }
+.figfoot { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px 16px; font-size: 13px; border-top: 1px solid var(--border); padding-top: 12px; }
+.figfoot .src { color: var(--muted); }
+.figfoot .src a { color: var(--ink); text-decoration: none; border-bottom: 1px solid var(--border); }
+.figfoot .src a:hover { border-color: var(--blue); }
+.figfoot .tools { display: flex; gap: 14px; }
+.figfoot button { border: 0; background: none; padding: 0; color: var(--blue); cursor: pointer; font-size: 13px; }
+.drawer { overflow-x: auto; max-width: 100%; }
+.drawer[hidden] { display: none; }
+table { border-collapse: collapse; font-size: 13px; font-variant-numeric: tabular-nums; }
+th, td { text-align: left; padding: 4px 18px 4px 0; border-bottom: 1px solid var(--border); white-space: nowrap; }
+th { color: var(--muted); font-weight: 600; }
+td.n { text-align: right; }
+pre { margin: 0; background: var(--bg); border: 1px solid var(--border); border-radius: var(--radius); padding: 12px 14px; font: 12.5px/1.55 var(--mono); color: var(--ink); white-space: pre; }
+
+.outro { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 48px; border-top: 1px solid var(--border); padding-top: 40px; }
+.outro > div { display: flex; flex-direction: column; gap: 14px; min-width: 0; }
+.ds { display: flex; flex-direction: column; gap: 2px; border-left: 3px solid var(--gold); padding: 4px 0 4px 14px; }
+.ds a { color: var(--ink); font-weight: 600; text-decoration: none; }
+.ds a:hover { color: var(--blue); }
+.ds span { color: var(--muted); font-size: 14px; }
+.more-btn { border: 0; background: none; padding: 0; color: var(--blue); cursor: pointer; font-size: 14px; width: fit-content; }
+.more-txt { color: var(--ink); border-left: 2px solid var(--gold); padding-left: 14px; }
+.explore-btn { display: inline-flex; align-items: center; gap: 8px; border: 1px solid var(--border); background: var(--bg); color: var(--ink); padding: 6px 12px; border-radius: var(--radius); cursor: pointer; font-size: 13px; font-weight: 600; }
+.explore-btn:hover { border-color: var(--blue); color: var(--blue); }
+.ov { position: fixed; inset: 0; z-index: 50; background: rgba(3, 20, 38, .55); overflow-y: auto; padding: calc(env(safe-area-inset-top, 0px) + 32px) 16px calc(env(safe-area-inset-bottom, 0px) + 32px); display: flex; justify-content: center; align-items: flex-start; }
+.panel { background: var(--bg); width: 100%; max-width: 980px; border-radius: var(--radius); padding: 32px; display: flex; flex-direction: column; gap: 20px; box-shadow: 0 24px 60px -20px rgba(0, 0, 0, .45); }
+.panel.enter { animation: rise .25s ease both; }
+.ph { display: flex; justify-content: space-between; align-items: flex-start; gap: 16px; }
+.ph div { display: flex; flex-direction: column; gap: 10px; }
+.ph h3 { font-size: clamp(24px, 3.4vw, 34px); }
+.close { flex: none; width: 40px; height: 40px; border: 1px solid var(--border); background: var(--bg); color: var(--ink); border-radius: var(--radius); cursor: pointer; font-size: 20px; line-height: 1; }
+.close:hover { border-color: var(--blue); }
+.ctrl { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; }
+.ctrl > span { font-size: 13px; color: var(--muted); margin-right: 4px; }
+.seg { display: inline-flex; flex-wrap: wrap; gap: 6px; }
+.seg button { border: 1px solid var(--border); background: var(--surface); color: var(--ink); padding: 6px 12px; border-radius: 999px; font-size: 13px; cursor: pointer; }
+.seg button[aria-pressed="true"] { background: var(--navy); border-color: var(--navy); color: #fff; }
+.ctrl select { border: 1px solid var(--border); background: var(--bg); color: var(--ink); padding: 7px 10px; border-radius: var(--radius); font-size: 14px; }
+.caption { font-size: 14px; color: var(--muted); }
+.panel .figure { padding: 24px; }
+.tabs { display: flex; gap: 6px; border-bottom: 1px solid var(--border); }
+.tabs button { border: 0; border-bottom: 2px solid transparent; background: none; color: var(--muted); padding: 8px 4px; margin-right: 14px; cursor: pointer; font-size: 14px; }
+.tabs button[aria-selected="true"] { color: var(--ink); border-bottom-color: var(--gold); }
+.pf { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px; font-size: 13px; color: var(--muted); }
+.pf a { color: var(--ink); }
+body.locked { overflow: hidden; }
+@media (max-width: 520px) { .panel { padding: 20px 16px; } }
+footer { border-top: 1px solid var(--border); margin-top: 48px; }
+footer .wrap { padding-block: 20px 40px; font-size: 12px; color: var(--muted); }
+footer .other-demos { margin: 0 0 8px; font-size: 13px; }
+footer .other-demos a { color: var(--blue); }
+
+@media (max-width: 860px) {
+  .lead, .chapter, .outro { grid-template-columns: minmax(0, 1fr); gap: 24px; }
+  .story { gap: 56px; }
+  .hero { padding-block: 48px 32px; }
+}
+@media (max-width: 520px) {
+  .wrap { padding-inline: 16px; }
+  form.ask input { font-size: 16px; }
+  form.ask button { padding: 0 14px; }
+  .figure { padding: 16px 14px 12px; }
+  .stat { padding: 24px; }
+}
+@media (prefers-reduced-motion: reduce) { .story.enter { animation: none; } .working span { transition: none; } }
+.bar .brand { display: flex; align-items: center; gap: 10px; }
+.bar .brand img { height: 28px; width: auto; display: block; }
+</style>
+{{themeCss}}
+</head>
+<body>
+
+
+<header class="bar"><div class="wrap"><span class="brand">{{logo}}<b>{{name}}</b></span><span>Data from <a href="{{sourceUrl}}" target="_blank" rel="noopener">{{sourceName}} ↗</a></span></div></header>
+
+<div class="wrap">
+  <section class="hero">
+    <span class="eyebrow">Connected to <a href="{{sourceUrl}}" target="_blank" rel="noopener">{{sourceLabel}}</a> · <button type="button" class="dslink" id="dsbtn" aria-expanded="false" aria-controls="dslist">{{datasetCount}}</button></span>
+    <h1>{{headline}}</h1>
+    <p class="sub">{{intro}}</p>
+    <form class="ask" id="ask" role="search"{{formHidden}}>
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+      <label for="qi" style="position:absolute;left:-9999px">Your question</label>
+      <input id="qi" autocomplete="off" placeholder="{{placeholder}}">
+      <button type="submit">Ask</button>
+    </form>
+    <div class="sugg" id="sugg"></div>
+    <p class="hint" id="hint" hidden></p>
+    <div class="connected" id="dslist" hidden></div>
+  </section>
+  <div id="working" class="working" hidden></div>
+  <main id="story" aria-live="polite"></main>
+</div>
+
+<footer><div class="wrap">{{footer}}</div></footer>
+
+<script>window.PORTAL = {{portalJson}};</script>
+<script>
+// The portal this page shows (branding, datasets, examples, instant answers) is
+// baked in at build time by scripts/build-portals.mjs from portals/<slug>/.
+const P = window.PORTAL;
+const DATASETS = Object.fromEntries(P.datasets.map(d => [d.id, d]));
+const TABLE_DS = Object.fromEntries(P.datasets.flatMap(d => d.tables.map(t => [t, d.id])));
+const tablesIn = sql => Object.keys(TABLE_DS).filter(t => new RegExp(`\\b${t}\\b`, "i").test(sql));
+
+const fmt = n => Number(n).toLocaleString("en-US");
+const short = n => n >= 1e6 ? (n / 1e6).toFixed(1).replace(/\.0$/, "") + "M" : n >= 1e3 ? Math.round(n / 1e3) + "K" : String(n);
+const title = s => s.toLowerCase().replace(/\b\w/g, c => c.toUpperCase());
+const escH = t => String(t).replace(/&/g, "&amp;").replace(/</g, "&lt;");
+const tableOf = (rows, cols) => `<table><thead><tr>${cols.map(c => `<th${c[2] ? ' style="text-align:right"' : ""}>${c[0]}</th>`).join("")}</tr></thead><tbody>${rows.map(r => `<tr>${cols.map(c => `<td${c[2] ? ' class="n"' : ""}>${c[1](r)}</td>`).join("")}</tr>`).join("")}</tbody></table>`;
+
+/* ---------- charts ---------- */
+const NS = "http://www.w3.org/2000/svg";
+function svgEl(tag, attrs, parent) { const e = document.createElementNS(NS, tag); for (const k in attrs) e.setAttribute(k, attrs[k]); if (parent) parent.appendChild(e); return e; }
+function tip(box, x, y, text) { let t = box.querySelector(".tip"); if (!t) { t = document.createElement("div"); t.className = "tip"; box.appendChild(t); } t.textContent = text; t.hidden = false; t.style.left = Math.max(80, Math.min(box.clientWidth - 80, x)) + "px"; t.style.top = y + "px"; }
+function untip(box) { const t = box.querySelector(".tip"); if (t) t.hidden = true; }
+function niceStep(max) { if (!(max > 0)) return 1; const raw = max / 4, p = Math.pow(10, Math.floor(Math.log10(raw))); const n = raw / p; return (n <= 1 ? 1 : n <= 2 ? 2 : n <= 2.5 ? 2.5 : n <= 5 ? 5 : 10) * p; }
+function hoverable(box, svg, W, H, el, cx, cy, text) {
+  const on = () => { const r = svg.getBoundingClientRect(); tip(box, cx * r.width / W, cy * r.height / H, text); };
+  el.addEventListener("pointerenter", on); el.addEventListener("pointerdown", on); el.addEventListener("pointerleave", () => untip(box));
+}
+function roundTop(x, y, w, h, r) { r = Math.min(r, w / 2, h); return `M${x},${y + h} V${y + r} Q${x},${y} ${x + r},${y} H${x + w - r} Q${x + w},${y} ${x + w},${y + r} V${y + h} Z`; }
+function roundRight(x, y, w, h, r) { r = Math.min(r, h / 2, w); return `M${x},${y} H${x + w - r} Q${x + w},${y} ${x + w},${y + r} V${y + h - r} Q${x + w},${y + h} ${x + w - r},${y + h} H${x} Z`; }
+
+function columns(box, data, o) {
+  box.querySelector("svg")?.remove();
+  const W = box.clientWidth, H = Math.max(180, Math.min(240, W * 0.3)), m = { t: 22, r: 4, b: 24, l: 40 };
+  const svg = svgEl("svg", { viewBox: `0 0 ${W} ${H}`, role: "img" }); box.prepend(svg);
+  const max = Math.max(...data.map(d => d.y)), step = niceStep(max), top = Math.ceil(max / step) * step;
+  const Y = v => H - m.b - v / top * (H - m.t - m.b);
+  for (let v = 0; v <= top + 1e-9; v += step) { svgEl("line", { x1: m.l, x2: W - m.r, y1: Y(v), y2: Y(v), stroke: "var(--grid)", "stroke-width": 1 }, svg); svgEl("text", { x: m.l - 8, y: Y(v) + 4, "text-anchor": "end" }, svg).textContent = short(v); }
+  const slot = (W - m.l - m.r) / data.length, bw = Math.max(4, Math.min(36, slot - 3));
+  const every = o.every && W < 640 ? o.every * 2 : (o.every || (W < 480 && data.length > 8 ? 2 : 1));
+  // Narrow bars: label only the tallest highlighted bar so labels don't collide.
+  const hiMax = Math.max(...data.filter(d => d.hi).map(d => d.y));
+  data.forEach((d, i) => {
+    const cx = m.l + slot * (i + 0.5), y = Y(d.y), h = Math.max(1, H - m.b - y);
+    svgEl("path", { d: roundTop(cx - bw / 2, H - m.b - h, bw, h, 3), fill: d.hi ? "var(--blue)" : "var(--context)" }, svg);
+    if (i % every === 0) svgEl("text", { x: cx, y: H - 6, "text-anchor": "middle" }, svg).textContent = d.x;
+    if (o.labelHi && d.hi && (slot >= 32 || d.y === hiMax)) svgEl("text", { x: cx, y: H - m.b - h - 6, "text-anchor": "middle", class: "lbl" }, svg).textContent = short(d.y);
+    const hit = svgEl("rect", { x: cx - slot / 2, y: m.t, width: slot, height: H - m.t - m.b, fill: "transparent" }, svg);
+    hoverable(box, svg, W, H, hit, cx, H - m.b - h, o.tip(d));
+  });
+}
+
+function bars(box, data, o) {
+  box.querySelector("svg")?.remove();
+  const W = box.clientWidth, row = 28, labelW = Math.min(230, W * 0.42), valW = 56, H = data.length * row;
+  const svg = svgEl("svg", { viewBox: `0 0 ${W} ${H}`, role: "img" }); box.prepend(svg);
+  const max = Math.max(...data.map(d => d.y)), plot = W - labelW - valW;
+  data.forEach((d, i) => {
+    const y = i * row + 5, bh = 18, w = Math.max(2, d.y / max * plot);
+    svgEl("text", { x: labelW - 10, y: y + 13, "text-anchor": "end", class: d.hi ? "lbl" : "" }, svg).textContent = d.x;
+    svgEl("path", { d: roundRight(labelW, y, w, bh, 3), fill: d.hi ? "var(--blue)" : "var(--context)" }, svg);
+    svgEl("text", { x: labelW + w + 6, y: y + 13 }, svg).textContent = fmt(d.y);
+    const hit = svgEl("rect", { x: 0, y: y - 5, width: W, height: row, fill: "transparent" }, svg);
+    hoverable(box, svg, W, H, hit, labelW + w / 2, y, o.tip(d));
+  });
+}
+
+
+/* ---------- page ---------- */
+const $ = id => document.getElementById(id);
+const reduced = matchMedia("(prefers-reduced-motion: reduce)").matches;
+let drawers = [], current = null, timer = null, runId = 0;
+const REFUSED = {
+  limit: ["That's your live questions for today.", "The limit resets tomorrow. The example questions still work, and they're free."],
+  busy: ["Live questions are paused for today.", "This demo has a daily limit, and it's been reached. The example questions still work."],
+  budget: ["Live questions are paused for now.", "This demo's monthly budget for live questions has been used up. The example questions still work."],
+};
+
+// Example questions: the ones with an instant (pre-computed) answer come first;
+// the rest are asked live. A few show at a time; "More ideas" shows the next few.
+const norm = t => t.toLowerCase().replace(/[^\p{L}\p{N}]+/gu, " ").trim();
+const INSTANT = Object.fromEntries((P.instant || []).map(a => [norm(a.q), a]));
+const FIXED = P.examples.filter(q => INSTANT[norm(q)]).slice(0, 3);
+const IDEAS = P.live ? P.examples.filter(q => !FIXED.includes(q)) : [];
+const IDEAS_SHOWN = 4;
+let ideaAt = 0;
+function renderSugg() {
+  const ideas = IDEAS.length > IDEAS_SHOWN ? Array.from({ length: IDEAS_SHOWN }, (_, i) => IDEAS[(ideaAt + i) % IDEAS.length]) : IDEAS;
+  $("sugg").innerHTML = `<span class="lbl">Try:</span>`
+    + [...FIXED, ...ideas].map(q => `<button class="chip" type="button" data-ask="${escH(q).replace(/"/g, "&quot;")}" aria-pressed="${norm(q) === current}">${escH(q)}</button>`).join("")
+    + (IDEAS.length > IDEAS_SHOWN ? `<button class="more" type="button" id="moreIdeas">More ideas</button>` : "");
+  bindAsk($("sugg"));
+  $("moreIdeas")?.addEventListener("click", () => { ideaAt = (ideaAt + IDEAS_SHOWN) % IDEAS.length; renderSugg(); $("moreIdeas").focus(); });
+}
+function route(text) {
+  const a = INSTANT[norm(text)];
+  if (a) return instant(a, text);
+  if (P.live) return live(text);
+  notice("Try one of the example questions.", "This demo answers the example questions above.", FIXED);
+}
+$("ask").addEventListener("submit", e => {
+  e.preventDefault();
+  const v = $("qi").value.trim();
+  if (v) return route(v);
+  $("hint").hidden = false;
+  $("hint").textContent = "Type a question first.";
+});
+
+// An instant answer is a saved live answer (question, queries, their rows, the story),
+// shown with the same short "working" animation as before.
+function instant(a, typed, now) {
+  $("hint").hidden = true;
+  runId++;
+  current = norm(a.q); renderSugg();
+  $("qi").value = typed || a.q;
+  clearTimeout(timer);
+  $("story").innerHTML = ""; drawers = [];
+  const ok = a.queries.map(q => ({ q, rows: q.rows }));
+  const s = liveStory(a.q, ok, a.story, false);
+  const w = $("working"); w.hidden = false;
+  w.innerHTML = ["Choosing the right data", "Running the queries", "Writing the story"].map(t => `<span>${t}</span>`).join("");
+  const spans = [...w.children];
+  if (reduced || now) { spans.forEach(x => x.classList.add("on", "done")); show(s); return; }
+  let i = 0;
+  const tick = () => {
+    if (i > 0) spans[i - 1].classList.add("done");
+    if (i < spans.length) { spans[i].classList.add("on"); i++; timer = setTimeout(tick, 380); }
+    else show(s);
+  };
+  tick();
+}
+
+function show(s) {
+  $("working").hidden = true;
+  const esc = t => String(t).replace(/&/g, "&amp;").replace(/</g, "&lt;");
+  const dsOf = p => DATASETS[p.ds || s.ds];
+  const dsList = s.dsList || [s.ds];
+  $("story").innerHTML = `
+    <article class="story enter">
+      <section class="lead">
+        <div class="txt">
+          <span class="eyebrow">The answer</span>
+          <h2>${s.lead}</h2>
+          <p>${s.sub}</p>
+          <p class="live-note">${s.live ? "Answered live." : "Answered earlier, the same way as live questions."} AI wrote the queries and the text; every number comes from the query results.</p>
+        </div>
+        <div class="stat"${s.stat[0] ? "" : " hidden"}>
+          <span class="eyebrow">In one number</span>
+          <div><b>${s.stat[0]}</b></div>
+          <div style="display:flex;flex-direction:column;gap:12px"><span class="bar-gold"></span><p>${s.stat[1]}</p></div>
+        </div>
+      </section>
+      ${s.points.map((p, i) => `
+        <section class="chapter">
+          <div class="txt">
+            <span class="n">${String(i + 1).padStart(2, "0")} / ${String(s.points.length).padStart(2, "0")}</span>
+            <h3>${p.h}</h3>
+            <p>${p.p}</p>
+            ${p.more ? `<button class="more-btn" type="button" data-more="m${i}" aria-expanded="false">Read more</button>
+            <p class="more-txt" id="m${i}" hidden>${p.more}</p>` : ""}
+          </div>
+          <figure class="figure" style="margin:0">
+            <div class="chart" id="ch${i}"></div>
+            <div class="figfoot">
+              <span class="src">Source: <a href="${dsOf(p).url}" target="_blank" rel="noopener">${dsOf(p).title} ↗</a></span>
+              <button class="explore-btn" type="button" data-ex="${i}">Explore this chart <span aria-hidden="true">→</span></button>
+            </div>
+          </figure>
+        </section>`).join("")}
+      <section class="outro">
+        <div>
+          <span class="eyebrow">Data sources</span>
+          <div class="ds-list">${dsList.map(k => DATASETS[k]).map(ds => `<div class="ds"><a href="${ds.url}" target="_blank" rel="noopener">${ds.title} ↗</a><span>${ds.note}</span></div>`).join("")}</div>
+        </div>
+        <div>
+          <span class="eyebrow">Ask next</span>
+          <div class="sugg">${s.next.map(q => `<button class="chip" type="button" data-ask="${escH(q).replace(/"/g, "&quot;")}">${escH(q)}</button>`).join("")}</div>
+        </div>
+      </section>
+    </article>`;
+  $("story").querySelectorAll("[data-more]").forEach(b => b.addEventListener("click", () => {
+    const d = $(b.dataset.more), open = d.hidden; d.hidden = !open; b.setAttribute("aria-expanded", String(open)); b.textContent = open ? "Show less" : "Read more";
+  }));
+  $("story").querySelectorAll("[data-ex]").forEach(b => b.addEventListener("click", () => explore(s, Number(b.dataset.ex), b)));
+  bindAsk($("story"));
+  drawers = s.points.map((p, i) => () => p.chart($("ch" + i)));
+  drawers.forEach(f => f());
+}
+
+let exDraw = null, exReturn = null;
+function explore(s, i, opener) {
+  const p = s.points[i], ex = p.explore, ds = DATASETS[p.ds || s.ds];
+  let val = ex.multi ? [...ex.def] : ex.def, tab = "table";
+  exReturn = opener;
+  const ov = document.createElement("div");
+  ov.className = "ov"; ov.id = "ov";
+  ov.innerHTML = `<div class="panel" role="dialog" aria-modal="true" aria-labelledby="exh">
+    <div class="ph"><div><span class="eyebrow">Explore · ${String(i + 1).padStart(2, "0")} / ${String(s.points.length).padStart(2, "0")}</span><h3 id="exh">${p.h}</h3></div><button class="close" type="button" aria-label="Close">×</button></div>
+    <div class="ctrl" id="exctrl"></div>
+    <figure class="figure" style="margin:0"><p class="caption" id="excap"></p><div class="chart" id="exchart"></div></figure>
+    <div class="tabs" role="tablist"><button type="button" role="tab" data-tab="table">The numbers</button><button type="button" role="tab" data-tab="query">The query</button></div>
+    <div class="drawer" id="exbody"></div>
+    <div class="pf"><span>Source: <a href="${ds.url}" target="_blank" rel="noopener">${ds.title} ↗</a></span><span>${ds.note}</span></div>
+  </div>`;
+  document.body.appendChild(ov); document.body.classList.add("locked");
+  const close = () => { ov.remove(); document.body.classList.remove("locked"); exDraw = null; document.removeEventListener("keydown", onKey); exReturn?.focus(); };
+  const onKey = e => { if (e.key === "Escape") close(); };
+  document.addEventListener("keydown", onKey);
+  ov.addEventListener("click", e => { if (e.target === ov) close(); });
+  ov.querySelector(".close").addEventListener("click", close);
+  const ctrl = ov.querySelector("#exctrl");
+  const useSelect = !ex.multi && ex.options.length > 5;
+  const drawCtrl = () => {
+    if (!ex.options.length) { ctrl.hidden = true; return; }
+    ctrl.innerHTML = `<span>${ex.label}</span>` + (useSelect
+      ? `<select id="exsel" aria-label="${ex.label}">${ex.options.map(o => `<option value="${o.v}"${o.v === val ? " selected" : ""}>${o.label}</option>`).join("")}</select>`
+      : `<div class="seg">${ex.options.map(o => `<button type="button" data-v="${o.v}" aria-pressed="${ex.multi ? val.includes(o.v) : o.v === val}">${o.label}</button>`).join("")}</div>`);
+    if (useSelect) ctrl.querySelector("select").addEventListener("change", e => { const o = ex.options.find(o => String(o.v) === e.target.value); val = o.v; update(); });
+    else ctrl.querySelectorAll("[data-v]").forEach(b => b.addEventListener("click", () => {
+      const o = ex.options.find(o => String(o.v) === b.dataset.v);
+      if (ex.multi) {
+        if (val.includes(o.v)) { if (val.length > 1) val = val.filter(x => x !== o.v); }
+        else val = val.length >= ex.max ? [...val.slice(1), o.v] : [...val, o.v];
+      } else val = o.v;
+      drawCtrl(); update();
+    }));
+  };
+  const update = () => {
+    const v = ex.view(val);
+    ov.querySelector("#excap").textContent = v.caption;
+    exDraw = () => v.draw(ov.querySelector("#exchart"));
+    exDraw();
+    ov.querySelectorAll("[data-tab]").forEach(b => b.setAttribute("aria-selected", String(b.dataset.tab === tab)));
+    ov.querySelector("#exbody").innerHTML = tab === "table" ? tableOf(v.rows, v.cols) : `<pre>${escH(v.sql)}</pre>`;
+  };
+  ov.querySelectorAll("[data-tab]").forEach(b => b.addEventListener("click", () => { tab = b.dataset.tab; update(); }));
+  drawCtrl(); update();
+  ov.querySelector(".close").focus();
+}
+
+// ---- Live questions ----
+// 1. /api/data/plan: AI picks the tables and writes up to 3 queries (cached, or counted against the limits)
+// 2. The queries run here, in the browser, with DuckDB-WASM over the portal's parquet files
+// 3. /api/data/write: AI writes the story from the real result rows (cached per question and rows)
+let dbp = null;
+function getDB() {
+  return dbp ||= (async () => {
+    const duckdb = await import("https://cdn.jsdelivr.net/npm/@duckdb/duckdb-wasm@1.29.0/+esm");
+    const bundle = await duckdb.selectBundle(duckdb.getJsDelivrBundles());
+    const wurl = URL.createObjectURL(new Blob([`importScripts("${bundle.mainWorker}");`], { type: "text/javascript" }));
+    const db = new duckdb.AsyncDuckDB(new duckdb.VoidLogger(), new Worker(wurl));
+    await db.instantiate(bundle.mainModule, bundle.pthreadWorker);
+    URL.revokeObjectURL(wurl);
+    return { db, conn: await db.connect() };
+  })().catch(e => { dbp = null; throw e; });
+}
+// Each table's file is downloaded the first time a query uses it.
+const loaded = {};
+function loadTable({ db, conn }, t) {
+  return loaded[t] ||= (async () => {
+    const res = await fetch(`${P.data.base}${t}.parquet`);
+    if (!res.ok) throw new Error(`Could not load ${t}`);
+    await db.registerFileBuffer(`${t}.parquet`, new Uint8Array(await res.arrayBuffer()));
+    await conn.query(`CREATE VIEW ${t} AS SELECT * FROM '${t}.parquet'`);
+  })().catch(e => { delete loaded[t]; throw e; });
+}
+async function runQuery(h, sql) {
+  await Promise.all(tablesIn(sql).map(t => loadTable(h, t)));
+  const conn = h.conn;
+  const inner = sql.trim().replace(/;+\s*$/, "");
+  const t = await conn.query(`SELECT CAST(label AS VARCHAR) AS label, CAST(value AS DOUBLE) AS value FROM (${inner}) AS q LIMIT 30`);
+  const rows = t.toArray().map(r => r.toJSON()).filter(r => r.value !== null && Number.isFinite(Number(r.value))).map(r => ({ label: String(r.label ?? ""), value: Number(r.value) }));
+  // A repeated label means the query returned more than one row per bar; send it back for repair.
+  if (new Set(rows.map(r => r.label)).size < rows.length) throw new Error("Each label must appear only once: return exactly two columns (label, value) and one row per label.");
+  return rows;
+}
+async function post(url, body) {
+  const res = await fetch(url, { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify(body) });
+  const json = await res.json().catch(() => ({}));
+  if (!res.ok) { const e = new Error(json.error || "Request failed"); e.status = res.status; e.body = json; throw e; }
+  return json;
+}
+const niceLabel = t => /[a-z]/.test(t) || !/[A-Z]/.test(t) ? t : title(t).replace(/ Station$/, "");
+const numFmt = v => Number.isInteger(v) ? fmt(v) : fmt(Math.round(v * 10) / 10);
+// Colours the AI's chosen phrase (or *asterisk* phrase) in the headline, like the prepared stories.
+const leadHTML = (t, hl) => {
+  let h = escH(t).replace(/\*([^*]+)\*/g, "<em>$1</em>").replace(/\*/g, "");
+  const e = hl && escH(hl.replace(/\*/g, ""));
+  if (!h.includes("<em>") && e && h.includes(e)) h = h.replace(e, `<em>${e}</em>`);
+  return h;
+};
+function bindAsk(root) {
+  root.querySelectorAll("[data-ask]").forEach(b => b.addEventListener("click", () => { $("qi").value = b.dataset.ask; route(b.dataset.ask); $("ask").scrollIntoView({ behavior: reduced ? "auto" : "smooth" }); }));
+}
+function notice(heading, text, suggestions, related) {
+  $("working").hidden = true;
+  $("story").innerHTML = `<section class="notice"><h2>${escH(heading)}</h2>${text ? `<p>${escH(text)}</p>` : ""}
+    ${related?.length ? `<p>The full Toronto catalogue has these, which aren't connected here yet:</p><div class="ds-list">${related.map(d => `<div class="ds"><a href="${escH(d.url)}" target="_blank" rel="noopener">${escH(d.title)} ↗</a>${d.note ? `<span>${escH(d.note)}</span>` : ""}</div>`).join("")}</div>` : ""}
+    ${suggestions?.length ? `<div class="sugg"><span class="lbl">Try:</span>${suggestions.map(q => `<button class="chip" type="button" data-ask="${escH(q).replace(/"/g, "&quot;")}">${escH(q)}</button>`).join("")}</div>` : ""}</section>`;
+  bindAsk($("story"));
+}
+async function live(question) {
+  const my = ++runId;
+  $("hint").hidden = true;
+  current = null; renderSugg();
+  clearTimeout(timer);
+  try { history.replaceState(null, "", location.pathname); } catch (e) {}
+  $("story").innerHTML = ""; drawers = [];
+  const w = $("working"); w.hidden = false;
+  w.innerHTML = ["Choosing the right data", "Running the queries", "Writing the story"].map(t => `<span>${t}</span>`).join("");
+  const spans = [...w.children];
+  const step = i => spans.forEach((x, j) => { x.classList.toggle("on", j <= i); x.classList.toggle("done", j < i); });
+  const stale = () => my !== runId;
+  step(0);
+  const dbReady = getDB();
+  dbReady.catch(() => {});
+  try {
+    let plan = await post("/api/data/plan", { portal: P.slug, question });
+    if (stale()) return;
+    if (!plan.answerable) return notice("That's not in the connected datasets.", plan.message, plan.suggestions, plan.related);
+    step(1);
+    const conn = await dbReady;
+    if (stale()) return;
+    const runAll = async queries => Promise.all(queries.map(async q => {
+      try { return { q, rows: await runQuery(conn, q.sql) }; } catch (e) { return { q, error: String(e.message || e).slice(0, 400) }; }
+    }));
+    let ran = await runAll(plan.queries);
+    const failed = ran.filter(r => r.error);
+    if (failed.length) {
+      // One repair attempt: send the errors back so the AI can fix its SQL.
+      try {
+        const fixed = await post("/api/data/plan", { portal: P.slug, question, repair: { token: plan.token, previous: plan.queries, failed: failed.map(r => ({ sql: r.q.sql, error: r.error })) } });
+        if (stale()) return;
+        if (fixed.answerable) { plan = { ...fixed, token: plan.token }; ran = await runAll(plan.queries); }
+      } catch (e) {}
+    }
+    if (stale()) return;
+    const ok = ran.filter(r => !r.error && r.rows.length);
+    if (!ok.length) return notice("I couldn't get an answer from the data for that one.", "Try asking it a different way, or pick one of these.", P.examples.slice(0, 3));
+    step(2);
+    const results = ok.map(({ q, rows }) => ({ id: q.id, purpose: q.purpose, sql: q.sql, unit: q.unit, rows }));
+    const story = await post("/api/data/write", { portal: P.slug, question, token: plan.token, results });
+    if (stale()) return;
+    show(liveStory(question, ok, story, true));
+  } catch (e) {
+    if (stale()) return;
+    if (e.status === 429) return notice(...REFUSED[e.body?.error] || REFUSED.limit, null);
+    notice("Something went wrong.", e.message && !/fetch|network/i.test(e.message) ? e.message : "Please try again in a moment.", null);
+  }
+}
+function liveStory(question, ok, story, isLive) {
+  const dsOfSql = sql => TABLE_DS[tablesIn(sql)[0]] || P.datasets[0].id;
+  const dsList = [...new Set(ok.map(r => dsOfSql(r.q.sql)))];
+  const points = ok.map(({ q, rows }, i) => {
+    const pt = story.points[i] || { h: q.purpose, p: "", more: "" };
+    const data = rows.map(r => ({ x: niceLabel(r.label), y: r.value }));
+    const max = Math.max(...data.map(d => d.y));
+    const unit = q.unit ? " " + q.unit : "";
+    const draw = el => q.chart === "bars"
+      ? bars(el, data.map((d, j) => ({ ...d, hi: j === 0 })), { tip: d => `${d.x}: ${numFmt(d.y)}${unit}` })
+      : columns(el, data.map(d => ({ ...d, hi: d.y === max })), { tip: d => `${d.x}: ${numFmt(d.y)}${unit}`, labelHi: true, every: data.length > 14 ? Math.ceil(data.length / 12) : undefined });
+    return {
+      h: escH(pt.h || q.purpose), p: escH(pt.p), more: pt.more ? escH(pt.more) : "", ds: dsOfSql(q.sql),
+      chart: draw,
+      explore: { label: "", options: [], def: null, view: () => ({
+        rows: data, sql: q.sql, caption: q.purpose ? q.purpose.charAt(0).toUpperCase() + q.purpose.slice(1) + "." : "", draw,
+        cols: [["", d => escH(d.x)], [q.unit ? q.unit.charAt(0).toUpperCase() + q.unit.slice(1) : "Value", d => numFmt(d.y), 1]] }) }
+    };
+  });
+  return {
+    q: question, live: isLive,
+    lead: leadHTML(story.lead || "Here's what the data shows.", story.highlight), sub: escH(story.sub || ""),
+    stat: [escH(story.stat?.value || ""), escH(story.stat?.caption || "")],
+    ds: dsList[0], dsList, points,
+    next: story.next || []
+  };
+}
+
+$("dslist").innerHTML = Object.values(DATASETS).map(d => `<a href="${d.url}" target="_blank" rel="noopener" title="${d.note}">${d.title}</a>`).join("");
+$("dsbtn").addEventListener("click", () => { const l = $("dslist"); l.hidden = !l.hidden; $("dsbtn").setAttribute("aria-expanded", String(!l.hidden)); });
+
+
+addEventListener("resize", () => { if (exDraw) exDraw(); clearTimeout(window._rt); window._rt = setTimeout(() => drawers.forEach(f => f()), 120); });
+$("dslist").innerHTML = P.datasets.map(d => `<a href="${d.url}" target="_blank" rel="noopener" title="${escH(d.note).replace(/"/g, "&quot;")}">${escH(d.title)}</a>`).join("");
+$("dsbtn").addEventListener("click", () => { const l = $("dslist"); l.hidden = !l.hidden; $("dsbtn").setAttribute("aria-expanded", String(!l.hidden)); });
+renderSugg();
+if (FIXED.length) instant(INSTANT[norm(FIXED[0])], null, true);
+</script>
+
+</body>
+</html>

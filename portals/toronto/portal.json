@@ -1,0 +1,238 @@
+{
+  "slug": "toronto",
+  "name": "Ask Toronto's data",
+  "owner": "City of Toronto",
+  "description": "Ask a question about Toronto's open data and get a short data story with charts and sources.",
+  "headline": "Ask a question.|Get the *story.*",
+  "intro": "Type a question in plain English. You'll get a short answer with charts, built from the City's own data, with every source one click away.",
+  "placeholder": "e.g. When is the Island ferry busiest?",
+  "theme": {
+    "accent": "#094f9a",
+    "navy": "#003566",
+    "highlight": "#fdc400",
+    "ink": "#03223e"
+  },
+  "logo": null,
+  "source": {
+    "name": "Toronto Open Data",
+    "label": "open.toronto.ca",
+    "url": "https://open.toronto.ca/",
+    "licence": "Open Government Licence – Toronto"
+  },
+  "catalogue": {
+    "type": "ckan",
+    "api": "https://ckan0.cf.opendata.inter.prod-toronto.ca/api/3/action",
+    "datasetUrl": "https://open.toronto.ca/dataset/{name}/"
+  },
+  "data": {
+    "base": "/data/toronto/",
+    "snapshot": "2026-10-05"
+  },
+  "live": true,
+  "examples": [
+    "When is the Island ferry busiest?",
+    "Which subway stations have the most delays?",
+    "What are the most popular dog names?",
+    "Top causes of fires?",
+    "Most-delayed streetcar route?",
+    "People in shelters each night?",
+    "Safest beach for swimming?",
+    "Pothole complaints over time?",
+    "Most-delayed bus routes?",
+    "Cyclists seriously hurt per year?",
+    "Restaurants closed after inspection?",
+    "Busiest month for weddings?",
+    "Most common street tree?",
+    "Busiest library branches?",
+    "How fast does Toronto Fire arrive?",
+    "Short-term rentals by ward?",
+    "New homes from building permits?",
+    "Top reasons people call 311?",
+    "Lowest-scoring apartment buildings?",
+    "Coyote calls per year?",
+    "When do serious collisions happen?"
+  ],
+  "datasets": [
+    {
+      "id": "toronto-island-ferry-ticket-counts",
+      "title": "Toronto Island Ferry Ticket Counts",
+      "url": "https://open.toronto.ca/dataset/toronto-island-ferry-ticket-counts/",
+      "note": "Tickets used and sold every 15 minutes since May 2015. Updated in real time.",
+      "tables": [
+        "ferry"
+      ]
+    },
+    {
+      "id": "ttc-subway-delay-data",
+      "title": "TTC Subway Delay Data",
+      "url": "https://open.toronto.ca/dataset/ttc-subway-delay-data/",
+      "note": "Every subway delay since January 2025, latest 31 Aug 2026. Updated monthly.",
+      "tables": [
+        "subway_delays"
+      ]
+    },
+    {
+      "id": "licensed-dog-and-cat-names",
+      "title": "Licensed Dog and Cat Names",
+      "url": "https://open.toronto.ca/dataset/licensed-dog-and-cat-names/",
+      "note": "Top 200 names of licensed dogs and cats each year since 2020. Updated annually.",
+      "tables": [
+        "pet_names"
+      ]
+    },
+    {
+      "id": "fire-incidents",
+      "title": "Fire Incidents",
+      "url": "https://open.toronto.ca/dataset/fire-incidents/",
+      "note": "Every fire Toronto Fire Services attended, 2011 to 2024, with cause, damage and casualties.",
+      "tables": [
+        "fire_incidents"
+      ]
+    },
+    {
+      "id": "fire-services-emergency-incident-basic-detail",
+      "title": "Fire Services Emergency Incident Basic Detail",
+      "url": "https://open.toronto.ca/dataset/fire-services-emergency-incident-basic-detail/",
+      "note": "Every call Toronto Fire responded to, 2018 to 2024: medical, fires, alarms, rescues.",
+      "tables": [
+        "fire_calls"
+      ]
+    },
+    {
+      "id": "ttc-bus-delay-data",
+      "title": "TTC Bus Delay Data",
+      "url": "https://open.toronto.ca/dataset/ttc-bus-delay-data/",
+      "note": "Every bus delay since January 2025, latest 31 Aug 2026. Updated monthly.",
+      "tables": [
+        "bus_delays"
+      ]
+    },
+    {
+      "id": "ttc-streetcar-delay-data",
+      "title": "TTC Streetcar Delay Data",
+      "url": "https://open.toronto.ca/dataset/ttc-streetcar-delay-data/",
+      "note": "Every streetcar delay since January 2025, latest 31 Aug 2026. Updated monthly.",
+      "tables": [
+        "streetcar_delays"
+      ]
+    },
+    {
+      "id": "daily-shelter-overnight-service-occupancy-capacity",
+      "title": "Daily Shelter & Overnight Service Occupancy & Capacity",
+      "url": "https://open.toronto.ca/dataset/daily-shelter-overnight-service-occupancy-capacity/",
+      "note": "People staying in each shelter program every night since 2021. Updated daily.",
+      "tables": [
+        "shelter_occupancy"
+      ]
+    },
+    {
+      "id": "dinesafe",
+      "title": "DineSafe",
+      "url": "https://open.toronto.ca/dataset/dinesafe/",
+      "note": "Restaurant and food premises inspections and infractions since November 2023. Updated daily.",
+      "tables": [
+        "dinesafe"
+      ]
+    },
+    {
+      "id": "marriage-licence-statistics",
+      "title": "Marriage Licence Statistics",
+      "url": "https://open.toronto.ca/dataset/marriage-licence-statistics/",
+      "note": "Marriage licences issued each month at each civic centre since 2011.",
+      "tables": [
+        "marriage_licences"
+      ]
+    },
+    {
+      "id": "toronto-beaches-water-quality",
+      "title": "Toronto Beaches Water Quality",
+      "url": "https://open.toronto.ca/dataset/toronto-beaches-water-quality/",
+      "note": "E. coli samples at Toronto's beaches every swimming season since 2007.",
+      "tables": [
+        "beach_water"
+      ]
+    },
+    {
+      "id": "short-term-rentals-registration",
+      "title": "Short Term Rentals Registration",
+      "url": "https://open.toronto.ca/dataset/short-term-rentals-registration/",
+      "note": "Registered short-term rental operators by ward and property type. Updated daily.",
+      "tables": [
+        "short_term_rentals"
+      ]
+    },
+    {
+      "id": "apartment-building-evaluation",
+      "title": "Apartment Building Evaluation",
+      "url": "https://open.toronto.ca/dataset/apartment-building-evaluation/",
+      "note": "RentSafeTO evaluation scores for apartment buildings since 2023. Updated daily.",
+      "tables": [
+        "apartment_evaluations"
+      ]
+    },
+    {
+      "id": "motor-vehicle-collisions-involving-killed-or-seriously-injured-persons",
+      "title": "Motor Vehicle Collisions involving Killed or Seriously Injured Persons",
+      "url": "https://open.toronto.ca/dataset/motor-vehicle-collisions-involving-killed-or-seriously-injured-persons/",
+      "note": "Collisions where someone was killed or seriously injured, since 2006.",
+      "tables": [
+        "ksi_collisions"
+      ]
+    },
+    {
+      "id": "deaths-of-people-experiencing-homelessness",
+      "title": "Deaths of People Experiencing Homelessness",
+      "url": "https://open.toronto.ca/dataset/deaths-of-people-experiencing-homelessness/",
+      "note": "Deaths by month, cause, age and gender, 2022 to 2024.",
+      "tables": [
+        "homeless_deaths_month",
+        "homeless_deaths_cause"
+      ]
+    },
+    {
+      "id": "library-visits",
+      "title": "Library Visits",
+      "url": "https://open.toronto.ca/dataset/library-visits/",
+      "note": "Visits to each Toronto Public Library branch every year, 2012 to 2024.",
+      "tables": [
+        "library_visits"
+      ]
+    },
+    {
+      "id": "street-tree-data",
+      "title": "Street Tree Data",
+      "url": "https://open.toronto.ca/dataset/street-tree-data/",
+      "note": "Every City-owned street tree: species, size and ward.",
+      "tables": [
+        "street_trees"
+      ]
+    },
+    {
+      "id": "building-permits-cleared-permits",
+      "title": "Building Permits - Cleared Permits",
+      "url": "https://open.toronto.ca/dataset/building-permits-cleared-permits/",
+      "note": "Building permits closed since 2017, with type, cost and new homes.",
+      "tables": [
+        "building_permits"
+      ]
+    },
+    {
+      "id": "toronto-animal-services-service-requests-complaints",
+      "title": "Toronto Animal Services Service Requests and Complaints",
+      "url": "https://open.toronto.ca/dataset/toronto-animal-services-service-requests-complaints/",
+      "note": "Animal services calls and complaints since 2023.",
+      "tables": [
+        "animal_services"
+      ]
+    },
+    {
+      "id": "311-service-requests-customer-initiated",
+      "title": "311 Service Requests - Customer Initiated",
+      "url": "https://open.toronto.ca/dataset/311-service-requests-customer-initiated/",
+      "note": "Every 311 service request since 2019, counted per day, ward and type.",
+      "tables": [
+        "service_requests_311"
+      ]
+    }
+  ]
+}
