@@ -235,18 +235,18 @@
    }
   ],
   "story": {
-   "lead": "CO2 in the air is rising faster than ever",
+   "lead": "CO2 is rising faster than ever, about 2.7 ppm a year",
    "highlight": "faster than ever",
-   "summary": "Carbon dioxide in the air at Mauna Loa rose by **2.74 ppm** in 2025, and by **3.53 ppm** in 2024. In the 1960s it rose by under **1 ppm** a year on average, so the yearly rise is now about three times as big. The level hit **427.4 ppm** in 2025, up from **316.9 ppm** in 1960.",
-   "sub": "NOAA yearly averages at Mauna Loa, Hawaii, 1959–2025. ppm means parts per million: CO2 molecules per million air molecules.",
+   "summary": "The air's CO2 level rose **2.74 ppm** in 2025, and **3.53 ppm** in 2024, the biggest jump in the last 30 years. The yearly rise in the 2020s averages **2.62 ppm**, about **three times** the 1960s pace of **0.86 ppm**. The total has gone from 316.9 ppm in 1960 to **427.4 ppm** in 2025.",
+   "sub": "Yearly average CO2 measured at Mauna Loa, Hawaii (NOAA), 1959 to 2025. ppm means parts per million: molecules of CO2 per million molecules of air.",
    "facts": [
     {
      "value": "2.74 ppm",
-     "label": "rise in 2025, the latest full year"
+     "label": "rise in CO2 in 2025"
     },
     {
      "value": "3.53 ppm",
-     "label": "biggest recent rise, in 2024"
+     "label": "biggest yearly rise in 30 years (2024)"
     },
     {
      "value": "427.4 ppm",
@@ -255,23 +255,32 @@
    ],
    "points": [
     {
-     "h": "Every recent year added more than 1 ppm",
-     "p": "The yearly rise bounces around, from **1.14 ppm** in 1997 to **3.53 ppm** in 2024. It has never been negative in this period. The last ten years have mostly been higher than the 1990s."
+     "h": "Each year adds more CO2, and recent years add the most",
+     "p": "The rise varies from year to year. It was as low as **1.14 ppm** in 1997 and as high as **3.53 ppm** in 2024. Since 2016, no year has risen by less than about 2 ppm."
     },
     {
-     "h": "Each decade has brought a bigger yearly rise",
-     "p": "The average yearly rise grew from **0.86 ppm** in the 1960s to **1.91 ppm** in the 2000s. In the 2020s so far it is **2.62 ppm** a year. The only small dip was in the 1990s, at **1.53 ppm**, just below the 1980s."
+     "h": "The yearly rise has tripled since the 1960s",
+     "p": "The average yearly rise grew in almost every decade, from **0.86 ppm** in the 1960s to **2.4 ppm** in the 2010s. The 2020s figure of **2.62 ppm** covers 2020 to 2025 only. The 1990s were the one small dip, at 1.53 against 1.64 in the 1980s."
     },
     {
-     "h": "The CO2 level has climbed steadily since 1960",
-     "p": "The yearly average went from **316.9 ppm** in 1960 to **427.4 ppm** in 2025, a gain of about **110 ppm**. Over the first 25 years it rose about 30 ppm, from 1960 to 1985. In the last 25 years it rose about 47 ppm, from 2000 to 2025."
+     "h": "CO2 has climbed from 317 to 427 ppm since 1960",
+     "p": "The level rose **29.5 ppm** in the 25 years from 1960 to 1985. It then rose **37.3 ppm** in just the 15 years from 2010 to 2025. The climb is getting steeper."
     }
    ],
-   "note": "These are measurements from one site in Hawaii, shown as yearly averages. The 2020s figure covers only the years up to 2025.",
+   "note": "These are yearly averages from one station in Hawaii, which is used as a measure of the whole atmosphere. The 2020s decade average covers 2020 to 2025 only.",
    "next": [
-    "How much CO2 do humans emit from fossil fuels each year?",
+    "How much CO2 do humans emit each year from fossil fuels?",
     "How much has global temperature risen since 1960?",
-    "Which fuel source emits the most CO2?"
+    "Which year had the hottest global temperature on record?"
+   ],
+   "sources": [
+    "three times: 2.62 / 0.86 = 3.05 (2020s and 1960s decade averages)",
+    "29.5 ppm: 1985 = 346.4, 1960 = 316.9",
+    "37.3 ppm: 2025 = 427.4, 2010 = 390.1",
+    "15 years: 2025 minus 2010",
+    "25 years: 1985 minus 1960",
+    "about 2 ppm: lowest value from 2016 to 2025 is 1.96 (2018)",
+    "1.53 vs 1.64: 1990s and 1980s averages"
    ]
   },
   "created": "2026-10-07"
@@ -468,43 +477,48 @@
    }
   ],
   "story": {
-   "lead": "The US and China have by far the biggest economies.",
-   "highlight": "US and China",
-   "summary": "In 2023 the United States produced **$27.36 trillion** of goods and services, and China **$17.79 trillion**. Together that is more than the next thirteen countries on the list added up... roughly, the third-placed Germany is at only **$4.46 trillion**, about a quarter of China's size. Both figures are in current US dollars.",
-   "sub": "World Bank GDP and population, 2023, with 2000 for comparison; current US dollars, countries only (no regions or groups).",
+   "lead": "The United States and China dominate the world's economies.",
+   "highlight": "United States and China",
+   "summary": "In 2023 the United States had the biggest economy at **$27.36 trillion**, with China next at **$17.79 trillion**. Together they are far ahead of Germany in third place at $4.46 trillion. China's economy has grown about **15 times** bigger since 2000.",
+   "sub": "World Bank GDP in current US dollars, 2023 compared with 2000; population for per-person figures, 2023.",
    "facts": [
     {
      "value": "$27.36 trillion",
-     "label": "US economy in 2023, the world's largest"
+     "label": "US economy in 2023, the world's biggest"
     },
     {
-     "value": "About 15 times",
-     "label": "China's economy in 2023 vs 2000 ($17.79T vs $1.21T)"
+     "value": "$17.79 trillion",
+     "label": "China's economy in 2023, second biggest"
     },
     {
      "value": "$81,249",
-     "label": "US output per person in 2023"
+     "label": "US output per person, highest of larger countries"
     }
    ],
    "points": [
     {
      "h": "The US and China are far ahead of everyone else",
-     "p": "The US leads at **$27.36 trillion**, with China second at **$17.79 trillion**. Germany is third at **$4.46 trillion**, so the gap between second and third is huge. India (**$3.55 trillion**) is fifth, ahead of the UK and France."
+     "p": "The US economy was **$27.36 trillion** in 2023 and China's was **$17.79 trillion**. Germany, third, was **$4.46 trillion**, so China is about four times bigger than Germany. India ranked fifth at $3.55 trillion."
     },
     {
-     "h": "Rich per person: the US leads, China is not on the list",
-     "p": "Dividing each economy by its population, the US comes first at **$81,249** per person, ahead of Australia at **$64,660**. China and India do not make the top 15 here, though they are among the biggest economies overall. This list only includes countries with more than 10 million people."
+     "h": "Per person, the US still leads, but China is not on the list",
+     "p": "Among countries with over 10 million people, the US had **$81,249** of output per person. Australia was next at **$64,660**. China and India are in the top 15 by total size but not on this list."
     },
     {
-     "h": "In 2000, China was only sixth",
-     "p": "In 2000 the US was already first at **$10.25 trillion**, and Japan second at **$4.97 trillion**. China was sixth at **$1.21 trillion**. By 2023 China had grown to about **15 times** that size, while Japan's economy had slipped to fourth place at $4.21 trillion."
+     "h": "In 2000, China was only sixth biggest",
+     "p": "In 2000 China's economy was **$1.21 trillion**, behind the US, Japan, Germany, the UK and France. By 2023 it was **$17.79 trillion**. Japan was second in 2000 at $4.97 trillion and was fourth in 2023 at $4.21 trillion."
     }
    ],
-   "note": "GDP is measured in current US dollars, so the growth since 2000 includes rising prices and exchange-rate changes, not only more output.",
+   "note": "These are current US dollars, not adjusted for inflation, so growth since 2000 includes rising prices. GDP per person only covers countries with over 10 million people.",
    "next": [
-    "How has China's economy grown since 1960?",
-    "Which countries have grown fastest since 2000?",
-    "How do India's and Japan's economies compare over time?"
+    "How has China's GDP changed from 1990 to 2023?",
+    "Which countries had the highest prices rises in 2023?",
+    "How has India's economy grown since 2000?"
+   ],
+   "sources": [
+    "about 15 times: China 2023 = 17.79, 2000 = 1.21, ratio 14.7",
+    "about four times: China 17.79 / Germany 4.46 = 3.99",
+    "Together far ahead: US 27.36 + China 17.79 = 45.15 versus Germany 4.46"
    ]
   },
   "created": "2026-10-07"
@@ -761,43 +775,50 @@
    }
   ],
   "story": {
-   "lead": "The world is about 1.2°C warmer than 1951–1980.",
+   "lead": "The world is about 1.2°C warmer than in 1951–1980.",
    "highlight": "1.2°C warmer",
-   "summary": "NASA's record shows 2025 was **1.19°C** above the 1951–1980 average. The 2020s so far average **1.07°C** above it, compared with **-0.22°C** in the 1880s. That is a gap of about **1.3°C** between the first and latest decade on record.",
+   "summary": "NASA's record shows 2025 was **1.19°C** above the 1951–1980 average. The 2020s so far average **1.07°C** above it, compared with **-0.22°C** in the 1880s. That is a rise of about **1.3°C** between those two decades.",
    "sub": "NASA GISTEMP global surface temperature, 1880–2025, compared with the 1951–1980 average.",
    "facts": [
     {
      "value": "1.29°C",
-     "label": "Warmest year on record (2024), above 1951–1980"
+     "label": "Warmest year: 2024, above 1951–1980 average"
     },
     {
      "value": "1.07°C",
      "label": "Average of the 2020s so far"
     },
     {
-     "value": "3 of 3",
-     "label": "Top three warmest years are 2023, 2024, 2025"
+     "value": "Top 3",
+     "label": "2023, 2024 and 2025 are the three warmest years"
     }
    ],
    "points": [
     {
-     "h": "Each decade has been warmer than the one before since the 1970s",
-     "p": "Decades in the 1880s to 1910s sat below the 1951–1980 average, at about **-0.22°C** to **-0.34°C**. Since the 1970s (**0.03°C**), every decade has been warmer, reaching **1.07°C** in the 2020s so far. The 2020s average is about **0.26°C** above the 2010s."
+     "h": "Each decade has been warmer than the last since the 1970s",
+     "p": "Decades hovered below or near the 1951–1980 average until the 1970s (**0.03°C**). Since then every decade has been warmer, reaching **1.07°C** in the 2020s so far. The 2020s are about **0.26°C** warmer than the 2010s."
     },
     {
-     "h": "Recent years have climbed from about 0.4°C to over 1°C",
-     "p": "In 1996 the world was **0.33°C** above the 1951–1980 average. Since 2015, every year has been at least **0.85°C** above it. The last three years were **1.17°C**, **1.29°C** and **1.19°C**."
+     "h": "Recent years have jumped well above the late 1990s",
+     "p": "In 1996 the world was **0.33°C** above the average. By 2024 it was **1.29°C**. The last three years (2023–2025) were all above **1.15°C**, higher than any year before 2023."
     },
     {
      "h": "The ten warmest years are all from 2015 onward",
-     "p": "All ten of the warmest years on record fall between 2015 and 2025. The top three are the latest three years: 2024 (**1.29°C**), 2025 (**1.19°C**) and 2023 (**1.17°C**). Even the tenth warmest, 2018, was **0.85°C** above the average."
+     "p": "All ten of the warmest years on record fall between 2015 and 2025. The top three are **2024**, 2025 and 2023. Only 2021 is missing from that stretch."
     }
    ],
-   "note": "These are degrees Celsius above NASA's 1951–1980 average, not above the 1800s, so the numbers are not directly comparable with other baselines.",
+   "note": "These are differences from the 1951–1980 average, not from the 1800s, so the total warming since early industrial times is larger than these figures suggest.",
    "next": [
-    "How fast has carbon dioxide in the air risen since 1958?",
-    "How much has global sea level risen since 1880?",
-    "How much ice have the world's glaciers lost since 1956?"
+    "How much has carbon dioxide in the air risen since 1958?",
+    "How much have global CO2 emissions grown since 1960?",
+    "How much have the world's glaciers lost since 1956?"
+   ],
+   "sources": [
+    "about 1.3°C: 1.07 (2020s) minus -0.22 (1880s) = 1.29",
+    "0.26°C: 1.07 (2020s) minus 0.81 (2010s)",
+    "above 1.15°C: 2023 = 1.17, 2024 = 1.29, 2025 = 1.19",
+    "2015 onward: the ten years are 2024, 2025, 2023, 2016, 2020, 2019, 2017, 2015, 2022, 2018, all 2015 or later",
+    "Only 2021 is missing: years 2015 to 2025 include 11 years; the top ten lack 2021 (0.85 ties no listed year, below 2018 = 0.85 listed)"
    ]
   },
   "created": "2026-10-07"
@@ -1146,43 +1167,50 @@
    }
   ],
   "story": {
-   "lead": "US house prices are up about 429% since 1987",
-   "highlight": "429%",
-   "summary": "The national home price index is about **429%** higher than in January 1987, so homes cost roughly five times as much. Since January 2000 the index has gone from 100 to **326.8** in January 2026, more than three times. The climb was not smooth: prices fell about a quarter after 2007 before rising again.",
-   "sub": "S&P CoreLogic Case-Shiller home price index, US national and metro areas, 1987 to July 2026 (not adjusted for inflation).",
+   "lead": "US home prices are up more than fivefold since 1987",
+   "highlight": "fivefold",
+   "summary": "Across the US, home prices are **429%** higher than in January 1987, which means about **5.3 times** the price. Since January 2000 they have more than tripled, to **326.8** on a scale where 2000 equals 100. The climb was not smooth: prices fell about a quarter after 2007 before rising again.",
+   "sub": "S&P CoreLogic Case-Shiller home price index, January 1987 to July 2026 (US national), not adjusted for inflation.",
    "facts": [
     {
      "value": "429%",
-     "label": "US national rise since January 1987"
+     "label": "US national rise, Jan 1987 to Jul 2026"
     },
     {
-     "value": "326.8",
-     "label": "Index in Jan 2026 (Jan 2000 = 100)"
+     "value": "227%",
+     "label": "rise from Jan 2000 to Jan 2026"
     },
     {
-     "value": "-27%",
-     "label": "Fall from Jan 2007 to Jan 2012"
+     "value": "about 27%",
+     "label": "fall from Jan 2007 peak to Jan 2012 low"
     }
    ],
    "points": [
     {
-     "h": "Prices climbed, then fell after 2006, then recovered",
-     "p": "The yearly average index rose from **66.3** in 1987 to a peak of **183.5** in 2006. It then slid to **139.2** by 2011. By 2016 it was back up to **180.9**, almost at the old peak. This chart only shows 1987 to 2016."
+     "h": "Prices rose, peaked in 2006, then fell for five years",
+     "p": "This chart shows only 1987 to 2016. The yearly average went from **66.3** in 1987 to a peak of **183.5** in 2006. It then slid to **139.2** in 2011, and by 2016 it was back near the old peak at **180.9**."
     },
     {
-     "h": "West Coast cities gained most; Dallas gained least",
-     "p": "San Diego (**724%**), Portland (**714%**) and San Francisco (**696%**) rose the most. The US as a whole rose **429%**. Dallas rose the least, at **197%**. Some cities start later than 1987, so each city is measured from its own first month, and Dallas from 2000."
+     "h": "West Coast cities have risen the most since 1987",
+     "p": "San Diego (**724%**), Portland (**714%**) and San Francisco (**696%**) lead the list, ahead of the US national figure of **429%**. Dallas is lowest at **197%**. Metros started at different dates, so the periods are not all the same."
     },
     {
-     "h": "Since 2000 prices have more than tripled",
-     "p": "The index started at **100** in January 2000 and reached **326.8** in January 2026. It dipped to **134.2** in 2012, then rose steadily. From January 2020 to January 2022 it jumped from **212.4** to **281.9**, about a third in two years."
+     "h": "Prices more than tripled since 2000, after a long dip",
+     "p": "In January terms, the index reached **182.7** in 2007, fell to **134.2** in 2012, then climbed to **326.8** in 2026. That is about **2.4 times** the 2012 low. The rise from 2025 to 2026 was small, just 3.2 points."
     }
    ],
-   "note": "These are prices in current dollars, not adjusted for inflation, so part of the rise is just general price growth.",
+   "note": "These are prices in current dollars, not adjusted for inflation, so part of the rise is general price growth. Some metros start later than 1987, so their percentages cover shorter periods.",
    "next": [
-    "How do US house prices compare with the S&P 500 since 2000?",
-    "How has the 10-year bond yield moved alongside house prices?",
-    "Which US cities had the biggest drop in prices after 2006?"
+    "How have home prices changed in Miami since 2000?",
+    "How did house prices compare with the S&P 500 since 2000?",
+    "How have US 10-year bond yields changed since 2000?"
+   ],
+   "sources": [
+    "5.3 times: 1 + 4.29 (429% rise)",
+    "227%: 326.8 (Jan 2026) minus 100 (Jan 2000)",
+    "about 27%: (182.7 in 2007 - 134.2 in 2012) / 182.7 = 26.5%",
+    "2.4 times: 326.8 / 134.2 = 2.43",
+    "3.2 points: 326.8 (2026) - 323.6 (2025)"
    ]
   },
   "created": "2026-10-07"
@@ -1543,10 +1571,10 @@
    }
   ],
   "story": {
-   "lead": "Oil prices roughly tripled since 2000, with big swings.",
+   "lead": "Oil prices roughly tripled, with big swings along the way.",
    "highlight": "tripled",
-   "summary": "Brent crude averaged **$28.5** a barrel in 2000 and **$90.6** so far in 2026, about three times as much. The path was bumpy: prices peaked near **$112** in 2011–2012, then fell to **$43.5** in 2016. These are current dollars, so part of the rise is general price growth.",
-   "sub": "Monthly Brent and WTI crude oil spot prices (US EIA), 2000 to 2026, in nominal US dollars per barrel; 2026 is a partial year.",
+   "summary": "A barrel of Brent crude averaged **$28.5** in 2000 and **$90.6** so far in 2026, about **three times** as much in current dollars. The path was bumpy: prices peaked near **$112** in 2012, then fell to **$43.5** in 2016. A barrel is a standard oil measure of about 159 litres.",
+   "sub": "Monthly Brent and WTI crude oil spot prices (US EIA), 2000 to 2026 so far, in nominal US dollars per barrel.",
    "facts": [
     {
      "value": "$28.5 → $90.6",
@@ -1563,23 +1591,29 @@
    ],
    "points": [
     {
-     "h": "Brent averaged about $25–29 in the early 2000s, then climbed",
-     "p": "The yearly average rose from **$28.5** in 2000 to **$111.7** in 2012. It then fell to **$43.5** in 2016, rose to **$100.8** in 2022, and was **$90.6** so far in 2026. In 2020 it dropped to **$41.8**."
+     "h": "Yearly average price climbed, crashed, and climbed again",
+     "p": "Brent averaged **$28.5** in 2000 and rose to **$111.7** in 2012. It dropped to **$43.5** in 2016, recovered to $71.1 in 2018, then fell to **$41.8** in 2020. It hit **$100.8** in 2022 and stands at **$90.6** so far in 2026."
     },
     {
-     "h": "Monthly peaks show even sharper spikes than yearly averages",
-     "p": "The highest single month was **$132.7** in 2008, well above that year's average of $96.8. The 2026 peak so far is **$117.3**, far above the 2025 peak of **$79.3**. Yearly averages hide how high prices got within a year."
+     "h": "Monthly peaks show even sharper spikes",
+     "p": "The highest single month was **$132.7** in 2008, while the 2008 yearly average was only **$96.8**. In 2026 so far, the top month is **$117.3**, well above the year's average of **$90.6**. That means prices have moved a lot within single years."
     },
     {
-     "h": "US benchmark WTI followed Brent, usually a little lower",
-     "p": "WTI averaged **$30.3** in 2000 and **$83.4** so far in 2026. In most years it sat a few dollars below Brent; in 2026 so far, **$83.4** against **$90.6**. The ups and downs are nearly identical."
+     "h": "US benchmark WTI follows the same path, usually lower",
+     "p": "WTI, the main US oil price, averaged **$30.3** in 2000 and **$83.4** so far in 2026. In most years it sat below Brent, for example **$94.8** against **$100.8** in 2022. The gap was widest in 2012, at **$94.1** against **$111.7**."
     }
    ],
-   "note": "Prices are in current dollars, not adjusted for inflation, and 2026 covers only part of the year.",
+   "note": "Prices are in current dollars, not adjusted for inflation, and 2026 is only part of a year.",
    "next": [
-    "How have gold prices changed since 2000?",
-    "How did US natural gas prices change since 2000?",
-    "How has global CO2 from fossil fuels changed since 2000?"
+    "How have natural gas prices changed since 2000?",
+    "How did oil prices move during the 2008 financial crisis?",
+    "How has the price of gold changed since 2000?"
+   ],
+   "sources": [
+    "about three times: 90.6 / 28.5 = 3.2",
+    "$111.7 vs $43.5: 2012 = 111.7, 2016 = 43.5",
+    "$112: 2012 = 111.7 (2011 = 111.3)",
+    "gap widest in 2011: Brent 111.3 minus WTI 94.9 = 16.4, larger than other years such as 2022 (6.0)"
    ]
   },
   "created": "2026-10-07"
@@ -1736,43 +1770,52 @@
    }
   ],
   "story": {
-   "lead": "Yes, sea level is rising faster lately.",
+   "lead": "Yes, sea level is rising faster now.",
    "highlight": "rising faster",
-   "summary": "Sea level has gone up about **8.8 inches** since 1880, and the pace has picked up. Tide gauges show **1.45 inches** per decade in the 2000s, the fastest of any decade since 1880. Satellites show **1.54 inches** per decade in 2013-2023, up from **0.96** in 2003-2012.",
-   "sub": "Global average sea level, US EPA: tide-gauge reconstruction (CSIRO) 1880-2013 and satellite readings (NOAA) 1993-2023.",
+   "summary": "Sea level rose about **8.8 inches** between 1880 and 2010, and the recent pace is the quickest on record. In the 2000s it rose **1.45 inches per decade**, about twice the typical earlier pace. Satellites show **1.54 inches per decade** for 2013-2023, up from **0.96** in 2003-2012.",
+   "sub": "US EPA sea level data: tide-gauge reconstruction (CSIRO) 1880-2013 and satellites (NOAA) 1993-2023.",
    "facts": [
     {
-     "value": "1.54 inches",
-     "label": "rise per decade, satellites, 2013-2023"
-    },
-    {
      "value": "8.83 inches",
-     "label": "total rise since 1880, by 2010"
+     "label": "Total rise from 1880 to 2010 (CSIRO)"
     },
     {
      "value": "1.45 inches",
-     "label": "rise per decade in the 2000s (tide gauges)"
+     "label": "Rise per decade in the 2000s (CSIRO)"
+    },
+    {
+     "value": "1.54 inches",
+     "label": "Rise per decade, 2013-2023 (satellites)"
     }
    ],
    "points": [
     {
-     "h": "Tide gauges: the 2000s were the fastest decade",
-     "p": "Early decades bounced around, from nearly flat (**-0.03** inches in the 1900s) to about **0.8** inches per decade. The 2000s stand out at **1.45 inches** per decade, nearly twice the 1990s pace of **0.85**."
+     "h": "The 2000s had the fastest decade in the long record",
+     "p": "Tide gauges show the pace jumping around from decade to decade, from almost no change to about 0.8 inches per decade. The 2000s stand out at **1.45 inches per decade**, the highest of all 13 decades. The 1990s were also high at **0.85**."
     },
     {
-     "h": "Satellites: the latest decade is the fastest",
-     "p": "Satellites show a rise of **1.06** inches per decade in 1993-2002 and **0.96** in 2003-2012. In 2013-2023 it jumped to **1.54** inches per decade, about **60%** faster than the decade before."
+     "h": "Satellites show a speed-up after 2012",
+     "p": "Satellites measured **1.06 inches per decade** in 1993-2002 and **0.96** in 2003-2012. In 2013-2023 the pace rose to **1.54 inches per decade**, about 60% faster than the decade before."
     },
     {
-     "h": "Total rise since 1880 keeps climbing, and steepens",
-     "p": "By 2010 the sea was **8.83 inches** higher than in 1880. Over the last two decades alone it added about **2.6 inches** (from 6.25 in 1990 to 8.83 in 2010). That is roughly the same as the whole rise from 1880 to 1930, which was about 2 inches."
+     "h": "The total rise has added up to almost 9 inches",
+     "p": "By 2010 the sea was **8.83 inches** higher than in 1880. The 2000s alone added about **1.77 inches**, more than the first two decades together (**1.13 inches** by 1900). The satellite and tide-gauge records use different baselines, so they should not be added together."
     }
    ],
-   "note": "The two sources use different baselines and cover different years, so compare the pace within each, not the totals between them.",
+   "note": "Pace is the slope of a straight line through each period's yearly values. The tide-gauge record ends in 2013 and the satellite record starts in 1993, so they overlap only partly.",
    "next": [
-    "How fast have the world's glaciers been losing ice?",
-    "How much warmer has the planet got since 1880?",
-    "How has carbon dioxide in the air changed since 1958?"
+    "How fast have world glaciers lost ice since 1956?",
+    "How much has global temperature risen since 1880?",
+    "How much has CO2 in the air risen since 1958?"
+   ],
+   "sources": [
+    "1.77 inches: 2010 = 8.83, 2000 = 7.06, difference 1.77",
+    "about 60% faster: 1.54 / 0.96 = 1.6",
+    "1.13 inches by 1900: 1900 = 1.13, 1880 = 0",
+    "highest of all 13 decades: 1.45 is the largest of the 13 CSIRO decade values",
+    "about 0.8 inches per decade: 1890s 0.81, 1940s 0.80",
+    "about twice the typical earlier pace: 1.45 vs earlier decades mostly under 0.85",
+    "8.8 inches: 2010 = 8.83"
    ]
   },
   "created": "2026-10-07"
@@ -1993,43 +2036,48 @@
    }
   ],
   "story": {
-   "lead": "US unemployment rises in downturns, then falls back",
-   "highlight": "rises in downturns",
-   "summary": "The share of US workers without a job has swung between about **3%** and **8.5%** in the years shown from 1947 to 1976. Decade averages peaked at **7.3%** in the 1980s and are **4.8%** in the 2020s so far. That means roughly one in 14 people looking for work in the 1980s went without a job, against about one in 21 now.",
-   "sub": "US Bureau of Labor Statistics yearly averages. The yearly chart shows 1947–1976 only; the decade charts cover 1950–2025.",
+   "lead": "US unemployment has moved in waves, not one trend",
+   "highlight": "waves",
+   "summary": "The share of US workers without a job has gone up and down since 1947. The decade average peaked in the 1980s at **7.3%**, up from **4.5%** in the 1950s, and is **4.8%** in the 2020s so far. In the early years shown, it ranged from **2.9%** in 1953 to **8.5%** in 1975.",
+   "sub": "US Bureau of Labor Statistics, annual averages. The year-by-year chart shows 1947-1976 only; decade averages cover 1950-2025.",
    "facts": [
     {
      "value": "8.5%",
-     "label": "Highest yearly rate shown, in 1975"
-    },
-    {
-     "value": "2.9%",
-     "label": "Lowest yearly rate shown, in 1953"
+     "label": "Highest year shown (1975)"
     },
     {
      "value": "7.3%",
-     "label": "Average rate in the 1980s, the highest decade"
+     "label": "Highest decade average (1980s)"
+    },
+    {
+     "value": "59.2%",
+     "label": "Share of people with a job, 2020s"
     }
    ],
    "points": [
     {
-     "h": "Unemployment jumped in bad years, then eased, 1947–1976",
-     "p": "Between 1947 and 1976 the rate hovered mostly between 3% and 6%. It jumped in some years, such as **5.9%** in 1949, **6.8%** in 1958 and **8.5%** in 1975. The low point was **2.9%** in 1953. This chart stops at 1976, so later years are not shown."
+     "h": "Unemployment jumped in bad years, then fell back, 1947-1976",
+     "p": "This chart shows only the first 30 years. The rate swung between **2.9%** in 1953 and **8.5%** in 1975, nearly three times as high. It rose sharply in 1949, 1954, 1958, 1961, 1970 and 1975, then eased in the years after."
     },
     {
      "h": "The 1980s had the highest average unemployment",
-     "p": "The average rate climbed from **4.5%** in the 1950s to **7.3%** in the 1980s. It then dropped to **5.5%** in the 2000s. The 2010s averaged **6.2%**. The 2020s, covering 2020 to 2025, average **4.8%**, about the same as the 1960s."
+     "p": "Averaged by decade, unemployment rose from **4.5%** in the 1950s to **7.3%** in the 1980s. It then fell to **5.5%** in the 2000s, rose to **6.2%** in the 2010s, and is **4.8%** in the 2020s so far (2020-2025)."
     },
     {
-     "h": "A smaller share of people have jobs than in the 1990s",
-     "p": "The share of all adults with a job rose from **56.6%** in the 1950s to **62.8%** in the 1990s. It has since fallen to **59.2%** in the 2020s. So the 2020s have lower unemployment than the 2010s, but the share of people in work is about the same, at roughly **59%**."
+     "h": "The share of people with a job peaked in the 1990s",
+     "p": "This counts everyone of working age, not just those looking for work. The share with a job climbed from **56.6%** in the 1950s to **62.8%** in the 1990s. It has since fallen to **59.2%** in the 2020s, which is **3.6** points lower than the 1990s peak."
     }
    ],
-   "note": "The unemployment rate counts only people looking for work; the 2020s figures cover 2020–2025 only.",
+   "note": "The unemployment rate is the share of people in the labour force (working or looking for work) who have no job; the 2020s average covers 2020-2025 only.",
    "next": [
-    "How did unemployment change in 2008 to 2010 and in 2020?",
-    "How many people were employed in the US in 2025 compared with 1960?",
-    "How did the US unemployment rate compare with inflation in the 1970s?"
+    "How did unemployment change in 2020 compared with 2019?",
+    "What was the US unemployment rate in each year from 2000 to 2025?",
+    "How many Americans were employed in 2025 compared with 1990?"
+   ],
+   "sources": [
+    "2.8 points not used; nearly three times: 8.5 / 2.9 = 2.9 (1975 = 8.5, 1953 = 2.9)",
+    "3.6 points: 1990s = 62.8, 2020s = 59.2",
+    "Years of sharp rises: 1949 = 5.9 (1948 = 3.8), 1954 = 5.5 (1953 = 2.9), 1958 = 6.8 (1957 = 4.3), 1961 = 6.7 (1960 = 5.5), 1975 = 8.5 (1974 = 5.6)"
    ]
   },
   "created": "2026-10-07"
@@ -2262,43 +2310,49 @@
    }
   ],
   "story": {
-   "lead": "Gold is now about 225 times its 1900 price",
-   "highlight": "225 times",
-   "summary": "An ounce of gold cost about **$19** in January 1900 and **$4,319** in September 2026. That is roughly **225 times** as much, in current dollars. Most of the rise came after 1971, and the price has more than doubled since 2023.",
-   "sub": "Monthly gold prices in nominal US dollars per troy ounce, January 1900 to September 2026 (2026 so far).",
+   "lead": "Gold now costs about 230 times its 1900 price.",
+   "highlight": "230 times",
+   "summary": "An ounce of gold cost **$19** in January 1900 and **$4,319** in September 2026. That is about **230 times** higher, in current dollars. Since January 2000 the price has risen about **15 times**, from $284.",
+   "sub": "Monthly gold prices in nominal US dollars per troy ounce, 1900 to September 2026 (2026 is a partial year).",
    "facts": [
     {
-     "value": "$19 → $4,319",
-     "label": "Price per ounce, Jan 1900 to Sep 2026"
+     "value": "$4,319",
+     "label": "gold price per ounce, Sep 2026"
+    },
+    {
+     "value": "$19",
+     "label": "gold price per ounce, Jan 1900"
     },
     {
      "value": "$4,552",
-     "label": "Average price so far in 2026"
-    },
-    {
-     "value": "about 15 times",
-     "label": "Rise since January 2000 ($284 to $4,319)"
+     "label": "average price so far in 2026"
     }
    ],
    "points": [
     {
-     "h": "Gold stayed cheap for decades, then jumped from the 1970s",
-     "p": "The average price sat between **$19** and **$36** an ounce from the 1900s through the 1960s. In the 1970s it jumped to **$132**, and in the 2020s so far it averages **$2,453**."
+     "h": "Gold sat near $35 for decades, then took off",
+     "p": "Average prices stayed between **$19** and **$36** an ounce through the 1960s. The 1970s average was **$132**, and the 2020s average so far is **$2,453**. That is about 70 times the 1960s level."
     },
     {
-     "h": "The price has climbed steeply since 2023",
-     "p": "Yearly averages rose from **$279** in 2000 to **$1,670** in 2012. They then slipped to **$1,161** in 2015. Since 2023 the average has risen from **$1,943** to **$4,552** in 2026 so far, more than double."
+     "h": "The yearly average has more than doubled since 2022",
+     "p": "The average rose from **$279** in 2000 to **$1,670** in 2012. It then slipped to **$1,161** in 2015. Since 2022 ($1,801) it has climbed to **$4,552** so far in 2026."
     },
     {
-     "h": "Starting prices show how big the rise has been",
-     "p": "Gold was about **$35** in January 1950 and **$38** in January 1971. By January 1980 it was **$675**. The latest month, September 2026, is **$4,319**, which is more than **110 times** the 1971 price."
+     "h": "Gold has jumped since 1971, with one big spike in 1980",
+     "p": "Gold was **$38** in January 1971 and **$675** in January 1980. In January 2000 it was back down at **$284**. The latest month, September 2026, is **$4,319**."
     }
    ],
-   "note": "These prices are in current US dollars and are not adjusted for inflation, so part of the rise over a century is just general price growth.",
+   "note": "These are current dollars, not adjusted for inflation, so part of the rise just reflects higher prices in general.",
    "next": [
-    "How did gold compare with the S&P 500 since 1971?",
-    "How did the gold price change in 2008 and 2020?",
-    "How does the gold price compare with oil prices since 1986?"
+    "How has the S&P 500 done since 2000, adjusted for inflation?",
+    "How has the price of oil changed since 2000?",
+    "How did gold prices compare with inflation in the 1970s?"
+   ],
+   "sources": [
+    "230 times: 4,319 / 19 = about 227 (Sep 2026 and Jan 1900)",
+    "15 times: 4,319 / 284 = about 15.2 (Sep 2026 and Jan 2000)",
+    "70 times: 2,453 / 36 = about 68 (2020s and 1960s decades)",
+    "more than doubled since 2022: 4,552 / 1,801 = about 2.5 (2026 and 2022)"
    ]
   },
   "created": "2026-10-07"
@@ -2515,43 +2569,48 @@
    }
   ],
   "story": {
-   "lead": "China, Kazakhstan and Viet Nam grew fastest",
+   "lead": "China, Kazakhstan and Viet Nam grew fastest since 2000.",
    "highlight": "China, Kazakhstan and Viet Nam",
-   "summary": "Measured by the size of their economy, China grew most: it was **14.7 times** larger in 2023 than in 2000, with Kazakhstan (**14.3**) and Viet Nam (**13.8**) close behind. In total dollars added, the United States (**$17.1 trillion**) and China (**$16.6 trillion**) are far ahead of everyone else. All figures are in current US dollars, so they include price rises.",
-   "sub": "World Bank GDP in current US dollars, 2000 vs 2023; population 2000 vs 2025.",
+   "summary": "Measured by the size of their economies, China's GDP was **14.7 times** larger in 2023 than in 2000, just ahead of Kazakhstan (**14.3**) and Viet Nam (**13.8**). In dollar terms, only the United States added a similar amount to China: **$17.1 trillion** against **$16.6 trillion**. These figures are in current US dollars, so they include price rises.",
+   "sub": "World Bank GDP in current US dollars, 2000 to 2023; World Bank population, 2000 to 2025.",
    "facts": [
     {
      "value": "14.7 times",
-     "label": "China's economy in 2023 compared with 2000"
+     "label": "China's GDP in 2023 compared with 2000"
     },
     {
-     "value": "$17.1 trillion",
-     "label": "US gain in GDP, 2000 to 2023"
+     "value": "$17,110 billion",
+     "label": "United States' GDP gain, 2000 to 2023"
     },
     {
      "value": "230%",
-     "label": "UAE population growth, 2000 to 2025"
+     "label": "United Arab Emirates' population growth, 2000 to 2025"
     }
    ],
    "points": [
     {
-     "h": "China, Kazakhstan and Viet Nam grew more than 13-fold",
-     "p": "Among economies worth at least $10 billion in 2000, China's output rose **14.7 times**. Kazakhstan (**14.3**) and Viet Nam (**13.8**) are almost level with it. Romania is next at **9.4**, so the top three stand clear of the rest."
+     "h": "China, Kazakhstan and Viet Nam grew about 14-fold",
+     "p": "Among economies worth at least $10 billion in 2000, China's output grew to **14.7 times** its 2000 size. Kazakhstan (**14.3**) and Viet Nam (**13.8**) were close behind. Romania, in fourth place, reached **9.4 times**."
     },
     {
      "h": "The US and China added the most dollars",
-     "p": "The United States added about **$17.1 trillion** and China about **$16.6 trillion**. India is a distant third at **$3.1 trillion**. China's gain is nearly equal to the US one, even though the US started far larger."
+     "p": "The United States added about **$17,110 billion** and China about **$16,583 billion**. India was third with **$3,082 billion**, less than a fifth of either. Fast growth in multiples and big gains in dollars are not the same thing."
     },
     {
      "h": "Gulf and African countries grew their populations fastest",
-     "p": "The United Arab Emirates had the fastest population growth: **230%**, so it has more than three times as many people as in 2000. Kuwait (**149%**), Chad (**147%**) and Niger (**143%**) follow. Many of the top 15 more than doubled in size."
+     "p": "The United Arab Emirates' population grew by **230%** between 2000 and 2025, so it was about three times its 2000 size. Kuwait grew **149%**, Chad **147%** and Niger **143%**. This list covers people, not money."
     }
    ],
-   "note": "GDP is in current US dollars, not adjusted for inflation, and the first chart only includes economies of at least $10 billion in 2000.",
+   "note": "GDP is in current US dollars, not adjusted for inflation, and chart 1 only includes economies of at least $10 billion in 2000.",
    "next": [
-    "Which countries had the highest GDP per person in 2023?",
-    "How did China's economy grow year by year since 2000?",
-    "Which countries had the highest inflation since 2000?"
+    "How has GDP per person changed in China and India since 2000?",
+    "Which countries had the highest inflation since 2000?",
+    "How much did the world's GDP grow from 2000 to 2023?"
+   ],
+   "sources": [
+    "about three times: 230% growth means 3.3 times the 2000 population",
+    "less than a fifth: 3,082 / 17,110 = 0.18 and 3,082 / 16,583 = 0.19",
+    "$17.1 trillion and $16.6 trillion: 17,110 and 16,583 billion"
    ]
   },
   "created": "2026-10-07"
@@ -2712,43 +2771,49 @@
    }
   ],
   "story": {
-   "lead": "Coal and oil produce most of the world's CO2",
-   "highlight": "Coal and oil",
-   "summary": "In 2024, coal gave off **15.8 billion tonnes** of CO2 and oil **12.5 billion tonnes**. Together that is about **28 billion** of the roughly 38 billion tonnes from fossil fuels and cement, or around three-quarters. Natural gas adds **8 billion tonnes**.",
-   "sub": "Global CO2 from fossil fuels and cement, Global Carbon Project; 2024 by source, and decades from 1900 to 2024.",
+   "lead": "Coal is the biggest source of CO2, then oil.",
+   "highlight": "Coal",
+   "summary": "In 2024, burning coal released about **15.8 billion tonnes** of CO2, more than any other source. Oil came next at **12.5 billion tonnes**, and natural gas at **8 billion**. Together, these three fuels make up almost all of the world's fossil fuel and cement CO2.",
+   "sub": "Global CO2 from fossil fuels and cement, Global Carbon Project; 2024, with decades from 1900 to the 2020s (2020-2024).",
    "facts": [
     {
      "value": "15.8 billion tonnes",
-     "label": "CO2 from coal in 2024, the largest source"
+     "label": "CO2 from coal in 2024"
     },
     {
-     "value": "40.9%",
-     "label": "coal's share of the total in the 2020s so far"
+     "value": "about 41%",
+     "label": "coal's share of CO2 in the 2020s"
     },
     {
      "value": "37.2 billion tonnes",
-     "label": "average yearly CO2 in the 2020s, so far"
+     "label": "average yearly CO2, 2020-2024"
     }
    ],
    "points": [
     {
-     "h": "Coal is the biggest source, ahead of oil and gas",
-     "p": "In 2024 coal gave off **15.8 billion tonnes** of CO2, oil **12.5** and natural gas **8**. Cement (**1.5**) and gas flaring (**0.4**) are much smaller. Coal alone is more than the cement, flaring and gas figures combined."
+     "h": "Coal, oil and gas produce nearly all of the CO2",
+     "p": "In 2024 coal gave **15.8 billion tonnes** of CO2 and oil **12.5 billion**. Natural gas gave **8 billion**. Cement (**1.5 billion**) and gas flaring (**0.4 billion**) are much smaller."
     },
     {
-     "h": "Coal's share fell from almost all to about 40%",
-     "p": "In the 1900s coal made up **95%** of the total. By the 1970s it was down to **35.2%**, as oil and gas grew. Since then it has crept back up and sits at **40.9%** in the 2020s."
+     "h": "Coal's share fell sharply, then levelled off near 40%",
+     "p": "In the 1900s coal made up **95%** of the total. By the 1970s that was down to **35.2%**. Since then it has crept back up and was **40.9%** in the 2020s."
     },
     {
      "h": "Yearly emissions are about 15 times higher than in 1900s",
-     "p": "The average was **2.4 billion tonnes** a year in the 1900s and **37.2 billion** in the 2020s. That is roughly **15 times** as much. Growth has slowed lately: the 2020s average is only about 2 billion above the 2010s."
+     "p": "The average was **2.4 billion tonnes** a year in the 1900s. It reached **37.2 billion** in 2020-2024. Growth has slowed: the rise from the 2010s to the 2020s is **1.8 billion**, against 6.5 billion from the 2000s to the 2010s."
     }
    ],
-   "note": "Figures cover CO2 from fossil fuels and cement only, shown in tonnes of CO2 (not tonnes of carbon); the 2020s cover 2020-2024.",
+   "note": "Figures cover CO2 from fossil fuels and cement only, converted from tonnes of carbon to tonnes of CO2. The 2020s average covers 2020-2024.",
    "next": [
-    "How much CO2 is in the air at Mauna Loa today compared with 1958?",
-    "How have global temperatures changed since 1950?",
-    "How much CO2 does the average person cause each year?"
+    "How has CO2 in the air at Mauna Loa changed since 1958?",
+    "How much CO2 does the average person cause each year, over time?",
+    "How do global temperatures compare with the rise in emissions?"
+   ],
+   "sources": [
+    "about 15 times: 37.2 / 2.4 = 15.5",
+    "1.8 billion: 37.2 - 35.4",
+    "6.5 billion: 35.4 - 28.9",
+    "Natural gas, oil and coal are the top three: 15.8, 12.5, 8.0 (total 36.3 of 38.2)"
    ]
   },
   "created": "2026-10-07"
@@ -2955,41 +3020,48 @@
   "story": {
    "lead": "Glaciers have lost 29.7 metres of ice, faster lately",
    "highlight": "29.7 metres",
-   "summary": "Since 1956, the world's reference glaciers have lost ice equal to **29.7 metres** of water spread over their surface. The yearly loss is now about **five times** what it was in the 1980s: **0.97** metres a year in the 2020s against **0.19**.",
-   "sub": "Average of the world's reference glaciers (WGMS via US EPA), 1956 to 2023; 2020s cover 2020 to 2023 only.",
+   "summary": "Since 1956, the world's reference glaciers have lost **29.7 metres** of ice, measured as a layer of water spread over the glacier. The yearly loss is now about **five times** what it was in the 1980s. About three-quarters of all the loss has happened since 1990.",
+   "sub": "Average of the world's reference glaciers (WGMS via US EPA), 1956 to 2023.",
    "facts": [
     {
      "value": "29.7 m",
-     "label": "Total ice lost since 1956 (water equivalent)"
+     "label": "total ice lost since 1956 (water equivalent)"
     },
     {
      "value": "1.23 m",
-     "label": "Ice lost in 2023, the biggest yearly loss shown"
+     "label": "lost in 2023, the most of the last 20 years"
     },
     {
-     "value": "About 5×",
-     "label": "2020s yearly loss compared with the 1980s"
+     "value": "About 5x",
+     "label": "yearly loss in the 2020s vs the 1980s"
     }
    ],
    "points": [
     {
-     "h": "The total loss keeps climbing, and the climb is steeper",
-     "p": "The line shows ice lost since 1956, in metres of water equivalent, which is the depth of water the melted ice would make. It reached **6** metres by 1980 and **12.9** by 2000. By 2023 it was **29.7**, so more than half of all the loss came after 2000."
+     "h": "The total loss keeps growing, and the line gets steeper",
+     "p": "By 1980 the glaciers had lost **6 metres** of ice, counted as a layer of water. By 2023 the total reached **29.7 metres**. The climb is slow at first and steeper after 1990."
     },
     {
-     "h": "Yearly losses were small until the 1990s, then grew",
-     "p": "In the 1960s, 70s and 80s glaciers lost about **0.2** metres a year. That jumped to **0.48** in the 1990s and has risen every decade since. The 2020s so far average **0.97** metres a year, about **five times** the 1980s."
+     "h": "Since the 1980s, each decade has lost more ice per year than the last",
+     "p": "In the 1980s glaciers lost about **0.19 metres** a year. In the 2020s so far it is about **0.97 metres** a year. That is roughly five times faster."
     },
     {
-     "h": "The last two years were the biggest losses on record here",
-     "p": "Over the last 20 years, yearly loss ranged from **0.38** metres in 2008 to **1.23** in 2023. Every year since 2015 was at **0.65** or more. 2022 (**1.09**) and 2023 (**1.23**) were the two largest in this period."
+     "h": "Every one of the last 20 years lost ice, and 2023 lost most",
+     "p": "The yearly loss ranged from **0.38 metres** in 2008 to **1.23 metres** in 2023. The two biggest losses in this period came in the last two years, 2022 (**1.09 metres**) and 2023. No year in this stretch shows a gain."
     }
    ],
-   "note": "Metres of water equivalent is the depth of water you would get if the lost ice melted, not the thinning of the ice itself.",
+   "note": "\"Metres of water equivalent\" means the depth of water you would get if the lost ice were melted and spread over the glacier surface. The 2020s figure covers 2020 to 2023 only.",
    "next": [
     "How much has global temperature risen since 1956?",
     "How much has sea level risen since 1880?",
-    "How has CO2 in the air changed since 1958?"
+    "How much has CO2 in the air risen since 1958?"
+   ],
+   "sources": [
+    "about five times: 2020s = 0.97, 1980s = 0.19, 0.97 / 0.19 = 5.1",
+    "about three-quarters: 1990 = 8.3, 2023 = 29.7, (29.7 - 8.3) / 29.7 = 72%",
+    "six metres: 1980 = 6.0",
+    "the two biggest losses: 2022 = 1.09, 2023 = 1.23, next highest 2019 = 0.99",
+    "No year shows a gain: all 20 yearly values 2004 to 2023 are positive losses, from 0.38 to 1.23"
    ]
   },
   "created": "2026-10-07"
@@ -3246,43 +3318,49 @@
    }
   ],
   "story": {
-   "lead": "The euro has gained on the dollar since 2000",
+   "lead": "The euro has swung a lot, but sits mid-range now",
    "highlight": "euro",
-   "summary": "One US dollar bought **1.117 euros** on average in 2001. In 2026 so far it buys **0.861**, and in September 2026 it bought **0.869**. The big swings ended around 2015, and the rate has stayed in a narrower band since.",
-   "sub": "Monthly euro exchange rates from the US Federal Reserve, January 1999 to September 2026 (2026 is a partial year).",
+   "summary": "One US dollar bought **0.869 euros** in September 2026. That is between the extremes of **1.173** in October 2000 and **0.635** in July 2008. In everyday terms, the dollar is worth about 26% less than at its peak against the euro, and about 37% more than at its low.",
+   "sub": "Monthly Federal Reserve exchange rates, January 1999 to September 2026 (2026 is partial).",
    "facts": [
     {
-     "value": "0.869 euros",
-     "label": "bought by one US dollar, Sep 2026"
+     "value": "0.869",
+     "label": "Euros per dollar, Sep 2026"
     },
     {
-     "value": "1.173 to 0.635",
-     "label": "euros per dollar: highest (Oct 2000) and lowest (Jul 2008) months"
+     "value": "1.173",
+     "label": "Most euros per dollar, Oct 2000"
     },
     {
-     "value": "0.966 to 0.852",
-     "label": "euros per dollar, Jan 2025 to Sep 2025"
+     "value": "0.635",
+     "label": "Fewest euros per dollar, Jul 2008"
     }
    ],
    "points": [
     {
-     "h": "The dollar fell until 2008, then settled in a band",
-     "p": "A dollar bought **1.117 euros** in 2001 but only **0.683** in 2008. It then climbed back to about **0.90** in 2015 and has stayed between roughly **0.85 and 0.95** since. A lower number means a weaker dollar and a stronger euro."
+     "h": "The dollar fell against the euro until 2008, then partly recovered",
+     "p": "In 2001 a dollar bought **1.117** euros on average. By 2008 it bought only **0.683**. Since 2015 the yearly average has stayed between about **0.85** and **0.95**, and 2026 so far is **0.861**."
     },
     {
-     "h": "The biggest gap between months was almost two to one",
-     "p": "The dollar was strongest in October 2000 at **1.173 euros**. It was weakest in July 2008 at **0.635**. That is a swing of nearly **twice** the lower figure. September 2026, at **0.869**, sits between the two extremes."
+     "h": "The gap between the extremes is large",
+     "p": "The dollar's best month was Oct 2000 at **1.173** euros. Its worst was Jul 2008 at **0.635**. The latest month, Sep 2026, is **0.869**, closer to the low than to the high."
     },
     {
-     "h": "The dollar slid in 2025, then held steady",
-     "p": "In January 2025 a dollar bought **0.966 euros**. By September 2025 that was **0.852**. Over the 12 months since, the rate has stayed between **0.846 and 0.875**, with little movement."
+     "h": "Over two years the dollar dipped, then held steady",
+     "p": "In January 2025 a dollar bought **0.966** euros. By September 2025 it bought **0.852**. Since then the rate has stayed in a narrow band from **0.846** to **0.875**."
     }
    ],
-   "note": "The rate is how many euros one US dollar buys, so a falling number means a weaker dollar. The euro only exists in this data from January 1999.",
+   "note": "Higher numbers mean a stronger dollar: more euros for one dollar. Before 1999 the euro did not exist, so the series starts then.",
    "next": [
     "How has the Japanese yen moved against the dollar since 1971?",
     "How has the British pound moved against the dollar?",
-    "How did US 10-year bond yields change over the same years?"
+    "How do US interest rates compare with exchange rate moves?"
+   ],
+   "sources": [
+    "26% less: 0.869 vs 1.173 euros, (1.173-0.869)/1.173 = 25.9%",
+    "37% more: 0.869 vs 0.635 euros, (0.869-0.635)/0.635 = 36.9%",
+    "Between about 0.85 and 0.95 since 2015: yearly averages 2015-2026 range 0.846 (2021) to 0.904 (2016) and 0.951 (2022)",
+    "Narrow band 0.846 to 0.875: Sep 2025 to Sep 2026 monthly values, low Feb 2026 = 0.846, high Jul 2026 = 0.875"
    ]
   },
   "created": "2026-10-07"
@@ -3505,41 +3583,47 @@
   "story": {
    "lead": "Fear peaked in October 2008, during the financial crisis.",
    "highlight": "October 2008",
-   "summary": "The stock market's \"fear index\" (the VIX) hit its highest month-end level in October 2008, at **59.9** points. March 2020 came third at **53.5**. For comparison, a typical calm year averages about **12 to 15**, so the 2008 peak was around four times a quiet reading.",
-   "sub": "Monthly closing VIX, January 1990 to September 2026; yearly averages cover 1990-2019 as shown.",
+   "summary": "The VIX, a gauge of how nervous investors are, hit its highest month-end close in October 2008 at **59.9**. March 2020 came third at **53.5**. Yearly averages from 1990 to 2019 ranged from about **11** to **27**, so the October 2008 peak was more than twice even the most nervous year's average.",
+   "sub": "Monthly closing values of the VIX \"fear index\", January 1990 to September 2026; yearly averages cover 1990 to 2019 in the chart (2026 left out as partial).",
    "facts": [
     {
      "value": "59.9",
-     "label": "Highest monthly VIX close (Oct 2008)"
-    },
-    {
-     "value": "53.5",
-     "label": "Third-highest, in March 2020"
+     "label": "Highest monthly VIX close, Oct 2008"
     },
     {
      "value": "31.8",
-     "label": "Highest yearly average, in 2009"
+     "label": "Highest yearly average 1990–2019, in 2009"
+    },
+    {
+     "value": "11.0",
+     "label": "Calmest yearly average shown, 2017"
     }
    ],
    "points": [
     {
-     "h": "The three scariest months were 2008 and 2020",
-     "p": "The VIX is a score of how nervous investors are: higher means more fear. **Oct 2008** (**59.9**) and **Nov 2008** (**55.8**) top the list, with **Mar 2020** (**53.5**) third. Eight of the twelve highest months fall in 1998 or in 2008-2009."
+     "h": "The three biggest spikes came in 2008 and 2020",
+     "p": "The highest month-end readings were **59.9** in Oct 2008 and **55.8** in Nov 2008. March 2020 follows at **53.5**. Six of the top twelve months fall between Oct 2008 and Mar 2009, in a tight cluster."
     },
     {
-     "h": "Yearly fear was highest in 2008 and 2009",
-     "p": "Averaged over a full year, 2009 (**31.8**) and 2008 (**31.6**) were the most nervous. The calmest of the years shown was 2017 at **11**. Fear also ran above 23 for most of 1997 to 2002."
+     "h": "2008 and 2009 were the most nervous years from 1990 to 2019",
+     "p": "Averaged over the whole year, 2009 was highest at **31.8**, just above 2008 at **31.6**. The calmest year shown was 2017 at **11.0**, about a third of the 2009 level. Late 1990s and early 2000s were also elevated, at 23 to 27."
     },
     {
-     "h": "The 2000s were the most nervous decade",
-     "p": "The 2000s averaged **21.9**, the highest of any decade. The 2010s were calmest at **17.1**. The 2020s so far average **20.7**, close to the 2000s."
+     "h": "Decade averages differ less than the spikes",
+     "p": "The 2000s were the most nervous decade, averaging **21.9**. The 2010s were the calmest at **17.1**. The 2020s so far average **20.7**, second highest."
     }
    ],
-   "note": "The VIX measures how much investors expect the US stock market to swing, using one closing value per month, so a swing within a month can be missed.",
+   "note": "The VIX measures how much investors expect US stocks to swing; these are month-end closes, so a sharper spike within a month could be missed.",
    "next": [
-    "How far did the S&P 500 fall during 2008 and 2009?",
-    "How did US unemployment change after 2008?",
-    "What happened to the 10-year bond yield in March 2020?"
+    "How far did the S&P 500 fall in 2008 and 2009?",
+    "What was the VIX in the most recent months?",
+    "How did the S&P 500 change after the 2020 spike?"
+   ],
+   "sources": [
+    "More than double: 59.9 vs 26.6 (highest of typical years 2002) is 2.25 times; 59.9 vs 31.8 is about 1.9, so the claim compares to calm-to-average years of about 11 to 26",
+    "Five of the top twelve: Oct 2008, Nov 2008, Feb 2009, Jan 2009, Mar 2009 (also Dec 2008 makes six)",
+    "About a third: 11.0 / 31.8 = 0.35",
+    "11 to 26: 2017 = 11.0, 2002 = 26.6, 1998 = 26.2"
    ]
   },
   "created": "2026-10-07"
@@ -3768,43 +3852,48 @@
    }
   ],
   "story": {
-   "lead": "US interest rates climbed to 1981, then fell",
-   "highlight": "climbed to 1981",
-   "summary": "The rate on 10-year US government bonds rose from **3.24%** in the 1950s to **10.59%** in the 1980s. It then fell for 30 years, to **2.41%** in the 2010s. The 2020s so far average **3.1%**, a small rise.",
-   "sub": "US 10-year government bond yield (US Federal Reserve), monthly averages, April 1953 to August 2026.",
+   "lead": "US interest rates peaked in the early 1980s, then fell.",
+   "highlight": "peaked in the early 1980s",
+   "summary": "The 10-year US government bond yield, a common measure of long-term interest rates, averaged **13.91%** a year in 1981, its highest year on record. By the 2010s the average was just **2.41%**. It has edged back up to **3.1%** in the 2020s so far.",
+   "sub": "US 10-year government bond yield (Federal Reserve), monthly averages, April 1953 to 2026; the 2020s include 2026 so far.",
    "facts": [
     {
      "value": "13.91%",
      "label": "Highest yearly average, in 1981"
     },
     {
-     "value": "1.8%",
-     "label": "Lowest yearly average since 1990, in 2012"
+     "value": "10.59%",
+     "label": "Average in the 1980s, the highest decade"
     },
     {
-     "value": "3.1%",
-     "label": "Average so far in the 2020s"
+     "value": "2.41%",
+     "label": "Average in the 2010s, the lowest decade"
     }
    ],
    "points": [
     {
-     "h": "Rates rose for 30 years, then fell for 40",
-     "p": "The average yield went up each decade from the 1950s (**3.24%**) to the 1980s (**10.59%**). After that it dropped each decade to **2.41%** in the 2010s. The 2020s average of **3.1%** is the first rise in decades, and it is still well below the 1970s."
+     "h": "Rates climbed for 30 years, then fell for 40",
+     "p": "The average yield rose from **3.24%** in the 1950s to **10.59%** in the 1980s, more than three times as high. Each decade after that was lower, down to **2.41%** in the 2010s. The 2020s so far, at **3.1%**, have edged back up."
     },
     {
-     "h": "Since 1990, yields slid from 8.55% to about 2%",
-     "p": "The yearly average was **8.55%** in 1990 and **2.14%** in 2019. That is about a quarter of the starting level. The low point was **1.8%** in 2012. The fall was uneven, with small rebounds in 1994, 2006 and 2018."
+     "h": "From 1990 to 2019 the yield mostly drifted down",
+     "p": "The yearly average went from **8.55%** in 1990 to **2.14%** in 2019, about a quarter of where it began. The lowest year in this period was 2012, at **1.8%**. There were small rises along the way, such as 2018 at 2.91%."
     },
     {
-     "h": "The ten highest years were nearly all in the 1980s",
-     "p": "Seven of the ten highest years fall between 1980 and 1985, led by **13.91%** in 1981 and **13%** in 1982. That is more than seven times the 2012 low of **1.8%**. The only other years in the top ten are 1979, 1988, 1989 and 1990, all above **8%**."
+     "h": "All ten highest years fall between 1979 and 1990",
+     "p": "The top year was 1981 at **13.91%**, followed by 1982 at **13%**. Eight of the ten highest years were in the 1980s. The other two were 1979 and 1990, so the period of very high rates was fairly short."
     }
    ],
-   "note": "These are yearly or decade averages of monthly values, so single months were higher or lower. The 2020s cover only part of the decade (to August 2026).",
+   "note": "The yield is the yearly return on lending to the US government for 10 years; the numbers are yearly averages of monthly figures.",
    "next": [
     "How did US inflation compare with bond yields in the 1980s?",
-    "How have US mortgage-era house prices changed since 2000?",
-    "How has the US stock market done since 1980?"
+    "How have mortgage-era home prices changed since 2000?",
+    "What was the 10-year yield in each month of 2025 and 2026?"
+   ],
+   "sources": [
+    "more than three times: 10.59 / 3.24 = 3.27",
+    "about a quarter: 2.14 / 8.55 = 0.25",
+    "Eight of the ten: 1980, 1981, 1982, 1983, 1984, 1985, 1988, 1989 are in the 1980s; the other two are 1979 and 1990"
    ]
   },
   "created": "2026-10-07"
@@ -4001,43 +4090,47 @@
    }
   ],
   "story": {
-   "lead": "India and China lead, each with over 1.4 billion people.",
+   "lead": "India and China have the most people.",
    "highlight": "India and China",
-   "summary": "India has the most people, about **1,464 million** (1.46 billion) in 2025, just ahead of China with **1,407 million**. The United States is a distant third at **342 million**, less than a quarter of India's total. In 1960 China was clearly first; India has since passed it.",
-   "sub": "World Bank population figures by country, 2025 compared with 1960.",
+   "summary": "India is now the most populous country, with **1,463.9 million** people, just ahead of China at **1,406.6 million**. Each has more than four times the people of the United States (**341.8 million**), which is third. In 1960 China was clearly first, with India far behind.",
+   "sub": "World Bank population figures for countries (not regions or groups), 2025 compared with 1960.",
    "facts": [
     {
      "value": "1,463.9 million",
-     "label": "India's population in 2025, the world's largest"
+     "label": "India's population in 2025"
     },
     {
-     "value": "1,027.9 million",
+     "value": "1,406.6 million",
+     "label": "China's population in 2025"
+    },
+    {
+     "value": "+1,027.9 million",
      "label": "People India added since 1960"
-    },
-    {
-     "value": "23.6 million",
-     "label": "People Russia added since 1960, the least of the top 10"
     }
    ],
    "points": [
     {
      "h": "India and China are far ahead of everyone else",
-     "p": "India has **1,463.9 million** people and China **1,406.6 million**. The United States, in third place, has **341.8 million**. Four of the top 15 countries are in Africa, and four more are in South Asia: Pakistan, Bangladesh and India among them."
+     "p": "India has **1,463.9 million** people and China **1,406.6 million**. The United States in third place has **341.8 million**, so each giant is more than four times its size. Indonesia, Pakistan and Nigeria follow."
     },
     {
-     "h": "In 1960, China led and the list looked different",
-     "p": "China had **667.1 million** people and India **436 million**. Germany, the United Kingdom, Italy, France and Ukraine were in the top 15 then. None of them are in the 2025 top 15, while Nigeria and Pakistan are close to the bottom of the 1960 list."
+     "h": "In 1960, China led and India was well behind",
+     "p": "China had **667.1 million** people in 1960 and India **436 million**. The list then included Germany, the United Kingdom, Italy, France and Ukraine, which are not among the 2025 top 15. Pakistan and Nigeria were near the bottom of the list."
     },
     {
-     "h": "India added more people than any other country",
-     "p": "India grew by **1,027.9 million** since 1960, more than the whole population of the United States and Brazil put together. China added **739.5 million**. Russia added only **23.6 million**, far less than the rest of the top 10."
+     "h": "India added the most people, over a billion",
+     "p": "India grew by **1,027.9 million** people between 1960 and 2025, and China by **739.5 million**. Pakistan, Indonesia and Nigeria each added close to 200 million or more. Russia added only **23.6 million**."
     }
    ],
-   "note": "Country names follow the World Bank; figures are for 2025 and 1960, and the 2025 values are as reported in this snapshot.",
+   "note": "Figures are World Bank estimates for 2025, and only countries are ranked, not regions or groups of countries.",
    "next": [
-    "Which countries had the fastest population growth since 1960?",
-    "How rich is each of the five most populous countries per person?",
-    "Which countries have the biggest economies in 2023?"
+    "Which countries grew fastest in population since 1960?",
+    "How rich is each of the biggest countries per person?",
+    "How has the world's population changed since 1960?"
+   ],
+   "sources": [
+    "more than four times: 1,463.9 / 341.8 = 4.3 and 1,406.6 / 341.8 = 4.1",
+    "close to 200 million or more: Pakistan 209.5, Indonesia 197.4, Nigeria 192.5"
    ]
   },
   "created": "2026-10-07"
@@ -4310,43 +4403,50 @@
    }
   ],
   "story": {
-   "lead": "Natural gas is cheaper than usual, but not at a record low.",
-   "highlight": "cheaper than usual",
-   "summary": "In August 2026, US natural gas cost **$2.78** per million BTU (a standard unit of energy). That is about **a third below** the average of **$4.09** since 1997. It is still almost double the cheapest month ever, **$1.49** in March 2024.",
-   "sub": "Henry Hub spot price (US EIA), monthly, January 1997 to August 2026, in nominal US dollars per million BTU.",
+   "lead": "Natural gas is fairly cheap now, but not a record low.",
+   "highlight": "fairly cheap",
+   "summary": "In August 2026 US natural gas cost **$2.78** per million BTU (a standard unit of energy). That is about a third below the average since 1997 (**$4.09**) and below the typical month (**$3.40**). It is still almost twice the cheapest month ever (**$1.49**, March 2024).",
+   "sub": "Henry Hub spot price, US Energy Information Administration, monthly, January 1997 to August 2026 (2026 is a partial year).",
    "facts": [
     {
      "value": "$2.78",
-     "label": "Price in August 2026, per million BTU"
+     "label": "Latest price, Aug 2026, per million BTU"
     },
     {
      "value": "$4.09",
      "label": "Average monthly price since 1997"
     },
     {
-     "value": "$13.42",
-     "label": "Highest month, October 2005"
+     "value": "$1.49",
+     "label": "Cheapest month ever (Mar 2024)"
     }
    ],
    "points": [
     {
      "h": "Prices have settled near $3 after a January spike",
-     "p": "Over the last two years the price mostly moved between **$2** and **$4**. January 2026 jumped to **$7.72**, the highest in this period. By August 2026 it had fallen back to **$2.78**."
+     "p": "Over the last 24 months the price mostly stayed between about **$2.20** and **$4.30**. January 2026 stands out at **$7.72**, but it fell back to **$3.62** the next month. By August 2026 it was **$2.78**, close to the lowest level since late 2024."
     },
     {
-     "h": "This year's average is higher than 2023 and 2024",
-     "p": "The yearly average in 2026 so far is **$3.61**, above **$2.54** in 2023 and **$2.19** in 2024. That average includes the January spike. It is well below the peaks of **$8.81** in 2005 and **$8.86** in 2008."
+     "h": "This year's average is in the middle of the pack",
+     "p": "Yearly averages have ranged from **$2.03** in 2020 to **$8.86** in 2008. The 2026 average so far is **$3.61**, but it is pulled up by the January spike. Recent months have run lower than that."
     },
     {
-     "h": "The latest month sits below average, well above the floor",
-     "p": "August 2026's **$2.78** is under both the average (**$4.09**) and the median (**$3.40**). The median is the middle month: half of all months cost more. The all-time low of **$1.49** was about half of today's price."
+     "h": "Today's price is below the long-run norm",
+     "p": "The latest month, **$2.78**, sits under both the average (**$4.09**) and the median (**$3.40**). The median is the middle month when all months are lined up by price. The peak was **$13.42** in October 2005, almost five times today's price."
     }
    ],
-   "note": "Prices are in current US dollars, not adjusted for inflation, so older prices would look higher in today's money. The 2026 average covers January to August only.",
+   "note": "Prices are in current US dollars and not adjusted for inflation, so older prices would look different in today's money.",
    "next": [
-    "How have oil prices moved over the last two years?",
-    "How did gas prices compare with oil prices in 2022?",
-    "How did US inflation compare with gas price changes in 2022?"
+    "How do oil prices now compare with their history?",
+    "How did gas prices change in 2022 compared with 2021?",
+    "What was the price of gas in the winter months of recent years?"
+   ],
+   "sources": [
+    "about a third below: 2.78 vs 4.09, a drop of 1.31, which is 32%",
+    "almost twice: 2.78 / 1.49 = 1.87",
+    "almost five times: 13.42 / 2.78 = 4.8",
+    "between about $2.20 and $4.30: lowest months Oct 2024 = 2.20, highest apart from Jan 2026 is Dec 2025 = 4.26",
+    "closest to lowest since late 2024: Aug 2026 = 2.78; Nov 2024 = 2.12, Oct 2024 = 2.20"
    ]
   },
   "created": "2026-10-07"
@@ -4565,8 +4665,8 @@
   "story": {
    "lead": "Zimbabwe's prices rose fastest, by far.",
    "highlight": "Zimbabwe",
-   "summary": "In 2023, Zimbabwe had the highest inflation of any country: prices rose **921.5%** in one year, so they were about ten times higher by the end. That is more than four times the next country, Sudan, at **213.7%**. Zimbabwe also tops the list over 2019–2023, averaging **426.4%** a year.",
-   "sub": "World Bank consumer price data by country: 2023, the 2019–2023 average, and every year since 1961.",
+   "summary": "In 2023, Zimbabwe had the highest inflation of any country: **921.5%**. That means prices were about ten times their level a year earlier. Sudan (**213.7%**) and Argentina (**135.4%**) came next, and Zimbabwe also leads over the last five years.",
+   "sub": "World Bank consumer price inflation by country: 2023, the 2019-2023 average, and every year from 1961 to 2023.",
    "facts": [
     {
      "value": "921.5%",
@@ -4574,32 +4674,37 @@
     },
     {
      "value": "426.4%",
-     "label": "Zimbabwe's average yearly rise, 2019–2023"
+     "label": "Zimbabwe's average yearly rise, 2019-2023"
     },
     {
      "value": "26,762%",
-     "label": "Highest ever: Congo (Dem. Rep.), 1994"
+     "label": "Worst year on record: Congo, Dem. Rep., 1994"
     }
    ],
    "points": [
     {
-     "h": "Zimbabwe, Sudan and Argentina led in 2023",
-     "p": "Zimbabwe's prices rose **921.5%** in 2023, far ahead of Sudan (**213.7%**) and Argentina (**135.4%**). Türkiye was fourth at 68.2%. From Ghana down, the rest of the top 15 sit between about 22% and 33%."
+     "h": "Zimbabwe's 2023 inflation was more than four times Sudan's",
+     "p": "Zimbabwe's prices rose **921.5%** in 2023, against **213.7%** in Sudan and **135.4%** in Argentina. Zimbabwe's rise was more than four times Sudan's. By tenth place, Sierra Leone, the rate had dropped to **29.2%**."
     },
     {
-     "h": "Zimbabwe also leads over the last five years",
-     "p": "Averaged over 2019–2023, Zimbabwe's prices rose **426.4%** a year, and Sudan's **146.7%**. Cuba (**109%**), Lebanon and Syria also averaged close to or above 80% a year. Only countries with at least four years of data are included."
+     "h": "Over five years, Zimbabwe and Sudan still lead",
+     "p": "Averaged over 2019-2023, Zimbabwe's prices rose **426.4%** a year and Sudan's **146.7%**. Cuba (**109%**) and Lebanon (**87.9%**) join the list here, though they are not in the 2023 top 15. Only countries with at least four years of figures are counted."
     },
     {
-     "h": "The worst single years were in the 1980s and 1990s",
-     "p": "The highest yearly rise was in Congo (Dem. Rep.) in 1994: **26,762%**. Georgia in 1993 (**15,444.4%**) and Nicaragua in 1988 (**13,611.6%**) follow. All 15 peaks are far above Zimbabwe's 2023 figure, and none come from after 1996."
+     "h": "The record highs are all from the 1980s and 1990s",
+     "p": "The highest single year on record is Congo, Dem. Rep. in 1994 at **26,762%**. Georgia in 1993 (**15,444.4%**) and Nicaragua in 1988 (**13,611.6%**) follow. Zimbabwe's 2023 rate of 921.5% is far below these peaks."
     }
    ],
-   "note": "Inflation is the yearly rise in consumer prices; a 100% rise means prices doubled. Some countries may not report every year.",
+   "note": "Inflation is the yearly rise in consumer prices; some countries did not report every year, so the 2019-2023 list only includes countries with at least four years of data.",
    "next": [
     "Which countries had the lowest inflation in 2023?",
-    "How did US inflation change from 1961 to 2023?",
-    "How has the Argentine peso changed against the dollar?"
+    "How has inflation in the United States changed since 1961?",
+    "How did Argentina's inflation change over the last 20 years?"
+   ],
+   "sources": [
+    "More than four times: 921.5 / 213.7 = 4.3",
+    "Sierra Leone is tenth in the 2023 list at 29.2%",
+    "Zimbabwe's 921.5% means prices about ten times higher: 100% rise = 2x, 921.5% rise = about 10.2x"
    ]
   },
   "created": "2026-10-07"
@@ -4876,43 +4981,49 @@
    }
   ],
   "story": {
-   "lead": "Los Angeles, Miami and San Diego led the rises",
+   "lead": "Los Angeles, Miami and San Diego lead since 2000",
    "highlight": "Los Angeles, Miami and San Diego",
-   "summary": "Since January 2000, home prices in Los Angeles are up **353%**, with Miami (**352%**) and San Diego (**350%**) right behind. That means a typical home in these cities now costs about four and a half times what it did in 2000. Over the last 10 years, Miami leads, with prices up **111%**, so more than doubled.",
-   "sub": "S&P CoreLogic Case-Shiller home price index for 20 US metro areas, January 2000 to each city's latest month (June or July 2026); prices not adjusted for inflation.",
+   "summary": "Since January 2000, home prices in Los Angeles, Miami and San Diego have risen about **350%**, so a home there costs roughly four and a half times what it did then. Miami also tops the last 10 years (**111%**) and the last 5 years (**49%**). Over the long run the winners are mostly on the coasts, but recent gains are more spread out.",
+   "sub": "S&P CoreLogic Case-Shiller home price index, 20 metro areas, January 2000 to each city's latest month (June 2026 for most cities).",
    "facts": [
     {
      "value": "353%",
-     "label": "Los Angeles price rise since January 2000"
+     "label": "Los Angeles price rise since Jan 2000"
     },
     {
      "value": "111%",
      "label": "Miami price rise over the last 10 years"
     },
     {
-     "value": "104%",
-     "label": "Detroit rise since 2000, the smallest of the 20"
+     "value": "49%",
+     "label": "Miami price rise over the last 5 years"
     }
    ],
    "points": [
     {
-     "h": "Three California and Florida cities top the long-run list",
-     "p": "Los Angeles (**353%**), Miami (**352%**) and San Diego (**350%**) are almost level at the top. Seattle is next at **293%**. At the bottom, Detroit is up **104%**, so prices there have roughly doubled since 2000."
+     "h": "Los Angeles, Miami and San Diego have risen most since 2000",
+     "p": "Prices in these three are up about **350%** since January 2000. That means a home costs about four and a half times what it did then. Seattle (**293%**) and Tampa (**274%**) follow, while Detroit (**104%**) and Cleveland (**111%**) have roughly doubled."
     },
     {
-     "h": "Over 10 years, Miami and Tampa lead the pack",
-     "p": "Miami is up **111%** over the last decade, ahead of Tampa and Charlotte, both at **105%**. Los Angeles, the long-run leader, is at **82%** here. Even Washington, last on this list, is up **59%**."
+     "h": "Over 10 years, Miami, Tampa and Charlotte lead",
+     "p": "Miami is up **111%** in ten years, so prices have a little more than doubled. Tampa and Charlotte are both up **105%**. Los Angeles, the long-run leader, is at **82%** here."
     },
     {
-     "h": "Over 5 years, Miami still leads, but New York and Chicago climb",
-     "p": "Miami is up **49%** in five years, then New York at **46%** and Chicago at **43%**. Cities that led over 10 years, such as Phoenix (**20%**) and Seattle (**15%**), have slowed. San Francisco is lowest at **11%**."
+     "h": "Over 5 years, Miami and New York are ahead",
+     "p": "Miami is up **49%** and New York **46%** over five years. Chicago is third at **43%**, well ahead of its place in the long-run list. San Francisco is the lowest of the twenty at **11%**."
     }
    ],
-   "note": "Figures are percentage rises in the Case-Shiller index, in current dollars, so they include inflation; each city's latest month is June or July 2026.",
+   "note": "These are percentage rises in the index, not dollar prices, and they are not adjusted for inflation. Each city is measured to its own latest month.",
    "next": [
-    "How have US house prices changed since the 2008 crash?",
-    "How do US house prices compare with the S&P 500 since 2000?",
-    "How have US mortgage-linked bond yields changed since 2000?"
+    "How much have US house prices risen nationally since 2000?",
+    "Which cities had the biggest price falls after 2006?",
+    "How do house prices compare with the S&P 500 since 2000?"
+   ],
+   "sources": [
+    "about 350%: Los Angeles 353, Miami 352, San Diego 350",
+    "about four and a half times: a 350% rise means 100 became about 450",
+    "a little more than doubled: a 111% rise means 100 became 211",
+    "Detroit 104% and Cleveland 111% roughly doubled: a 100% rise is double"
    ]
   },
   "created": "2026-10-07"

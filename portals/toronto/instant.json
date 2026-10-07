@@ -203,37 +203,50 @@
    }
   ],
   "story": {
-   "lead": "Summer Saturdays around noon are busiest.",
+   "lead": "Summer Saturdays around noon are the busiest.",
    "highlight": "Summer Saturdays",
-   "sub": "Island ferry tickets redeemed, complete years 2016-2025, in 15-minute counts added up by day and hour.",
-   "stat": {
-    "value": "",
-    "caption": ""
-   },
-   "points": [
+   "summary": "The ferry is busiest in August, with about **9,768** riders a day. Saturdays in summer are the peak, at about **12,513** riders, and the midday hours from 11:00 to 13:00 are the busiest. August is about **20 times** busier than January (**492** a day).",
+   "sub": "Island ferry tickets used, 2016 to 2025 (complete years), counted in 15-minute intervals.",
+   "facts": [
     {
-     "h": "August is the busiest month",
-     "p": "Riders per day climb from spring to a peak in August, then fall quickly.",
-     "more": "August averages 9,768 riders a day and July 8,699. January is the quietest at 492 a day."
+     "value": "9,768",
+     "label": "average riders a day in August"
     },
     {
-     "h": "Weekends are far busier than weekdays",
-     "p": "In summer, Saturday and Sunday carry about double the weekday crowds.",
-     "more": "Saturday averages 12,513 riders and Sunday 11,518. Tuesday is the lowest at 5,521, and Friday is the busiest weekday at 7,257."
+     "value": "12,513",
+     "label": "average riders on a summer Saturday"
     },
     {
-     "h": "Midday is the peak time",
-     "p": "On summer days, ridership builds through the morning and peaks around noon.",
-     "more": "The 12:00 hour averages 995 riders, with 11:00 close at 986. By 18:00 it falls to 341, and before 08:00 it is under 60 an hour."
+     "value": "995",
+     "label": "riders in the noon hour on a summer day"
     }
    ],
+   "points": [
+    {
+     "h": "August is the peak, July close behind",
+     "p": "Daily riders climb from **492** in January to **9,768** in August. July is also very busy at **8,699** a day. By October it drops to **2,043**."
+    },
+    {
+     "h": "Weekends are about double a summer weekday",
+     "p": "On summer Saturdays the ferry carries **12,513** riders a day, and on Sundays **11,518**. Tuesday is the quietest at **5,521**. Friday, at **7,257**, is the busiest weekday."
+    },
+    {
+     "h": "Riders build up through the morning, peak at noon",
+     "p": "On an average summer day about **995** people board in the noon hour. The 11:00 hour is almost as busy at **986**. After 15:00 it fades, with **247** at 19:00 and almost nobody overnight."
+    }
+   ],
+   "note": "These are averages over ten years of tickets used, so single days can be much busier or quieter.",
    "next": [
-    "How has yearly ferry ridership changed from 2016 to 2025?",
-    "Which summer days had the most ferry riders ever?",
-    "How do tickets sold compare with tickets redeemed by month?"
+    "How many people rode the ferry each year from 2016 to 2025?",
+    "Which single days had the most ferry riders?",
+    "How did ferry ridership change in 2020 compared with 2019?"
+   ],
+   "sources": [
+    "about 20 times: August 9,768 divided by January 492 = 19.9",
+    "Friday busiest weekday: Mon 6,611, Tue 5,521, Wed 6,185, Thu 6,081, Fri 7,257"
    ]
   },
-  "created": "2026-10-06"
+  "created": "2026-10-07"
  },
  {
   "q": "Which subway stations have the most delays?",
@@ -447,37 +460,50 @@
    }
   ],
   "story": {
-   "lead": "Kipling station has the most delays.",
+   "lead": "Kipling station had the most subway delays.",
    "highlight": "Kipling station",
-   "sub": "TTC subway delay incidents with delay minutes above 0, January 2025 to August 2026.",
-   "stat": {
-    "value": "578",
-    "caption": "delays at Kipling station, the most of any station"
-   },
-   "points": [
+   "summary": "Kipling had **578** delays, just ahead of Kennedy (**537**) and Wilson (**513**). But Eglinton lost the most time overall, **4,001** minutes, which is about 67 hours. The \"worst\" station depends on whether you count how often or how long.",
+   "sub": "TTC subway delay incidents with at least one minute of delay, 1 January 2025 to 31 August 2026.",
+   "facts": [
     {
-     "h": "Kipling, Kennedy and Wilson lead on delay count",
-     "p": "Kipling station had the most delays, followed closely by Kennedy and Wilson.",
-     "more": "Kipling had 578 delays, Kennedy (Line 2) 537, Wilson 513 and Bloor 504. Finch had 464 and Eglinton 446."
+     "value": "578",
+     "label": "delays at Kipling, the most of any station"
     },
     {
-     "h": "Eglinton loses the most minutes overall",
-     "p": "Eglinton station tops the list for total minutes of delay.",
-     "more": "Eglinton added up to 4,001 minutes, ahead of Kipling at 3,461 and Kennedy at 3,136. Victoria Park and Sheppard West each passed 3,000 minutes despite fewer delays."
+     "value": "4,001 minutes",
+     "label": "total delay at Eglinton, the most of any station"
     },
     {
-     "h": "Woodbine has the longest typical delay",
-     "p": "Among stations with at least 30 delays, Woodbine delays last longest on average.",
-     "more": "Woodbine averaged 12.3 minutes per delay, then Sheppard West at 12 and Islington at 11.9. Eglinton averaged 9 minutes."
+     "value": "12.3 minutes",
+     "label": "average delay at Woodbine, the longest"
     }
    ],
+   "points": [
+    {
+     "h": "Kipling, Kennedy and Wilson top the list for delays",
+     "p": "Kipling had **578** delays, Kennedy **537** and Wilson **513**. Bloor (**504**) and Finch (**464**) are close behind. After the top six, the counts drop to **336** or fewer."
+    },
+    {
+     "h": "Eglinton lost the most minutes in total",
+     "p": "Eglinton added up to **4,001** minutes of delay, ahead of Kipling at **3,461**. Victoria Park and Sheppard West each passed **3,000** minutes without being among the top five for number of delays."
+    },
+    {
+     "h": "Woodbine delays last longest on average",
+     "p": "Delays at Woodbine averaged **12.3** minutes, with Sheppard West at **12** and Islington at **11.9**. Eglinton averaged **9** minutes, so its high total comes from both many delays and long ones. Only stations with at least 30 delays are included."
+    }
+   ],
+   "note": "Only incidents with more than zero minutes of delay are counted, and there are no passenger numbers, so busier stations are not adjusted for.",
    "next": [
-    "Which hours of the day have the most subway delays?",
-    "What are the most common causes of delays at Kipling station?",
-    "Which subway line has the most delays?"
+    "Which subway line has the most delays?",
+    "What are the most common causes of subway delays?",
+    "Which hours of the day have the most subway delays?"
+   ],
+   "sources": [
+    "67 hours: 4,001 minutes / 60 = about 66.7",
+    "336 or fewer: Davisville, the seventh station, has 336 delays"
    ]
   },
-  "created": "2026-10-06"
+  "created": "2026-10-07"
  },
  {
   "q": "What are the most popular dog names?",
@@ -655,37 +681,53 @@
    }
   ],
   "story": {
-   "lead": "Luna and Charlie are Toronto's top dog names.",
-   "highlight": "Luna and Charlie",
-   "sub": "Licensed dogs in Toronto, 2020 to 2025 (top 200 names per year only).",
-   "stat": {
-    "value": "549",
-    "caption": "licensed dogs named Luna in 2025, the most of any name"
-   },
-   "points": [
+   "lead": "Luna is Toronto's top dog name now, ahead of Charlie.",
+   "highlight": "Luna",
+   "summary": "In 2025, **549** licensed dogs were named Luna, more than any other name. Charlie came second with **491**, but Charlie was the top name on average across 2020 to 2025 (**529** a year). Charlie's yearly count has slipped from a peak of **595** in 2021.",
+   "sub": "Based on City of Toronto licensed dog names, 2020 to 2025 (only the top 200 names each year are listed).",
+   "facts": [
     {
-     "h": "Luna led the 2025 dog names",
-     "p": "Luna was the most common name among licensed dogs in 2025, ahead of Charlie.",
-     "more": "Luna had 549 dogs and Charlie 491. Bella was third with 386, then Coco with 342 and Milo with 315."
+     "value": "549",
+     "label": "licensed dogs named Luna in 2025"
     },
     {
-     "h": "Charlie leads over the six years",
-     "p": "Averaged over 2020 to 2025, Charlie comes first and Luna second.",
-     "more": "Charlie averaged 529 dogs a year and Luna 493. Bella was third at 405. Max, Coco and Daisy followed."
+     "value": "529",
+     "label": "Charlie's yearly average, 2020–2025, the highest"
     },
     {
-     "h": "Charlie has slipped since 2021",
-     "p": "The top name over the six years, Charlie, peaked in 2021 and has been lower since.",
-     "more": "Charlie went from 595 dogs in 2021 to 491 in 2025. It was 553 in 2020 and 488 in 2024."
+     "value": "595 → 491",
+     "label": "Charlie's count, 2021 to 2025"
     }
    ],
+   "points": [
+    {
+     "h": "Luna led in 2025, with Charlie second",
+     "p": "**549** dogs were named Luna and **491** were named Charlie. Bella was third with **386**. Luna had about two and a half times as many dogs as 15th-place Lola (**217**)."
+    },
+    {
+     "h": "Over six years, Charlie edges out Luna",
+     "p": "Averaged over 2020 to 2025, Charlie comes first with **529** dogs a year, and Luna second with **493**. Bella is third with **405**. Luna's 2025 count (**549**) is above its six-year average."
+    },
+    {
+     "h": "Charlie peaked in 2021 and has since dropped",
+     "p": "Charlie hit **595** dogs in 2021. By 2025 it was **491**, about 17% lower. The count has held roughly steady since 2023."
+    }
+   ],
+   "note": "These counts cover licensed dogs only, and only the 200 most common names each year.",
    "next": [
     "What are the most popular cat names?",
-    "How have Luna's numbers changed since 2020?",
-    "Which dog names are rising fastest since 2020?"
+    "Which dog names have grown fastest since 2020?",
+    "Do cats and dogs share the same popular names?"
+   ],
+   "sources": [
+    "about two and a half times: 549 (Luna) / 217 (Lola) = 2.5",
+    "about 17% lower: (595 - 491) / 595 = 17.5%",
+    "Luna's 2025 count is above its average: 549 in 2025 vs 493 average",
+    "Charlie is the top name over six years: 529 average in chart 2, and the name in chart 3 is Charlie, with 2021 = 595 and 2025 = 491",
+    "roughly steady since 2023: 494, 488, 491"
    ]
   },
-  "created": "2026-10-06"
+  "created": "2026-10-07"
  },
  {
   "q": "Top causes of fires?",
@@ -855,37 +897,50 @@
    }
   ],
   "story": {
-   "lead": "Electrical failure is the top known fire cause.",
+   "lead": "Electrical failure is the top known fire cause",
    "highlight": "Electrical failure",
-   "sub": "Fires Toronto Fire Services attended, 2011 to 2024, by the cause recorded for each fire.",
-   "stat": {
-    "value": "3,134",
-    "caption": "fires blamed on electrical failure, the top known cause, 2011-2024"
-   },
-   "points": [
+   "summary": "The most common answer on record is \"undetermined\", with **4,012** fires. Among fires with a known cause, electrical failure is first with **3,134** fires, ahead of improperly discarded items (**2,255**). Fires left unattended hurt the most people: **350** civilian casualties, about double the next cause.",
+   "sub": "Toronto Fire Services fires (not outdoor no-loss fires), 2011 to 2024.",
+   "facts": [
     {
-     "h": "Most fires have an undetermined cause",
-     "p": "The most common entry is Undetermined, with 4,012 fires, ahead of electrical failure at 3,134.",
-     "more": "Improperly discarded items follow with 2,255 fires, then other unintended cause (1,990) and unattended (1,928). Several of the listed causes are similar catch-all labels."
+     "value": "3,134",
+     "label": "fires caused by electrical failure, top known cause"
     },
     {
-     "h": "Electrical failure leads among known causes",
-     "p": "With unknown causes removed, electrical failure is still first at 3,134 fires.",
-     "more": "Improperly discarded (2,255) and other unintended cause (1,990) come next. Unattended is fourth with 1,928 fires. Intentional fires are 617."
+     "value": "4,012",
+     "label": "fires with an undetermined cause"
     },
     {
-     "h": "Unattended fires cause the most civilian casualties",
-     "p": "Unattended fires are linked to 350 civilian casualties, more than any other cause.",
-     "more": "That is about double the next cause, improper handling of ignition source or ignited material (170). Electrical failure is third with 164, and improperly discarded is fifth with 118."
+     "value": "350",
+     "label": "civilian casualties from unattended fires"
     }
    ],
+   "points": [
+    {
+     "h": "Undetermined is the most common recorded cause",
+     "p": "Fire crews could not pin down a cause for **4,012** fires, more than any named cause. Electrical failure is next with **3,134**, then improperly discarded items with **2,255**."
+    },
+    {
+     "h": "Electrical failure leads once unknowns are removed",
+     "p": "Without the undetermined fires, electrical failure is first with **3,134** fires. That is about **1.4 times** as many as improperly discarded items (**2,255**). Several labels sound alike, such as \"other unintended cause\" and \"other unintentional cause, not classified\", and are counted separately."
+    },
+    {
+     "h": "Unattended fires caused the most casualties",
+     "p": "Fires left unattended led to **350** civilian casualties, about **twice** the next cause, improper handling of ignition sources (**170**). Electrical failure follows closely with **164**."
+    }
+   ],
+   "note": "Causes are counted under the labels as recorded, and some labels overlap, so each bar is a count for that label only. Casualties means civilians hurt or killed, as recorded.",
    "next": [
-    "How many fires happen each year in Toronto?",
+    "How many fires happen each year, and is the number falling?",
     "Which wards have the most fires?",
-    "How often were smoke alarms present in fires with casualties?"
+    "Do smoke alarms make a difference in fires with casualties?"
+   ],
+   "sources": [
+    "about double: unattended 350 vs improper handling 170 (350 / 170 = 2.06)",
+    "about 1.4 times: electrical failure 3,134 vs improperly discarded 2,255 (3,134 / 2,255 = 1.39)"
    ]
   },
-  "created": "2026-10-06"
+  "created": "2026-10-07"
  },
  {
   "q": "Most-delayed streetcar route?",
@@ -1093,35 +1148,49 @@
   "story": {
    "lead": "The 504 King is the most-delayed streetcar route.",
    "highlight": "504 King",
-   "sub": "TTC streetcar delay records, 1 January 2025 to 31 August 2026, counting only incidents with at least one minute of delay.",
-   "stat": {
-    "value": "77,703",
-    "caption": "total delay minutes on the 504 King, the most of any route"
-   },
-   "points": [
+   "summary": "The 504 King had **3,269** delays and **77,703** lost minutes, the most of any streetcar route. The 501 Queen is a very close second, with **3,255** delays. The King route's lost minutes add up to about **54 days** of delay.",
+   "sub": "TTC streetcar delay records, 1 January 2025 to 31 August 2026; only incidents with at least one minute of delay.",
+   "facts": [
     {
-     "h": "504 King and 501 Queen are nearly tied",
-     "p": "The 504 King had 3,269 delays, just ahead of the 501 Queen with 3,255.",
-     "more": "The 505 Dundas (2,491) and 506 Carlton (2,349) come next. The 503 Kingston Road has 1,552, and every other route has fewer than 1,400."
+     "value": "3,269",
+     "label": "delays on the 504 King, the most"
     },
     {
-     "h": "504 King loses the most time overall",
-     "p": "Added up, delays on the 504 King cost 77,703 minutes, more than any other route.",
-     "more": "The 501 Queen follows with 74,034 minutes, then the 505 Dundas with 59,316 and the 506 Carlton with 56,379. The top four routes are well ahead of the rest."
+     "value": "77,703",
+     "label": "minutes lost on the 504 King"
     },
     {
-     "h": "Night routes have the longest delays",
-     "p": "Night routes average the most minutes per delay, led by the 301 Queen Night at 35.",
-     "more": "Among day routes, the 506 Carlton averages 24 minutes, with the 505 Dundas and 504 King both at 23.8. The 510 Spadina has the shortest at 14.9 minutes."
+     "value": "35 minutes",
+     "label": "average delay on the 301 Queen night route"
     }
    ],
+   "points": [
+    {
+     "h": "King and Queen are almost tied for most delays",
+     "p": "The 504 King had **3,269** delays and the 501 Queen had **3,255**, only 14 apart. The 505 Dundas (**2,491**) and 506 Carlton (**2,349**) follow. The four routes are well ahead of the rest."
+    },
+    {
+     "h": "King also loses the most minutes, with Queen close behind",
+     "p": "The 504 King lost **77,703** minutes in total, and the 501 Queen lost **74,034**. That is about 3,700 more minutes for King. The 505 Dundas and 506 Carlton come next, at **59,316** and **56,379**."
+    },
+    {
+     "h": "Night routes have the longest delays when they happen",
+     "p": "The 301 Queen night route averaged **35** minutes per delay, the longest of any route. Among day routes, the 506 Carlton is highest at **24** minutes. The 510 Spadina is lowest at **14.9** minutes, so its delays are the shortest."
+    }
+   ],
+   "note": "Only routes with at least 100 delays are in the averages chart. Minutes lost are the total across all delays on a route.",
    "next": [
+    "Which subway station has the most delays?",
     "Which hours of the day have the most streetcar delays?",
-    "What are the most common causes of delay on the 504 King?",
-    "Which bus routes have the most delays?"
+    "Which causes of streetcar delays are the most common?"
+   ],
+   "sources": [
+    "about 54 days: 77,703 minutes / 60 = 1,295 hours / 24 = 54",
+    "about 3,700 more minutes: 77,703 - 74,034 = 3,669",
+    "14 apart: 3,269 - 3,255"
    ]
   },
-  "created": "2026-10-06"
+  "created": "2026-10-07"
  },
  {
   "q": "People in shelters each night?",
@@ -1295,37 +1364,51 @@
    }
   ],
   "story": {
-   "lead": "About 7,300 people a night now, down from peak.",
-   "highlight": "down from peak",
-   "sub": "Nightly shelter totals, Jan 2021 to Oct 2026 (2026 is a partial year); monthly view covers Oct 2024 to Sep 2026.",
-   "stat": {
-    "value": "7,324",
-    "caption": "average people in shelters per night in September 2026"
-   },
-   "points": [
+   "lead": "Shelter use peaked in 2024 and has fallen since.",
+   "highlight": "peaked in 2024",
+   "summary": "In 2024, an average of **9,766** people stayed in Toronto shelters each night, the highest year in this data. By September 2026 the nightly number was **7,324**, about a quarter lower than that peak. Still, that is more people than the **6,382** a night in 2021.",
+   "sub": "Nightly shelter counts, City of Toronto, 1 Jan 2021 to 4 Oct 2026 (2026 is a partial year).",
+   "facts": [
     {
-     "h": "Nightly numbers peaked in 2024, then fell",
-     "p": "The yearly average rose from 6,382 in 2021 to 9,766 in 2024, then dropped.",
-     "more": "2025 averaged 9,215 people a night. So far in 2026 the average is 8,209, which is about 1,550 below the 2024 peak."
+     "value": "9,766",
+     "label": "people a night in 2024, the highest year"
     },
     {
-     "h": "Numbers have fallen steadily over two years",
-     "p": "Monthly averages were above 10,000 in early 2025 and are now near 7,300.",
-     "more": "January 2025 was the high at 10,228 a night. September 2026 was the low at 7,324. Each winter was higher than the months before and after it, but the 2026 winter peak (9,217) was below the 2025 one."
+     "value": "7,324",
+     "label": "people a night in September 2026"
     },
     {
-     "h": "Mixed adult shelters held the most people",
-     "p": "In 2025, mixed adult programs averaged 2,831 people a night, ahead of every other group.",
-     "more": "Families came next at 2,484, then men at 2,099 and women at 1,082. Youth had the fewest at 719 a night."
+     "value": "2,831",
+     "label": "people a night in mixed adult shelters, 2025"
     }
    ],
+   "points": [
+    {
+     "h": "Nightly numbers rose until 2024, then dropped",
+     "p": "The average went from **6,382** people a night in 2021 to **9,766** in 2024. It then fell to **9,215** in 2025 and **8,209** so far in 2026."
+    },
+    {
+     "h": "Winters are busier, and 2026 has fallen month after month",
+     "p": "Each winter is higher than the summer around it. January 2025 hit **10,228** people a night, while January 2026 was **9,217**. Since February 2026 it has fallen every month, to **7,324** in September 2026."
+    },
+    {
+     "h": "Mixed adult and family shelters hold the most people",
+     "p": "In 2025, mixed adult shelters averaged **2,831** people a night and family shelters **2,484**. Men's shelters had **2,099**, women's **1,082** and youth **719**."
+    }
+   ],
+   "note": "Each number is the average of the nightly totals across all shelter programs, counting people, not beds.",
    "next": [
     "Which shelter sectors have fallen the most since 2024?",
-    "How many people were in shelters on the coldest winter nights versus summer nights?",
-    "How did deaths of people experiencing homelessness change from 2022 to 2024?"
+    "How many people were in shelters on the coldest winter nights?",
+    "How do shelter numbers compare with deaths of people experiencing homelessness?"
+   ],
+   "sources": [
+    "about a quarter lower: 7,324 vs 9,766 is a 25% drop",
+    "more than 2021: 7,324 in Sep 2026 vs 6,382 in 2021 average",
+    "Jan 2025 = 10,228; Jan 2026 = 9,217"
    ]
   },
-  "created": "2026-10-06"
+  "created": "2026-10-07"
  },
  {
   "q": "Safest beach for swimming?",
@@ -1479,37 +1562,52 @@
    }
   ],
   "story": {
-   "lead": "Gibraltar Point Beach is the safest for swimming.",
+   "lead": "Gibraltar Point Beach was the safest for swimming.",
    "highlight": "Gibraltar Point Beach",
-   "sub": "Based on E. coli samples at 10 Toronto beaches, swimming seasons from 2021 to 2026.",
-   "stat": {
-    "value": "4.3%",
-    "caption": "of sampled days Gibraltar Point Beach was over the unsafe limit of 100"
-   },
-   "points": [
+   "summary": "Gibraltar Point Beach had the fewest unsafe days since 2021: only **4.3%** of days were over the City's limit of 100 E. coli. Sunnyside Beach was unsafe on **36.8%** of days, about eight and a half times as often.",
+   "sub": "Toronto beach water tests, swimming seasons (May to September) from 2021 to 2026.",
+   "facts": [
     {
-     "h": "Gibraltar Point has the fewest unsafe days",
-     "p": "Gibraltar Point Beach was unsafe on 4.3% of sampled days, the lowest of any beach.",
-     "more": "Hanlan's Point (6.6%) and Cherry Beach (7.7%) follow. Sunnyside Beach was worst at 36.8%, with Marie Curtis Park East (35.7%) and Centre Island (35.3%) close behind."
+     "value": "4.3%",
+     "label": "Days unsafe at Gibraltar Point, the lowest"
     },
     {
-     "h": "Four beaches share the lowest typical level",
-     "p": "Gibraltar Point, Ward's Island, Hanlan's Point and Cherry Beach all have a median of 14 E. coli per 100 mL.",
-     "more": "Sunnyside Beach has the highest median at 74, about five times higher. Bluffer's Beach Park (22) and Woodbine Beaches (26) are the next best."
+     "value": "36.8%",
+     "label": "Days unsafe at Sunnyside, the highest"
     },
     {
-     "h": "Every beach has about 600 or more sampled days",
-     "p": "Each beach was sampled on at least 601 days, so the comparison rests on a lot of readings.",
-     "more": "Woodbine Beaches has the most, at 651 days. Gibraltar Point has the fewest, at 601, which is still plenty."
+     "value": "4 beaches",
+     "label": "Share the lowest typical level, 14 E. coli"
     }
    ],
+   "points": [
+    {
+     "h": "Gibraltar Point, Hanlan's Point and Cherry Beach were unsafe least often",
+     "p": "Gibraltar Point was unsafe on **4.3%** of days, then Hanlan's Point at **6.6%** and Cherry Beach at **7.7%**. At the other end, Centre Island, Marie Curtis Park East and Sunnyside were each unsafe on more than a third of days."
+    },
+    {
+     "h": "Four beaches share the lowest typical bacteria level",
+     "p": "Gibraltar Point, Ward's Island, Hanlan's Point and Cherry Beach all have a typical level of **14**. Sunnyside's typical level is **74**, about five times higher, but still under the limit of 100."
+    },
+    {
+     "h": "Every beach has about 600 or more days of tests",
+     "p": "Counts run from **601** days at Gibraltar Point to **651** at Woodbine Beaches. Each beach has a similar, large amount of testing behind it, so the comparison is fair."
+    }
+   ],
+   "note": "A day counts as unsafe when the average E. coli across a beach's test sites is above 100 per 100 mL; results can change from day to day.",
    "next": [
-    "Which beach had the most unsafe days in 2025?",
-    "Has water quality at Sunnyside Beach improved since 2007?",
-    "Which month has the most unsafe beach days?"
+    "Which beach has improved the most since 2007?",
+    "Which month has the most unsafe beach days?",
+    "How many unsafe days did Woodbine Beaches have each year?"
+   ],
+   "sources": [
+    "about eight and a half times: 36.8 / 4.3 = 8.6",
+    "about five times: 74 / 14 = 5.3",
+    "more than a third: Centre Island 35.3, Marie Curtis Park East 35.7, Sunnyside 36.8 (all above 33.3)",
+    "four beaches: Gibraltar Point, Ward's Island, Hanlan's Point, Cherry Beach all 14"
    ]
   },
-  "created": "2026-10-06"
+  "created": "2026-10-07"
  },
  {
   "q": "Pothole complaints over time?",
@@ -1719,37 +1817,53 @@
    }
   ],
   "story": {
-   "lead": "Pothole complaints jumped to a record in 2026.",
-   "highlight": "record in 2026",
-   "sub": "311 pothole requests, Jan 2019 to Aug 2026; 2026 covers only Jan to Aug.",
-   "stat": {
-    "value": "23,976",
-    "caption": "pothole requests in just the first eight months of 2026"
-   },
-   "points": [
+   "lead": "Pothole complaints in 2026 are the highest on record",
+   "highlight": "highest on record",
+   "summary": "Toronto got **23,976** pothole requests in just the first eight months of 2026. That is already more than any full year since 2019, and about **two and a half times** the same months of 2025. Numbers swing a lot from year to year.",
+   "sub": "311 pothole requests, 2019 to August 2026 (2026 covers January to August only).",
+   "facts": [
     {
-     "h": "2026 already tops every full year",
-     "p": "Yearly pothole requests have swung up and down, and 2026 is the highest so far.",
-     "more": "The 2026 total of 23,976 is already above 2019, the highest full year, at 18,495. The lowest year was 2021, at 4,432."
+     "value": "23,976",
+     "label": "pothole requests, Jan–Aug 2026"
     },
     {
-     "h": "Complaints peak in late winter",
-     "p": "On average, requests climb in February and peak in March, then fade through the year.",
-     "more": "March averages 2,706 requests a year, against 359 in November, the quietest month. February and April are the next busiest at 1,962 and 1,851."
+     "value": "4,432",
+     "label": "requests in 2021, the lowest year"
     },
     {
-     "h": "Early 2026 far outpaced early 2025",
-     "p": "The last two springs both peaked in March, but 2026 was much bigger.",
-     "more": "March 2026 had 6,227 requests, against 3,250 in March 2025. February 2026 reached 5,067, against 1,244 a year earlier. By August 2026, the monthly count had dropped to 629."
+     "value": "6,227",
+     "label": "requests in March 2026, the busiest month in the last two years"
     }
    ],
+   "points": [
+    {
+     "h": "2026 has already passed every earlier full year",
+     "p": "Yearly requests rose and fell: **18,495** in 2019, down to **4,432** in 2021, then up to **15,578** in 2023. 2026 has only eight months counted and is already at **23,976**, above all of them."
+    },
+    {
+     "h": "Complaints peak in late winter, then fade",
+     "p": "In an average year, March is the busiest month with about **2,706** requests. By November it drops to about **359**, roughly **one-seventh** as many. February to April carry the most complaints."
+    },
+    {
+     "h": "Early 2026 was far busier than early 2025",
+     "p": "February 2026 had **5,067** requests, about **four times** the **1,244** in February 2025. March 2026 reached **6,227**, nearly double March 2025 (**3,250**). By August the gap had narrowed: **629** against **563**."
+    }
+   ],
+   "note": "Requests are counted under both the old and new City names for potholes. 2026 is only January to August, so the full year will end higher.",
    "next": [
     "Which wards report the most potholes?",
-    "How many pothole requests are still open versus closed?",
+    "How many 311 requests of all kinds come in each year?",
     "How do pothole requests compare with other road complaints?"
+   ],
+   "sources": [
+    "about two and a half times: Jan–Aug 2026 = 23,976 vs Jan–Aug 2025 = 489+1,244+3,250+1,331+1,159+950+748+563 = 9,734; 23,976 / 9,734 ≈ 2.5",
+    "one-seventh: Mar average 2,706 / Nov average 359 ≈ 7.5",
+    "about four times: Feb 2026 = 5,067, Feb 2025 = 1,244; 5,067 / 1,244 ≈ 4.1",
+    "nearly double: Mar 2026 = 6,227, Mar 2025 = 3,250; ratio ≈ 1.9",
+    "more than any full year since 2019: 23,976 vs highest full year 2019 = 18,495"
    ]
   },
-  "created": "2026-10-06"
+  "created": "2026-10-07"
  },
  {
   "q": "Most-delayed bus routes?",
@@ -1963,37 +2077,52 @@
    }
   ],
   "story": {
-   "lead": "Lawrence West is the most-delayed bus route.",
-   "highlight": "Lawrence West",
+   "lead": "Route 52 Lawrence West is the most-delayed bus.",
+   "highlight": "52 Lawrence West",
+   "summary": "The 52 Lawrence West has the most delays (**2,179**) and the most lost time (**48,648 minutes**, about 811 hours). That is roughly 22 minutes per delay. Other routes win on other measures, so the answer depends on how you count.",
    "sub": "TTC bus delay incidents with at least one minute of delay, 1 January 2025 to 31 August 2026.",
-   "stat": {
-    "value": "2,179",
-    "caption": "delays on the 52 Lawrence West, the most of any bus route"
-   },
-   "points": [
+   "facts": [
     {
-     "h": "52 Lawrence West has the most delays",
-     "p": "The 52 Lawrence West had more delay incidents than any other bus route.",
-     "more": "It had 2,179 delays, ahead of the 102 Markham Road with 1,904 and the 32 Eglinton West with 1,878. The 15th route on the list, the 165 Weston Road North, still had 1,357."
+     "value": "2,179",
+     "label": "delays on Route 52 Lawrence West, the most"
     },
     {
-     "h": "Lawrence West also loses the most minutes",
-     "p": "By total minutes lost, the 52 Lawrence West is first again, with the 97 Yonge close behind.",
-     "more": "The 52 Lawrence West lost 48,648 minutes and the 97 Yonge lost 47,951. The 97 Yonge is not in the top 15 for number of delays, so its delays must be long ones. The 29 Dufferin is third with 42,364 minutes."
+     "value": "48,648 minutes",
+     "label": "total delay on Route 52, also the most"
     },
     {
-     "h": "A few routes have very long delays",
-     "p": "Some routes have far longer average delays than the busiest ones, among routes with at least 100 delays.",
-     "more": "The 162 Lawrence-Donway averages 106.5 minutes per delay and the 77 Swansea 86.3. The 55 Warren Park comes third at 70.6 minutes. The 15th route on this list still averages 50.7 minutes."
+     "value": "106.5 minutes",
+     "label": "average delay on Route 162 Lawrence-Donway, the longest"
     }
    ],
+   "points": [
+    {
+     "h": "Lawrence West has the most delays, ahead of Markham Road",
+     "p": "Route 52 Lawrence West had **2,179** delays. Next came 102 Markham Road with **1,904** and 32 Eglinton West with **1,878**. The 52 had about 275 more delays than the runner-up."
+    },
+    {
+     "h": "Yonge ranks second for lost time, though not for delays",
+     "p": "Route 52 also tops total minutes lost, at **48,648**. Route 97 Yonge is a close second at **47,951** minutes. It does not appear in the top 15 for number of delays, so its delays must be fewer but longer."
+    },
+    {
+     "h": "A few routes have very long delays when trouble hits",
+     "p": "Among routes with at least 100 delays, 162 Lawrence-Donway averaged **106.5 minutes** per delay. That is more than an hour and a half. 77 Swansea followed at **86.3** minutes, and 55 Warren Park at **70.6**."
+    }
+   ],
+   "note": "Only incidents with at least one minute of delay are counted, and a route's total depends on how often it is reported as well as how it runs.",
    "next": [
-    "Which streetcar routes have the most delays?",
+    "Which bus routes are delayed most at rush hour?",
     "What are the most common causes of bus delays?",
-    "Which hours of the day have the most bus delays?"
+    "Which streetcar routes have the most delays?"
+   ],
+   "sources": [
+    "about 811 hours: 48,648 minutes / 60 = 810.8",
+    "roughly 22 minutes per delay: 48,648 / 2,179 = 22.3",
+    "about 300 more delays: 2,179 - 1,904 = 275",
+    "more than an hour and a half: 106.5 minutes is above 90"
    ]
   },
-  "created": "2026-10-06"
+  "created": "2026-10-07"
  },
  {
   "q": "Cyclists seriously hurt per year?",
@@ -2235,37 +2364,53 @@
    }
   ],
   "story": {
-   "lead": "About 40 cyclists a year are seriously hurt.",
+   "lead": "About 40 cyclists a year are seriously hurt or killed",
    "highlight": "About 40 cyclists",
-   "sub": "Cyclists killed or seriously injured in Toronto collisions, 2006 to 2025, from the City's KSI collision data.",
-   "stat": {
-    "value": "33",
-    "caption": "cyclists killed or seriously injured in 2025"
-   },
-   "points": [
+   "summary": "Over the last ten full years, an average of about **39** cyclists a year were killed or seriously injured in Toronto crashes. The yearly count has fallen from a peak of **68** in 2012 to **33** in 2025. Most of the harm happens in warm months, when cycling is busiest.",
+   "sub": "Toronto police collision data (killed or seriously injured), people on bikes, 2006–2025 full years.",
+   "facts": [
     {
-     "h": "Yearly numbers have mostly stayed between 33 and 52",
-     "p": "Cyclists killed or seriously injured peaked in 2012 and were lowest in 2021.",
-     "more": "The peak was 68 people in 2012, and the low was 21 in 2021. Since then the count rose to 45 in 2023, then fell to 43 in 2024 and 33 in 2025."
+     "value": "39",
+     "label": "cyclists killed or seriously hurt per year, 2016–2025"
     },
     {
-     "h": "Deaths are few, but 2024 stood out",
-     "p": "Between 1 and 7 cyclists were killed each year.",
-     "more": "2024 had 7 deaths, the most in any year shown. 2025 had 2, and 2023 and 2021 each had 1."
+     "value": "68",
+     "label": "the 2012 peak, versus 33 in 2025"
     },
     {
-     "h": "Summer is the most dangerous time",
-     "p": "Most cyclist serious injuries happen from May to September.",
-     "more": "June averaged 5.5 people a year and July 5.4. January and February averaged just 0.8 each."
+     "value": "7",
+     "label": "cyclists killed in 2024, the most in any year"
     }
    ],
+   "points": [
+    {
+     "h": "Serious cyclist injuries are lower than ten years ago",
+     "p": "The number of cyclists killed or seriously injured peaked at **68** in 2012. It dropped to a low of **21** in 2021. In 2025 it was **33**, about half the 2012 level, though it went up and down along the way."
+    },
+    {
+     "h": "Deaths are few each year, but 2024 stood out",
+     "p": "Most years, between one and four cyclists were killed. In 2024 the number reached **7**, the highest in the 20 years shown. In 2025 it fell back to **2**."
+    },
+    {
+     "h": "Summer is by far the most dangerous season",
+     "p": "June has the most, at **5.5** people a year on average, against **0.8** in January. May to September together make up about **64%** of the year's total."
+    }
+   ],
+   "note": "Only cyclists who were killed or had major injuries are counted, and each person counts once. 2026 is left out because the year is not complete.",
    "next": [
-    "Which roads have the most cyclist serious injuries?",
+    "Which wards have the most seriously hurt cyclists?",
     "How many pedestrians are killed or seriously injured each year?",
-    "What time of day do serious cyclist collisions happen?"
+    "At what time of day do serious cyclist crashes happen most?"
+   ],
+   "sources": [
+    "39: 2016–2025 values sum to 392 (38+52+44+47+33+21+36+45+43+33), divided by 10 = 39.2",
+    "about half: 33 in 2025 compared with 68 in 2012",
+    "64%: May–Sep 4.5+5.5+5.4+4.9+4.9 = 25.2 out of a 12-month total of 39.2",
+    "highest in 20 years: 2024 = 7, next highest 4 in 2013, 2015, 2017, 2018, 2020",
+    "between one and four: all years except 2024 are 1–4"
    ]
   },
-  "created": "2026-10-06"
+  "created": "2026-10-07"
  },
  {
   "q": "Restaurants closed after inspection?",
@@ -2487,37 +2632,52 @@
    }
   ],
   "story": {
-   "lead": "Very few: only 82 inspections ended in a closure.",
-   "highlight": "82 inspections",
-   "sub": "Based on DineSafe inspections from November 2023 to early October 2026; closures appear from January 2024 to September 2026.",
-   "stat": {
-    "value": "82",
-    "caption": "inspections ended in a closure, about 1 in 1,000"
-   },
-   "points": [
+   "lead": "Closures are rare: about one inspection in 1,000",
+   "highlight": "about one inspection in 1,000",
+   "summary": "Of about 80,500 restaurant and food-shop inspections, only **82** ended with the place being closed. That is about **0.1%**, or roughly one in a thousand. Most inspections end in a clean pass (**75,678**), and another **4,790** are passes with conditions.",
+   "sub": "Based on Toronto DineSafe inspections, November 2023 to early October 2026.",
+   "facts": [
     {
-     "h": "Closures stay in single digits each month",
-     "p": "Closures per month ranged from 1 to 8 in the months that had any.",
-     "more": "December 2025 was the highest month with 8 closures. March and June 2026 each had 6. There were 21 closures in 2024, 29 in 2025 and 32 in the first nine months of 2026."
+     "value": "82",
+     "label": "inspections that ended in a closure"
     },
     {
-     "h": "Nearly all inspections end in a pass",
-     "p": "Most inspections pass, a small share get a conditional pass, and closures are rare.",
-     "more": "Of about 80,551 inspections, 75,678 were a pass (94%) and 4,790 were a conditional pass (6%). 82 were closures, and 1 was marked temporarily not operating."
+     "value": "4,790",
+     "label": "conditional passes (must fix problems)"
     },
     {
-     "h": "Almost no place has been closed twice",
-     "p": "Only one establishment shows up with more than one closure.",
-     "more": "Alexandro's Take Out at 5 Queens Quay W was closed on 2 different dates. Every other place in the top 15 was closed once, including Ali's Wraps, Bar Ardo and Barburrito."
+     "value": "8",
+     "label": "closures in December 2025, the most in a month"
     }
    ],
+   "points": [
+    {
+     "h": "Closures are a few per month, with no steady trend",
+     "p": "Most months have between **1** and **6** closures. The busiest month was December 2025, with **8**. Months not shown had no closures."
+    },
+    {
+     "h": "Nearly every inspection ends in a pass",
+     "p": "Of about 80,500 inspections, **75,678** were a plain pass and **4,790** were a conditional pass. Only **82** ended in a closure and one was listed as temporarily not operating."
+    },
+    {
+     "h": "Almost no place was closed more than once",
+     "p": "Alexandro's Take Out, at 5 Queens Quay W, is the only place in the list closed **twice**. Every other place shown was closed **once**, so repeat closures are very rare."
+    }
+   ],
+   "note": "Each inspection is counted once, even when it found several problems. Months with no closures are missing from the first chart.",
    "next": [
-    "Which infractions are most common in inspections that end in closure?",
-    "How many inspections end in a conditional pass each month?",
-    "How many crucial infractions were found each year?"
+    "Which types of infractions are most common in inspections?",
+    "How many inspections ended in a conditional pass each year?",
+    "What are the most common crucial infractions?"
+   ],
+   "sources": [
+    "About 80,500 inspections: 75,678 + 4,790 + 82 + 1 = 80,551",
+    "0.1%: 82 / 80,551 = 0.10%, about one in 980, rounded to one in a thousand",
+    "Between 1 and 6 closures in most months: all months except 2024-07 (4), 2024-10 (4), 2025-09 (5), 2025-10 (5), 2025-12 (8), 2026-02 (4) and others up to 6; the maximum is 8 in 2025-12",
+    "Every other place shown closed once: rows 2 to 15 in chart 3 all have value 1"
    ]
   },
-  "created": "2026-10-06"
+  "created": "2026-10-07"
  },
  {
   "q": "Busiest month for weddings?",
@@ -2663,37 +2823,52 @@
    }
   ],
   "story": {
-   "lead": "July is the busiest month for marriage licences.",
+   "lead": "July is the busiest month for weddings.",
    "highlight": "July",
-   "sub": "Marriage licences issued in Toronto, monthly, 2011 to 2025 (full years only). Licences are a sign of weddings, not a count of them.",
-   "stat": {
-    "value": "1,995",
-    "caption": "average licences issued in July, 2011 to 2025"
-   },
-   "points": [
+   "summary": "Toronto issues the most marriage licences in July, about **1,995** a month on average, with August close behind at **1,938**. December is the quietest month at **730**, so July is nearly **three times** busier. A licence is issued before the wedding, so this counts licences, not ceremonies.",
+   "sub": "Toronto marriage licences issued per month, full years 2011-2025 (chart 2 uses 2022-2025).",
+   "facts": [
     {
-     "h": "July and August lead; winter is quietest",
-     "p": "Licences climb from winter to a peak in July, then drop after August.",
-     "more": "July averages 1,995 licences and August 1,938. December is the lowest at 730, with January at 767 and November at 801."
+     "value": "1,995",
+     "label": "licences in an average July, 2011-2025"
     },
     {
-     "h": "Recent years show the same summer peak",
-     "p": "From 2022 to 2025, July is still on top, with August close behind.",
-     "more": "July averages 2,166 licences and August 2,101, both higher than the long-run averages. December is lowest at 750."
+     "value": "730",
+     "label": "licences in an average December, the quietest month"
+    },
+    {
+     "value": "38%",
+     "label": "of a year's licences come in June, July and August"
+    }
+   ],
+   "points": [
+    {
+     "h": "Licences climb through spring and peak in July",
+     "p": "From **767** in January, licences rise each month to **1,995** in July. August is almost as busy at **1,938**. After that they drop quickly, to **730** in December."
+    },
+    {
+     "h": "The last four years show the same summer peak",
+     "p": "Averaging only 2022-2025, July is still on top with **2,166** licences, ahead of August at **2,101**. Both are higher than the long-run averages. December is still the lowest at **750**."
     },
     {
      "h": "Toronto City Hall issues over half of all licences",
-     "p": "City Hall issues far more licences each year than the other three civic centres.",
-     "more": "Toronto City Hall averages 8,374 licences a year, North York 3,379, Scarborough 2,034 and Etobicoke 1,308. This is a yearly average across all months."
+     "p": "Across a typical year, City Hall issues about **8,374** licences. That is roughly **2.5 times** North York's **3,379**. Scarborough has **2,034** and Etobicoke **1,308**. These are yearly averages across all months, not just the busy ones."
     }
    ],
+   "note": "Licences are counted when they are issued, which may not be the month of the wedding itself.",
    "next": [
-    "How have yearly marriage licences changed since 2011?",
-    "Which civic centre has grown or shrunk the most over time?",
-    "Did licences drop in 2020 and when did they recover?"
+    "Which year had the most marriage licences?",
+    "Did licences drop in 2020?",
+    "Which civic centre has grown fastest since 2011?"
+   ],
+   "sources": [
+    "nearly three times: July 1,995 / December 730 = 2.73",
+    "38%: (Jun 1,731 + Jul 1,995 + Aug 1,938) = 5,664, divided by the 12-month total of 15,095 = 37.5%",
+    "2.5 times: Toronto City Hall 8,374 / North York 3,379 = 2.48",
+    "over half: 8,374 / 15,095 = 55%, where 15,095 = 8,374 + 3,379 + 2,034 + 1,308"
    ]
   },
-  "created": "2026-10-06"
+  "created": "2026-10-07"
  },
  {
   "q": "Most common street tree?",
@@ -2947,34 +3122,51 @@
    }
   ],
   "story": {
-   "lead": "Norway maple is the most common street tree.",
+   "lead": "Norway maple is Toronto's most common street tree.",
    "highlight": "Norway maple",
-   "sub": "Based on the current inventory of 688,335 City-owned street trees in Toronto, as downloaded in October 2026.",
-   "stat": {
-    "value": "69,468",
-    "caption": "Norway maple street trees, more than any other type"
-   },
-   "points": [
+   "summary": "Toronto has **69,468** Norway maples on its streets. That is about one in every ten City-owned street trees, and about two and a half times the next tree, the honey locust. Maples of all kinds make up more than one in four street trees.",
+   "sub": "Based on the City of Toronto street tree inventory: 688,335 City-owned trees on streets, current snapshot.",
+   "facts": [
     {
-     "h": "Norway maple far ahead of other trees",
-     "p": "Norway maple has 69,468 street trees, the most of any type.",
-     "more": "Honey locust is next with 27,758, then Colorado blue spruce with 24,086. Norway maple has about 2.5 times as many as honey locust. Honey locust also shows up as two more varieties, Skyline (16,227) and Shademaster (11,773)."
+     "value": "69,468",
+     "label": "Norway maples on Toronto streets"
     },
     {
-     "h": "Maples are the biggest group by genus",
-     "p": "The maple genus, Acer, has 185,621 street trees, the most of any genus.",
-     "more": "Next are honey locust (Gleditsia) with 59,904 and oak (Quercus) with 51,575. Linden (Tilia) has 46,275 and spruce (Picea) has 41,128."
+     "value": "10.1%",
+     "label": "share of all street trees that are Norway maple"
     },
     {
-     "h": "Norway maples are found in every ward",
-     "p": "Every ward has Norway maples, but the numbers vary a lot between wards.",
-     "more": "Ward 2 has the most with 7,606, followed by ward 15 with 5,104 and ward 3 with 4,738. Wards 13 and 10 have the fewest, with 693 and 700."
+     "value": "185,621",
+     "label": "street trees in the maple group (genus Acer)"
     }
    ],
+   "points": [
+    {
+     "h": "Norway maple leads, far ahead of any other tree",
+     "p": "There are **69,468** Norway maples, against **27,758** honey locusts in second place. That is about **2.5 times** as many. Honey locust also shows up twice more in the list, as the Skyline and Shademaster types."
+    },
+    {
+     "h": "Maples as a group make up over a quarter of trees",
+     "p": "Grouping trees by genus, a group of close relatives, puts maples (Acer) first with **185,621** trees. Honey locusts (Gleditsia) are next with **59,904**, and oaks (Quercus) follow with **51,575**. Maples have about three times as many trees as the second group."
+    },
+    {
+     "h": "Norway maples are found in every ward, most in Ward 2",
+     "p": "Ward 2 has the most, **7,606** Norway maples. Ward 15 follows with **5,104**. Ward 13 has only **693**, so Ward 2 has about 11 times as many. Every one of the 25 wards has at least several hundred."
+    }
+   ],
+   "note": "This counts only City-owned trees on streets, not trees in parks, ravines or private yards.",
    "next": [
-    "Which ward has the most street trees overall?",
-    "How thick are the trunks of Norway maples compared with other trees?",
-    "Which streets have the most street trees?"
+    "Which tree is most common in each ward?",
+    "How big are the trunks of the oldest tree types?",
+    "Which streets have the most trees?"
+   ],
+   "sources": [
+    "10.1%: 69,468 Norway maples / 688,335 street trees",
+    "2.5 times: 69,468 / 27,758 = 2.50",
+    "more than one in four: Acer 185,621 / 688,335 = 27%",
+    "about three times: 185,621 / 59,904 = 3.1",
+    "11 times: Ward 2 = 7,606, Ward 13 = 693, 7,606 / 693 = 11.0",
+    "one in every ten: 69,468 / 688,335 = 10.1%"
    ]
   },
   "created": "2026-10-07"
@@ -3183,34 +3375,50 @@
    }
   ],
   "story": {
-   "lead": "North York Central is the busiest branch.",
-   "highlight": "North York Central",
-   "sub": "Toronto Public Library visits per branch, 2012 to 2024, with a closer look at 2024.",
-   "stat": {
-    "value": "",
-    "caption": ""
-   },
-   "points": [
+   "lead": "Two central libraries dwarf every other branch.",
+   "highlight": "Two central libraries",
+   "summary": "North York Central had **1,276,231** visits in 2024 and the Toronto Reference Library had **1,148,744**. The next busiest branch, Bloor/Gladstone, had **272,078**, so each of the top two drew more than four times as many visits.",
+   "sub": "Toronto Public Library visits per branch per year, 2012 to 2024.",
+   "facts": [
     {
-     "h": "Two big libraries lead 2024 by a wide margin",
-     "p": "North York Central and the Toronto Reference Library each had over 1.1 million visits in 2024.",
-     "more": "The next branch, Bloor/Gladstone, had 272,078 visits. That is roughly a fifth of North York Central's 1,276,231."
+     "value": "1,276,231",
+     "label": "North York Central visits in 2024"
     },
     {
-     "h": "Over 2012 to 2024, the Reference Library leads",
-     "p": "Averaged across all years, the Toronto Reference Library comes first, with North York Central close behind.",
-     "more": "The Reference Library averaged 1,126,591 visits a year and North York Central 1,094,294. Fairview is third at 353,584, and Woodside Square, Bridlewood and Bloor/Gladstone follow."
+     "value": "1,148,744",
+     "label": "Toronto Reference Library visits in 2024"
     },
     {
-     "h": "Total visits are still below the 2012 level",
-     "p": "Visits across all branches fell sharply in 2020 and 2021 and have been rising since.",
-     "more": "Visits were 18,872,613 in 2012 and 17,248,761 in 2019. They dropped to 4,029,488 in 2021, then climbed to 13,431,636 in 2024."
+     "value": "13.4 million",
+     "label": "visits across all branches in 2024"
     }
    ],
+   "points": [
+    {
+     "h": "In 2024, two branches stood far above the rest",
+     "p": "North York Central (**1,276,231**) and the Toronto Reference Library (**1,148,744**) led by a wide margin. Third place, Bloor/Gladstone, had **272,078** visits. After that, branches 3 to 15 are close together, between about 204,000 and 272,000."
+    },
+    {
+     "h": "Over 13 years, the same two lead, but order flips",
+     "p": "Averaged over 2012 to 2024, the Toronto Reference Library comes first with about **1,126,591** visits a year. North York Central is second at about **1,094,294**. Fairview is third at about **353,584**, a branch that is not in the 2024 top 15."
+    },
+    {
+     "h": "Total visits fell sharply in 2020 and are still recovering",
+     "p": "Visits were between about 17 and 19 million a year from 2012 to 2019. They dropped to **5,557,751** in 2020 and **4,029,488** in 2021. By 2024 they reached **13,431,636**, still about three-quarters of the 2019 level."
+    }
+   ],
+   "note": "Branch names are as listed in the data; one branch appears under a new name, Ethennonnhawahstihnen' (formerly Bayview).",
    "next": [
-    "Which branches gained the most visits between 2022 and 2024?",
-    "How did visits at the Toronto Reference Library change from 2019 to 2024?",
-    "Which branches had the fewest visits in 2024?"
+    "Which branches have recovered best since 2019?",
+    "Which branches lost the most visits since 2012?",
+    "How many visits did the Toronto Reference Library have each year?"
+   ],
+   "sources": [
+    "More than four times: 1,276,231 / 272,078 = 4.7; 1,148,744 / 272,078 = 4.2",
+    "About 204,000 to 272,000: York Woods 203,796 up to Bloor/Gladstone 272,078",
+    "About three-quarters: 2024 = 13,431,636, 2019 = 17,248,761, ratio 0.78",
+    "17 to 19 million: 2012-2019 totals range 17,248,761 to 18,872,613",
+    "13.4 million: 2024 = 13,431,636"
    ]
   },
   "created": "2026-10-07"
@@ -3404,33 +3612,48 @@
   ],
   "story": {
    "lead": "Toronto Fire typically arrives in about five minutes.",
-   "highlight": "about five minutes",
-   "sub": "Based on every Toronto Fire call with a recorded response time, 2018 to 2024.",
-   "stat": {
-    "value": "5.1 min",
-    "caption": "typical (median) response time in 2024, alarm to first truck arriving"
-   },
+   "highlight": "five minutes",
+   "summary": "The typical Toronto Fire response, from alarm to first truck arriving, is about **5 minutes**. That has barely moved since 2018, staying between **4.9 and 5.3 minutes**. Half of all calls get a truck faster than this, and half take longer.",
+   "sub": "Based on every call Toronto Fire responded to, 2018 to 2024, using the middle (median) response time.",
+   "facts": [
+    {
+     "value": "5.1 minutes",
+     "label": "Typical response time in 2024"
+    },
+    {
+     "value": "5.0 minutes",
+     "label": "Typical time for medical and fire calls"
+    },
+    {
+     "value": "5.8 minutes",
+     "label": "Typical time at 3, 4 and 5 a.m."
+    }
+   ],
    "points": [
     {
-     "h": "Response time has barely changed since 2018",
-     "p": "The typical response stayed between 4.9 and 5.3 minutes every year.",
-     "more": "It was 4.9 minutes in 2018 and 2019, peaked at 5.3 in 2022, and was 5.1 in both 2023 and 2024."
+     "h": "Response times have hardly changed since 2018",
+     "p": "The typical time was **4.9 minutes** in 2018 and 2019. It peaked at **5.3 minutes** in 2022. In 2024 it was **5.1 minutes**, only about 12 seconds slower than in 2018."
     },
     {
      "h": "Medical and fire calls get the quickest response",
-     "p": "Medical and emergency fire calls both have a typical response of 5 minutes.",
-     "more": "Carbon monoxide and hazardous materials calls take 6 minutes. Non-emergency calls take longest at 7.4 minutes."
+     "p": "Medical and emergency fire calls both have a typical time of **5 minutes**. Hazardous materials and carbon monoxide calls take **6 minutes**. Non-emergency calls take longest, at **7.4 minutes**."
     },
     {
-     "h": "Overnight responses are slower than daytime ones",
-     "p": "Typical response is 4.9 minutes through most of the day but longer overnight.",
-     "more": "It reaches 5.8 minutes between 3 and 5 am. It drops to 5 minutes by 7 am and stays near 4.9 through the evening."
+     "h": "Trucks arrive a little slower overnight",
+     "p": "From 8 a.m. to 9 p.m. the typical time is about **4.9 to 5 minutes**. Between 1 and 5 a.m. it rises to **5.7 to 5.8 minutes**. The gap is under a minute."
     }
    ],
+   "note": "Response time is the time from the alarm to the first truck arriving. It is a middle value, so many calls take longer.",
    "next": [
     "Which wards have the slowest fire response times?",
-    "How many fire calls are medical calls each year?",
-    "Do fires with smoke alarms have fewer casualties?"
+    "How many fire calls does Toronto get each year by type?",
+    "Do fires with no smoke alarm cause more casualties?"
+   ],
+   "sources": [
+    "12 seconds: 5.1 minutes in 2024 minus 4.9 minutes in 2018 = 0.2 minutes, about 12 seconds",
+    "4.9 to 5.3 minutes: lowest 2018 and 2019 = 4.9, highest 2022 = 5.3",
+    "5.7 to 5.8 minutes: hours 1 to 5 = 5.7, 5.7, 5.8, 5.8, 5.8",
+    "4.9 to 5 minutes: hours 8 to 21 = 4.9 or 5"
    ]
   },
   "created": "2026-10-07"
@@ -3767,34 +3990,55 @@
    }
   ],
   "story": {
-   "lead": "Spadina-Fort York has the most short-term rentals.",
+   "lead": "Downtown Spadina-Fort York has the most short-term rentals.",
    "highlight": "Spadina-Fort York",
-   "sub": "Current snapshot of registered short-term rental operators across Toronto's 25 wards, downloaded October 2026.",
-   "stat": {
-    "value": "2,669",
-    "caption": "registered operators in Spadina-Fort York, the most of any ward"
-   },
-   "points": [
+   "summary": "Spadina-Fort York has **2,669** registered short-term rental operators. That is about three in ten of the city's 8,742 and nearly **2.7 times** the next ward, Toronto Centre (**984**). Most of Spadina's total is condos, while houses are spread more evenly across wards.",
+   "sub": "Current snapshot of registered short-term rental operators in Toronto's 25 wards, downloaded 5 October 2026.",
+   "facts": [
     {
-     "h": "Downtown wards dominate registrations",
-     "p": "Spadina-Fort York has 2,669 registrations, far ahead of every other ward.",
-     "more": "Toronto Centre (984) and University-Rosedale (827) come next. These three wards hold about 51% of all 8,742 registrations. Scarborough North has the fewest at 64."
+     "value": "2,669",
+     "label": "registered rentals in Spadina-Fort York, the top ward"
     },
     {
-     "h": "Condos explain the downtown lead",
-     "p": "Spadina-Fort York has 2,171 condominium registrations, well ahead of any other ward.",
-     "more": "That is about 81% of the ward's registrations. Toronto Centre has 668 condos and University-Rosedale 343. Most wards have fewer than 30."
+     "value": "51%",
+     "label": "share of all rentals in the top three wards"
     },
     {
-     "h": "Houses are spread across more wards",
-     "p": "Davenport leads house registrations with 341, followed by Toronto-Danforth with 288.",
-     "more": "Parkdale-High Park (263) and Beaches-East York (262) follow. Spadina-Fort York has only 89 houses, and Toronto Centre has 73."
+     "value": "81%",
+     "label": "of Spadina-Fort York's rentals are condos"
     }
    ],
+   "points": [
+    {
+     "h": "Three downtown wards hold over half of all rentals",
+     "p": "Spadina-Fort York leads with **2,669** registrations, then Toronto Centre with **984** and University-Rosedale with **827**. Together those three hold about **51%** of the 8,742 total. The smallest ward, Scarborough North, has just **64**."
+    },
+    {
+     "h": "Condo rentals are packed into a few downtown wards",
+     "p": "Spadina-Fort York has **2,171** condo registrations, about **59%** of all 3,663 condo rentals in the city. Add Toronto Centre (**668**) and University-Rosedale (**343**) and the top three wards have about **87%**. Most other wards have fewer than 30."
+    },
+    {
+     "h": "Houses are spread out, and Spadina drops down the list",
+     "p": "For houses, Davenport leads with **341**, followed by Toronto-Danforth (**288**) and Parkdale-High Park (**263**). Spadina-Fort York has only **89** house rentals, 14th of 25 wards. Outside downtown, rentals are mostly houses."
+    }
+   ],
+   "note": "These are registered operators, one row each, in a current snapshot. They are not counts of nights booked or of guests.",
    "next": [
-    "Which wards have the most apartment short-term rentals?",
-    "Which wards have the most fires?",
-    "Which wards have the lowest apartment evaluation scores?"
+    "Which property types are most common among short-term rentals?",
+    "Which wards have the most 311 requests about noise?",
+    "How many apartment buildings were evaluated in each ward under RentSafeTO?"
+   ],
+   "sources": [
+    "8,742: sum of all 25 ward rows in chart 1",
+    "about three in ten: 2,669 / 8,742 = 30.5%",
+    "2.7 times: 2,669 / 984 = 2.71",
+    "51%: (2,669 + 984 + 827) / 8,742 = 4,480 / 8,742",
+    "81%: 2,171 / 2,669 = 81.3%",
+    "3,663: sum of all 25 ward rows in chart 2",
+    "59%: 2,171 / 3,663 = 59.3%",
+    "87%: (2,171 + 668 + 343) / 3,663 = 3,182 / 3,663",
+    "14th of 25: Spadina-Fort York (89) is the 14th row in chart 3",
+    "fewer than 30: all wards below University-Rosedale and Etobicoke-Lakeshore, ... Davenport (29) and lower, in chart 2"
    ]
   },
   "created": "2026-10-07"
@@ -3951,34 +4195,51 @@
    }
   ],
   "story": {
-   "lead": "Permits created 87,639 homes, peaking in 2021.",
-   "highlight": "87,639 homes",
-   "sub": "Building permits issued 2017 to 2025 that are now closed or finished, counting dwelling units created.",
-   "stat": {
-    "value": "",
-    "caption": ""
-   },
-   "points": [
+   "lead": "New homes from permits peaked in 2021, then fell.",
+   "highlight": "peaked in 2021",
+   "summary": "Permits issued in 2021 created **15,109** new homes. By 2025 the figure was **2,063**, about one-seventh of the peak. Across 2017 to 2025, permits in this data created about **87,600** homes.",
+   "sub": "Toronto building permits cleared (closed or finished) and issued 2017–2025, the full years.",
+   "facts": [
     {
-     "h": "New homes peaked in 2021, then fell",
-     "p": "Homes created by permits rose to 15,109 in 2021, then dropped each year to 2,063 in 2025.",
-     "more": "2020 had 14,184 homes and 2018 had 13,126. After 2023 (9,311), the count fell to 4,180 in 2024 and 2,063 in 2025."
+     "value": "15,109",
+     "label": "homes created by permits issued in 2021, the peak"
     },
     {
-     "h": "Net new homes follow the same pattern",
-     "p": "After subtracting homes lost, the yearly totals are lower but rise and fall the same way.",
-     "more": "Net new homes were highest in 2021 at 13,565 and lowest in 2025 at 1,363. In 2025, 700 homes were lost against 2,063 created."
+     "value": "2,063",
+     "label": "homes created by permits issued in 2025"
     },
     {
-     "h": "Mixed-use and apartment buildings dominate",
-     "p": "Most new homes came from mixed-use buildings and apartment buildings, not houses.",
-     "more": "Mixed use with shops or offices added 39,798 homes and apartment buildings 28,518, together 68,316. Detached houses added 6,073 and laneway or rear yard suites added 921."
+     "value": "About 78%",
+     "label": "of new homes in mixed-use and apartment buildings"
     }
    ],
+   "points": [
+    {
+     "h": "Homes created rose to 2021, then dropped sharply",
+     "p": "From **9,163** homes in 2017, the number climbed to **15,109** in 2021. It then fell to **8,718** in 2022 and **4,180** in 2024. The 2025 figure of **2,063** is the lowest of the nine years."
+    },
+    {
+     "h": "Counting homes lost, the picture is the same",
+     "p": "Some permits also remove homes. Taking those away gives **13,565** net new homes in 2021 and **1,363** in 2025. Over the nine years, about **10,950** homes were lost, so net new homes total about **76,700**."
+    },
+    {
+     "h": "Mixed-use and apartment buildings account for most new homes",
+     "p": "Buildings mixing homes with shops or offices created **39,798** homes, and apartment buildings **28,518**. Together that is about **78%** of all homes created. Detached houses add **6,073**, and laneway or rear-yard suites **921**."
+    }
+   ],
+   "note": "Only permits already closed or finished are in this data, so it may not cover every home permitted, especially in recent years.",
    "next": [
-    "Which wards had the most new homes from building permits?",
-    "How many demolition permits were issued each year since 2017?",
-    "How much did new house construction cost each year?"
+    "Which postal areas got the most new homes?",
+    "How many laneway or rear-yard suites were permitted each year?",
+    "How has the estimated cost of new houses changed by year?"
+   ],
+   "sources": [
+    "About one-seventh: 2,063 / 15,109 = 0.14",
+    "About 87,600: sum of 2017–2025 = 9163+13126+11785+14184+15109+8718+9311+4180+2063 = 87,639",
+    "About 10,950 lost: 87,639 created minus 76,686 net (sum of chart 2 rows) = 10,953",
+    "About 76,700: sum of chart 2 rows 7781+11723+10556+12868+13565+7654+7767+3409+1363 = 76,686",
+    "About 78%: (39,798 + 28,518) / 87,639 = 68,316 / 87,639 = 0.78",
+    "Lowest of nine years: 2025 = 2,063, next lowest 2024 = 4,180"
    ]
   },
   "created": "2026-10-07"
@@ -4171,34 +4432,50 @@
    }
   ],
   "story": {
-   "lead": "Bin repairs, missed pickups and wildlife lead 311 calls.",
-   "highlight": "Bin repairs",
-   "sub": "311 service requests in Toronto, January 2019 to August 2026, with a closer look at 2025.",
-   "stat": {
-    "value": "1,133,635",
-    "caption": "requests to Solid Waste Management Services, the busiest City division"
-   },
-   "points": [
+   "lead": "Broken bin lids are the top reason people call 311",
+   "highlight": "Broken bin lids",
+   "summary": "Damaged residential bin lids lead 311 requests: about **138,600** since 2019 once old and new names are added together. Garbage and waste services draw more than one in three of all requests (**36%**). Wildlife, property standards and potholes follow.",
+   "sub": "311 requests in Toronto, January 2019 to August 2026, with 2025 shown on its own.",
+   "facts": [
     {
-     "h": "Damaged bin lids top the all-time list",
-     "p": "Repairing or replacing a bin lid is the single most common request type, with 101,371 requests.",
-     "more": "Property Standards (81,495) and injured wildlife (73,186) come next. Pothole repair has 62,390 requests. Because names changed in 2025, the renamed bin lid type adds another 37,270 on its own line."
+     "value": "138,641",
+     "label": "bin lid requests, old and new names combined"
     },
     {
-     "h": "Garbage and waste make up the biggest share",
-     "p": "Solid Waste Management Services handles more requests than any other division, at 1,133,635.",
-     "more": "Transportation Services follows with 800,318 and Municipal Licensing & Standards with 749,891. Toronto Water has 271,647. Solid Waste alone is about 36% of all requests."
+     "value": "36%",
+     "label": "of all requests go to Solid Waste Management"
     },
     {
-     "h": "In 2025, bin lids and property standards led",
-     "p": "Damaged bin lids led 2025 with 24,448 requests, ahead of property standards at 17,079.",
-     "more": "Wildlife was next: dead wildlife pickup (15,513) and injured wildlife (15,192). Potholes had 11,304 requests and sidewalk snow clearing 10,241."
+     "value": "24,448",
+     "label": "damaged bin lid requests in 2025 alone"
     }
    ],
+   "points": [
+    {
+     "h": "Bin lids, property standards and wildlife top the all-time list",
+     "p": "The old name for bin lid repairs tops the list with **101,371** requests. Property standards (**81,495**) and injured wildlife (**73,186**) come next. The City renamed many request types in 2025, so the old and new names are counted apart here. Adding the old and new bin lid names gives **138,641**."
+    },
+    {
+     "h": "Waste services get more than one in three requests",
+     "p": "Solid Waste Management Services had **1,133,635** requests, about **36%** of the total. Transportation Services (**800,318**) and Municipal Licensing & Standards (**749,891**) follow. These three divisions together account for about **86%** of all requests."
+    },
+    {
+     "h": "In 2025, bin lids were still first, far ahead",
+     "p": "Damaged bin lids drew **24,448** requests in 2025. That is more than twice the **11,304** for potholes and road damage. Property standards (**17,079**) and dead wildlife pickup (**15,513**) were next. Sidewalk snow clearing also made the top ten, with **10,241**."
+    }
+   ],
+   "note": "Request types were renamed in 2025, so the all-years chart splits some topics in two. Each number counts requests, not people.",
    "next": [
-    "Which wards make the most pothole requests?",
-    "How many 311 requests come in each month of the year?",
-    "Which wards have the most garbage not picked up requests?"
+    "Which months get the most pothole requests?",
+    "Which wards make the most 311 requests?",
+    "How have wildlife requests changed from year to year?"
+   ],
+   "sources": [
+    "138,641: 101,371 (Residential: Bin: Repair or Replace Lid) + 37,270 (Residential Bin Lid Damaged)",
+    "36%: 1,133,635 / 3,116,481 (sum of all nine divisions) = 36.4%",
+    "86%: (1,133,635 + 800,318 + 749,891) / 3,116,481 = 86.1%",
+    "more than twice: 24,448 / 11,304 = 2.16",
+    "about 138,600: 138,641 rounded"
    ]
   },
   "created": "2026-10-07"
@@ -4347,34 +4624,49 @@
    }
   ],
   "story": {
-   "lead": "2 Prospect St scores lowest, at 18 out of 100.",
-   "highlight": "2 Prospect St",
+   "lead": "Two buildings score far below all the rest",
+   "highlight": "far below",
+   "summary": "The lowest-scoring building, 2 Prospect St, got **18** out of 100, and 711 Bloor St W got **23**. The next lowest score is **45**, so these two stand well apart. All three owner types average about 90, so the weak buildings are exceptions.",
    "sub": "Latest RentSafeTO evaluation of each apartment building, June 2023 to October 2026.",
-   "stat": {
-    "value": "",
-    "caption": ""
-   },
-   "points": [
+   "facts": [
     {
-     "h": "Two buildings fall far below the rest",
-     "p": "2 Prospect St (18) and 711 Bloor St W (23) are the two lowest scores.",
-     "more": "The next lowest are 500 Dawes Rd and 15 Gore Vale Ave, both at 45. The 15th lowest building scores 62, so the bottom 15 span from 18 to 62."
+     "value": "18 out of 100",
+     "label": "Lowest score: 2 Prospect St"
     },
     {
-     "h": "Owner type makes almost no difference",
-     "p": "Average scores are very close across all three owner types.",
-     "more": "Social housing averages 91, private buildings 90.5 and Toronto Community Housing 90.4. That is a gap of only 0.6 points."
+     "value": "45",
+     "label": "Third-lowest score, far above the bottom two"
     },
     {
-     "h": "Even the lowest wards average 86 or more",
-     "p": "The ten lowest wards all average between 86 and 90.2.",
-     "more": "Scarborough-Rouge Park is lowest at 86, followed by Davenport at 86.3. University-Rosedale and York South-Weston are both at 87.9."
+     "value": "0.6 points",
+     "label": "Gap between best and worst owner type averages"
     }
    ],
+   "points": [
+    {
+     "h": "Two buildings sit far below the other 13",
+     "p": "2 Prospect St (**18**) and 711 Bloor St W (**23**) are the lowest. The next two, 500 Dawes Rd and 15 Gore Vale Ave, both score **45**. The rest of the bottom 15 score between 49 and 62."
+    },
+    {
+     "h": "Owner type makes almost no difference on average",
+     "p": "Social housing averages **91**, private buildings **90.5** and Toronto Community Housing **90.4**. That is a gap of just **0.6** points from top to bottom. On average, the type of owner makes almost no difference."
+    },
+    {
+     "h": "Even the weakest wards still average in the mid-80s",
+     "p": "Scarborough-Rouge Park has the lowest ward average at **86**, followed by Davenport at **86.3**. The tenth-lowest ward, Spadina-Fort York, averages **90.2**. The gap between wards is small, about 4 points across these ten."
+    }
+   ],
+   "note": "Each building is counted once, using its most recent evaluation. Scores run from 0 to 100, and higher is better.",
    "next": [
-    "How many buildings score below 70?",
-    "Do older buildings score lower than newer ones?",
-    "Which wards have the most buildings evaluated?"
+    "Which wards have the most buildings scoring under 70?",
+    "How do building scores change with the year the building was built?",
+    "Do taller or larger buildings score lower?"
+   ],
+   "sources": [
+    "0.6 points: Social housing 91 minus Toronto Community Housing 90.4",
+    "4 points: Spadina-Fort York 90.2 minus Scarborough-Rouge Park 86 = 4.2",
+    "bottom 15 range 49 to 62: rows from 2900 Keele St (49) to 21 Denison Rd E and 1449 Kingston Rd (62)",
+    "13 other buildings: 15 minus 2"
    ]
   },
   "created": "2026-10-07"
@@ -4507,34 +4799,50 @@
    }
   ],
   "story": {
-   "lead": "Coyote calls nearly doubled in 2025.",
+   "lead": "Coyote calls nearly doubled in two years.",
    "highlight": "nearly doubled",
-   "sub": "Animal Services coyote requests 2023 to 2 Oct 2026 and 311 coyote requests 2019 to Aug 2026.",
-   "stat": {
-    "value": "5,399",
-    "caption": "coyote requests to Animal Services in 2025, up from 3,088 in 2024"
-   },
+   "summary": "Animal Services logged **5,399** coyote requests in 2025, up from **2,781** in 2023. That is almost twice as many in two years. The 2026 count is only part of a year and already stands at **3,837**.",
+   "sub": "Toronto Animal Services requests 2023 to Oct 2026, and 311 requests 2019 to Aug 2026. 2026 is a partial year.",
+   "facts": [
+    {
+     "value": "5,399",
+     "label": "coyote requests to Animal Services in 2025"
+    },
+    {
+     "value": "498",
+     "label": "coyote-related 311 requests in 2025"
+    },
+    {
+     "value": "3,837",
+     "label": "Animal Services coyote requests so far in 2026"
+    }
+   ],
    "points": [
     {
      "h": "Animal Services coyote requests jumped in 2025",
-     "p": "Requests rose from 2,781 in 2023 to 5,399 in 2025.",
-     "more": "2024 had 3,088 requests. 2026 already has 3,837 so far, with the year not yet finished."
+     "p": "Requests rose from **2,781** in 2023 to **3,088** in 2024, then to **5,399** in 2025. That is about **1.75 times** the 2024 level. The 2026 count is for part of the year only, but it is already well above 2023 and 2024."
     },
     {
-     "h": "311 coyote requests have climbed since 2021",
-     "p": "311 coyote requests grew from 88 in 2021 to 498 in 2025.",
-     "more": "2019 and 2020 each had 127. 2026 has 369 so far, and the year is not over."
+     "h": "311 coyote requests rose too",
+     "p": "The 311 line has a smaller count, with **127** requests in 2019 and **498** in 2025. That is about **four times** as many. It has gone up every year since 2021, when it was at its low of **88**."
     },
     {
-     "h": "Coyote requests show no strong season",
-     "p": "Across 2019 to 2025, every month had between 101 and 173 requests.",
-     "more": "July was highest with 173, followed by November with 168. June was lowest with 101, then January with 104."
+     "h": "Coyote calls come in all months of the year",
+     "p": "Adding up 2019 to 2025, every month had between **101** and **173** requests. July was highest at **173**, and June lowest at **101**. There is no single month where calls clearly spike."
     }
    ],
+   "note": "The two sources count different things, so their totals should not be compared with each other, only their trends.",
    "next": [
-    "Which types of Animal Services requests grew most from 2023 to 2025?",
-    "How many injured wildlife requests came in per year in 311?",
-    "Which wards send the most 311 requests about wildlife?"
+    "Which wards make the most 311 wildlife requests?",
+    "How many injured wildlife requests were there each year?",
+    "Which animal service request types grew most since 2023?"
+   ],
+   "sources": [
+    "almost twice: 2025 = 5,399, 2023 = 2,781, ratio 1.94",
+    "1.75 times: 5,399 / 3,088 = 1.75",
+    "about four times: 311 requests 2025 = 498, 2019 = 127, ratio 3.9",
+    "up every year since 2021: 88, 162, 226, 365, 498",
+    "101 to 173: monthly lows and highs are June = 101 and July = 173"
    ]
   },
   "created": "2026-10-07"
@@ -4743,34 +5051,53 @@
    }
   ],
   "story": {
-   "lead": "Evenings, Fridays and summer-to-autumn months.",
-   "highlight": "Evenings",
-   "sub": "7,620 serious collisions (someone killed or seriously injured) in Toronto, 2006 to September 2026.",
-   "stat": {
-    "value": "",
-    "caption": ""
-   },
-   "points": [
+   "lead": "Serious collisions peak in the evening rush hour",
+   "highlight": "evening rush hour",
+   "summary": "Serious collisions are most common around 6 pm, with **531** in that hour over the years, against just **84** at 4 am. Nearly one in three (**31%**) happen between 3 pm and 8 pm. Fridays and the months from June to October are also busier.",
+   "sub": "Collisions in Toronto where someone was killed or seriously hurt, 2006 to September 2026, all years combined.",
+   "facts": [
     {
-     "h": "The evening rush hour is the peak",
-     "p": "Serious collisions climb through the afternoon and peak at 6pm.",
-     "more": "The 6pm hour has 531 collisions, followed by 507 at 5pm. The three hours from 5pm to 8pm hold 1,491 collisions, about 20% of all. The quietest hour is 4am, with 84."
+     "value": "531",
+     "label": "collisions in the busiest hour (6 pm)"
     },
     {
-     "h": "Friday is the worst day",
-     "p": "Weekdays see more serious collisions than the weekend, with Friday highest.",
-     "more": "Friday has 1,216 collisions and Sunday has the fewest at 966. Tuesday and Wednesday are close behind Friday, at 1,138 and 1,127."
+     "value": "31%",
+     "label": "happen between 3 pm and 8 pm"
     },
     {
-     "h": "June to October is the busiest stretch",
-     "p": "Serious collisions rise from spring and stay high until autumn.",
-     "more": "June is highest with 774 collisions, and September (771) and August (753) are close. February is lowest at 455, so June has about 70% more."
+     "value": "49%",
+     "label": "happen from June to October"
     }
    ],
+   "points": [
+    {
+     "h": "The afternoon and evening are the most dangerous hours",
+     "p": "Collisions climb through the day and peak at **531** in the 6 pm hour. That is about **six times** the **84** at 4 am, the quietest hour. The five hours from 3 pm to 8 pm hold **2,379** of the **7,620** collisions."
+    },
+    {
+     "h": "Friday is the worst day, Sunday the best",
+     "p": "Friday has **1,216** serious collisions, the most of any day. Sunday has the fewest at **966**. Friday is about **26%** higher, but the weekdays are all fairly close to each other."
+    },
+    {
+     "h": "Summer and early autumn are the riskiest months",
+     "p": "June is the highest month with **774** collisions, and February the lowest with **455**. June is about **1.7 times** February. June to October together account for **3,752** collisions, about half the total."
+    }
+   ],
+   "note": "Each collision is counted once, however many people were involved. The months and weekdays add up all years together, and 2026 is only a partial year.",
    "next": [
-    "Which road users are most often hurt in serious collisions?",
-    "Are serious collisions at night more likely to be fatal?",
-    "Which neighbourhoods have the most serious collisions?"
+    "Which wards have the most serious collisions?",
+    "How many pedestrians are killed each year?",
+    "Are serious collisions going up or down over time?"
+   ],
+   "sources": [
+    "7,620: sum of the 24 hourly counts (same as the sum of the 7 daily counts)",
+    "2,379: 15:00 to 19:00 = 452 + 436 + 507 + 531 + 453",
+    "31%: 2,379 / 7,620 = 31.2%",
+    "about six times: 531 / 84 = 6.3",
+    "26%: Friday 1,216 / Sunday 966 = 1.26",
+    "1.7 times: June 774 / February 455 = 1.70",
+    "3,752: Jun 774 + Jul 720 + Aug 753 + Sep 771 + Oct 734",
+    "49%: 3,752 / 7,620 = 49.2%"
    ]
   },
   "created": "2026-10-07"
