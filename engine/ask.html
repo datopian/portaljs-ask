@@ -617,9 +617,9 @@ const leadHTML = (t, hl) => {
 function bindAsk(root) {
   root.querySelectorAll("[data-ask]").forEach(b => b.addEventListener("click", () => { $("qi").value = b.dataset.ask; route(b.dataset.ask); $("ask").scrollIntoView({ behavior: reduced ? "auto" : "smooth" }); }));
 }
-function notice(heading, text, suggestions, related) {
+function notice(heading, text, suggestions, related, lead) {
   $("working").hidden = true;
-  $("story").innerHTML = `<section class="notice"><h2>${escH(heading)}</h2>${text ? `<p>${escH(text)}</p>` : ""}
+  $("story").innerHTML = `<section class="notice"><h2>${escH(heading)}</h2>${lead ? `<p>${escH(lead)}</p>` : ""}${text ? `<p>${escH(text)}</p>` : ""}
     ${related?.length ? `<p>The full ${escH(P.sourceName || P.name)} catalogue has these, which aren't connected here yet:</p><div class="ds-list">${related.map(d => `<div class="ds"><a href="${escH(d.url)}" target="_blank" rel="noopener">${escH(d.title)} ↗</a>${d.note ? `<span>${escH(d.note)}</span>` : ""}</div>`).join("")}</div>` : ""}
     ${suggestions?.length ? `<div class="sugg"><span class="lbl">Try:</span>${suggestions.map(q => `<button class="chip" type="button" data-ask="${escH(q).replace(/"/g, "&quot;")}">${escH(q)}</button>`).join("")}</div>` : ""}</section>`;
   bindAsk($("story"));
@@ -641,7 +641,9 @@ async function live(question) {
   try {
     let plan = await post("/api/data/plan", { portal: P.slug, question });
     if (stale()) return;
-    if (!plan.answerable) return notice("That's not in the connected datasets.", plan.message, plan.suggestions, plan.related);
+    // This is a demo on a small selection of the catalogue: say so, so a missing topic reads as "not connected yet", not as a fault.
+    if (!plan.answerable) return notice("This demo doesn't have that data yet.", plan.message, plan.suggestions, plan.related,
+      `It's connected to a small selection of ${P.datasets.length} datasets from ${P.sourceName || P.name}, chosen to show how it works, so many topics aren't covered yet. More datasets can be connected.`);
     step(1);
     const conn = await dbReady;
     if (stale()) return;

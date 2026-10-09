@@ -96,7 +96,7 @@ scripts/
   precompute.mjs          fills instant.json through the real pipeline
 .claude/skills/           portal-new, portal-verify, portal-refresh, ask-cost-report (Claude Code skills for the team)
 scripts/upload-data.mjs   uploads a portal's parquet files to Vercel Blob
-public/data/<slug>/       parquet files (moving to object storage, section 5)
+public/data/<slug>/       local build copy of the parquet files, not in git; the served copy is in Vercel Blob (section 5)
 ```
 
 Routes: `/` is the default portal, `/demo/<slug>` is every portal, and a client's
@@ -133,7 +133,7 @@ repeats are free.
 |---|---|---|---|
 | App | Vercel, Datopian team (Pro), project `portaljs-ask` | Same | Done |
 | Limits and answer cache | In memory per instance | Upstash Redis via the Vercel Marketplace (free tier) | Now |
-| Data files | Vercel Blob store `portaljs-ask-data` (public, iad1), one folder per portal and snapshot. `scripts/upload-data.mjs <slug>` uploads them; the printed URL goes in `data.remote` in `portal.json`. `data.base` is the local build folder (`public/data/<slug>/`) used by portal-data.mjs and precompute.mjs | Cloudflare R2 if downloads grow (no transfer fees) | Done 2026-10-08 |
+| Data files | Vercel Blob store `portaljs-ask-data` (public, iad1), one folder per portal and snapshot. `scripts/upload-data.mjs <slug>` uploads them; the printed URL goes in `data.remote` in `portal.json`. `data.base` is the local build folder (`public/data/<slug>/`, not in git) used by portal-data.mjs; precompute.mjs uses it if present, otherwise the uploaded copy. A deployment fails if a portal has no `data.remote` | Cloudflare R2 if downloads grow (no transfer fees) | Done 2026-10-09 |
 | AI | Anthropic API, shared key | A dedicated key and workspace for this product, with its own spend cap | Now |
 
 Why browser-side queries: no database to run or pay for, it scales with
