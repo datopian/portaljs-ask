@@ -131,9 +131,9 @@ repeats are free.
 
 | Piece | Now | Target | When |
 |---|---|---|---|
-| App | Vercel, personal team | Vercel, Datopian's paid team | Now: the free plan doesn't allow commercial use |
+| App | Vercel, Datopian team (Pro), project `portaljs-ask` | Same | Done |
 | Limits and answer cache | In memory per instance | Upstash Redis via the Vercel Marketplace (free tier) | Now |
-| Data files | `public/data/<slug>/` in git (31 MB for Toronto) | Object storage: Vercel Blob, or Cloudflare R2 if downloads grow (R2 has no transfer fees). `scripts/upload-data.mjs <slug>` uploads them; set the printed URL as `data.remote` in `portal.json` (`data.base` stays the local build path) | Before the third portal |
+| Data files | Vercel Blob store `portaljs-ask-data` (public, iad1), one folder per portal and snapshot. `scripts/upload-data.mjs <slug>` uploads them; the printed URL goes in `data.remote` in `portal.json`. `data.base` is the local build folder (`public/data/<slug>/`) used by portal-data.mjs and precompute.mjs | Cloudflare R2 if downloads grow (no transfer fees) | Done 2026-10-08 |
 | AI | Anthropic API, shared key | A dedicated key and workspace for this product, with its own spend cap | Now |
 
 Why browser-side queries: no database to run or pay for, it scales with

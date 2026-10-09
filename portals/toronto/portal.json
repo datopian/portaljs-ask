@@ -26,7 +26,7 @@
   },
   "data": {
     "base": "/data/toronto/",
-    "snapshot": "2026-10-05"
+    "snapshot": "2026-10-05", "remote": "https://r7ku4izoj8cd8lsg.public.blob.vercel-storage.com/data/toronto/2026-10-05/"
   },
   "live": true,
   "examples": [

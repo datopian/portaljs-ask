@@ -24,7 +24,7 @@
   },
   "data": {
     "base": "/data/datahub/",
-    "snapshot": "2026-10-07"
+    "snapshot": "2026-10-07", "remote": "https://r7ku4izoj8cd8lsg.public.blob.vercel-storage.com/data/datahub/2026-10-07/"
   },
   "live": true,
   "examples": [
