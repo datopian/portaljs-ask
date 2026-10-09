@@ -69,5 +69,7 @@ for (const slug of fs.readdirSync(dir).sort()) {
   console.log(`portal ${slug}: ${portal.datasets.length} datasets, ${instant.length} instant answers${isDefault ? ' (default, served at /)' : ''}`)
 }
 if (!portals[defaultSlug]) throw new Error(`portals/index.json default "${defaultSlug}" has no folder`)
+// Data files aren't in git: on Vercel every portal must point at its uploaded copy.
+if (process.env.VERCEL) for (const [slug, p] of Object.entries(portals)) if (!p.data.remote) throw new Error(`portal ${slug} has no data.remote: upload its data first (scripts/upload-data.mjs ${slug})`)
 for (const [host, slug] of Object.entries(domains)) if (!portals[slug]) throw new Error(`portals/index.json domain ${host} points to "${slug}", which has no folder`)
 fs.writeFileSync(path.join(root, 'lib/ask/portals.generated.json'), JSON.stringify({ default: defaultSlug, portals }))
