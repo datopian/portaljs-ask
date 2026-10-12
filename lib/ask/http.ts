@@ -13,3 +13,10 @@ export function isAdmin(req: NextApiRequest): boolean {
 }
 
 export const REFUSAL_STATUS = 429
+
+export function clientIp(req: { headers: Record<string, string | string[] | undefined>; socket?: { remoteAddress?: string } }): string {
+  const forwarded = req.headers['x-forwarded-for']
+  const first = Array.isArray(forwarded) ? forwarded[0] : forwarded
+  if (first) return first.split(',')[0].trim()
+  return req.socket?.remoteAddress || 'unknown'
+}

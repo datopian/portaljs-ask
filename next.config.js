@@ -20,13 +20,10 @@ const nextConfig = {
     outputFileTracingIncludes: { '/api/share': ['./public/p/**/*'] },
   },
   async redirects() {
-    // The neutral demos moved from /demo/<corpus> to /<corpus>; keep links
-    // already sent in sales emails working. Not permanent, so browsers don't
-    // cache it if the routes move again.
-    return [
-      { source: '/demo/security', destination: '/security', permanent: false },
-      { source: '/demo/governance', destination: '/governance', permanent: false },
-    ]
+    // The document-search demos were removed on 12 Oct 2026; links already sent
+    // in sales emails go to the homepage. Not permanent, so browsers don't cache it.
+    return ['/security', '/governance', '/documents/:id*', ...['security', 'governance', 'bmw', 'npi', 'clayops', 'transitions-dd'].map((s) => `/demo/${s}`)]
+      .map((source) => ({ source, destination: '/', permanent: false }))
   },
   async rewrites() {
     // The homepage is the default portal; every portal is also at /demo/<slug>.

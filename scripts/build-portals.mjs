@@ -46,7 +46,6 @@ for (const slug of fs.readdirSync(dir).sort()) {
   const src = portal.source
   const isDefault = slug === defaultSlug
   const footer = [
-    isDefault ? `<p class="other-demos">Looking for the earlier demos? <a href="/security">Security advisories search</a> · <a href="/governance">Data governance search</a></p>` : '',
     `Built with PortalJS by Datopian. Data: ${esc(portal.owner)}, ${esc(src.name)}${src.licence ? `, ${esc(src.licence)}` : ''}.`,
     portal.live
       ? ` The first example questions were answered in advance. Other questions about the ${portal.datasets.length} connected datasets are answered live: AI writes the queries, they run on the data in your browser, and AI writes the story from their results. Every number comes from the query shown under its chart. Live questions are limited each day.`
