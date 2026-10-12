@@ -44,6 +44,9 @@ Look at sample rows yourself too: the profile catches common traps, not all.
   ones. Each must be answerable from the tables.
 
 ## 5. Preview and pre-compute
+Upload the data (it isn't kept in git):
+`BLOB_READ_WRITE_TOKEN=... node scripts/upload-data.mjs <slug>` and set the printed
+URL as `data.remote` in `portal.json` (the deployment fails without it). Then
 `npm run portals && npx tsc --noEmit -p .`, commit on a branch, push, open a
 draft PR, wait for the Vercel preview. Then
 `ASK_ADMIN_TOKEN=... node scripts/precompute.mjs <slug> --api <preview URL>`.

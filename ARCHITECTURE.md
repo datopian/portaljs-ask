@@ -4,10 +4,6 @@ One product, many branded portals. A visitor types a question in plain English
 and gets a short data story with charts, built from a client's own open data,
 with every number traceable to a query.
 
-This repo also hosts the older document-search demos (`/security`,
-`/governance`, `/demo/<brand>`). They are a separate product that happens to
-share the deployment; nothing below applies to them unless it says so.
-
 ## 1. Principles
 
 1. **One engine, configuration per client.** A new client is a folder in
@@ -96,7 +92,7 @@ scripts/
   precompute.mjs          fills instant.json through the real pipeline
 .claude/skills/           portal-new, portal-verify, portal-refresh, ask-cost-report (Claude Code skills for the team)
 scripts/upload-data.mjs   uploads a portal's parquet files to Vercel Blob
-public/data/<slug>/       parquet files (moving to object storage, section 5)
+public/data/<slug>/       local build copy of the parquet files, not in git; the served copy is in Vercel Blob (section 5)
 ```
 
 Routes: `/` is the default portal, `/demo/<slug>` is every portal, and a client's
@@ -109,7 +105,7 @@ console). The app stops itself well before that:
 
 | Limit | Default | Env var | Why |
 |---|---|---|---|
-| Monthly AI spend for live questions | $40 | `ASK_MONTHLY_BUDGET_USD` | Leaves $10 under the hard cap for the document demos and pre-computing |
+| Monthly AI spend for live questions | $40 | `ASK_MONTHLY_BUDGET_USD` | Leaves $10 under the hard cap for pre-computing and testing |
 | Live questions per day, all portals | 30 | `ASK_DAILY_TOTAL` | At up to 8 cents each, a fully used day is about $2.40, so one bad day can't eat the month |
 | Live questions per visitor per day | 5 | `ASK_DAILY_PER_VISITOR` | Enough to be impressed, not enough to farm |
 
@@ -133,7 +129,7 @@ repeats are free.
 |---|---|---|---|
 | App | Vercel, Datopian team (Pro), project `portaljs-ask` | Same | Done |
 | Limits and answer cache | In memory per instance | Upstash Redis via the Vercel Marketplace (free tier) | Now |
-| Data files | Vercel Blob store `portaljs-ask-data` (public, iad1), one folder per portal and snapshot. `scripts/upload-data.mjs <slug>` uploads them; the printed URL goes in `data.remote` in `portal.json`. `data.base` is the local build folder (`public/data/<slug>/`) used by portal-data.mjs and precompute.mjs | Cloudflare R2 if downloads grow (no transfer fees) | Done 2026-10-08 |
+| Data files | Vercel Blob store `portaljs-ask-data` (public, iad1), one folder per portal and snapshot. `scripts/upload-data.mjs <slug>` uploads them; the printed URL goes in `data.remote` in `portal.json`. `data.base` is the local build folder (`public/data/<slug>/`, not in git) used by portal-data.mjs; precompute.mjs uses it if present, otherwise the uploaded copy. A deployment fails if a portal has no `data.remote` | Cloudflare R2 if downloads grow (no transfer fees) | Done 2026-10-09 |
 | AI | Anthropic API, shared key | A dedicated key and workspace for this product, with its own spend cap | Now |
 
 Why browser-side queries: no database to run or pay for, it scales with
@@ -190,13 +186,12 @@ way round (see `sources.json`). Check headline numbers against a known figure.
 
 ## 8. Recommended setup around the code
 
-**Repos.** One product repo. Rename this one to `datopian/portaljs-ask` once the
-document demos move out (or keep them here as a separate module until either
-product grows). Portal configs stay in the same repo: at tens of clients this
-is simpler than a config service, and every change gets a reviewed preview.
-Data lives in object storage, not git. Never fork per client. A client who buys
-gets either a portal on our deployment (their domain pointed at it), or the
-same repo deployed in their cloud with their portal folder and bucket.
+**Repos.** One product repo, `datopian/portaljs-ask`. Portal configs stay in
+the same repo: at tens of clients this is simpler than a config service, and
+every change gets a reviewed preview. Data lives in object storage, not git.
+Never fork per client. A client who buys gets either a portal on our deployment
+(their domain pointed at it), or the same repo deployed in their cloud with
+their portal folder and bucket.
 
 **Claude Code skills** (in `.claude/skills/` of this repo, so anyone on the team
 can run them):
@@ -219,3 +214,4 @@ can run them):
 | 2026-10-07 | Shareable answer links with link previews; fuller stories (summary, three numbers, highlighted figures). All saved stories fact-checked by hand |
 | 2026-10-07 | Stories rewritten as one narrative (opening, connected chapters, bottom line); clearer charts |
 | 2026-10-07 | Automatic fact check on every live story (about 2 to 3 cents more per question); client domains; data upload to object storage; portal-refresh and ask-cost-report skills |
+| 2026-10-12 | Document-search demos (/security, /governance, /demo/<brand>) removed: no use, and they shared the API key. Old links go to the homepage |

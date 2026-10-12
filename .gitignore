@@ -8,3 +8,5 @@ tsconfig.tsbuildinfo
 lib/ask/portals.generated.json
 public/p/
 .cache/
+# Portal data files live in Vercel Blob (scripts/upload-data.mjs); the local build copy stays out of git.
+public/data/

@@ -1,8 +1,7 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
-import { clientIp } from '../../../lib/rateLimit'
 import { cacheGet, cachePut, checkAndCount } from '../../../lib/ask/guard'
 import { MAX_QUESTION_LENGTH, Story, checkStory, cleanResults, shareKey, storyKey, useToken, writeStory } from '../../../lib/ask/engine'
-import { isAdmin, log, REFUSAL_STATUS } from '../../../lib/ask/http'
+import { clientIp, isAdmin, log, REFUSAL_STATUS } from '../../../lib/ask/http'
 import { getPortal } from '../../../lib/ask/portals'
 
 export const config = { maxDuration: 60 }

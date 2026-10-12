@@ -46,7 +46,6 @@ for (const slug of fs.readdirSync(dir).sort()) {
   const src = portal.source
   const isDefault = slug === defaultSlug
   const footer = [
-    isDefault ? `<p class="other-demos">Looking for the earlier demos? <a href="/security">Security advisories search</a> · <a href="/governance">Data governance search</a></p>` : '',
     `Built with PortalJS by Datopian. Data: ${esc(portal.owner)}, ${esc(src.name)}${src.licence ? `, ${esc(src.licence)}` : ''}.`,
     portal.live
       ? ` The first example questions were answered in advance. Other questions about the ${portal.datasets.length} connected datasets are answered live: AI writes the queries, they run on the data in your browser, and AI writes the story from their results. Every number comes from the query shown under its chart. Live questions are limited each day.`
@@ -69,5 +68,7 @@ for (const slug of fs.readdirSync(dir).sort()) {
   console.log(`portal ${slug}: ${portal.datasets.length} datasets, ${instant.length} instant answers${isDefault ? ' (default, served at /)' : ''}`)
 }
 if (!portals[defaultSlug]) throw new Error(`portals/index.json default "${defaultSlug}" has no folder`)
+// Data files aren't in git: on Vercel every portal must point at its uploaded copy.
+if (process.env.VERCEL) for (const [slug, p] of Object.entries(portals)) if (!p.data.remote) throw new Error(`portal ${slug} has no data.remote: upload its data first (scripts/upload-data.mjs ${slug})`)
 for (const [host, slug] of Object.entries(domains)) if (!portals[slug]) throw new Error(`portals/index.json domain ${host} points to "${slug}", which has no folder`)
 fs.writeFileSync(path.join(root, 'lib/ask/portals.generated.json'), JSON.stringify({ default: defaultSlug, portals }))
