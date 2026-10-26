@@ -1,0 +1,777 @@
+[
+ {
+  "q": "Is COVID-19 rising or falling in England?",
+  "queries": [
+   {
+    "id": "q1",
+    "purpose": "England COVID test positivity, weekly (7-day rolling value each Sunday-ish), last 12 weeks to 19 Oct 2026",
+    "chart": "columns",
+    "unit": "% of tests positive, 7-day rolling",
+    "sql": "SELECT strftime(day, '%d %b') AS label, ROUND(value, 2) AS value FROM covid_daily WHERE measure = 'test positivity' AND geography = 'England' AND day > DATE '2026-10-19' - INTERVAL 84 DAY AND (DATE '2026-10-19' - day) % 7 = 0 ORDER BY day LIMIT 30",
+    "rows": [
+     {
+      "label": "03 Aug",
+      "value": 1.7
+     },
+     {
+      "label": "10 Aug",
+      "value": 2.24
+     },
+     {
+      "label": "17 Aug",
+      "value": 2.63
+     },
+     {
+      "label": "24 Aug",
+      "value": 2.95
+     },
+     {
+      "label": "31 Aug",
+      "value": 3.73
+     },
+     {
+      "label": "07 Sep",
+      "value": 5.01
+     },
+     {
+      "label": "14 Sep",
+      "value": 6.38
+     },
+     {
+      "label": "21 Sep",
+      "value": 7.51
+     },
+     {
+      "label": "28 Sep",
+      "value": 8.8
+     },
+     {
+      "label": "05 Oct",
+      "value": 9.3
+     },
+     {
+      "label": "12 Oct",
+      "value": 9.3
+     },
+     {
+      "label": "19 Oct",
+      "value": 9.11
+     }
+    ]
+   },
+   {
+    "id": "q2",
+    "purpose": "England COVID hospital admissions per day (7-day average count), weekly, last 12 weeks to 30 Sep 2026",
+    "chart": "columns",
+    "unit": "admissions per day, 7-day average",
+    "sql": "SELECT strftime(day, '%d %b') AS label, ROUND(value, 1) AS value FROM covid_daily WHERE measure = 'hospital admissions' AND geography = 'England' AND day > DATE '2026-09-30' - INTERVAL 84 DAY AND (DATE '2026-09-30' - day) % 7 = 0 ORDER BY day LIMIT 30",
+    "rows": [
+     {
+      "label": "15 Jul",
+      "value": 12.7
+     },
+     {
+      "label": "22 Jul",
+      "value": 15.6
+     },
+     {
+      "label": "29 Jul",
+      "value": 19.1
+     },
+     {
+      "label": "05 Aug",
+      "value": 24.1
+     },
+     {
+      "label": "12 Aug",
+      "value": 27.9
+     },
+     {
+      "label": "19 Aug",
+      "value": 30.9
+     },
+     {
+      "label": "26 Aug",
+      "value": 33.4
+     },
+     {
+      "label": "02 Sep",
+      "value": 42.3
+     },
+     {
+      "label": "09 Sep",
+      "value": 60.1
+     },
+     {
+      "label": "16 Sep",
+      "value": 98.6
+     },
+     {
+      "label": "23 Sep",
+      "value": 125
+     },
+     {
+      "label": "30 Sep",
+      "value": 166.9
+     }
+    ]
+   },
+   {
+    "id": "q3",
+    "purpose": "England COVID patients in hospital (beds occupied, 7-day average), weekly, last 12 weeks to 30 Sep 2026",
+    "chart": "columns",
+    "unit": "beds occupied, 7-day average",
+    "sql": "SELECT strftime(day, '%d %b') AS label, ROUND(value, 0) AS value FROM covid_daily WHERE measure = 'patients in hospital' AND geography = 'England' AND day > DATE '2026-09-30' - INTERVAL 84 DAY AND (DATE '2026-09-30' - day) % 7 = 0 ORDER BY day LIMIT 30",
+    "rows": [
+     {
+      "label": "15 Jul",
+      "value": 140
+     },
+     {
+      "label": "22 Jul",
+      "value": 127
+     },
+     {
+      "label": "29 Jul",
+      "value": 140
+     },
+     {
+      "label": "05 Aug",
+      "value": 156
+     },
+     {
+      "label": "12 Aug",
+      "value": 179
+     },
+     {
+      "label": "19 Aug",
+      "value": 233
+     },
+     {
+      "label": "26 Aug",
+      "value": 235
+     },
+     {
+      "label": "02 Sep",
+      "value": 275
+     },
+     {
+      "label": "09 Sep",
+      "value": 352
+     },
+     {
+      "label": "16 Sep",
+      "value": 474
+     },
+     {
+      "label": "23 Sep",
+      "value": 673
+     },
+     {
+      "label": "30 Sep",
+      "value": 930
+     }
+    ]
+   }
+  ],
+  "story": {
+   "lead": "COVID-19 has been rising, but positivity has levelled off",
+   "highlight": "rising",
+   "summary": "UKHSA's published figures show COVID-19 climbing in England through late summer and early autumn. The share of tests coming back positive went from **1.7%** in early August to **9.11%** on 19 October. Hospital numbers, which only run to 30 September, rose even faster: about **167** new admissions a day, up from about **13** in mid-July. Here is how the three measures moved.",
+   "sub": "England, UKHSA data dashboard, as published on 26 Oct 2026: test positivity to 19 Oct 2026, hospital figures to 30 Sep 2026.",
+   "facts": [
+    {
+     "value": "9.11%",
+     "label": "tests positive on 19 Oct 2026, up from 1.7% on 3 Aug"
+    },
+    {
+     "value": "166.9 a day",
+     "label": "hospital admissions on 30 Sep, up from 12.7 on 15 Jul"
+    },
+    {
+     "value": "930",
+     "label": "beds occupied by COVID patients on 30 Sep"
+    }
+   ],
+   "points": [
+    {
+     "h": "Positive tests climbed for two months, then paused",
+     "p": "Start with the test results, which are the most recent data. The share of COVID tests that were positive rose every week from **1.7%** on 3 Aug to **9.3%** on 5 Oct. That is more than five times higher. It then stayed at **9.3%** on 12 Oct and edged down to **9.11%** on 19 Oct. So the rise has stopped for now, but one small dip is too little to say it is falling."
+    },
+    {
+     "h": "Hospital admissions rose much faster than tests",
+     "p": "Hospitals tell a sharper story, though their figures stop on 30 Sep, three weeks before the test data. The average number of people admitted each day went from **12.7** on 15 Jul to **166.9** on 30 Sep. That is about thirteen times higher. The jump was steepest in September, when it went from **42.3** on 2 Sep to **166.9** on 30 Sep. At that point, admissions were still going up."
+    },
+    {
+     "h": "Hospital beds filled up in step",
+     "p": "The number of beds taken by COVID patients followed the same path. It stayed near **140** in July, then reached **930** on 30 Sep. That is about six and a half times the July level. Each week in September added more than the week before, with **673** on 23 Sep and **930** a week later. We can't see beds after 30 Sep, so we can't tell whether hospitals have levelled off like the tests."
+    }
+   ],
+   "takeaway": "COVID-19 has clearly risen in England since the summer, in tests, admissions and hospital beds. The latest test results suggest the climb may be slowing, with 9.3% twice and then 9.11%. Hospital figures end on 30 Sep, still rising, so they can't yet confirm a turn.",
+   "note": "Hospital admissions here are a count of people per day, not a rate, and every figure is a 7-day rolling average.",
+   "next": [
+    "How does COVID positivity differ between English regions in the latest weeks?",
+    "How does flu positivity compare with COVID positivity this autumn?",
+    "How does this autumn's COVID positivity compare with autumn 2023 and 2024?"
+   ],
+   "sources": [
+    "more than five times: 9.3 / 1.7 = 5.5",
+    "about thirteen times: 166.9 / 12.7 = 13.1",
+    "about six and a half times: 930 / 140 = 6.6",
+    "about 13 admissions a day: 12.7 on 15 Jul",
+    "about 167: 166.9 on 30 Sep",
+    "9.3% twice: 05 Oct = 9.3, 12 Oct = 9.3"
+   ]
+  },
+  "created": "2026-10-26"
+ },
+ {
+  "q": "How many COVID-19 patients are in hospital?",
+  "queries": [
+   {
+    "id": "q1",
+    "purpose": "Latest weekly COVID patients in hospital, England (7-day average beds occupied, last day of each week, last 26 weeks to 30 Sep 2026)",
+    "chart": "columns",
+    "unit": "beds occupied (7-day average)",
+    "sql": "SELECT strftime(day, '%d %b %Y') AS label, ROUND(value, 0) AS value FROM covid_daily WHERE measure = 'patients in hospital' AND geography = 'England' AND day <= DATE '2026-09-30' AND day > DATE '2026-09-30' - INTERVAL 182 DAY AND (DATE '2026-09-30' - day) % 7 = 0 ORDER BY day LIMIT 30",
+    "rows": [
+     {
+      "label": "08 Apr 2026",
+      "value": 321
+     },
+     {
+      "label": "15 Apr 2026",
+      "value": 317
+     },
+     {
+      "label": "22 Apr 2026",
+      "value": 272
+     },
+     {
+      "label": "29 Apr 2026",
+      "value": 234
+     },
+     {
+      "label": "06 May 2026",
+      "value": 233
+     },
+     {
+      "label": "13 May 2026",
+      "value": 224
+     },
+     {
+      "label": "20 May 2026",
+      "value": 202
+     },
+     {
+      "label": "27 May 2026",
+      "value": 206
+     },
+     {
+      "label": "03 Jun 2026",
+      "value": 177
+     },
+     {
+      "label": "10 Jun 2026",
+      "value": 152
+     },
+     {
+      "label": "17 Jun 2026",
+      "value": 126
+     },
+     {
+      "label": "24 Jun 2026",
+      "value": 136
+     },
+     {
+      "label": "01 Jul 2026",
+      "value": 140
+     },
+     {
+      "label": "08 Jul 2026",
+      "value": 137
+     },
+     {
+      "label": "15 Jul 2026",
+      "value": 140
+     },
+     {
+      "label": "22 Jul 2026",
+      "value": 127
+     },
+     {
+      "label": "29 Jul 2026",
+      "value": 140
+     },
+     {
+      "label": "05 Aug 2026",
+      "value": 156
+     },
+     {
+      "label": "12 Aug 2026",
+      "value": 179
+     },
+     {
+      "label": "19 Aug 2026",
+      "value": 233
+     },
+     {
+      "label": "26 Aug 2026",
+      "value": 235
+     },
+     {
+      "label": "02 Sep 2026",
+      "value": 275
+     },
+     {
+      "label": "09 Sep 2026",
+      "value": 352
+     },
+     {
+      "label": "16 Sep 2026",
+      "value": 474
+     },
+     {
+      "label": "23 Sep 2026",
+      "value": 673
+     },
+     {
+      "label": "30 Sep 2026",
+      "value": 930
+     }
+    ]
+   },
+   {
+    "id": "q2",
+    "purpose": "Same date compared across recent years: patients in hospital on 30 Sep (7-day average, England)",
+    "chart": "columns",
+    "unit": "beds occupied (7-day average)",
+    "sql": "SELECT strftime(day, '%Y') AS label, ROUND(value, 0) AS value FROM covid_daily WHERE measure = 'patients in hospital' AND geography = 'England' AND strftime(day, '%m-%d') = '09-30' AND day >= DATE '2023-09-01' ORDER BY day LIMIT 30",
+    "rows": [
+     {
+      "label": "2023",
+      "value": 3439
+     },
+     {
+      "label": "2024",
+      "value": 2681
+     },
+     {
+      "label": "2025",
+      "value": 1906
+     },
+     {
+      "label": "2026",
+      "value": 930
+     }
+    ]
+   },
+   {
+    "id": "q3",
+    "purpose": "Average monthly COVID patients in hospital, England, since Oct 2025 (to 30 Sep 2026)",
+    "chart": "columns",
+    "unit": "beds occupied (7-day average, monthly mean)",
+    "sql": "SELECT strftime(date_trunc('month', day), '%b %Y') AS label, ROUND(AVG(value), 0) AS value FROM covid_daily WHERE measure = 'patients in hospital' AND geography = 'England' AND day >= DATE '2025-10-01' AND day <= DATE '2026-09-30' GROUP BY date_trunc('month', day) ORDER BY date_trunc('month', day) LIMIT 30",
+    "rows": [
+     {
+      "label": "Oct 2025",
+      "value": 2189
+     },
+     {
+      "label": "Nov 2025",
+      "value": 1196
+     },
+     {
+      "label": "Dec 2025",
+      "value": 741
+     },
+     {
+      "label": "Jan 2026",
+      "value": 656
+     },
+     {
+      "label": "Feb 2026",
+      "value": 572
+     },
+     {
+      "label": "Mar 2026",
+      "value": 466
+     },
+     {
+      "label": "Apr 2026",
+      "value": 300
+     },
+     {
+      "label": "May 2026",
+      "value": 216
+     },
+     {
+      "label": "Jun 2026",
+      "value": 145
+     },
+     {
+      "label": "Jul 2026",
+      "value": 137
+     },
+     {
+      "label": "Aug 2026",
+      "value": 203
+     },
+     {
+      "label": "Sep 2026",
+      "value": 514
+     }
+    ]
+   }
+  ],
+  "story": {
+   "lead": "About 930 COVID patients are in hospital, rising fast",
+   "highlight": "930",
+   "summary": "UKHSA's published figures show an average of **930** hospital beds in England occupied by COVID-19 patients on 30 September 2026, the latest day available. That is more than **seven times** the **127** recorded in late July (the lowest weekly figure was 126 in mid-June). Yet it is still far below the same date in recent years. The charts below show the recent climb, the comparison with past years, and the year as a whole.",
+   "sub": "England, UKHSA published figures as of 26 Oct 2026; patients in hospital (7-day average), Oct 2025 to 30 Sep 2026.",
+   "facts": [
+    {
+     "value": "930",
+     "label": "COVID patients in hospital, England, 30 Sep 2026"
+    },
+    {
+     "value": "127",
+     "label": "summer level, 22 July 2026"
+    },
+    {
+     "value": "3,439",
+     "label": "patients in hospital on 30 Sep 2023"
+    }
+   ],
+   "points": [
+    {
+     "h": "Numbers have climbed sharply since the summer lull",
+     "p": "Start with the last six months. Hospital COVID patients fell from **321** in early April to a steady level of about 130 to 140 through the summer, with a low of **126** on 17 June. Since early August the numbers have risen every week. They went from **352** on 9 September to **673** a fortnight later, on 23 September and then **930** on 30 September. The last week alone added 257 patients, so the rise is speeding up."
+    },
+    {
+     "h": "Even so, it is far lower than in past autumns",
+     "p": "Is this high? Compared with the same date in earlier years, no. On 30 September, **3,439** patients were in hospital in 2023, then **2,681** in 2024 and **1,906** in 2025. This year's **930** is about half of last year's, and roughly a quarter of the 2023 figure. Each year has been lower than the one before on this date."
+    },
+    {
+     "h": "Over the year, the autumn peak has long since faded",
+     "p": "Zooming out shows where this rise sits in the past twelve months. October 2025 averaged **2,189** patients, then numbers fell month after month to just **137** in July 2026. The climb since then brought August to **203** and September to **514**. September 2026 is still well below October 2025. The latest figures show a rise from a low base, and they say nothing yet about where it will stop."
+    }
+   ],
+   "takeaway": "COVID hospital numbers in England are climbing quickly from a very low summer level, reaching 930 on 30 September. They are still much lower than on the same date in each of the last three years. The figures end on that date, so they do not show the most recent weeks.",
+   "note": "These are beds occupied, shown as a 7-day average; patient figures end on 30 Sep 2026 and the latest week can be revised.",
+   "next": [
+    "What is the COVID test positivity rate in England now?",
+    "How many people are being admitted to hospital with COVID each day?",
+    "How does flu hospital admission compare with last year?"
+   ],
+   "sources": [
+    "seven times: 930 / 127 = 7.3",
+    "257: 930 - 673 = 257",
+    "about half of last year's: 930 / 1,906 = 0.49",
+    "roughly a quarter of 2023: 930 / 3,439 = 0.27",
+    "about 130 to 140 through the summer: 01 Jul = 140, 08 Jul = 137, 15 Jul = 140, 22 Jul = 127, 29 Jul = 140"
+   ]
+  },
+  "created": "2026-10-26"
+ },
+ {
+  "q": "Flu vs COVID-19 vs RSV test positivity right now?",
+  "queries": [
+   {
+    "id": "q3",
+    "purpose": "COVID-19 positivity trend, last 8 weeks (weekly, Mondays)",
+    "chart": "columns",
+    "unit": "% of tests positive, 7-day rolling",
+    "sql": "SELECT strftime(day, '%d %b') AS label, ROUND(value, 2) AS value FROM covid_daily WHERE measure = 'test positivity' AND geography = 'England' AND day IN (SELECT CAST(DATE '2026-10-19' - CAST(7 * i AS INTEGER) AS DATE) FROM range(0, 8) AS t(i)) ORDER BY day",
+    "rows": [
+     {
+      "label": "31 Aug",
+      "value": 3.73
+     },
+     {
+      "label": "07 Sep",
+      "value": 5.01
+     },
+     {
+      "label": "14 Sep",
+      "value": 6.38
+     },
+     {
+      "label": "21 Sep",
+      "value": 7.51
+     },
+     {
+      "label": "28 Sep",
+      "value": 8.8
+     },
+     {
+      "label": "05 Oct",
+      "value": 9.3
+     },
+     {
+      "label": "12 Oct",
+      "value": 9.3
+     },
+     {
+      "label": "19 Oct",
+      "value": 9.11
+     }
+    ]
+   }
+  ],
+  "story": {
+   "lead": "COVID-19 tests 9.1% positive, ahead of flu's 6%",
+   "highlight": "COVID-19",
+   "summary": "About 9 in every 100 COVID-19 tests in England came back positive in the latest figures, on 19 October. UKHSA's published figures show flu at **5.99%** for the week starting 12 October, so COVID-19 is higher by about three percentage points. COVID-19 positivity has risen from **3.73%** to **9.11%** in the last eight weeks. The results I was given only cover COVID-19, so I can't give a figure for RSV.",
+   "sub": "England, COVID-19 test positivity (7-day rolling) on Mondays, 31 Aug to 19 Oct 2026, as published on 26 Oct 2026; flu figure for the week starting 12 Oct.",
+   "facts": [
+    {
+     "value": "9.11%",
+     "label": "COVID-19 tests positive, 19 October"
+    },
+    {
+     "value": "3.73%",
+     "label": "COVID-19 positivity eight weeks earlier, 31 August"
+    },
+    {
+     "value": "5.99%",
+     "label": "Flu tests positive, week starting 12 October"
+    }
+   ],
+   "points": [
+    {
+     "h": "COVID-19 climbed for weeks, then levelled off",
+     "p": "The share of COVID-19 tests coming back positive in England rose every week from **3.73%** on 31 August to **9.3%** on 5 October. That is about **2.4 times** higher in just over a month. It held at 9.3% on 12 October and then dipped slightly to **9.11%** on 19 October. For comparison, UKHSA's published figures show flu at **5.99%** in the week starting 12 October, when COVID-19 was at 9.3%. These are different tests for different viruses, so the comparison is only rough. This chart says nothing about RSV."
+    }
+   ],
+   "takeaway": "Right now, COVID-19 has the highest share of positive tests of the two viruses I can compare, with flu lower. The COVID-19 rise has slowed and may have stopped for now. RSV is missing from these results, so the full three-way comparison isn't answered here.",
+   "note": "Positivity is the share of tests that were positive, not the number of people infected, and the tests behind each virus differ.",
+   "next": [
+    "What is RSV test positivity in England right now?",
+    "How does flu positivity this October compare with a year ago?",
+    "Which age group has the highest flu hospital admission rate this autumn?"
+   ],
+   "sources": [
+    "about 9 in 100: COVID-19 positivity 19 Oct = 9.11%",
+    "about three percentage points: 9.11 - 5.99 = 3.12",
+    "2.4 times: 9.3 (05 Oct) / 3.73 (31 Aug) = 2.49, rounded down for the rise to 9.11 (9.11 / 3.73 = 2.44)",
+    "5.99%: UKHSA's latest England flu test positivity, week starting 2026-10-12 (from the data notes, not the chart rows)",
+    "eight weeks: 31 Aug to 19 Oct has 8 weekly rows"
+   ]
+  },
+  "created": "2026-10-26"
+ },
+ {
+  "q": "How does COVID-19 positivity differ by region?",
+  "queries": [
+   {
+    "id": "q1",
+    "purpose": "Average COVID-19 test positivity by region, last 4 weeks (22 Sep to 19 Oct 2026)",
+    "chart": "bars",
+    "unit": "% of tests positive (7-day rolling, averaged)",
+    "sql": "SELECT geography AS label, ROUND(AVG(value), 2) AS value FROM covid_daily WHERE measure = 'test positivity' AND day BETWEEN DATE '2026-09-22' AND DATE '2026-10-19' GROUP BY geography ORDER BY value DESC LIMIT 30",
+    "rows": [
+     {
+      "label": "West Midlands",
+      "value": 11.74
+     },
+     {
+      "label": "London",
+      "value": 9.6
+     },
+     {
+      "label": "Yorkshire and Humber",
+      "value": 9.31
+     },
+     {
+      "label": "North West",
+      "value": 9.14
+     },
+     {
+      "label": "England",
+      "value": 9.01
+     },
+     {
+      "label": "East of England",
+      "value": 8.2
+     },
+     {
+      "label": "South East",
+      "value": 8.11
+     },
+     {
+      "label": "East Midlands",
+      "value": 7.9
+     },
+     {
+      "label": "South West",
+      "value": 7.9
+     },
+     {
+      "label": "North East",
+      "value": 7.49
+     }
+    ]
+   },
+   {
+    "id": "q2",
+    "purpose": "Same comparison a year earlier (22 Sep to 19 Oct 2025)",
+    "chart": "bars",
+    "unit": "% of tests positive (7-day rolling, averaged)",
+    "sql": "SELECT geography AS label, ROUND(AVG(value), 2) AS value FROM covid_daily WHERE measure = 'test positivity' AND day BETWEEN DATE '2025-09-22' AND DATE '2025-10-19' GROUP BY geography ORDER BY value DESC LIMIT 30",
+    "rows": [
+     {
+      "label": "West Midlands",
+      "value": 14.83
+     },
+     {
+      "label": "Yorkshire and Humber",
+      "value": 14.63
+     },
+     {
+      "label": "East Midlands",
+      "value": 14.11
+     },
+     {
+      "label": "North East",
+      "value": 13.68
+     },
+     {
+      "label": "South West",
+      "value": 12.47
+     },
+     {
+      "label": "England",
+      "value": 12.05
+     },
+     {
+      "label": "North West",
+      "value": 12.04
+     },
+     {
+      "label": "South East",
+      "value": 11.82
+     },
+     {
+      "label": "East of England",
+      "value": 11.14
+     },
+     {
+      "label": "London",
+      "value": 6.81
+     }
+    ]
+   },
+   {
+    "id": "q3",
+    "purpose": "England COVID-19 positivity each Monday, recent trend",
+    "chart": "columns",
+    "unit": "% of tests positive (7-day rolling)",
+    "sql": "SELECT strftime(day, '%d %b') AS label, ROUND(value, 2) AS value FROM covid_daily WHERE measure = 'test positivity' AND geography = 'England' AND day BETWEEN DATE '2026-07-27' AND DATE '2026-10-19' AND dayofweek(day) = 1 ORDER BY day LIMIT 30",
+    "rows": [
+     {
+      "label": "27 Jul",
+      "value": 1.44
+     },
+     {
+      "label": "03 Aug",
+      "value": 1.7
+     },
+     {
+      "label": "10 Aug",
+      "value": 2.24
+     },
+     {
+      "label": "17 Aug",
+      "value": 2.63
+     },
+     {
+      "label": "24 Aug",
+      "value": 2.95
+     },
+     {
+      "label": "31 Aug",
+      "value": 3.73
+     },
+     {
+      "label": "07 Sep",
+      "value": 5.01
+     },
+     {
+      "label": "14 Sep",
+      "value": 6.38
+     },
+     {
+      "label": "21 Sep",
+      "value": 7.51
+     },
+     {
+      "label": "28 Sep",
+      "value": 8.8
+     },
+     {
+      "label": "05 Oct",
+      "value": 9.3
+     },
+     {
+      "label": "12 Oct",
+      "value": 9.3
+     },
+     {
+      "label": "19 Oct",
+      "value": 9.11
+     }
+    ]
+   }
+  ],
+  "story": {
+   "lead": "COVID positivity is highest in the West Midlands",
+   "highlight": "West Midlands",
+   "summary": "Over the last four weeks, about **12 in every 100** COVID tests came back positive in the West Midlands. In the North East it was about **7 or 8 in 100**. Across England as a whole the figure was **9.01%**. UKHSA's published figures show the gap between regions is real but modest, and the picture looks quite different from a year ago.",
+   "sub": "UKHSA COVID-19 test positivity (7-day rolling), England and its 9 regions, 22 Sep to 19 Oct 2026, as published on 26 Oct 2026.",
+   "facts": [
+    {
+     "value": "11.74%",
+     "label": "West Midlands, highest region, last 4 weeks"
+    },
+    {
+     "value": "7.49%",
+     "label": "North East, lowest region, last 4 weeks"
+    },
+    {
+     "value": "9.01% vs 12.05%",
+     "label": "England now vs same weeks a year earlier"
+    }
+   ],
+   "points": [
+    {
+     "h": "The West Midlands stands out; the North East is lowest",
+     "p": "Positivity is the share of tests that find COVID. Averaged over the last four weeks, the West Midlands was highest at **11.74%**, which is 2.73 points above England's **9.01%**. The North East was lowest at **7.49%**, so the West Midlands rate was about one and a half times as high. The other seven regions sit close together, between 7.9% and 9.6%. London was the highest of them at 9.6%. Small gaps within that group should not be over-read."
+    },
+    {
+     "h": "A year ago, nearly every region was higher",
+     "p": "Now compare the same four weeks in 2025. England averaged **12.05%** then, against 9.01% now. Eight of the nine regions were higher a year ago. The West Midlands was top then too, at **14.83%**. The East Midlands, at 14.11%, was well above its 7.9% today. London is the exception: it was lowest a year ago at **6.81%** and is higher now at 9.6%. So the regional order has shifted even though the West Midlands stayed at the top."
+    },
+    {
+     "h": "England's rate climbed through late summer, then levelled off",
+     "p": "Why is positivity at this level now? The weekly trend for England shows it was low in summer, at **1.44%** on 27 July. It then rose every week to **9.3%** on 5 October, more than six times higher. It stayed at 9.3% on 12 October and dipped slightly to 9.11% on 19 October. So the regional differences sit on top of a national rise that has recently stopped climbing."
+    }
+   ],
+   "takeaway": "The West Midlands has the highest share of positive COVID tests and the North East the lowest, but most regions are bunched near the England figure of 9%. Compared with a year ago, almost every region is lower, with London the exception. England's rate rose steeply since July and has now flattened.",
+   "note": "Positivity is the share of tests that are positive, not the number of people with COVID, and the figures are 7-day rolling values averaged over four weeks.",
+   "next": [
+    "How does flu positivity differ by region this autumn?",
+    "How does COVID positivity in England compare with flu and RSV positivity?",
+    "Which age group has the highest flu hospital admission rate this autumn?"
+   ],
+   "sources": [
+    "2.73 points: West Midlands 11.74 minus England 9.01",
+    "about one and a half times: 11.74 / 7.49 = 1.57",
+    "between 7.9% and 9.6%: East Midlands 7.9, South West 7.9, South East 8.11, East of England 8.2, North West 9.14, Yorkshire and Humber 9.31, London 9.6",
+    "Eight of nine regions higher a year ago: West Midlands 14.83 vs 11.74, Yorkshire and Humber 14.63 vs 9.31, East Midlands 14.11 vs 7.9, North East 13.68 vs 7.49, South West 12.47 vs 7.9, North West 12.",
+    "more than six times: 9.3 / 1.44 = 6.5 (5 Oct vs 27 Jul)"
+   ]
+  },
+  "created": "2026-10-26"
+ }
+]

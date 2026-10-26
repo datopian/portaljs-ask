@@ -48,20 +48,10 @@
   ],
   "datasets": [
     {
-      "id": "influenza",
-      "title": "Influenza (UKHSA data dashboard)",
+      "id": "influenza-rsv",
+      "title": "Influenza and RSV (UKHSA data dashboard)",
       "url": "https://ukhsa-dashboard.data.gov.uk/topics/influenza",
-      "note": "Weekly test positivity, hospital and ICU/HDU admission rates for England and its 9 regions, and admission rates by age. Latest week 12 Oct 2026.",
-      "tables": [
-        "weekly",
-        "admissions_by_age"
-      ]
-    },
-    {
-      "id": "rsv",
-      "title": "RSV (UKHSA data dashboard)",
-      "url": "https://ukhsa-dashboard.data.gov.uk/topics/rsv",
-      "note": "Weekly test positivity for England and its 9 regions, and hospital admission rates for England, overall and by age. Latest week 12 Oct 2026.",
+      "note": "Weekly test positivity and hospital admission rates for England and its 9 regions (flu ICU/HDU too; RSV admissions England only), plus admission rates by age. Latest week 12 Oct 2026.",
       "tables": [
         "weekly",
         "admissions_by_age"
