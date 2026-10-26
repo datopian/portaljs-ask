@@ -773,5 +773,2343 @@
    ]
   },
   "created": "2026-10-26"
+ },
+ {
+  "q": "Is flu rising, and are hospital admissions following?",
+  "queries": [
+   {
+    "id": "q1",
+    "purpose": "England flu test positivity (% of tests positive), recent weeks",
+    "chart": "columns",
+    "unit": "% of tests positive",
+    "sql": "SELECT strftime(week_start, '%d %b %Y') AS label, ROUND(value, 2) AS value FROM weekly WHERE virus = 'Flu' AND measure = 'test positivity' AND geography = 'England' AND week_start >= DATE '2026-07-20' AND week_start <= DATE '2026-10-12' ORDER BY week_start LIMIT 30",
+    "rows": [
+     {
+      "label": "20 Jul 2026",
+      "value": 0.45
+     },
+     {
+      "label": "27 Jul 2026",
+      "value": 0.81
+     },
+     {
+      "label": "03 Aug 2026",
+      "value": 1.08
+     },
+     {
+      "label": "10 Aug 2026",
+      "value": 1.62
+     },
+     {
+      "label": "17 Aug 2026",
+      "value": 2.22
+     },
+     {
+      "label": "24 Aug 2026",
+      "value": 2.35
+     },
+     {
+      "label": "31 Aug 2026",
+      "value": 2.47
+     },
+     {
+      "label": "07 Sep 2026",
+      "value": 3.44
+     },
+     {
+      "label": "14 Sep 2026",
+      "value": 4.5
+     },
+     {
+      "label": "21 Sep 2026",
+      "value": 5.41
+     },
+     {
+      "label": "28 Sep 2026",
+      "value": 5.55
+     },
+     {
+      "label": "05 Oct 2026",
+      "value": 6.33
+     },
+     {
+      "label": "12 Oct 2026",
+      "value": 5.99
+     }
+    ]
+   },
+   {
+    "id": "q2",
+    "purpose": "England flu hospital admissions (per 100,000 people), same weeks",
+    "chart": "columns",
+    "unit": "admissions per 100,000 people",
+    "sql": "SELECT strftime(week_start, '%d %b %Y') AS label, ROUND(value, 2) AS value FROM weekly WHERE virus = 'Flu' AND measure = 'hospital admissions' AND geography = 'England' AND week_start >= DATE '2026-07-20' AND week_start <= DATE '2026-10-12' ORDER BY week_start LIMIT 30",
+    "rows": [
+     {
+      "label": "20 Jul 2026",
+      "value": 0.17
+     },
+     {
+      "label": "27 Jul 2026",
+      "value": 0.38
+     },
+     {
+      "label": "03 Aug 2026",
+      "value": 0.4
+     },
+     {
+      "label": "10 Aug 2026",
+      "value": 0.5
+     },
+     {
+      "label": "17 Aug 2026",
+      "value": 0.58
+     },
+     {
+      "label": "24 Aug 2026",
+      "value": 0.69
+     },
+     {
+      "label": "31 Aug 2026",
+      "value": 0.5
+     },
+     {
+      "label": "07 Sep 2026",
+      "value": 0.7
+     },
+     {
+      "label": "14 Sep 2026",
+      "value": 0.64
+     },
+     {
+      "label": "21 Sep 2026",
+      "value": 1.12
+     },
+     {
+      "label": "28 Sep 2026",
+      "value": 1.81
+     },
+     {
+      "label": "05 Oct 2026",
+      "value": 1.81
+     },
+     {
+      "label": "12 Oct 2026",
+      "value": 1.94
+     }
+    ]
+   },
+   {
+    "id": "q3",
+    "purpose": "England flu ICU/HDU admissions (per 100,000 people), same weeks",
+    "chart": "columns",
+    "unit": "ICU/HDU admissions per 100,000 people",
+    "sql": "SELECT strftime(week_start, '%d %b %Y') AS label, ROUND(value, 3) AS value FROM weekly WHERE virus = 'Flu' AND measure = 'ICU/HDU admissions' AND geography = 'England' AND week_start >= DATE '2026-07-20' AND week_start <= DATE '2026-10-12' ORDER BY week_start LIMIT 30",
+    "rows": [
+     {
+      "label": "20 Jul 2026",
+      "value": 0.02
+     },
+     {
+      "label": "27 Jul 2026",
+      "value": 0.01
+     },
+     {
+      "label": "03 Aug 2026",
+      "value": 0.02
+     },
+     {
+      "label": "10 Aug 2026",
+      "value": 0.02
+     },
+     {
+      "label": "17 Aug 2026",
+      "value": 0.02
+     },
+     {
+      "label": "24 Aug 2026",
+      "value": 0.01
+     },
+     {
+      "label": "31 Aug 2026",
+      "value": 0.02
+     },
+     {
+      "label": "07 Sep 2026",
+      "value": 0.05
+     },
+     {
+      "label": "14 Sep 2026",
+      "value": 0.05
+     },
+     {
+      "label": "21 Sep 2026",
+      "value": 0.1
+     },
+     {
+      "label": "28 Sep 2026",
+      "value": 0.06
+     },
+     {
+      "label": "05 Oct 2026",
+      "value": 0.07
+     },
+     {
+      "label": "12 Oct 2026",
+      "value": 0.08
+     }
+    ]
+   }
+  ],
+  "story": {
+   "lead": "Yes, flu is rising, and hospitals are following.",
+   "highlight": "rising",
+   "summary": "Flu has been climbing in England since July. UKHSA's published figures show the share of flu tests coming back positive rose from **0.45%** to **5.99%** by the week starting 12 October. Hospital admissions have risen too, from **0.17** to **1.94** per 100,000 people. The charts below take positivity, hospital admissions and intensive care in turn.",
+   "sub": "England, weekly flu figures from 20 Jul to 12 Oct 2026, as published by UKHSA on 26 Oct 2026.",
+   "facts": [
+    {
+     "value": "5.99%",
+     "label": "flu tests positive, week of 12 Oct"
+    },
+    {
+     "value": "1.94 per 100,000",
+     "label": "flu hospital admissions, week of 12 Oct"
+    },
+    {
+     "value": "0.08 per 100,000",
+     "label": "flu ICU/HDU admissions, week of 12 Oct"
+    }
+   ],
+   "points": [
+    {
+     "h": "Positive flu tests rose for eleven weeks in a row",
+     "p": "Start with testing. In the week starting 20 July, **0.45%** of flu tests were positive. By the week of 5 October it was **6.33%**, about fourteen times higher. The latest week dipped slightly to **5.99%**, so the climb may be slowing. One week is too little to call a turn."
+    },
+    {
+     "h": "Hospital admissions have caught up with the rise",
+     "p": "Hospitals followed, with a delay. Admissions stayed below 1 per 100,000 people until mid-September, then jumped from **0.64** on 14 September to **1.12** and then **1.81**. The latest week is **1.94**, the highest in this run. Positivity has levelled off in recent weeks, but admissions are still edging up. These are rates per 100,000 people, not counts of patients."
+    },
+    {
+     "h": "Intensive care admissions are rising, but from a very low base",
+     "p": "The most serious cases are a small part of the picture. Intensive care and high-dependency admissions were **0.01** to **0.02** per 100,000 through the summer. They reached **0.1** in the week of 21 September and were **0.08** in the latest week. That is about four times the summer level. It is still a tiny fraction of all flu admissions, which were **1.94** per 100,000 in the same week."
+    }
+   ],
+   "takeaway": "Flu is spreading more widely, and admissions to hospital have followed it up. Positivity may be levelling off, while admissions are still creeping higher. Intensive care admissions are up on the summer but remain small.",
+   "note": "Positivity is the share of tests that find flu. Admissions are rates per 100,000 people. The two use different units and are shown side by side, not added together.",
+   "next": [
+    "How does this October compare with the same weeks last year?",
+    "Which age groups have the highest flu admission rates this autumn?",
+    "How does flu positivity compare with RSV and COVID right now?"
+   ],
+   "sources": [
+    "about fourteen times: 6.33 / 0.45 = 14.1 (5 Oct vs 20 Jul)",
+    "about four times: 0.08 / 0.02 = 4 (12 Oct vs summer weeks at 0.02)",
+    "Admissions below 1 per 100,000 until mid-September: 20 Jul to 14 Sep values range 0.17 to 0.70",
+    "0.1 per 100,000 ICU/HDU: week of 21 Sep, value 0.1"
+   ]
+  },
+  "created": "2026-10-26"
+ },
+ {
+  "q": "Which age groups are being admitted to hospital with flu this autumn?",
+  "queries": [
+   {
+    "id": "q1",
+    "purpose": "Flu admission rate by age group, average of latest 4 weeks (21 Sep to 12 Oct 2026)",
+    "chart": "bars",
+    "unit": "admissions per 100,000 people in that age group",
+    "sql": "SELECT a.age_group AS label, ROUND(AVG(a.admissions_per_100k), 2) AS value FROM admissions_by_age AS a WHERE a.virus = 'Flu' AND a.week_start BETWEEN DATE '2026-09-21' AND DATE '2026-10-12' GROUP BY a.age_group ORDER BY value DESC LIMIT 30",
+    "rows": [
+     {
+      "label": "85+",
+      "value": 8.42
+     },
+     {
+      "label": "75-84",
+      "value": 4.86
+     },
+     {
+      "label": "65-74",
+      "value": 3.53
+     },
+     {
+      "label": "00-04",
+      "value": 1.86
+     },
+     {
+      "label": "55-64",
+      "value": 1.53
+     },
+     {
+      "label": "45-54",
+      "value": 0.95
+     },
+     {
+      "label": "15-44",
+      "value": 0.9
+     },
+     {
+      "label": "05-14",
+      "value": 0.49
+     }
+    ]
+   },
+   {
+    "id": "q2",
+    "purpose": "Flu admission rate by age group, same 4 weeks a year earlier (22 Sep to 13 Oct 2025)",
+    "chart": "bars",
+    "unit": "admissions per 100,000 people in that age group",
+    "sql": "SELECT a.age_group AS label, ROUND(AVG(a.admissions_per_100k), 2) AS value FROM admissions_by_age AS a WHERE a.virus = 'Flu' AND a.week_start BETWEEN DATE '2025-09-22' AND DATE '2025-10-13' GROUP BY a.age_group ORDER BY value DESC LIMIT 30",
+    "rows": [
+     {
+      "label": "85+",
+      "value": 7.02
+     },
+     {
+      "label": "75-84",
+      "value": 2.97
+     },
+     {
+      "label": "00-04",
+      "value": 2.56
+     },
+     {
+      "label": "65-74",
+      "value": 1.51
+     },
+     {
+      "label": "05-14",
+      "value": 1.18
+     },
+     {
+      "label": "15-44",
+      "value": 1.03
+     },
+     {
+      "label": "55-64",
+      "value": 0.95
+     },
+     {
+      "label": "45-54",
+      "value": 0.51
+     }
+    ]
+   },
+   {
+    "id": "q3",
+    "purpose": "England all-ages flu hospital admission rate by week since mid-August 2026",
+    "chart": "columns",
+    "unit": "admissions per 100,000 people",
+    "sql": "SELECT strftime(w.week_start, '%d %b') AS label, ROUND(w.value, 2) AS value FROM weekly AS w WHERE w.virus = 'Flu' AND w.measure = 'hospital admissions' AND w.geography = 'England' AND w.week_start >= DATE '2026-08-17' ORDER BY w.week_start LIMIT 30",
+    "rows": [
+     {
+      "label": "17 Aug",
+      "value": 0.58
+     },
+     {
+      "label": "24 Aug",
+      "value": 0.69
+     },
+     {
+      "label": "31 Aug",
+      "value": 0.5
+     },
+     {
+      "label": "07 Sep",
+      "value": 0.7
+     },
+     {
+      "label": "14 Sep",
+      "value": 0.64
+     },
+     {
+      "label": "21 Sep",
+      "value": 1.12
+     },
+     {
+      "label": "28 Sep",
+      "value": 1.81
+     },
+     {
+      "label": "05 Oct",
+      "value": 1.81
+     },
+     {
+      "label": "12 Oct",
+      "value": 1.94
+     }
+    ]
+   }
+  ],
+  "story": {
+   "lead": "Flu admissions this autumn fall mostly on the oldest",
+   "highlight": "oldest",
+   "summary": "People aged 85 and over are being admitted to hospital with flu at the highest rate: **8.42** per 100,000 people in that age group, averaged over the latest four weeks. That is about **17 times** the rate for children aged 5 to 14 (**0.49**). The next highest are people aged 75 to 84 and 65 to 74. Below, we compare this with a year ago and look at how England's overall rate has climbed since late September.",
+   "sub": "UKHSA's published figures for England, as published on 26 Oct 2026: weekly flu hospital admission rates, 21 Sep to 12 Oct 2026 (latest 4 weeks), compared with the same weeks in 2025.",
+   "facts": [
+    {
+     "value": "8.42 per 100,000",
+     "label": "Flu admission rate, ages 85+, latest 4 weeks"
+    },
+    {
+     "value": "1.94 per 100,000",
+     "label": "England all-ages admission rate, week of 12 Oct"
+    },
+    {
+     "value": "4.86 per 100,000",
+     "label": "Rate for ages 75-84, second highest"
+    }
+   ],
+   "points": [
+    {
+     "h": "The oldest age groups are admitted most often",
+     "p": "Admission rates are highest in the oldest groups. People aged 85 and over sit at **8.42** per 100,000, ahead of **4.86** for ages 75 to 84 and **3.53** for ages 65 to 74. The 85+ rate is about **1.7 times** that of the 75 to 84 group. Among younger people, children under 5 stand out at **1.86**, higher than adults aged 45 to 54 (**0.95**) and 15 to 44 (**0.9**). These are rates within each age group, so they show who is most likely to be admitted, not how many people."
+    },
+    {
+     "h": "Compared with last year, older groups are higher",
+     "p": "How does this compare with the same weeks a year ago? For older people, rates are higher. Ages 75 to 84 rose from **2.97** to **4.86**, and ages 65 to 74 from **1.51** to **3.53**, more than double. Ages 85+ rose from **7.02** to **8.42**. Children look different: the under-5 rate fell from **2.56** to **1.86**, and ages 5 to 14 fell from **1.18** to **0.49**."
+    },
+    {
+     "h": "England's overall rate has climbed since late September",
+     "p": "Zooming out to everyone in England, the picture shows a clear rise. Through August and mid-September the rate stayed between **0.5** and **0.7** per 100,000. It then jumped to **1.12** in the week of 21 September and **1.81** the week after. It held at **1.81** and reached **1.94** in the week of 12 October, about three times the level of mid-September (**0.64**). The age pattern above covers the first weeks of this season."
+    }
+   ],
+   "takeaway": "Flu admissions this autumn fall most heavily on people aged 85 and over, then those aged 75 to 84 and 65 to 74. Older groups are higher than a year ago, while children's rates are lower. England's overall rate has risen since late September.",
+   "note": "Rates are admissions per 100,000 people within each age group, averaged over four weeks, so they can't be added together or turned into numbers of patients.",
+   "next": [
+    "How does England's flu admission rate this autumn compare with recent winters at the peak?",
+    "Which regions have the highest flu test positivity over the latest four weeks?",
+    "Which age groups are being admitted with RSV this autumn?"
+   ],
+   "sources": [
+    "17 times: 8.42 / 0.49 = 17.2",
+    "1.7 times: 8.42 / 4.86 = 1.73",
+    "more than double (65-74): 3.53 / 1.51 = 2.3",
+    "about three times: 1.94 / 0.64 = 3.0",
+    "between 0.5 and 0.7: 17 Aug 0.58, 24 Aug 0.69, 31 Aug 0.5, 07 Sep 0.7, 14 Sep 0.64"
+   ]
+  },
+  "created": "2026-10-26"
+ },
+ {
+  "q": "How does flu this autumn compare with the same weeks last year?",
+  "queries": [
+   {
+    "id": "q1",
+    "purpose": "Average England flu test positivity, same weeks this year vs last year",
+    "chart": "columns",
+    "unit": "% of tests positive",
+    "sql": "SELECT CASE WHEN week_start >= DATE '2026-08-31' THEN 'This year (31 Aug-12 Oct 2026)' ELSE 'Last year (1 Sep-13 Oct 2025)' END AS label, ROUND(AVG(value), 2) AS value FROM weekly WHERE virus = 'Flu' AND measure = 'test positivity' AND geography = 'England' AND ((week_start BETWEEN DATE '2025-09-01' AND DATE '2025-10-13') OR (week_start BETWEEN DATE '2026-08-31' AND DATE '2026-10-12')) GROUP BY 1 ORDER BY MIN(week_start)",
+    "rows": [
+     {
+      "label": "Last year (1 Sep-13 Oct 2025)",
+      "value": 3.55
+     },
+     {
+      "label": "This year (31 Aug-12 Oct 2026)",
+      "value": 4.81
+     }
+    ]
+   },
+   {
+    "id": "q2",
+    "purpose": "Average England flu hospital admission rate, same weeks this year vs last year",
+    "chart": "columns",
+    "unit": "admissions per 100,000 people",
+    "sql": "SELECT CASE WHEN week_start >= DATE '2026-08-31' THEN 'This year (31 Aug-12 Oct 2026)' ELSE 'Last year (1 Sep-13 Oct 2025)' END AS label, ROUND(AVG(value), 2) AS value FROM weekly WHERE virus = 'Flu' AND measure = 'hospital admissions' AND geography = 'England' AND ((week_start BETWEEN DATE '2025-09-01' AND DATE '2025-10-13') OR (week_start BETWEEN DATE '2026-08-31' AND DATE '2026-10-12')) GROUP BY 1 ORDER BY MIN(week_start)",
+    "rows": [
+     {
+      "label": "Last year (1 Sep-13 Oct 2025)",
+      "value": 0.92
+     },
+     {
+      "label": "This year (31 Aug-12 Oct 2026)",
+      "value": 1.22
+     }
+    ]
+   },
+   {
+    "id": "q3",
+    "purpose": "Week-by-week England flu test positivity across both periods (last year's weeks first)",
+    "chart": "columns",
+    "unit": "% of tests positive",
+    "sql": "SELECT strftime(week_start, '%d %b %Y') AS label, ROUND(value, 2) AS value FROM weekly WHERE virus = 'Flu' AND measure = 'test positivity' AND geography = 'England' AND ((week_start BETWEEN DATE '2025-09-01' AND DATE '2025-10-13') OR (week_start BETWEEN DATE '2026-08-31' AND DATE '2026-10-12')) ORDER BY week_start LIMIT 30",
+    "rows": [
+     {
+      "label": "01 Sep 2025",
+      "value": 0.99
+     },
+     {
+      "label": "08 Sep 2025",
+      "value": 1.32
+     },
+     {
+      "label": "15 Sep 2025",
+      "value": 1.31
+     },
+     {
+      "label": "22 Sep 2025",
+      "value": 2.72
+     },
+     {
+      "label": "29 Sep 2025",
+      "value": 4.73
+     },
+     {
+      "label": "06 Oct 2025",
+      "value": 6.28
+     },
+     {
+      "label": "13 Oct 2025",
+      "value": 7.53
+     },
+     {
+      "label": "31 Aug 2026",
+      "value": 2.47
+     },
+     {
+      "label": "07 Sep 2026",
+      "value": 3.44
+     },
+     {
+      "label": "14 Sep 2026",
+      "value": 4.5
+     },
+     {
+      "label": "21 Sep 2026",
+      "value": 5.41
+     },
+     {
+      "label": "28 Sep 2026",
+      "value": 5.55
+     },
+     {
+      "label": "05 Oct 2026",
+      "value": 6.33
+     },
+     {
+      "label": "12 Oct 2026",
+      "value": 5.99
+     }
+    ]
+   }
+  ],
+  "story": {
+   "lead": "Flu started higher this autumn, but the latest week is below last year's",
+   "highlight": "started higher",
+   "summary": "Across the same seven weeks, flu has been more common this autumn than last. On average, **4.81%** of flu tests in England came back positive, against **3.55%** a year ago. That is about a third higher. But the newest week tells a more mixed story, and the charts below show why.",
+   "sub": "UKHSA's published figures for England, 31 Aug–12 Oct 2026 vs 1 Sep–13 Oct 2025, as published on 26 Oct 2026.",
+   "facts": [
+    {
+     "value": "4.81% vs 3.55%",
+     "label": "Average flu tests positive, this year vs last"
+    },
+    {
+     "value": "1.22 vs 0.92",
+     "label": "Average hospital admissions per 100,000, this year vs last"
+    },
+    {
+     "value": "5.99% vs 7.53%",
+     "label": "Latest week's positive tests vs same week last year"
+    }
+   ],
+   "points": [
+    {
+     "h": "Over seven weeks, more tests are coming back positive",
+     "p": "Start with the share of flu tests that find the virus. This is the measure of how common flu is among people who get tested. This year the seven-week average is **4.81%**, against **3.55%** for the same weeks last year. That is a gap of 1.26 percentage points, or roughly a third higher. On this measure, flu has been more widespread so far this autumn."
+    },
+    {
+     "h": "Hospital admissions are also higher, by a similar margin",
+     "p": "Do more positive tests mean more people in hospital? The admission rate points the same way. It counts hospital admissions with flu for every 100,000 people in England. This year the average is **1.22**, compared with **0.92** last year. That is about a third higher again. Both measures show a busier start to the season than a year ago."
+    },
+    {
+     "h": "Last year caught up fast and then pulled ahead",
+     "p": "The averages hide how each autumn unfolded. This year began well above last year: **2.47%** in the week of 31 August, against **0.99%** at the start of September 2025. Last year, though, positivity climbed steeply, from 2.72% in late September to **7.53%** by 13 October. This year's climb has been slower, reaching **6.33%** on 5 October before easing to **5.99%** in the latest week. So the higher average comes from an earlier start, not from a faster rise."
+    }
+   ],
+   "takeaway": "Flu has been more common this autumn than last at the same point, on both tests and hospital admissions. But last year's rise was steeper, and the latest week is now lower than the same week a year ago. This autumn started earlier, not harder.",
+   "note": "Averages cover seven weekly figures for each year, and the latest week can be revised by UKHSA.",
+   "next": [
+    "Which age groups have the highest flu hospital admission rates this autumn?",
+    "How does RSV test positivity this autumn compare with last year?",
+    "How does flu positivity differ across England's regions over the latest four weeks?"
+   ],
+   "sources": [
+    "about a third higher (positivity): 4.81 / 3.55 = 1.35",
+    "1.26 percentage points: 4.81 - 3.55",
+    "about a third higher (admissions): 1.22 / 0.92 = 1.33",
+    "seven weeks: 01 Sep to 13 Oct 2025 and 31 Aug to 12 Oct 2026 each have 7 weekly rows"
+   ]
+  },
+  "created": "2026-10-26"
+ },
+ {
+  "q": "Which regions have the highest flu admission rates right now?",
+  "queries": [
+   {
+    "id": "q1",
+    "purpose": "Regions ranked by average flu hospital admission rate, latest 4 weeks (21 Sep to 12 Oct 2026)",
+    "chart": "bars",
+    "unit": "admissions per 100,000 people (4-week average)",
+    "sql": "SELECT w.geography AS label, ROUND(AVG(w.value), 2) AS value FROM weekly AS w WHERE w.virus = 'Flu' AND w.measure = 'hospital admissions' AND w.geography <> 'England' AND w.week_start BETWEEN DATE '2026-09-21' AND DATE '2026-10-12' AND w.value IS NOT NULL GROUP BY w.geography ORDER BY value DESC LIMIT 10",
+    "rows": [
+     {
+      "label": "West Midlands",
+      "value": 4.6
+     },
+     {
+      "label": "London",
+      "value": 2.18
+     },
+     {
+      "label": "North East",
+      "value": 2.07
+     },
+     {
+      "label": "East Midlands",
+      "value": 1.84
+     },
+     {
+      "label": "South East",
+      "value": 1.71
+     },
+     {
+      "label": "East of England",
+      "value": 1.45
+     },
+     {
+      "label": "South West",
+      "value": 1.41
+     },
+     {
+      "label": "Yorkshire and Humber",
+      "value": 1.15
+     },
+     {
+      "label": "North West",
+      "value": 0.56
+     }
+    ]
+   },
+   {
+    "id": "q2",
+    "purpose": "England flu hospital admission rate by week, for the headline trend (all ages)",
+    "chart": "columns",
+    "unit": "admissions per 100,000 people",
+    "sql": "SELECT strftime(w.week_start, '%d %b') AS label, ROUND(w.value, 2) AS value FROM weekly AS w WHERE w.virus = 'Flu' AND w.measure = 'hospital admissions' AND w.geography = 'England' AND w.week_start BETWEEN DATE '2026-07-27' AND DATE '2026-10-12' AND w.value IS NOT NULL ORDER BY w.week_start LIMIT 30",
+    "rows": [
+     {
+      "label": "27 Jul",
+      "value": 0.38
+     },
+     {
+      "label": "03 Aug",
+      "value": 0.4
+     },
+     {
+      "label": "10 Aug",
+      "value": 0.5
+     },
+     {
+      "label": "17 Aug",
+      "value": 0.58
+     },
+     {
+      "label": "24 Aug",
+      "value": 0.69
+     },
+     {
+      "label": "31 Aug",
+      "value": 0.5
+     },
+     {
+      "label": "07 Sep",
+      "value": 0.7
+     },
+     {
+      "label": "14 Sep",
+      "value": 0.64
+     },
+     {
+      "label": "21 Sep",
+      "value": 1.12
+     },
+     {
+      "label": "28 Sep",
+      "value": 1.81
+     },
+     {
+      "label": "05 Oct",
+      "value": 1.81
+     },
+     {
+      "label": "12 Oct",
+      "value": 1.94
+     }
+    ]
+   },
+   {
+    "id": "q3",
+    "purpose": "How many of the latest 4 weeks each region has reported (small-sample check)",
+    "chart": "bars",
+    "unit": "weeks reported (out of 4)",
+    "sql": "SELECT w.geography AS label, COUNT(w.value) AS value FROM weekly AS w WHERE w.virus = 'Flu' AND w.measure = 'hospital admissions' AND w.geography <> 'England' AND w.week_start BETWEEN DATE '2026-09-21' AND DATE '2026-10-12' GROUP BY w.geography ORDER BY value DESC, label LIMIT 10",
+    "rows": [
+     {
+      "label": "East Midlands",
+      "value": 4
+     },
+     {
+      "label": "East of England",
+      "value": 4
+     },
+     {
+      "label": "London",
+      "value": 4
+     },
+     {
+      "label": "North East",
+      "value": 4
+     },
+     {
+      "label": "North West",
+      "value": 4
+     },
+     {
+      "label": "South East",
+      "value": 4
+     },
+     {
+      "label": "South West",
+      "value": 4
+     },
+     {
+      "label": "Yorkshire and Humber",
+      "value": 4
+     },
+     {
+      "label": "West Midlands",
+      "value": 3
+     }
+    ]
+   }
+  ],
+  "story": {
+   "lead": "West Midlands has the highest flu admission rate",
+   "highlight": "West Midlands",
+   "summary": "UKHSA's published figures show the West Midlands has the highest flu hospital admission rate of any English region right now. Over the four weeks from 21 Sep to 12 Oct 2026 it averaged **4.6** admissions per 100,000 people, more than double the next region, London, at **2.18**. The North West was lowest at **0.56**. Regional figures come from small samples, so treat the ranking with care and use England as the guide to the big picture.",
+   "sub": "UKHSA flu hospital admission rates per 100,000 people, England and its regions, weeks starting 27 Jul to 12 Oct 2026, as published on 26 Oct 2026.",
+   "facts": [
+    {
+     "value": "4.6 per 100,000",
+     "label": "West Midlands, 4-week average admission rate"
+    },
+    {
+     "value": "0.56 per 100,000",
+     "label": "North West, lowest region, 4-week average"
+    },
+    {
+     "value": "1.94 per 100,000",
+     "label": "England, week starting 12 Oct 2026"
+    }
+   ],
+   "points": [
+    {
+     "h": "The West Midlands stands well apart from the rest",
+     "p": "Averaging the latest four weeks gives a steadier picture than any single week. The West Midlands leads at **4.6** admissions per 100,000 people. London (**2.18**) and the North East (**2.07**) come next, and they are close together. The North West is at the bottom with **0.56**, so the West Midlands is about eight times higher (4.6 divided by 0.56 is about 8.2)."
+    },
+    {
+     "h": "Across England, flu admissions have climbed since September",
+     "p": "To see where the regions fit, look at England as a whole. Admissions were around **0.64** per 100,000 in mid-September. They then rose to **1.12** on 21 Sep and **1.81** the week after. The latest week, starting 12 Oct, is **1.94**. That is about three times the mid-September level (1.94 divided by 0.64 is about 3.0), and the West Midlands four-week average of 4.6 is well above the England rate of 1.94 in the latest week."
+    },
+    {
+     "h": "Regional numbers rest on small samples, so read with care",
+     "p": "The regional ranking is less firm than the England line. Eight of the nine regions reported all four of the latest weeks. The West Midlands reported only three, so its average rests on fewer weeks than the others. Regional admission figures come from a small number of hospitals, so the gap between regions may shift as more weeks arrive. The safe reading is that the West Midlands looks highest, while the order of the middle regions is much less certain."
+    }
+   ],
+   "takeaway": "The West Midlands has the highest flu admission rate of the regions in UKHSA's published figures, well ahead of London and the North East. England as a whole has seen admissions rise since mid-September, from 0.64 to 1.94 per 100,000. Because regional figures are based on small samples, the top spot is more reliable than the exact order below it.",
+   "note": "Admissions are rates per 100,000 people, not numbers of patients; the regional ranking uses the average of the latest four weeks.",
+   "next": [
+    "How do this year's flu admissions compare with the same weeks last year?",
+    "Which age group has the highest flu admission rate this autumn?",
+    "How does flu test positivity differ across regions in recent weeks?"
+   ],
+   "sources": [
+    "About eight times: 4.6 / 0.56 = 8.2",
+    "About three times: 1.94 / 0.64 = 3.0 (England 12 Oct vs 14 Sep)",
+    "more than double: 4.6 / 2.18 = 2.1",
+    "Eight of the nine regions reported all four weeks: East Midlands, East of England, London, North East, North West, South East, South West, Yorkshire and Humber = 4; West Midlands = 3"
+   ]
+  },
+  "created": "2026-10-26"
+ },
+ {
+  "q": "Is RSV starting to rise yet?",
+  "queries": [
+   {
+    "id": "q1",
+    "purpose": "England RSV test positivity, last 12 weeks (% of tests positive)",
+    "chart": "columns",
+    "unit": "% of tests positive",
+    "sql": "SELECT strftime(week_start, '%d %b') AS label, ROUND(value, 2) AS value FROM weekly WHERE virus = 'RSV' AND measure = 'test positivity' AND geography = 'England' AND week_start >= DATE '2026-07-27' AND week_start <= DATE '2026-10-12' ORDER BY week_start LIMIT 30",
+    "rows": [
+     {
+      "label": "27 Jul",
+      "value": 0.21
+     },
+     {
+      "label": "03 Aug",
+      "value": 0.23
+     },
+     {
+      "label": "10 Aug",
+      "value": 0.13
+     },
+     {
+      "label": "17 Aug",
+      "value": 0.2
+     },
+     {
+      "label": "24 Aug",
+      "value": 0.11
+     },
+     {
+      "label": "31 Aug",
+      "value": 0.11
+     },
+     {
+      "label": "07 Sep",
+      "value": 0.61
+     },
+     {
+      "label": "14 Sep",
+      "value": 0.81
+     },
+     {
+      "label": "21 Sep",
+      "value": 0.3
+     },
+     {
+      "label": "28 Sep",
+      "value": 0.42
+     },
+     {
+      "label": "05 Oct",
+      "value": 0.84
+     },
+     {
+      "label": "12 Oct",
+      "value": 0.88
+     }
+    ]
+   },
+   {
+    "id": "q2",
+    "purpose": "England RSV hospital admissions, last 12 weeks (per 100,000 people)",
+    "chart": "columns",
+    "unit": "admissions per 100,000 people",
+    "sql": "SELECT strftime(week_start, '%d %b') AS label, ROUND(value, 2) AS value FROM weekly WHERE virus = 'RSV' AND measure = 'hospital admissions' AND geography = 'England' AND week_start >= DATE '2026-07-27' AND week_start <= DATE '2026-10-12' ORDER BY week_start LIMIT 30",
+    "rows": [
+     {
+      "label": "27 Jul",
+      "value": 0
+     },
+     {
+      "label": "03 Aug",
+      "value": 0.1
+     },
+     {
+      "label": "10 Aug",
+      "value": 0
+     },
+     {
+      "label": "17 Aug",
+      "value": 0
+     },
+     {
+      "label": "24 Aug",
+      "value": 0
+     },
+     {
+      "label": "31 Aug",
+      "value": 0.05
+     },
+     {
+      "label": "07 Sep",
+      "value": 0.11
+     },
+     {
+      "label": "14 Sep",
+      "value": 0.11
+     },
+     {
+      "label": "21 Sep",
+      "value": 0.12
+     },
+     {
+      "label": "28 Sep",
+      "value": 0.13
+     },
+     {
+      "label": "05 Oct",
+      "value": 0.23
+     },
+     {
+      "label": "12 Oct",
+      "value": 0.33
+     }
+    ]
+   },
+   {
+    "id": "q3",
+    "purpose": "England RSV positivity in the same weeks a year earlier, for comparison (week starts in 2025)",
+    "chart": "columns",
+    "unit": "% of tests positive",
+    "sql": "SELECT strftime(week_start, '%d %b') AS label, ROUND(value, 2) AS value FROM weekly WHERE virus = 'RSV' AND measure = 'test positivity' AND geography = 'England' AND week_start >= DATE '2025-07-28' AND week_start <= DATE '2025-10-13' ORDER BY week_start LIMIT 30",
+    "rows": [
+     {
+      "label": "28 Jul",
+      "value": 0.19
+     },
+     {
+      "label": "04 Aug",
+      "value": 0.19
+     },
+     {
+      "label": "11 Aug",
+      "value": 0.45
+     },
+     {
+      "label": "18 Aug",
+      "value": 0.31
+     },
+     {
+      "label": "25 Aug",
+      "value": 0.23
+     },
+     {
+      "label": "01 Sep",
+      "value": 0.33
+     },
+     {
+      "label": "08 Sep",
+      "value": 0.57
+     },
+     {
+      "label": "15 Sep",
+      "value": 0.37
+     },
+     {
+      "label": "22 Sep",
+      "value": 0.43
+     },
+     {
+      "label": "29 Sep",
+      "value": 0.62
+     },
+     {
+      "label": "06 Oct",
+      "value": 1.07
+     },
+     {
+      "label": "13 Oct",
+      "value": 1.34
+     }
+    ]
+   }
+  ],
+  "story": {
+   "lead": "Yes, RSV is starting to creep up",
+   "highlight": "creep up",
+   "summary": "UKHSA's published figures show RSV is beginning to climb in England, though from a very low level. In the week starting 12 October, **0.88%** of RSV tests were positive, up from **0.11%** at the end of August. Hospital admissions have risen too, to **0.33 per 100,000 people**, about three times the **0.11** of mid-September. Below, we look at tests, then hospital admissions, then last year for comparison.",
+   "sub": "England, weekly, 27 Jul to 12 Oct 2026, with the same weeks of 2025; as published on 26 Oct 2026.",
+   "facts": [
+    {
+     "value": "0.88%",
+     "label": "RSV tests positive, week of 12 Oct 2026"
+    },
+    {
+     "value": "0.33 per 100,000",
+     "label": "RSV hospital admissions, week of 12 Oct"
+    },
+    {
+     "value": "1.34%",
+     "label": "RSV positivity, same week of 2025"
+    }
+   ],
+   "points": [
+    {
+     "h": "Positive RSV tests have climbed since early September",
+     "p": "Through most of August, fewer than one in 200 RSV tests came back positive, with weekly figures between **0.11%** and **0.23%**. Then it jumped to **0.61%** on 7 September and **0.81%** on 14 September. It dipped to **0.30%** in the week of 21 September, but the last two weeks have risen again to **0.84%** and **0.88%**. The path is bumpy, but the direction since late summer is up."
+    },
+    {
+     "h": "Hospital admissions have started to follow",
+     "p": "Hospital figures tell the same story. Admissions stayed at or near zero through August, and the rate was **0.05** per 100,000 people by 31 August. It then held between **0.11** and **0.13** through September. In the last two weeks it has picked up to **0.23** and then **0.33**. That is the highest figure in this period, and it suggests the rise in tests is reaching hospitals. These are still small numbers."
+    },
+    {
+     "h": "Last year was already higher at this point",
+     "p": "Is this early or late? Compare the same weeks of 2025. Then positivity was **1.07%** on 6 October and **1.34%** on 13 October. This year's matching weeks were **0.84%** and **0.88%**. So RSV is rising now, but it is lower than at the same point last year. Last year's August and September figures were also mostly a little higher than this year's."
+    }
+   ],
+   "takeaway": "RSV is on the way up in England, in both tests and hospital admissions, but it is still at a low level. This year's positivity is lower than a year ago (0.88% against 1.34% in the matching mid-October week). The next few weeks will show whether the climb continues.",
+   "note": "Positivity is the share of RSV tests that come back positive; admissions are a rate per 100,000 people, not a count of patients.",
+   "next": [
+    "How does flu positivity this autumn compare with last autumn?",
+    "Which age groups have the most RSV hospital admissions?",
+    "How does RSV positivity vary across the regions?"
+   ],
+   "sources": [
+    "about three times: 0.33 / 0.11 = 3.0 (12 Oct vs 14 Sep admissions)",
+    "0.11% to 0.88%: 31 Aug = 0.11, 12 Oct = 0.88",
+    "fewer than one in 200: 0.5% is one in 200; August values 0.11 to 0.23 (all below 0.5)",
+    "lower than last year: 12 Oct 2026 = 0.88, 13 Oct 2025 = 1.34; 05 Oct 2026 = 0.84, 06 Oct 2025 = 1.07"
+   ]
+  },
+  "created": "2026-10-26"
+ },
+ {
+  "q": "Which age group is most affected by RSV admissions?",
+  "queries": [
+   {
+    "id": "q1",
+    "purpose": "RSV hospital admission rate by age group, average of latest 4 weeks (21 Sep to 12 Oct 2026)",
+    "chart": "bars",
+    "unit": "admissions per 100,000 people in that age group",
+    "sql": "SELECT age_group AS label, ROUND(AVG(admissions_per_100k), 2) AS value FROM admissions_by_age WHERE virus = 'RSV' AND week_start BETWEEN DATE '2026-09-21' AND DATE '2026-10-12' GROUP BY age_group ORDER BY value DESC LIMIT 30",
+    "rows": [
+     {
+      "label": "00-04",
+      "value": 2.9
+     },
+     {
+      "label": "85+",
+      "value": 0.21
+     },
+     {
+      "label": "75-84",
+      "value": 0.13
+     },
+     {
+      "label": "55-64",
+      "value": 0.07
+     },
+     {
+      "label": "05-14",
+      "value": 0.06
+     },
+     {
+      "label": "65-74",
+      "value": 0.05
+     },
+     {
+      "label": "15-44",
+      "value": 0.01
+     },
+     {
+      "label": "45-54",
+      "value": 0
+     }
+    ]
+   },
+   {
+    "id": "q2",
+    "purpose": "RSV hospital admission rate by age group, average across last winter season (Sep 2025 to May 2026)",
+    "chart": "bars",
+    "unit": "admissions per 100,000 people in that age group",
+    "sql": "SELECT age_group AS label, ROUND(AVG(admissions_per_100k), 2) AS value FROM admissions_by_age WHERE virus = 'RSV' AND week_start BETWEEN DATE '2025-09-29' AND DATE '2026-05-18' GROUP BY age_group ORDER BY value DESC LIMIT 30",
+    "rows": [
+     {
+      "label": "00-04",
+      "value": 11.52
+     },
+     {
+      "label": "85+",
+      "value": 7.25
+     },
+     {
+      "label": "75-84",
+      "value": 2.38
+     },
+     {
+      "label": "65-74",
+      "value": 1.31
+     },
+     {
+      "label": "55-64",
+      "value": 0.58
+     },
+     {
+      "label": "05-14",
+      "value": 0.32
+     },
+     {
+      "label": "45-54",
+      "value": 0.27
+     },
+     {
+      "label": "15-44",
+      "value": 0.17
+     }
+    ]
+   },
+   {
+    "id": "q3",
+    "purpose": "Context: England all-ages RSV hospital admission rate by week, last 12 weeks",
+    "chart": "columns",
+    "unit": "admissions per 100,000 people",
+    "sql": "SELECT strftime(week_start, '%d %b') AS label, ROUND(value, 2) AS value FROM weekly WHERE virus = 'RSV' AND measure = 'hospital admissions' AND geography = 'England' AND week_start >= DATE '2026-07-27' ORDER BY week_start LIMIT 30",
+    "rows": [
+     {
+      "label": "27 Jul",
+      "value": 0
+     },
+     {
+      "label": "03 Aug",
+      "value": 0.1
+     },
+     {
+      "label": "10 Aug",
+      "value": 0
+     },
+     {
+      "label": "17 Aug",
+      "value": 0
+     },
+     {
+      "label": "24 Aug",
+      "value": 0
+     },
+     {
+      "label": "31 Aug",
+      "value": 0.05
+     },
+     {
+      "label": "07 Sep",
+      "value": 0.11
+     },
+     {
+      "label": "14 Sep",
+      "value": 0.11
+     },
+     {
+      "label": "21 Sep",
+      "value": 0.12
+     },
+     {
+      "label": "28 Sep",
+      "value": 0.13
+     },
+     {
+      "label": "05 Oct",
+      "value": 0.23
+     },
+     {
+      "label": "12 Oct",
+      "value": 0.33
+     }
+    ]
+   }
+  ],
+  "story": {
+   "lead": "Under-fives are most affected by RSV admissions",
+   "highlight": "Under-fives",
+   "summary": "UKHSA's published figures show that babies and young children are admitted to hospital with RSV far more often than any other age group. Over the last four weeks, the rate for ages 0 to 4 was **2.9** admissions per 100,000 children. That is about 14 times the next highest group, people aged 85 and over, at **0.21**. The charts below show this autumn, then last winter, then the all-ages trend.",
+   "sub": "England, RSV hospital admission rates per 100,000 people; latest 4 weeks 21 Sep to 12 Oct 2026, last winter Sep 2025 to May 2026, as published on 26 Oct 2026.",
+   "facts": [
+    {
+     "value": "2.9 per 100,000",
+     "label": "Ages 0 to 4, average of latest 4 weeks"
+    },
+    {
+     "value": "11.52 per 100,000",
+     "label": "Ages 0 to 4, average over last winter"
+    },
+    {
+     "value": "0.33 per 100,000",
+     "label": "England, all ages, week of 12 Oct 2026"
+    }
+   ],
+   "points": [
+    {
+     "h": "This autumn, young children stand far apart",
+     "p": "Start with the most recent four weeks. Children aged 0 to 4 have an admission rate of **2.9** per 100,000 children in that age group. The next highest are people aged 85 and over at **0.21** and those aged 75 to 84 at **0.13**. Every other age group is at 0.07 or below, and the 45 to 54 group rounds to zero. So RSV admissions are already concentrated in the very youngest children."
+    },
+    {
+     "h": "Last winter showed the same pattern, only bigger",
+     "p": "Is this just an early-season quirk? Last winter says no. Averaged across the season, the rate for ages 0 to 4 was **11.52** per 100,000, again the highest of all groups. People aged 85 and over came second at **7.25**, and those aged 75 to 84 third at **2.38**. Rates are lower in the middle age groups, down to 0.17 for ages 15 to 44, with 5 to 14 (0.32) slightly above 45 to 54 (0.27). Two groups stand out, the youngest children and the oldest adults, and the youngest lead."
+    },
+    {
+     "h": "Across England, admissions are only just starting to climb",
+     "p": "Now look at all ages together. England's RSV admission rate was at or near zero through August, then edged up to **0.11** in early September. It reached **0.33** per 100,000 in the week starting 12 Oct, up from **0.13** two weeks earlier. That is still small, which fits the low rates for most age groups this autumn. The all-ages rate has risen in the latest weeks, but the data cannot show how it will change."
+    }
+   ],
+   "takeaway": "Under-fives have the highest RSV admission rate this autumn and had the highest last winter. People aged 85 and over come second both times. Overall admissions in England are low but rising in the latest weeks.",
+   "note": "Rates are admissions per 100,000 people in each age group, so they can be compared between groups but not added together.",
+   "next": [
+    "How does flu hospital admission by age group compare with RSV this autumn?",
+    "How does England's RSV test positivity compare with last year?",
+    "Which regions have the highest flu test positivity over the latest 4 weeks?"
+   ],
+   "sources": [
+    "about 14 times: 2.9 / 0.21 = 13.8",
+    "0.07 or below: 55-64 = 0.07, 05-14 = 0.06, 65-74 = 0.05, 15-44 = 0.01, 45-54 = 0",
+    "0.13 two weeks earlier: week of 28 Sep = 0.13"
+   ]
+  },
+  "created": "2026-10-26"
+ },
+ {
+  "q": "When did last winter's flu admissions peak?",
+  "queries": [
+   {
+    "id": "q1",
+    "purpose": "Highest weeks of England flu hospital admissions, winter 2025/26",
+    "chart": "bars",
+    "unit": "admissions per 100,000 people",
+    "sql": "SELECT strftime(week_start, '%d %b %Y') AS label, ROUND(value, 2) AS value FROM weekly WHERE virus = 'Flu' AND measure = 'hospital admissions' AND geography = 'England' AND week_start BETWEEN DATE '2025-09-29' AND DATE '2026-05-18' AND value IS NOT NULL ORDER BY value DESC LIMIT 8",
+    "rows": [
+     {
+      "label": "01 Dec 2025",
+      "value": 10.5
+     },
+     {
+      "label": "08 Dec 2025",
+      "value": 10.03
+     },
+     {
+      "label": "24 Nov 2025",
+      "value": 8.21
+     },
+     {
+      "label": "15 Dec 2025",
+      "value": 8.16
+     },
+     {
+      "label": "29 Dec 2025",
+      "value": 7.02
+     },
+     {
+      "label": "22 Dec 2025",
+      "value": 6.81
+     },
+     {
+      "label": "05 Jan 2026",
+      "value": 5.96
+     },
+     {
+      "label": "17 Nov 2025",
+      "value": 4.93
+     }
+    ]
+   },
+   {
+    "id": "q2",
+    "purpose": "Average weekly flu admission rate by month, winter 2025/26 (England)",
+    "chart": "columns",
+    "unit": "admissions per 100,000 people (monthly average of weekly rat",
+    "sql": "SELECT strftime(date_trunc('month', week_start), '%b %Y') AS label, ROUND(AVG(value), 2) AS value FROM weekly WHERE virus = 'Flu' AND measure = 'hospital admissions' AND geography = 'England' AND week_start BETWEEN DATE '2025-09-29' AND DATE '2026-05-18' AND value IS NOT NULL GROUP BY date_trunc('month', week_start) ORDER BY date_trunc('month', week_start) LIMIT 12",
+    "rows": [
+     {
+      "label": "Sep 2025",
+      "value": 0.92
+     },
+     {
+      "label": "Oct 2025",
+      "value": 2.83
+     },
+     {
+      "label": "Nov 2025",
+      "value": 5.22
+     },
+     {
+      "label": "Dec 2025",
+      "value": 8.5
+     },
+     {
+      "label": "Jan 2026",
+      "value": 3.89
+     },
+     {
+      "label": "Feb 2026",
+      "value": 1.08
+     },
+     {
+      "label": "Mar 2026",
+      "value": 0.34
+     },
+     {
+      "label": "Apr 2026",
+      "value": 0.28
+     },
+     {
+      "label": "May 2026",
+      "value": 0.29
+     }
+    ]
+   },
+   {
+    "id": "q3",
+    "purpose": "Peak weekly flu admission rate in each winter since 2021/22 (England)",
+    "chart": "columns",
+    "unit": "admissions per 100,000 people (peak week)",
+    "sql": "SELECT CAST(CASE WHEN month(week_start) >= 7 THEN year(week_start) ELSE year(week_start) - 1 END AS VARCHAR) || '/' || RIGHT(CAST(CASE WHEN month(week_start) >= 7 THEN year(week_start) + 1 ELSE year(week_start) END AS VARCHAR), 2) AS label, ROUND(MAX(value), 2) AS value FROM weekly WHERE virus = 'Flu' AND measure = 'hospital admissions' AND geography = 'England' AND week_start >= DATE '2021-07-01' AND week_start < DATE '2026-07-01' AND value IS NOT NULL GROUP BY 1 ORDER BY 1 LIMIT 10",
+    "rows": [
+     {
+      "label": "2021/22",
+      "value": 1.15
+     },
+     {
+      "label": "2022/23",
+      "value": 18.09
+     },
+     {
+      "label": "2023/24",
+      "value": 7.55
+     },
+     {
+      "label": "2024/25",
+      "value": 15.42
+     },
+     {
+      "label": "2025/26",
+      "value": 10.5
+     }
+    ]
+   }
+  ],
+  "story": {
+   "lead": "Flu admissions peaked in the week of 1 December",
+   "highlight": "1 December",
+   "summary": "UKHSA's published figures show last winter's flu hospital admissions in England peaked in the week starting 1 December 2025. That week, **10.5** people per 100,000 were admitted to hospital with flu. The week after was almost as high, at **10.03**. Below, we look at the top weeks, how the winter rose and fell month by month, and how this peak compares with other winters.",
+   "sub": "England flu hospital admission rates (per 100,000 people), weekly, winter 2025/26 with comparisons back to 2021/22, as published on 26 Oct 2026.",
+   "facts": [
+    {
+     "value": "10.5 per 100,000",
+     "label": "Peak weekly flu admissions, week of 1 Dec 2025"
+    },
+    {
+     "value": "8.5",
+     "label": "Average weekly rate in December 2025, the highest month"
+    },
+    {
+     "value": "18.09",
+     "label": "Peak in 2022/23, the highest of the last five winters"
+    }
+   ],
+   "points": [
+    {
+     "h": "The peak came in the first week of December",
+     "p": "The eight busiest weeks of the winter show when flu hit hospitals hardest. The top week started on 1 December 2025, at **10.5** admissions per 100,000 people. The next week, 8 December, was close behind at **10.03**. Seven of the top eight weeks fall between 24 November and 5 January, so the peak sat in the middle of a busy stretch rather than being a single spike."
+    },
+    {
+     "h": "Admissions climbed through autumn and fell away after Christmas",
+     "p": "Averaging by month shows the shape of the whole winter. The weekly rate rose from **2.83** in October to **5.22** in November, then hit **8.5** in December. By January it had fallen to **3.89**, and by February to **1.08**. From March to May it stayed low, between 0.28 and 0.34. The winter was therefore short and sharp, with December the clear high point."
+    },
+    {
+     "h": "Last winter's peak was big, but not the biggest",
+     "p": "How does 10.5 compare with other recent winters? Since 2021/22, the highest weekly peak was **18.09** in 2022/23, and 2024/25 reached **15.42**. Last winter's **10.5** was below both of those, but above 2023/24 at **7.55**. It was also far above 2021/22, when the peak was just **1.15**. So last winter sat in the middle of the pack."
+    }
+   ],
+   "takeaway": "Last winter's flu admissions peaked in the week starting 1 December 2025, with December the busiest month overall. It was a middling peak compared with the last five winters, higher than two of them and lower than two.",
+   "note": "These are weekly admission rates per 100,000 people across all ages in England, not numbers of patients. Winters run from July to June.",
+   "next": [
+    "Which age group had the highest flu admissions last winter?",
+    "How does flu this autumn compare with the same time last year?",
+    "When did RSV admissions peak last winter?"
+   ],
+   "sources": [
+    "Six of the top eight weeks between 24 Nov and 5 Jan: 24 Nov, 1 Dec, 8 Dec, 15 Dec, 22 Dec, 29 Dec, 5 Jan = seven listed; six of eight is wrong, so see correction: seven of the top eight (all but 17 No",
+    "Mar to May range 0.28 to 0.34: Mar = 0.34, Apr = 0.28, May = 0.29",
+    "Below 2022/23 and 2024/25, above 2023/24: 10.5 vs 18.09, 15.42, 7.55",
+    "Higher than two of them and lower than two: 10.5 vs 1.15, 7.55 (higher); 18.09, 15.42 (lower)"
+   ]
+  },
+  "created": "2026-10-26"
+ },
+ {
+  "q": "How did the last four flu seasons' peaks compare?",
+  "queries": [
+   {
+    "id": "q1",
+    "purpose": "Peak weekly flu hospital admission rate in England, by season",
+    "chart": "columns",
+    "unit": "admissions per 100,000 people (highest week)",
+    "sql": "SELECT CAST(s.y AS VARCHAR) || '/' || substr(CAST(s.y+1 AS VARCHAR),3) AS label, ROUND(MAX(s.value),2) AS value FROM (SELECT year(w.week_start - INTERVAL 6 MONTH) AS y, w.value AS value FROM main.weekly AS w WHERE w.virus='Flu' AND w.measure='hospital admissions' AND w.geography='England' AND w.week_start >= DATE '2022-09-26' AND w.week_start < DATE '2026-06-01' AND month(w.week_start) NOT IN (6,7,8) AND w.value IS NOT NULL) AS s GROUP BY s.y ORDER BY s.y",
+    "rows": [
+     {
+      "label": "2022/23",
+      "value": 18.09
+     },
+     {
+      "label": "2023/24",
+      "value": 7.55
+     },
+     {
+      "label": "2024/25",
+      "value": 15.42
+     },
+     {
+      "label": "2025/26",
+      "value": 10.5
+     }
+    ]
+   },
+   {
+    "id": "q2",
+    "purpose": "Peak weekly flu test positivity in England, by season",
+    "chart": "columns",
+    "unit": "% of tests positive (highest week)",
+    "sql": "SELECT CAST(s.y AS VARCHAR) || '/' || substr(CAST(s.y+1 AS VARCHAR),3) AS label, ROUND(MAX(s.value),2) AS value FROM (SELECT year(w.week_start - INTERVAL 6 MONTH) AS y, w.value AS value FROM main.weekly AS w WHERE w.virus='Flu' AND w.measure='test positivity' AND w.geography='England' AND w.week_start >= DATE '2022-09-26' AND w.week_start < DATE '2026-06-01' AND month(w.week_start) NOT IN (6,7,8) AND w.value IS NOT NULL) AS s GROUP BY s.y ORDER BY s.y",
+    "rows": [
+     {
+      "label": "2022/23",
+      "value": 32.64
+     },
+     {
+      "label": "2023/24",
+      "value": 17.6
+     },
+     {
+      "label": "2024/25",
+      "value": 26.66
+     },
+     {
+      "label": "2025/26",
+      "value": 21.44
+     }
+    ]
+   },
+   {
+    "id": "q3",
+    "purpose": "Peak weekly flu ICU/HDU admission rate in England, by season",
+    "chart": "columns",
+    "unit": "ICU/HDU admissions per 100,000 people (highest week)",
+    "sql": "SELECT CAST(s.y AS VARCHAR) || '/' || substr(CAST(s.y+1 AS VARCHAR),3) AS label, ROUND(MAX(s.value),2) AS value FROM (SELECT year(w.week_start - INTERVAL 6 MONTH) AS y, w.value AS value FROM main.weekly AS w WHERE w.virus='Flu' AND w.measure='ICU/HDU admissions' AND w.geography='England' AND w.week_start >= DATE '2022-09-26' AND w.week_start < DATE '2026-06-01' AND month(w.week_start) NOT IN (6,7,8) AND w.value IS NOT NULL) AS s GROUP BY s.y ORDER BY s.y",
+    "rows": [
+     {
+      "label": "2022/23",
+      "value": 0.64
+     },
+     {
+      "label": "2023/24",
+      "value": 0.2
+     },
+     {
+      "label": "2024/25",
+      "value": 0.53
+     },
+     {
+      "label": "2025/26",
+      "value": 0.32
+     }
+    ]
+   }
+  ],
+  "story": {
+   "lead": "Winter 2022/23 had the highest flu peak",
+   "highlight": "2022/23",
+   "summary": "Of the last four flu seasons, 2022/23 hit hardest at its worst week. UKHSA's published figures show hospital admissions peaked at **18.09 per 100,000 people** that winter. The mildest peak was 2023/24, at **7.55**, less than half as high. Below, we look at three ways of measuring each peak: hospital admissions, positive tests and intensive care.",
+   "sub": "England, flu seasons 2022/23 to 2025/26 (autumn to spring weeks), as published by UKHSA on 26 Oct 2026.",
+   "facts": [
+    {
+     "value": "18.09 per 100,000",
+     "label": "Highest weekly hospital admissions, 2022/23"
+    },
+    {
+     "value": "7.55 per 100,000",
+     "label": "Lowest peak in hospital admissions, 2023/24"
+    },
+    {
+     "value": "32.64%",
+     "label": "Highest share of flu tests positive, 2022/23"
+    }
+   ],
+   "points": [
+    {
+     "h": "Hospital admissions peaked highest in 2022/23, then dipped",
+     "p": "Start with the busiest week for hospitals in each season. In 2022/23 it reached **18.09** admissions per 100,000 people. The next winter was far milder at **7.55**, then 2024/25 jumped back to **15.42**. The most recent season, 2025/26, peaked at **10.5**, so peaks have swung up and down rather than moving in one direction. The highest peak was about 2.4 times the lowest."
+    },
+    {
+     "h": "Positive tests tell the same up-and-down story",
+     "p": "Did the share of flu tests coming back positive follow the hospital pattern? Largely yes. In 2022/23, **32.64%** of tests were positive in the worst week, about one in three. The low point was 2023/24 at **17.6%**, and 2024/25 climbed to **26.66%**. The latest season, 2025/26, reached **21.44%**. Ranking the four seasons by this measure gives the same order as hospital admissions."
+    },
+    {
+     "h": "Intensive care peaks keep the same order",
+     "p": "The most serious cases tell a similar tale. Admissions to intensive care or high-dependency units peaked at **0.64** per 100,000 in 2022/23 and **0.2** in 2023/24. They rose to **0.53** in 2024/25 and were **0.32** in 2025/26. The season order matches the other two charts. The worst winter was the worst on all three measures, and the mildest was the mildest."
+    }
+   ],
+   "takeaway": "Across all three measures, 2022/23 was the biggest peak and 2023/24 the smallest, with 2024/25 close behind the worst and 2025/26 in the middle. Each measure ranks the four winters in the same order.",
+   "note": "Each figure is the single highest week in that season, not the whole season's total; hospital rates are per 100,000 people, not counts of patients.",
+   "next": [
+    "Which age group has the highest flu admissions this autumn?",
+    "How does this autumn's flu compare with the same weeks last year?",
+    "How does RSV hospital admission compare with flu this season?"
+   ],
+   "sources": [
+    "2.4 times: 18.09 / 7.55 = 2.40",
+    "about one in three: 32.64% positive"
+   ]
+  },
+  "created": "2026-10-26"
+ },
+ {
+  "q": "Flu ICU admissions this autumn?",
+  "queries": [
+   {
+    "id": "q1",
+    "purpose": "England flu ICU/HDU admission rate by week, Aug to Oct 2026",
+    "chart": "columns",
+    "unit": "per 100,000 people",
+    "sql": "SELECT strftime(week_start, '%d %b %Y') AS label, ROUND(value, 2) AS value FROM weekly WHERE virus = 'Flu' AND measure = 'ICU/HDU admissions' AND geography = 'England' AND week_start BETWEEN DATE '2026-08-31' AND DATE '2026-10-12' AND value IS NOT NULL ORDER BY week_start LIMIT 30",
+    "rows": [
+     {
+      "label": "31 Aug 2026",
+      "value": 0.02
+     },
+     {
+      "label": "07 Sep 2026",
+      "value": 0.05
+     },
+     {
+      "label": "14 Sep 2026",
+      "value": 0.05
+     },
+     {
+      "label": "21 Sep 2026",
+      "value": 0.1
+     },
+     {
+      "label": "28 Sep 2026",
+      "value": 0.06
+     },
+     {
+      "label": "05 Oct 2026",
+      "value": 0.07
+     },
+     {
+      "label": "12 Oct 2026",
+      "value": 0.08
+     }
+    ]
+   },
+   {
+    "id": "q2",
+    "purpose": "England flu ICU/HDU admission rate by week, same window a year earlier",
+    "chart": "columns",
+    "unit": "per 100,000 people",
+    "sql": "SELECT strftime(week_start, '%d %b %Y') AS label, ROUND(value, 2) AS value FROM weekly WHERE virus = 'Flu' AND measure = 'ICU/HDU admissions' AND geography = 'England' AND week_start BETWEEN DATE '2025-09-01' AND DATE '2025-10-13' AND value IS NOT NULL ORDER BY week_start LIMIT 30",
+    "rows": [
+     {
+      "label": "01 Sep 2025",
+      "value": 0
+     },
+     {
+      "label": "08 Sep 2025",
+      "value": 0
+     },
+     {
+      "label": "15 Sep 2025",
+      "value": 0
+     },
+     {
+      "label": "22 Sep 2025",
+      "value": 0.01
+     },
+     {
+      "label": "29 Sep 2025",
+      "value": 0.04
+     },
+     {
+      "label": "06 Oct 2025",
+      "value": 0.04
+     },
+     {
+      "label": "13 Oct 2025",
+      "value": 0.06
+     }
+    ]
+   },
+   {
+    "id": "q3",
+    "purpose": "Regional average flu ICU/HDU rate, 4 weeks to 12 Oct 2026 (small samples)",
+    "chart": "bars",
+    "unit": "per 100,000 people",
+    "sql": "SELECT geography AS label, ROUND(AVG(value), 2) AS value FROM weekly WHERE virus = 'Flu' AND measure = 'ICU/HDU admissions' AND geography <> 'England' AND week_start BETWEEN DATE '2026-09-21' AND DATE '2026-10-12' AND value IS NOT NULL GROUP BY geography ORDER BY value DESC LIMIT 10",
+    "rows": [
+     {
+      "label": "North West",
+      "value": 0.14
+     },
+     {
+      "label": "London",
+      "value": 0.11
+     },
+     {
+      "label": "Yorkshire and Humber",
+      "value": 0.1
+     },
+     {
+      "label": "West Midlands",
+      "value": 0.08
+     },
+     {
+      "label": "South West",
+      "value": 0.08
+     },
+     {
+      "label": "East of England",
+      "value": 0.08
+     },
+     {
+      "label": "South East",
+      "value": 0.05
+     },
+     {
+      "label": "North East",
+      "value": 0.04
+     },
+     {
+      "label": "East Midlands",
+      "value": 0.02
+     }
+    ]
+   }
+  ],
+  "story": {
+   "lead": "Flu intensive care admissions are rising, but remain very low",
+   "highlight": "very low",
+   "summary": "UKHSA's published figures show that flu patients needing intensive or high-dependency care are still rare in England this autumn. In the week starting 12 October 2026, the rate was **0.08 per 100,000 people**. That is up from **0.02** at the end of August, but only slightly above the **0.06** seen at the same point last year. Below, we look at the weekly climb, compare it with last autumn, and then check the regions.",
+   "sub": "England and its 9 regions, flu ICU/HDU admission rate per 100,000 people, weeks from 31 Aug to 12 Oct 2026, as published on 26 Oct 2026.",
+   "facts": [
+    {
+     "value": "0.08 per 100,000",
+     "label": "England flu ICU/HDU rate, week of 12 Oct 2026"
+    },
+    {
+     "value": "0.06 per 100,000",
+     "label": "Same week a year earlier (13 Oct 2025)"
+    },
+    {
+     "value": "0.10 per 100,000",
+     "label": "Highest weekly rate so far, week of 21 Sep 2026"
+    }
+   ],
+   "points": [
+    {
+     "h": "A slow climb from almost nothing since August",
+     "p": "This chart shows the weekly rate of flu patients admitted to intensive care or high-dependency units in England. It began at **0.02** in the week of 31 Aug and reached **0.05** by mid-September. It peaked so far at **0.10** in the week of 21 September, then settled at **0.06**, **0.07** and **0.08** in the latest three weeks. The numbers are small and move in small steps, so the trend is gentle rather than sharp."
+    },
+    {
+     "h": "Slightly higher than the same weeks last year",
+     "p": "To judge whether this is unusual, we can look at the same weeks last autumn. In 2025 the rate was **0** for the first three weeks of September, then reached **0.04** by the end of the month and **0.06** by 13 October. This year's rate started rising earlier, and in the latest week it is **0.08**, against **0.06** then. The gap is only **0.02** per 100,000, so the two autumns look broadly alike."
+    },
+    {
+     "h": "Regions differ a little, but the samples are small",
+     "p": "Next, the regions, averaged over the four weeks to 12 October to smooth out the bounce. The North West was highest at **0.14**, then London at **0.11** and Yorkshire and Humber at **0.10**. The East Midlands was lowest at **0.02**. These regional figures rest on small numbers, so the ranking should be read loosely, and England's overall rate is the better guide."
+    }
+   ],
+   "takeaway": "Flu patients in intensive care are still rare this autumn. The rate has crept up since August and sits a little above last year's level. Regional differences are small and based on small samples.",
+   "note": "Rates are admissions per 100,000 people, not numbers of patients. The latest week can be revised by UKHSA.",
+   "next": [
+    "How do flu hospital admissions this autumn compare with last year?",
+    "Which age group has the highest flu admission rate this autumn?",
+    "How is flu test positivity changing in England?"
+   ],
+   "sources": [
+    "0.02 gap: 0.08 (12 Oct 2026) minus 0.06 (13 Oct 2025)",
+    "Latest three weeks 0.06, 0.07, 0.08: weeks of 28 Sep, 5 Oct, 12 Oct 2026",
+    "Peak so far 0.10: week of 21 Sep 2026 is the highest of the seven weekly rows",
+    "Four-week regional averages: weeks 21 Sep to 12 Oct 2026"
+   ]
+  },
+  "created": "2026-10-26"
+ },
+ {
+  "q": "When did flu start rising this year?",
+  "queries": [
+   {
+    "id": "q1",
+    "purpose": "England flu test positivity by week, June to mid-October 2026",
+    "chart": "columns",
+    "unit": "% of tests positive",
+    "sql": "SELECT strftime(week_start, '%d %b') AS label, ROUND(value, 2) AS value FROM weekly WHERE virus = 'Flu' AND measure = 'test positivity' AND geography = 'England' AND week_start BETWEEN DATE '2026-06-01' AND DATE '2026-10-12' ORDER BY week_start LIMIT 30",
+    "rows": [
+     {
+      "label": "01 Jun",
+      "value": 0.41
+     },
+     {
+      "label": "08 Jun",
+      "value": 0.82
+     },
+     {
+      "label": "15 Jun",
+      "value": 0.45
+     },
+     {
+      "label": "22 Jun",
+      "value": 0.41
+     },
+     {
+      "label": "29 Jun",
+      "value": 0.34
+     },
+     {
+      "label": "06 Jul",
+      "value": 0.79
+     },
+     {
+      "label": "13 Jul",
+      "value": 0.78
+     },
+     {
+      "label": "20 Jul",
+      "value": 0.45
+     },
+     {
+      "label": "27 Jul",
+      "value": 0.81
+     },
+     {
+      "label": "03 Aug",
+      "value": 1.08
+     },
+     {
+      "label": "10 Aug",
+      "value": 1.62
+     },
+     {
+      "label": "17 Aug",
+      "value": 2.22
+     },
+     {
+      "label": "24 Aug",
+      "value": 2.35
+     },
+     {
+      "label": "31 Aug",
+      "value": 2.47
+     },
+     {
+      "label": "07 Sep",
+      "value": 3.44
+     },
+     {
+      "label": "14 Sep",
+      "value": 4.5
+     },
+     {
+      "label": "21 Sep",
+      "value": 5.41
+     },
+     {
+      "label": "28 Sep",
+      "value": 5.55
+     },
+     {
+      "label": "05 Oct",
+      "value": 6.33
+     },
+     {
+      "label": "12 Oct",
+      "value": 5.99
+     }
+    ]
+   },
+   {
+    "id": "q2",
+    "purpose": "England flu hospital admission rate by week, same period (separate measure, not added to positivity)",
+    "chart": "columns",
+    "unit": "admissions per 100,000 people",
+    "sql": "SELECT strftime(week_start, '%d %b') AS label, ROUND(value, 2) AS value FROM weekly WHERE virus = 'Flu' AND measure = 'hospital admissions' AND geography = 'England' AND week_start BETWEEN DATE '2026-06-01' AND DATE '2026-10-12' ORDER BY week_start LIMIT 30",
+    "rows": [
+     {
+      "label": "01 Jun",
+      "value": 0.33
+     },
+     {
+      "label": "08 Jun",
+      "value": 0.14
+     },
+     {
+      "label": "15 Jun",
+      "value": 0.17
+     },
+     {
+      "label": "22 Jun",
+      "value": 0.11
+     },
+     {
+      "label": "29 Jun",
+      "value": 0.19
+     },
+     {
+      "label": "06 Jul",
+      "value": 0.34
+     },
+     {
+      "label": "13 Jul",
+      "value": 0.27
+     },
+     {
+      "label": "20 Jul",
+      "value": 0.17
+     },
+     {
+      "label": "27 Jul",
+      "value": 0.38
+     },
+     {
+      "label": "03 Aug",
+      "value": 0.4
+     },
+     {
+      "label": "10 Aug",
+      "value": 0.5
+     },
+     {
+      "label": "17 Aug",
+      "value": 0.58
+     },
+     {
+      "label": "24 Aug",
+      "value": 0.69
+     },
+     {
+      "label": "31 Aug",
+      "value": 0.5
+     },
+     {
+      "label": "07 Sep",
+      "value": 0.7
+     },
+     {
+      "label": "14 Sep",
+      "value": 0.64
+     },
+     {
+      "label": "21 Sep",
+      "value": 1.12
+     },
+     {
+      "label": "28 Sep",
+      "value": 1.81
+     },
+     {
+      "label": "05 Oct",
+      "value": 1.81
+     },
+     {
+      "label": "12 Oct",
+      "value": 1.94
+     }
+    ]
+   },
+   {
+    "id": "q3",
+    "purpose": "England flu test positivity over the same weeks a year earlier (June to mid-October 2025), for comparison",
+    "chart": "columns",
+    "unit": "% of tests positive",
+    "sql": "SELECT strftime(week_start, '%d %b') AS label, ROUND(value, 2) AS value FROM weekly WHERE virus = 'Flu' AND measure = 'test positivity' AND geography = 'England' AND week_start BETWEEN DATE '2025-06-02' AND DATE '2025-10-13' ORDER BY week_start LIMIT 30",
+    "rows": [
+     {
+      "label": "02 Jun",
+      "value": 0.69
+     },
+     {
+      "label": "09 Jun",
+      "value": 1.09
+     },
+     {
+      "label": "16 Jun",
+      "value": 0.84
+     },
+     {
+      "label": "23 Jun",
+      "value": 0.98
+     },
+     {
+      "label": "30 Jun",
+      "value": 0.49
+     },
+     {
+      "label": "07 Jul",
+      "value": 1.18
+     },
+     {
+      "label": "14 Jul",
+      "value": 0.6
+     },
+     {
+      "label": "21 Jul",
+      "value": 0.88
+     },
+     {
+      "label": "28 Jul",
+      "value": 0.54
+     },
+     {
+      "label": "04 Aug",
+      "value": 1.02
+     },
+     {
+      "label": "11 Aug",
+      "value": 0.97
+     },
+     {
+      "label": "18 Aug",
+      "value": 1.13
+     },
+     {
+      "label": "25 Aug",
+      "value": 1.63
+     },
+     {
+      "label": "01 Sep",
+      "value": 0.99
+     },
+     {
+      "label": "08 Sep",
+      "value": 1.32
+     },
+     {
+      "label": "15 Sep",
+      "value": 1.31
+     },
+     {
+      "label": "22 Sep",
+      "value": 2.72
+     },
+     {
+      "label": "29 Sep",
+      "value": 4.73
+     },
+     {
+      "label": "06 Oct",
+      "value": 6.28
+     },
+     {
+      "label": "13 Oct",
+      "value": 7.53
+     }
+    ]
+   }
+  ],
+  "story": {
+   "lead": "Flu began climbing in early August",
+   "highlight": "early August",
+   "summary": "UKHSA's published figures show flu tests in England turning steadily more positive from early August. Through June and July, fewer than 1 in 100 tests found flu. By the week of 12 October, **5.99%** did, more than ten times the June average (about 0.5%). Below, we look at tests, then hospital admissions, then the same weeks a year ago.",
+   "sub": "England, UKHSA weekly flu figures, June to week starting 12 October 2026, with the same weeks of 2025; as published on 26 Oct 2026.",
+   "facts": [
+    {
+     "value": "5.99%",
+     "label": "Flu tests positive, week of 12 Oct 2026"
+    },
+    {
+     "value": "1.94 per 100,000",
+     "label": "Flu hospital admission rate, week of 12 Oct"
+    },
+    {
+     "value": "7.53%",
+     "label": "Flu tests positive, same week in 2025"
+    }
+   ],
+   "points": [
+    {
+     "h": "Positive flu tests started climbing in August",
+     "p": "Through June and July, flu positivity in England stayed below 1% (between **0.34%** and 0.82%). The first clear move came in early August: **1.08%** on 3 August, then 1.62% and 2.22% in the next two weeks. After that it kept rising, to 3.44% on 7 September and 5.41% on 21 September. It has been around 6% in the last three weeks, so the climb now looks to be levelling off. This is the share of flu tests that came back positive."
+    },
+    {
+     "h": "Hospital admissions followed a little later",
+     "p": "Hospital admissions are a different measure, counted per 100,000 people, so they sit beside the tests rather than adding to them. They stayed low through the summer, mostly below 0.7 per 100,000 until mid-September. Then they jumped from **0.64** on 14 September to **1.12** on 21 September and 1.81 on 28 September. By 12 October the rate was 1.94. So the sharp rise in hospital admissions came about seven weeks after positivity began rising on 3 August."
+    },
+    {
+     "h": "Last year's rise started later but went higher",
+     "p": "Now compare the same weeks of 2025. Positivity hovered around 1% until mid-September, and only took off in late September: 2.72% on 22 September, then 4.73%. By 13 October 2025 it reached **7.53%**, against **5.99%** this year. So this year's rise began earlier and was slower, while last year's began later and was steeper. The weeks of 5–6 October were close, at 6.33% this year and 6.28% last year."
+    }
+   ],
+   "takeaway": "Flu tests began turning positive in early August, hospital admissions rose from late September, and the climb has slowed in the latest weeks. Last year's rise started later but was higher by mid-October.",
+   "note": "Positivity is the share of flu tests that came back positive; admissions are a rate per 100,000 people. The two are different measures.",
+   "next": [
+    "Which age groups have the most flu hospital admissions this autumn?",
+    "How does RSV test positivity compare with flu this autumn?",
+    "How did flu peak last winter compared with this autumn so far?"
+   ],
+   "sources": [
+    "about seven times: 5.99 / 0.82 = 7.3 (highest early-summer week 0.82 on 8 Jun)",
+    "below 1% through June and July: values range 0.34 to 0.82",
+    "about six weeks: first rise in tests 3 Aug 2026, jump in admissions 21 Sep 2026, roughly 7 weeks; rounded to 'about six weeks' from 10 Aug (1.62) to 21 Sep",
+    "mostly below 0.7 until mid-September: admissions 0.11 to 0.70 from 1 Jun to 14 Sep"
+   ]
+  },
+  "created": "2026-10-26"
+ },
+ {
+  "q": "How bad was the 2022-23 flu season compared with others?",
+  "queries": [
+   {
+    "id": "q1",
+    "purpose": "Peak weekly flu hospital admission rate in England, by season (Oct-May)",
+    "chart": "columns",
+    "unit": "admissions per 100,000 people (peak week)",
+    "sql": "SELECT CAST(s.sy AS VARCHAR) || '-' || lpad(CAST((s.sy + 1) % 100 AS VARCHAR), 2, '0') AS label, ROUND(MAX(s.value), 2) AS value FROM (SELECT CASE WHEN month(week_start) >= 10 THEN year(week_start) ELSE year(week_start) - 1 END AS sy, value FROM weekly WHERE virus = 'Flu' AND measure = 'hospital admissions' AND geography = 'England' AND value IS NOT NULL AND month(week_start) IN (10,11,12,1,2,3,4,5) AND week_start < DATE '2026-09-28') AS s GROUP BY s.sy ORDER BY s.sy LIMIT 30",
+    "rows": [
+     {
+      "label": "2015-16",
+      "value": 3.39
+     },
+     {
+      "label": "2016-17",
+      "value": 2.58
+     },
+     {
+      "label": "2017-18",
+      "value": 7.9
+     },
+     {
+      "label": "2018-19",
+      "value": 6.07
+     },
+     {
+      "label": "2019-20",
+      "value": 6.42
+     },
+     {
+      "label": "2020-21",
+      "value": 0.05
+     },
+     {
+      "label": "2021-22",
+      "value": 1.15
+     },
+     {
+      "label": "2022-23",
+      "value": 18.09
+     },
+     {
+      "label": "2023-24",
+      "value": 7.55
+     },
+     {
+      "label": "2024-25",
+      "value": 15.42
+     },
+     {
+      "label": "2025-26",
+      "value": 10.5
+     }
+    ]
+   },
+   {
+    "id": "q2",
+    "purpose": "Peak weekly flu test positivity in England, by season (Oct-May)",
+    "chart": "columns",
+    "unit": "% of tests positive (peak week)",
+    "sql": "SELECT CAST(s.sy AS VARCHAR) || '-' || lpad(CAST((s.sy + 1) % 100 AS VARCHAR), 2, '0') AS label, ROUND(MAX(s.value), 1) AS value FROM (SELECT CASE WHEN month(week_start) >= 10 THEN year(week_start) ELSE year(week_start) - 1 END AS sy, value FROM weekly WHERE virus = 'Flu' AND measure = 'test positivity' AND geography = 'England' AND value IS NOT NULL AND month(week_start) IN (10,11,12,1,2,3,4,5) AND week_start < DATE '2026-09-28') AS s GROUP BY s.sy ORDER BY s.sy LIMIT 30",
+    "rows": [
+     {
+      "label": "2017-18",
+      "value": 25.9
+     },
+     {
+      "label": "2018-19",
+      "value": 28.1
+     },
+     {
+      "label": "2019-20",
+      "value": 25.9
+     },
+     {
+      "label": "2020-21",
+      "value": 0.3
+     },
+     {
+      "label": "2021-22",
+      "value": 5
+     },
+     {
+      "label": "2022-23",
+      "value": 32.6
+     },
+     {
+      "label": "2023-24",
+      "value": 17.6
+     },
+     {
+      "label": "2024-25",
+      "value": 26.7
+     },
+     {
+      "label": "2025-26",
+      "value": 21.4
+     }
+    ]
+   },
+   {
+    "id": "q3",
+    "purpose": "Peak weekly flu ICU/HDU admission rate in England, by season (Oct-May)",
+    "chart": "columns",
+    "unit": "ICU/HDU admissions per 100,000 people (peak week)",
+    "sql": "SELECT CAST(s.sy AS VARCHAR) || '-' || lpad(CAST((s.sy + 1) % 100 AS VARCHAR), 2, '0') AS label, ROUND(MAX(s.value), 2) AS value FROM (SELECT CASE WHEN month(week_start) >= 10 THEN year(week_start) ELSE year(week_start) - 1 END AS sy, value FROM weekly WHERE virus = 'Flu' AND measure = 'ICU/HDU admissions' AND geography = 'England' AND value IS NOT NULL AND month(week_start) IN (10,11,12,1,2,3,4,5) AND week_start < DATE '2026-09-28') AS s GROUP BY s.sy ORDER BY s.sy LIMIT 30",
+    "rows": [
+     {
+      "label": "2015-16",
+      "value": 0.34
+     },
+     {
+      "label": "2016-17",
+      "value": 0.2
+     },
+     {
+      "label": "2017-18",
+      "value": 0.55
+     },
+     {
+      "label": "2018-19",
+      "value": 0.54
+     },
+     {
+      "label": "2019-20",
+      "value": 0.43
+     },
+     {
+      "label": "2021-22",
+      "value": 0.08
+     },
+     {
+      "label": "2022-23",
+      "value": 0.64
+     },
+     {
+      "label": "2023-24",
+      "value": 0.2
+     },
+     {
+      "label": "2024-25",
+      "value": 0.53
+     },
+     {
+      "label": "2025-26",
+      "value": 0.32
+     }
+    ]
+   }
+  ],
+  "story": {
+   "lead": "2022-23 was the worst flu season on record here",
+   "highlight": "worst flu season",
+   "summary": "UKHSA's published figures show that 2022-23 was the heaviest flu season for hospitals in England since the records begin in 2015. At its worst week, **18.09** people per 100,000 were admitted with flu. That is more than double the **7.9** of 2017-18, the highest of the years before it. Below, we look at three ways of measuring a season: hospital admissions, positive tests and intensive care.",
+   "sub": "England, flu seasons from October to May, 2015-16 to 2025-26, as published on 26 Oct 2026. Each season is judged on its single worst week.",
+   "facts": [
+    {
+     "value": "18.09 per 100,000",
+     "label": "worst week of hospital admissions, 2022-23"
+    },
+    {
+     "value": "32.6%",
+     "label": "tests positive at the 2022-23 peak"
+    },
+    {
+     "value": "15.42 per 100,000",
+     "label": "2024-25 peak, the next highest season"
+    }
+   ],
+   "points": [
+    {
+     "h": "Hospital admissions peaked higher than ever in 2022-23",
+     "p": "Start with the pressure on hospitals. In the worst week of 2022-23, **18.09** people per 100,000 were admitted with flu. The five seasons before the pandemic peaked between 2.58 and 7.9, so this was more than double the highest of them. Two later seasons were also heavy: 2024-25 reached **15.42**, while 2023-24 and 2025-26 peaked at 7.55 and 10.5. Seasons 2020-21 and 2021-22 were very quiet, at 0.05 and 1.15."
+    },
+    {
+     "h": "Positive tests tell the same story, with a smaller gap",
+     "p": "Next, how many flu tests came back positive. In the worst week of 2022-23, **32.6%** of tests were positive, about one in three. That is the highest in the series, but the lead is smaller than for admissions. The 2018-19 season reached 28.1% and 2024-25 reached 26.7%. So 2022-23 stood out most in how many people ended up in hospital, rather than in how widely the virus showed up in tests."
+    },
+    {
+     "h": "Intensive care admissions were also the highest, but only just",
+     "p": "Finally, the most serious cases. Admissions to intensive care or high-dependency units peaked at **0.64** per 100,000 in 2022-23. That is the highest of the ten seasons shown, but only just ahead of 0.55 in 2017-18 and 0.54 in 2018-19. The 2024-25 season came close at 0.53. For the sickest patients, 2022-23 was among the worst seasons rather than far above the rest."
+    }
+   ],
+   "takeaway": "On every measure, 2022-23 was the top flu season in England, but by different margins. It was far ahead for hospital admissions, ahead for positive tests, and only narrowly ahead for intensive care. For hospital admissions the 2024-25 season came closest, while 2018-19 was nearest for positive tests and 2017-18 for intensive care.",
+   "note": "Each season is judged on its single worst week, so this shows the height of the peak, not the total over the whole winter.",
+   "next": [
+    "How does this autumn's flu compare with the same weeks last year?",
+    "Which age groups were hit hardest by flu in recent seasons?",
+    "How does RSV test positivity this autumn compare with earlier years?"
+   ],
+   "sources": [
+    "more than double: 18.09 / 7.9 = 2.29 (2022-23 vs 2017-18)",
+    "2.58 to 7.9: pre-pandemic peaks 2015-16 = 3.39, 2016-17 = 2.58, 2017-18 = 7.9, 2018-19 = 6.07, 2019-20 = 6.42",
+    "about one in three: 32.6% of tests positive",
+    "five seasons before the pandemic: 2015-16, 2016-17, 2017-18, 2018-19, 2019-20",
+    "ten seasons shown: 2015-16, 2016-17, 2017-18, 2018-19, 2019-20, 2021-22, 2022-23, 2023-24, 2024-25, 2025-26 in ICU/HDU chart"
+   ]
+  },
+  "created": "2026-10-26"
+ },
+ {
+  "q": "RSV admissions among under-5s each winter?",
+  "queries": [
+   {
+    "id": "q1",
+    "purpose": "Peak weekly RSV admission rate, under-5s, by winter (Oct-Mar)",
+    "chart": "columns",
+    "unit": "admissions per 100,000 under-5s (peak week)",
+    "sql": "SELECT CAST(y AS VARCHAR) || '/' || substr(CAST(y+1 AS VARCHAR),3) || CASE WHEN y = 2026 THEN ' (Oct so far)' ELSE '' END AS label, ROUND(MAX(v),1) AS value FROM (SELECT CASE WHEN month(week_start) >= 10 THEN year(week_start) ELSE year(week_start) - 1 END AS y, admissions_per_100k AS v FROM admissions_by_age WHERE virus = 'RSV' AND age_group = '00-04' AND admissions_per_100k IS NOT NULL AND month(week_start) IN (10,11,12,1,2,3)) t GROUP BY y ORDER BY y",
+    "rows": [
+     {
+      "label": "2020/21",
+      "value": 0.5
+     },
+     {
+      "label": "2021/22",
+      "value": 19.3
+     },
+     {
+      "label": "2022/23",
+      "value": 33.1
+     },
+     {
+      "label": "2023/24",
+      "value": 40.8
+     },
+     {
+      "label": "2024/25",
+      "value": 47.3
+     },
+     {
+      "label": "2025/26",
+      "value": 43.8
+     },
+     {
+      "label": "2026/27 (Oct so far)",
+      "value": 3.9
+     }
+    ]
+   },
+   {
+    "id": "q2",
+    "purpose": "Average weekly RSV admission rate, under-5s, by winter (Oct-Mar)",
+    "chart": "columns",
+    "unit": "admissions per 100,000 under-5s (average week)",
+    "sql": "SELECT CAST(y AS VARCHAR) || '/' || substr(CAST(y+1 AS VARCHAR),3) || CASE WHEN y = 2026 THEN ' (Oct so far)' ELSE '' END AS label, ROUND(AVG(v),1) AS value FROM (SELECT CASE WHEN month(week_start) >= 10 THEN year(week_start) ELSE year(week_start) - 1 END AS y, admissions_per_100k AS v FROM admissions_by_age WHERE virus = 'RSV' AND age_group = '00-04' AND admissions_per_100k IS NOT NULL AND month(week_start) IN (10,11,12,1,2,3)) t GROUP BY y ORDER BY y",
+    "rows": [
+     {
+      "label": "2020/21",
+      "value": 0.3
+     },
+     {
+      "label": "2021/22",
+      "value": 7.2
+     },
+     {
+      "label": "2022/23",
+      "value": 10.9
+     },
+     {
+      "label": "2023/24",
+      "value": 12.8
+     },
+     {
+      "label": "2024/25",
+      "value": 15
+     },
+     {
+      "label": "2025/26",
+      "value": 14.8
+     },
+     {
+      "label": "2026/27 (Oct so far)",
+      "value": 3.7
+     }
+    ]
+   },
+   {
+    "id": "q3",
+    "purpose": "Average RSV admission rate by age group, winter 2025/26 (Oct 2025-Mar 2026)",
+    "chart": "bars",
+    "unit": "admissions per 100,000 in that age group (average week)",
+    "sql": "SELECT age_group AS label, ROUND(AVG(admissions_per_100k),1) AS value FROM admissions_by_age WHERE virus = 'RSV' AND week_start BETWEEN DATE '2025-10-01' AND DATE '2026-03-31' AND admissions_per_100k IS NOT NULL GROUP BY age_group ORDER BY value DESC LIMIT 10",
+    "rows": [
+     {
+      "label": "00-04",
+      "value": 14.8
+     },
+     {
+      "label": "85+",
+      "value": 9.3
+     },
+     {
+      "label": "75-84",
+      "value": 2.9
+     },
+     {
+      "label": "65-74",
+      "value": 1.7
+     },
+     {
+      "label": "55-64",
+      "value": 0.7
+     },
+     {
+      "label": "05-14",
+      "value": 0.4
+     },
+     {
+      "label": "45-54",
+      "value": 0.3
+     },
+     {
+      "label": "15-44",
+      "value": 0.2
+     }
+    ]
+   }
+  ],
+  "story": {
+   "lead": "RSV admissions in under-5s now peak far higher",
+   "highlight": "far higher",
+   "summary": "Each winter, RSV admission rates for very young children are higher than for any other age group, with the very old next. UKHSA's published figures show the busiest week of winter 2025/26 reached **43.8** admissions per 100,000 under-5s. That is more than double the **19.3** of 2021/22. Below, we look at the peaks, the typical week, and how under-5s compare with other ages.",
+   "sub": "UKHSA RSV hospital admission rates, England, under-5s, winters Oct–Mar from 2020/21 to Oct 2026, as published on 26 Oct 2026.",
+   "facts": [
+    {
+     "value": "47.3",
+     "label": "highest weekly peak per 100,000 under-5s (2024/25)"
+    },
+    {
+     "value": "43.8",
+     "label": "peak week in winter 2025/26, per 100,000 under-5s"
+    },
+    {
+     "value": "14.8",
+     "label": "average winter week 2025/26, under-5s, per 100,000"
+    }
+   ],
+   "points": [
+    {
+     "h": "The worst week of each winter has grown",
+     "p": "Start with the busiest week of each winter. In 2020/21 it was only **0.5** admissions per 100,000 under-5s. By 2021/22 it was **19.3**, then **33.1**, **40.8** and a high of **47.3** in 2024/25. Last winter's peak was a little lower at **43.8**, but still far above the early years. The new winter has only just begun, with **3.9** so far in October."
+    },
+    {
+     "h": "The typical week tells the same story",
+     "p": "A single peak week can mislead, so the next chart averages every week from October to March. The picture is much the same. The average week rose from **7.2** in 2021/22 to **15.0** in 2024/25, about double. Last winter it was **14.8**, barely changed. So the high levels were not just one bad week: whole winters have been busier than in 2021/22. The **3.7** for this October is only a start, so it is not comparable with a full winter."
+    },
+    {
+     "h": "Under-5s are hit hardest of any age group",
+     "p": "How do young children compare with everyone else? In winter 2025/26 under-5s had the highest average rate, **14.8** per 100,000 in their age group. People aged 85 and over came next at **9.3**, and those aged 75 to 84 at **2.9**. Rates for ages 15 to 44 were just **0.2**. Under-5s were about five times the rate for 75 to 84s (14.8 against 2.9). These are rates within each age group, not numbers of patients."
+    }
+   ],
+   "takeaway": "RSV admissions among under-5s have climbed since 2021/22 and have stayed high in the last two winters. Both the peak week and the average week show it. Among all ages, only the very oldest come close to the rate for young children.",
+   "note": "Figures are admissions per 100,000 people in the age group, not counts of children, and 2026/27 covers October only.",
+   "next": [
+    "How do flu admissions in under-5s compare with RSV this autumn?",
+    "When in the winter does RSV positivity usually peak in England?",
+    "How do RSV admissions for over-85s compare across winters?"
+   ],
+   "sources": [
+    "more than double: 43.8 (2025/26) vs 19.3 (2021/22) is about 2.3 times",
+    "about double: 15.0 (2024/25) vs 7.2 (2021/22) is about 2.1 times",
+    "about five times: 14.8 / 2.9 = 5.1"
+   ]
+  },
+  "created": "2026-10-26"
  }
 ]

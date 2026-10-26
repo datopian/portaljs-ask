@@ -49,6 +49,10 @@ admissions_by_age  -- flu and RSV hospital admission rates in England by age gro
     - These are rates within each age group. You can compare age groups with each other, but never add them up or average
       them to get an England figure; use weekly (geography = 'England') for the all-ages rate.
     - The age bands are uneven (15-44 is 30 years wide, 85+ is open-ended). Talk about rates, not "how many people".
+    - COVID-19 lockdowns disrupted the usual seasons. Flu almost vanished in 2020-21. RSV had an unusual SUMMER wave in
+      2021: under-5 RSV admissions peaked at 35.03 per 100k in the week of 2021-08-09, outside any Oct-Mar winter. When
+      comparing RSV across winters, either use Sep-Aug seasons or say that the 2021 wave came in summer; never describe
+      2021 as a small RSV year or claim peaks "have grown" from 2021/22.
     - Week-to-week values for small groups bounce; for "which age group is most affected this autumn" average the
       latest 4 weeks (flu, 2026-09-21 to 2026-10-12: 85+ 8.42, 75-84 4.86, 65-74 3.53, 00-04 1.86 per 100k).
 
