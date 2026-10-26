@@ -478,85 +478,88 @@
   "q": "Flu vs COVID-19 vs RSV test positivity right now?",
   "queries": [
    {
-    "id": "q3",
-    "purpose": "COVID-19 positivity trend, last 8 weeks (weekly, Mondays)",
-    "chart": "columns",
-    "unit": "% of tests positive, 7-day rolling",
-    "sql": "SELECT strftime(day, '%d %b') AS label, ROUND(value, 2) AS value FROM covid_daily WHERE measure = 'test positivity' AND geography = 'England' AND day IN (SELECT CAST(DATE '2026-10-19' - CAST(7 * i AS INTEGER) AS DATE) FROM range(0, 8) AS t(i)) ORDER BY day",
+    "id": "q1",
+    "purpose": "Latest England test positivity: flu, RSV (week of 12 Oct 2026) and COVID-19 (7-day rolling to 19 Oct 2026)",
+    "chart": "bars",
+    "unit": "% of tests positive",
+    "sql": "SELECT label, value FROM (SELECT 'Flu (week from 12 Oct)' AS label, ROUND(value, 2) AS value FROM weekly WHERE virus = 'Flu' AND measure = 'test positivity' AND geography = 'England' AND week_start = DATE '2026-10-12' UNION ALL SELECT 'RSV (week from 12 Oct)', ROUND(value, 2) FROM weekly WHERE virus = 'RSV' AND measure = 'test positivity' AND geography = 'England' AND week_start = DATE '2026-10-12' UNION ALL SELECT 'COVID-19 (7 days to 19 Oct)', ROUND(value, 2) FROM covid_daily WHERE measure = 'test positivity' AND geography = 'England' AND day = DATE '2026-10-19') ORDER BY value DESC",
     "rows": [
      {
-      "label": "31 Aug",
-      "value": 3.73
-     },
-     {
-      "label": "07 Sep",
-      "value": 5.01
-     },
-     {
-      "label": "14 Sep",
-      "value": 6.38
-     },
-     {
-      "label": "21 Sep",
-      "value": 7.51
-     },
-     {
-      "label": "28 Sep",
-      "value": 8.8
-     },
-     {
-      "label": "05 Oct",
-      "value": 9.3
-     },
-     {
-      "label": "12 Oct",
-      "value": 9.3
-     },
-     {
-      "label": "19 Oct",
+      "label": "COVID-19 (7 days to 19 Oct)",
       "value": 9.11
+     },
+     {
+      "label": "Flu (week from 12 Oct)",
+      "value": 5.99
+     },
+     {
+      "label": "RSV (week from 12 Oct)",
+      "value": 0.88
+     }
+    ]
+   },
+   {
+    "id": "q2",
+    "purpose": "Same comparison a year earlier (flu and RSV week from 13 Oct 2025, COVID-19 7 days to 20 Oct 2025)",
+    "chart": "bars",
+    "unit": "% of tests positive",
+    "sql": "SELECT label, value FROM (SELECT 'Flu (week from 13 Oct 2025)' AS label, ROUND(value, 2) AS value FROM weekly WHERE virus = 'Flu' AND measure = 'test positivity' AND geography = 'England' AND week_start = DATE '2025-10-13' UNION ALL SELECT 'RSV (week from 13 Oct 2025)', ROUND(value, 2) FROM weekly WHERE virus = 'RSV' AND measure = 'test positivity' AND geography = 'England' AND week_start = DATE '2025-10-13' UNION ALL SELECT 'COVID-19 (7 days to 20 Oct 2025)', ROUND(value, 2) FROM covid_daily WHERE measure = 'test positivity' AND geography = 'England' AND day = DATE '2025-10-20') ORDER BY value DESC",
+    "rows": [
+     {
+      "label": "COVID-19 (7 days to 20 Oct 2025)",
+      "value": 9.17
+     },
+     {
+      "label": "Flu (week from 13 Oct 2025)",
+      "value": 7.53
+     },
+     {
+      "label": "RSV (week from 13 Oct 2025)",
+      "value": 1.34
      }
     ]
    }
   ],
   "story": {
-   "lead": "COVID-19 tests 9.1% positive, ahead of flu's 6%",
+   "lead": "COVID-19 leads, flu follows, RSV is rare",
    "highlight": "COVID-19",
-   "summary": "About 9 in every 100 COVID-19 tests in England came back positive in the latest figures, on 19 October. UKHSA's published figures show flu at **5.99%** for the week starting 12 October, so COVID-19 is higher by about three percentage points. COVID-19 positivity has risen from **3.73%** to **9.11%** in the last eight weeks. The results I was given only cover COVID-19, so I can't give a figure for RSV.",
-   "sub": "England, COVID-19 test positivity (7-day rolling) on Mondays, 31 Aug to 19 Oct 2026, as published on 26 Oct 2026; flu figure for the week starting 12 Oct.",
+   "summary": "Of the three viruses, COVID-19 is turning up in the most tests right now: **9.11%** of tests came back positive in the 7 days to 19 October 2026. Flu is next at **5.99%** for the week starting 12 October. RSV is far behind at **0.88%**. Below, we look at today's picture and then at the same moment a year ago.",
+   "sub": "England, UKHSA's published figures as of 26 Oct 2026: flu and RSV week starting 12 Oct 2026, COVID-19 7 days to 19 Oct 2026, and a year earlier.",
    "facts": [
     {
      "value": "9.11%",
-     "label": "COVID-19 tests positive, 19 October"
-    },
-    {
-     "value": "3.73%",
-     "label": "COVID-19 positivity eight weeks earlier, 31 August"
+     "label": "COVID-19 tests positive, 7 days to 19 Oct"
     },
     {
      "value": "5.99%",
-     "label": "Flu tests positive, week starting 12 October"
+     "label": "Flu tests positive, week from 12 Oct"
+    },
+    {
+     "value": "0.88%",
+     "label": "RSV tests positive, week from 12 Oct"
     }
    ],
    "points": [
     {
-     "h": "COVID-19 climbed for weeks, then levelled off",
-     "p": "The share of COVID-19 tests coming back positive in England rose every week from **3.73%** on 31 August to **9.3%** on 5 October. That is about **2.4 times** higher in just over a month. It held at 9.3% on 12 October and then dipped slightly to **9.11%** on 19 October. For comparison, UKHSA's published figures show flu at **5.99%** in the week starting 12 October, when COVID-19 was at 9.3%. These are different tests for different viruses, so the comparison is only rough. This chart says nothing about RSV."
+     "h": "Right now, COVID-19 tops the list",
+     "p": "Roughly 1 in 11 COVID-19 tests is positive, at **9.11%**. Flu is lower at **5.99%**, or about 1 in 17 tests. RSV is at **0.88%**, so COVID-19 is more than ten times higher. Positivity is the share of tests that find the virus, and the tests behind each virus differ. It is a rough guide to how common each one is, not an exact count."
+    },
+    {
+     "h": "A year ago, the order was the same",
+     "p": "Look back to the same point in 2025 and the ranking was identical. COVID-19 was at **9.17%**, almost exactly where it is now. Flu was higher then, at **7.53%** against **5.99%** today. RSV was at **1.34%**, also above today's **0.88%**. So COVID-19 looks about the same as last year, while flu and RSV are somewhat lower."
     }
    ],
-   "takeaway": "Right now, COVID-19 has the highest share of positive tests of the two viruses I can compare, with flu lower. The COVID-19 rise has slowed and may have stopped for now. RSV is missing from these results, so the full three-way comparison isn't answered here.",
-   "note": "Positivity is the share of tests that were positive, not the number of people infected, and the tests behind each virus differ.",
+   "takeaway": "COVID-19 has the highest share of positive tests, flu is in the middle and RSV is lowest, just as a year ago. Compared with then, COVID-19 is level while flu and RSV are lower.",
+   "note": "Flu and RSV figures are for a whole week; COVID-19 is a 7-day rolling figure. The tests behind each virus differ, so compare them with care.",
    "next": [
-    "What is RSV test positivity in England right now?",
-    "How does flu positivity this October compare with a year ago?",
-    "Which age group has the highest flu hospital admission rate this autumn?"
+    "How has flu test positivity changed week by week this autumn?",
+    "Which age group has the highest flu hospital admissions right now?",
+    "How do flu hospital admissions now compare with a year ago?"
    ],
    "sources": [
-    "about 9 in 100: COVID-19 positivity 19 Oct = 9.11%",
-    "about three percentage points: 9.11 - 5.99 = 3.12",
-    "2.4 times: 9.3 (05 Oct) / 3.73 (31 Aug) = 2.49, rounded down for the rise to 9.11 (9.11 / 3.73 = 2.44)",
-    "5.99%: UKHSA's latest England flu test positivity, week starting 2026-10-12 (from the data notes, not the chart rows)",
-    "eight weeks: 31 Aug to 19 Oct has 8 weekly rows"
+    "about 1 in 11: 100 / 9.11 = 11.0",
+    "about 1 in 17: 100 / 5.99 = 16.7",
+    "more than ten times: 9.11 / 0.88 = 10.35"
    ]
   },
   "created": "2026-10-26"
@@ -2950,10 +2953,10 @@
   "queries": [
    {
     "id": "q1",
-    "purpose": "Peak weekly RSV admission rate, under-5s, by winter (Oct-Mar)",
+    "purpose": "Peak weekly RSV admission rate in under-5s, each Oct-Mar winter",
     "chart": "columns",
     "unit": "admissions per 100,000 under-5s (peak week)",
-    "sql": "SELECT CAST(y AS VARCHAR) || '/' || substr(CAST(y+1 AS VARCHAR),3) || CASE WHEN y = 2026 THEN ' (Oct so far)' ELSE '' END AS label, ROUND(MAX(v),1) AS value FROM (SELECT CASE WHEN month(week_start) >= 10 THEN year(week_start) ELSE year(week_start) - 1 END AS y, admissions_per_100k AS v FROM admissions_by_age WHERE virus = 'RSV' AND age_group = '00-04' AND admissions_per_100k IS NOT NULL AND month(week_start) IN (10,11,12,1,2,3)) t GROUP BY y ORDER BY y",
+    "sql": "SELECT CAST(y AS VARCHAR) || '/' || substr(CAST(y+1 AS VARCHAR),3,2) AS label, ROUND(MAX(admissions_per_100k),1) AS value FROM (SELECT *, CASE WHEN month(week_start) >= 10 THEN year(week_start) ELSE year(week_start)-1 END AS y FROM admissions_by_age WHERE virus='RSV' AND age_group='00-04' AND month(week_start) IN (10,11,12,1,2,3) AND week_start < DATE '2026-10-01') GROUP BY y ORDER BY y",
     "rows": [
      {
       "label": "2020/21",
@@ -2978,19 +2981,15 @@
      {
       "label": "2025/26",
       "value": 43.8
-     },
-     {
-      "label": "2026/27 (Oct so far)",
-      "value": 3.9
      }
     ]
    },
    {
     "id": "q2",
-    "purpose": "Average weekly RSV admission rate, under-5s, by winter (Oct-Mar)",
+    "purpose": "Average weekly RSV admission rate in under-5s across each Oct-Mar winter",
     "chart": "columns",
     "unit": "admissions per 100,000 under-5s (average week)",
-    "sql": "SELECT CAST(y AS VARCHAR) || '/' || substr(CAST(y+1 AS VARCHAR),3) || CASE WHEN y = 2026 THEN ' (Oct so far)' ELSE '' END AS label, ROUND(AVG(v),1) AS value FROM (SELECT CASE WHEN month(week_start) >= 10 THEN year(week_start) ELSE year(week_start) - 1 END AS y, admissions_per_100k AS v FROM admissions_by_age WHERE virus = 'RSV' AND age_group = '00-04' AND admissions_per_100k IS NOT NULL AND month(week_start) IN (10,11,12,1,2,3)) t GROUP BY y ORDER BY y",
+    "sql": "SELECT CAST(y AS VARCHAR) || '/' || substr(CAST(y+1 AS VARCHAR),3,2) AS label, ROUND(AVG(admissions_per_100k),1) AS value FROM (SELECT *, CASE WHEN month(week_start) >= 10 THEN year(week_start) ELSE year(week_start)-1 END AS y FROM admissions_by_age WHERE virus='RSV' AND age_group='00-04' AND month(week_start) IN (10,11,12,1,2,3) AND week_start < DATE '2026-10-01') GROUP BY y ORDER BY y",
     "rows": [
      {
       "label": "2020/21",
@@ -3015,99 +3014,104 @@
      {
       "label": "2025/26",
       "value": 14.8
-     },
-     {
-      "label": "2026/27 (Oct so far)",
-      "value": 3.7
      }
     ]
    },
    {
     "id": "q3",
-    "purpose": "Average RSV admission rate by age group, winter 2025/26 (Oct 2025-Mar 2026)",
-    "chart": "bars",
-    "unit": "admissions per 100,000 in that age group (average week)",
-    "sql": "SELECT age_group AS label, ROUND(AVG(admissions_per_100k),1) AS value FROM admissions_by_age WHERE virus = 'RSV' AND week_start BETWEEN DATE '2025-10-01' AND DATE '2026-03-31' AND admissions_per_100k IS NOT NULL GROUP BY age_group ORDER BY value DESC LIMIT 10",
+    "purpose": "Monthly average under-5 RSV admission rate, Jun 2021 to Mar 2022, showing the unusual summer 2021 wave before the winter",
+    "chart": "columns",
+    "unit": "admissions per 100,000 under-5s (average week)",
+    "sql": "SELECT strftime(m, '%b %Y') AS label, ROUND(AVG(admissions_per_100k),1) AS value FROM (SELECT date_trunc('month', week_start) AS m, admissions_per_100k FROM admissions_by_age WHERE virus='RSV' AND age_group='00-04' AND week_start >= DATE '2021-06-01' AND week_start < DATE '2022-04-01') GROUP BY m ORDER BY m",
     "rows": [
      {
-      "label": "00-04",
-      "value": 14.8
+      "label": "Jun 2021",
+      "value": 8.8
      },
      {
-      "label": "85+",
-      "value": 9.3
+      "label": "Jul 2021",
+      "value": 25.4
      },
      {
-      "label": "75-84",
-      "value": 2.9
+      "label": "Aug 2021",
+      "value": 27.9
      },
      {
-      "label": "65-74",
-      "value": 1.7
+      "label": "Sep 2021",
+      "value": 21.6
      },
      {
-      "label": "55-64",
-      "value": 0.7
+      "label": "Oct 2021",
+      "value": 17.3
      },
      {
-      "label": "05-14",
-      "value": 0.4
+      "label": "Nov 2021",
+      "value": 10.6
      },
      {
-      "label": "45-54",
-      "value": 0.3
+      "label": "Dec 2021",
+      "value": 6.8
      },
      {
-      "label": "15-44",
-      "value": 0.2
+      "label": "Jan 2022",
+      "value": 2.6
+     },
+     {
+      "label": "Feb 2022",
+      "value": 2.5
+     },
+     {
+      "label": "Mar 2022",
+      "value": 3.8
      }
     ]
    }
   ],
   "story": {
-   "lead": "RSV admissions in under-5s now peak far higher",
-   "highlight": "far higher",
-   "summary": "Each winter, RSV admission rates for very young children are higher than for any other age group, with the very old next. UKHSA's published figures show the busiest week of winter 2025/26 reached **43.8** admissions per 100,000 under-5s. That is more than double the **19.3** of 2021/22. Below, we look at the peaks, the typical week, and how under-5s compare with other ages.",
-   "sub": "UKHSA RSV hospital admission rates, England, under-5s, winters Oct–Mar from 2020/21 to Oct 2026, as published on 26 Oct 2026.",
+   "lead": "Under-5 RSV admissions peaked highest in winter 2024/25",
+   "highlight": "2024/25",
+   "summary": "In the busiest week of winter 2024/25, UKHSA's published figures show **47.3** RSV hospital admissions for every 100,000 children under 5. That is the highest winter peak in this data, about **43% higher** than the **33.1** of winter 2022/23. Last winter, 2025/26, came close at **43.8**. Below, we look at the peaks, then the typical week, then the odd summer wave of 2021 that makes the early years hard to compare.",
+   "sub": "UKHSA's published figures for England, RSV hospital admissions in under-5s, October–March winters 2020/21 to 2025/26, as published on 26 Oct 2026.",
    "facts": [
     {
-     "value": "47.3",
-     "label": "highest weekly peak per 100,000 under-5s (2024/25)"
+     "value": "47.3 per 100,000",
+     "label": "Highest winter peak, 2024/25, under-5s"
     },
     {
-     "value": "43.8",
-     "label": "peak week in winter 2025/26, per 100,000 under-5s"
+     "value": "43.8 per 100,000",
+     "label": "Peak last winter, 2025/26"
     },
     {
-     "value": "14.8",
-     "label": "average winter week 2025/26, under-5s, per 100,000"
+     "value": "15.0 per 100,000",
+     "label": "Average winter week in 2024/25"
     }
    ],
    "points": [
     {
-     "h": "The worst week of each winter has grown",
-     "p": "Start with the busiest week of each winter. In 2020/21 it was only **0.5** admissions per 100,000 under-5s. By 2021/22 it was **19.3**, then **33.1**, **40.8** and a high of **47.3** in 2024/25. Last winter's peak was a little lower at **43.8**, but still far above the early years. The new winter has only just begun, with **3.9** so far in October."
+     "h": "Winter peaks climbed to 47 per 100,000, then eased",
+     "p": "Start with the busiest week of each winter. From 2022/23 to 2024/25 the peak went up each year, from **33.1** to **40.8** to **47.3** admissions per 100,000 under-5s. Last winter's peak was a little lower, at **43.8**, which is 3.5 less than the year before. The two earliest winters are not a fair starting point, and the last chart shows why."
     },
     {
      "h": "The typical week tells the same story",
-     "p": "A single peak week can mislead, so the next chart averages every week from October to March. The picture is much the same. The average week rose from **7.2** in 2021/22 to **15.0** in 2024/25, about double. Last winter it was **14.8**, barely changed. So the high levels were not just one bad week: whole winters have been busier than in 2021/22. The **3.7** for this October is only a start, so it is not comparable with a full winter."
+     "p": "A single peak week can be a fluke, so the next chart averages every week from October to March. It shows the same shape. The average week rose from **10.9** in 2022/23 to **15.0** in 2024/25, then stayed almost level at **14.8** last winter. So the high peaks were not just one freak week: whole winters were busier than in 2022/23. Last winter was very close to the one before."
     },
     {
-     "h": "Under-5s are hit hardest of any age group",
-     "p": "How do young children compare with everyone else? In winter 2025/26 under-5s had the highest average rate, **14.8** per 100,000 in their age group. People aged 85 and over came next at **9.3**, and those aged 75 to 84 at **2.9**. Rates for ages 15 to 44 were just **0.2**. Under-5s were about five times the rate for 75 to 84s (14.8 against 2.9). These are rates within each age group, not numbers of patients."
+     "h": "Why the first two winters look so different",
+     "p": "Now to the early years. The winter of 2020/21 was almost empty, with a peak of just **0.5**. The next winter, 2021/22, was shaped by something unusual. RSV admissions among under-5s were already high in summer 2021, at **27.9** in August. They then fell month after month to **2.6** by January 2022, more than ten times lower. So the **19.3** peak of 2021/22 was the tail end of a summer wave, not a normal winter one. That is why these two years should not be used as a baseline."
     }
    ],
-   "takeaway": "RSV admissions among under-5s have climbed since 2021/22 and have stayed high in the last two winters. Both the peak week and the average week show it. Among all ages, only the very oldest come close to the rate for young children.",
-   "note": "Figures are admissions per 100,000 people in the age group, not counts of children, and 2026/27 covers October only.",
+   "takeaway": "Since 2022/23, RSV winters among under-5s have been busy, with peaks in the 30s and 40s per 100,000. Winter 2024/25 was the highest in these figures, and last winter was only slightly lower. The first two winters were unlike normal ones, so the clearest comparison starts in 2022/23.",
+   "note": "These are rates per 100,000 children under 5, not numbers of children, and winter means weeks from October to March; weeks from October 2026 onwards (the start of winter 2026/27) are not included.",
    "next": [
-    "How do flu admissions in under-5s compare with RSV this autumn?",
-    "When in the winter does RSV positivity usually peak in England?",
-    "How do RSV admissions for over-85s compare across winters?"
+    "How do RSV admissions compare across age groups this autumn?",
+    "How does RSV test positivity this autumn compare with last year?",
+    "How have flu admissions in under-5s changed over recent winters?"
    ],
    "sources": [
-    "more than double: 43.8 (2025/26) vs 19.3 (2021/22) is about 2.3 times",
-    "about double: 15.0 (2024/25) vs 7.2 (2021/22) is about 2.1 times",
-    "about five times: 14.8 / 2.9 = 5.1"
+    "43% higher: 47.3 / 33.1 = 1.43 (2024/25 vs 2022/23 peak)",
+    "3.5 less: 47.3 − 43.8 = 3.5 (2024/25 vs 2025/26 peak)",
+    "more than ten times lower: Aug 2021 = 27.9, Jan 2022 = 2.6, 27.9 / 2.6 = 10.7",
+    "Peaks 33.1, 40.8, 47.3: 2022/23, 2023/24, 2024/25 rows of chart 1"
    ]
   },
   "created": "2026-10-26"
