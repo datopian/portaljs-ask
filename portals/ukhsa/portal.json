@@ -24,7 +24,8 @@
   },
   "data": {
     "base": "/data/ukhsa/",
-    "snapshot": "2026-10-26"
+    "snapshot": "2026-10-26",
+    "remote": "https://r7ku4izoj8cd8lsg.public.blob.vercel-storage.com/data/ukhsa/2026-10-26/"
   },
   "live": false,
   "examples": [
