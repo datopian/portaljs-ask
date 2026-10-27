@@ -1,0 +1,70 @@
+{
+  "slug": "ukhsa",
+  "name": "Ask UKHSA's respiratory data",
+  "owner": "UK Health Security Agency",
+  "description": "Ask a plain question about flu, COVID-19 and RSV in England and get a short answer with charts, built from the UKHSA data dashboard's public API, with the exact series behind every number.",
+  "headline": "Ask a question.|Get the *answer* and its source.",
+  "intro": "Type a question about flu, COVID-19 or RSV in England. You'll get a short answer with charts, built only from figures UKHSA publishes on its data dashboard, with the exact series and reporting date behind every number.",
+  "placeholder": "e.g. Is flu rising, and are hospital admissions following?",
+  "theme": {
+    "accent": "#1d70b8",
+    "navy": "#0b0c0c",
+    "highlight": "#ffdd00",
+    "ink": "#0b0c0c"
+  },
+  "logo": null,
+  "source": {
+    "name": "UKHSA data dashboard",
+    "label": "ukhsa-dashboard.data.gov.uk",
+    "url": "https://ukhsa-dashboard.data.gov.uk/",
+    "licence": "Open Government Licence v3.0"
+  },
+  "catalogue": {
+    "type": "none"
+  },
+  "data": {
+    "base": "/data/ukhsa/",
+    "snapshot": "2026-10-26",
+    "remote": "https://r7ku4izoj8cd8lsg.public.blob.vercel-storage.com/data/ukhsa/2026-10-26/"
+  },
+  "live": false,
+  "examples": [
+    "Is flu rising, and are hospital admissions following?",
+    "Which age groups are being admitted to hospital with flu this autumn?",
+    "How does flu this autumn compare with the same weeks last year?",
+    "Which regions have the highest flu admission rates right now?",
+    "Is COVID-19 rising or falling in England?",
+    "How many COVID-19 patients are in hospital?",
+    "Is RSV starting to rise yet?",
+    "Which age group is most affected by RSV admissions?",
+    "When did last winter's flu admissions peak?",
+    "How did the last four flu seasons' peaks compare?",
+    "Flu ICU admissions this autumn?",
+    "Flu vs COVID-19 vs RSV test positivity right now?",
+    "How does COVID-19 positivity differ by region?",
+    "When did flu start rising this year?",
+    "How bad was the 2022-23 flu season compared with others?",
+    "RSV admissions among under-5s each winter?"
+  ],
+  "datasets": [
+    {
+      "id": "influenza-rsv",
+      "title": "Influenza and RSV (UKHSA data dashboard)",
+      "url": "https://ukhsa-dashboard.data.gov.uk/topics/influenza",
+      "note": "Weekly test positivity and hospital admission rates for England and its 9 regions (flu ICU/HDU too; RSV admissions England only), plus admission rates by age. Latest week 12 Oct 2026.",
+      "tables": [
+        "weekly",
+        "admissions_by_age"
+      ]
+    },
+    {
+      "id": "covid-19",
+      "title": "COVID-19 (UKHSA data dashboard)",
+      "url": "https://ukhsa-dashboard.data.gov.uk/topics/covid-19",
+      "note": "Daily 7-day rolling test positivity for England and its 9 regions (to 19 Oct 2026); admissions and patients in hospital for England (to 30 Sep 2026).",
+      "tables": [
+        "covid_daily"
+      ]
+    }
+  ]
+}

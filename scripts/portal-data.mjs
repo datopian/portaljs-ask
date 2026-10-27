@@ -6,12 +6,14 @@
 //
 // Reads portals/<slug>/sources.json:
 //   {
-//     "type": "ckan" | "datapackage",
-//     "api": "https://<ckan>/api/3/action",          (ckan only)
+//     "type": "ckan" | "datapackage" | "ukhsa",
+//     "api": "https://<ckan>/api/3/action",          (ckan; ukhsa: https://api.ukhsa-dashboard.data.gov.uk)
 //     "tables": {
 //       "<table>": {
 //         "dataset": "<ckan dataset name> | <datapackage URL, e.g. https://datahub.io/core/gdp>",
 //         "resource": "<resource name>" | ["<name>", ...] | "*",   several are stacked by column name
+//                                    ukhsa: "dataset" is "<topic>/<metric>" or a list of them, "resource" is
+//                                    "England" or "*" (England plus every UKHSA region that has the metric)
 //         "inputs": { "<view>": { "dataset": ..., "resource": ... } },  optional extra inputs, e.g. code lists
 //         "sql": "SELECT ... FROM raw"     optional DuckDB transform; the default renames columns to snake_case
 //         "read": { "names": [...], "delim": "," }   optional read_csv options for awkward files; "names" replaces a header that doesn't match the rows
@@ -146,7 +148,41 @@ async function datapackageFiles(spec, key) {
   return { files, title: dp.title, url: base, descriptions }
 }
 
-const adapters = { ckan: ckanFiles, datapackage: datapackageFiles }
+// UKHSA data dashboard API: one request per metric and geography, paged.
+// Every row is kept (all ages, strata and sexes); filter in "sql".
+const ukhsaCols = ['topic', 'metric', 'geography_type', 'geography', 'geography_code', 'age', 'sex', 'stratum', 'date', 'epiweek', 'metric_value', 'in_reporting_delay_period']
+async function ukhsaFiles(spec, key) {
+  const dest = path.join(cacheDir, `${key}.csv`)
+  const title = `UKHSA data dashboard: ${[].concat(spec.dataset).join(', ')}`
+  if (!download && fs.existsSync(dest)) return { files: [dest], title, url: null, descriptions: {} }
+  const lines = [ukhsaCols.join(',')]
+  for (const series of [].concat(spec.dataset)) {
+    const [topic, metric] = series.split('/')
+    const base = `${sources.api}/themes/infectious_disease/sub_themes/respiratory/topics/${encodeURIComponent(topic)}/geography_types`
+    const geos = [['Nation', 'England']]
+    if (spec.resource === '*') {
+      for (const g of await getJson(`${base}/UKHSA%20Region/geographies`)) {
+        const metrics = (await getJson(`${base}/UKHSA%20Region/geographies/${encodeURIComponent(g.name)}/metrics`)).map((m) => m.name)
+        if (metrics.includes(metric)) geos.push(['UKHSA Region', g.name])
+      }
+    }
+    for (const [type, geo] of geos) {
+      let url = `${base}/${encodeURIComponent(type)}/geographies/${encodeURIComponent(geo)}/metrics/${metric}?page_size=365`
+      let n = 0
+      while (url) {
+        const page = await getJson(url)
+        for (const r of page.results) lines.push(ukhsaCols.map((c) => { const v = r[c] ?? ''; return /[",\n]/.test(String(v)) ? `"${String(v).replace(/"/g, '""')}"` : v }).join(','))
+        n += page.results.length
+        url = page.next
+      }
+      console.log(`  downloaded ${metric} / ${geo} (${n} rows)`)
+    }
+  }
+  fs.writeFileSync(dest, lines.join('\n') + '\n')
+  return { files: [dest], title, url: null, descriptions: {} }
+}
+
+const adapters = { ckan: ckanFiles, datapackage: datapackageFiles, ukhsa: ukhsaFiles }
 if (!adapters[sources.type]) throw new Error(`sources.json type must be one of: ${Object.keys(adapters).join(', ')}`)
 
 // ---- profile: what notes.md needs to say, and the traps to warn about ----

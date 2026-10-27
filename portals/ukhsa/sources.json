@@ -1,0 +1,34 @@
+{
+  "type": "ukhsa",
+  "api": "https://api.ukhsa-dashboard.data.gov.uk",
+  "tables": {
+    "weekly": {
+      "dataset": [
+        "Influenza/influenza_testing_positivityByWeek",
+        "Influenza/influenza_healthcare_hospitalAdmissionRateByWeek",
+        "Influenza/influenza_healthcare_ICUHDUadmissionRateByWeek",
+        "RSV/RSV_testing_positivityByWeek",
+        "RSV/RSV_healthcare_admissionRateByWeek"
+      ],
+      "resource": "*",
+      "sql": "SELECT CASE topic WHEN 'Influenza' THEN 'Flu' ELSE topic END AS virus, CASE WHEN metric LIKE '%positivity%' THEN 'test positivity' WHEN metric LIKE '%ICUHDU%' THEN 'ICU/HDU admissions' ELSE 'hospital admissions' END AS measure, CASE WHEN metric LIKE '%positivity%' THEN '% of tests positive' ELSE 'per 100,000 people' END AS unit, geography, CAST(date AS DATE) AS week_start, CASE WHEN metric NOT LIKE '%positivity%' AND metric_value = 0 AND CAST(date AS DATE) < DATE '2021-10-01' THEN NULL ELSE metric_value END AS value, in_reporting_delay_period AS provisional, metric AS ukhsa_metric FROM raw WHERE age = 'all' AND sex = 'all' AND stratum = 'default'"
+    },
+    "admissions_by_age": {
+      "dataset": [
+        "Influenza/influenza_healthcare_hospitalAdmissionRateByWeek",
+        "RSV/RSV_healthcare_admissionRateByWeek"
+      ],
+      "resource": "England",
+      "sql": "SELECT CASE topic WHEN 'Influenza' THEN 'Flu' ELSE topic END AS virus, age AS age_group, CAST(date AS DATE) AS week_start, CASE WHEN metric_value = 0 AND CAST(date AS DATE) < DATE '2021-10-01' THEN NULL ELSE metric_value END AS admissions_per_100k, in_reporting_delay_period AS provisional, metric AS ukhsa_metric FROM raw WHERE age NOT IN ('all', '85', '75+') AND sex = 'all' AND stratum = 'default'"
+    },
+    "covid_daily": {
+      "dataset": [
+        "COVID-19/COVID-19_testing_positivity7DayRolling",
+        "COVID-19/COVID-19_healthcare_admissionRollingMean",
+        "COVID-19/COVID-19_healthcare_occupiedBedsRollingMean"
+      ],
+      "resource": "*",
+      "sql": "SELECT CASE WHEN metric LIKE '%positivity%' THEN 'test positivity' WHEN metric LIKE '%admission%' THEN 'hospital admissions' ELSE 'patients in hospital' END AS measure, CASE WHEN metric LIKE '%positivity%' THEN '% of tests positive, 7-day rolling' WHEN metric LIKE '%admission%' THEN 'admissions per day, 7-day average' ELSE 'beds occupied, 7-day average' END AS unit, geography, CAST(date AS DATE) AS day, metric_value AS value, in_reporting_delay_period AS provisional, metric AS ukhsa_metric FROM raw WHERE age = 'all' AND sex = 'all' AND stratum = 'default'"
+    }
+  }
+}
