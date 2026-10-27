@@ -3,8 +3,8 @@
   "name": "Ask UKHSA's respiratory data",
   "owner": "UK Health Security Agency",
   "description": "Ask a plain question about flu, COVID-19 and RSV in England and get a short answer with charts, built from the UKHSA data dashboard's public API, with the exact series behind every number.",
-  "headline": "Pick a question.|Get the *answer* and its source.",
-  "intro": "Questions about flu, COVID-19 and RSV in England, each answered in a few lines with charts. Every number comes from figures UKHSA publishes on its data dashboard, and each chart shows the exact series, query and reporting date behind it.",
+  "headline": "Ask a question.|Get the *answer* and its source.",
+  "intro": "Ask about flu, COVID-19 or RSV in England, or pick an example. You'll get a short answer with charts, built only from figures UKHSA publishes on its data dashboard, with the exact series and reporting date behind every number.",
   "placeholder": "e.g. Is flu rising, and are hospital admissions following?",
   "theme": {
     "accent": "#1d70b8",
@@ -27,7 +27,7 @@
     "snapshot": "2026-10-26",
     "remote": "https://r7ku4izoj8cd8lsg.public.blob.vercel-storage.com/data/ukhsa/2026-10-26/"
   },
-  "live": false,
+  "live": true,
   "examples": [
     "Is flu rising, and are hospital admissions following?",
     "Which age groups are being admitted to hospital with flu this autumn?",
