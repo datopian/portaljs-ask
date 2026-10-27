@@ -137,6 +137,13 @@ form.ask button:hover { background: var(--blue); }
 .stat .facts b { font-size: clamp(22px, 2.6vw, 28px); letter-spacing: -0.02em; }
 .stat .facts span { display: block; margin-top: 6px; color: var(--on-navy-muted); font-size: 13px; line-height: 1.4; }
 .stat .bar-gold { width: 40px; height: 3px; background: var(--gold); }
+/* Light key-numbers panel (theme "panel": "light"): an accent tint instead of the dark block; follows dark mode through the variables. */
+.panel-light .stat { background: color-mix(in srgb, var(--blue) 8%, var(--bg)); color: var(--ink); border: 1px solid color-mix(in srgb, var(--blue) 18%, var(--bg)); }
+.panel-light .stat b { color: var(--ink); }
+.panel-light .stat .facts b { color: var(--blue); }
+.panel-light .stat p, .panel-light .stat .facts span, .panel-light .stat .eyebrow { color: var(--muted); }
+.panel-light .stat .facts { border-top-color: color-mix(in srgb, var(--blue) 18%, var(--bg)); }
+.panel-light .stat .bar-gold { background: var(--blue); }
 
 .chapter { display: flex; flex-direction: column; gap: 24px; }
 .chapter .txt { display: flex; flex-direction: column; gap: 14px; min-width: 0; }
@@ -249,7 +256,7 @@ footer .wrap { padding-block: 20px 40px; font-size: 12px; color: var(--muted); }
 </style>
 {{themeCss}}
 </head>
-<body>
+<body{{bodyClass}}>
 
 
 <header class="bar"><div class="wrap"><span class="brand">{{logo}}<b>{{name}}</b></span><span>Data from <a href="{{sourceUrl}}" target="_blank" rel="noopener">{{sourceName}} ↗</a></span></div></header>

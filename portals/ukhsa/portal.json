@@ -10,7 +10,8 @@
     "accent": "#1d70b8",
     "navy": "#0b0c0c",
     "highlight": "#ffdd00",
-    "ink": "#0b0c0c"
+    "ink": "#0b0c0c",
+    "panel": "light"
   },
   "logo": null,
   "source": {
