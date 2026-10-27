@@ -61,6 +61,7 @@ for (const slug of fs.readdirSync(dir).sort()) {
     datasetCount: `${portal.datasets.length} dataset${portal.datasets.length === 1 ? '' : 's'}`,
     headline: headline(portal.headline), intro: esc(portal.intro), placeholder: esc(portal.placeholder || ''),
     formHidden: portal.live === false ? ' hidden' : '', footer,
+    bodyClass: t.panel === 'light' ? ' class="panel-light"' : '',
     portalJson: JSON.stringify(pub).replace(/</g, '\\u003c'),
   }
   const html = template.replace(/\{\{(\w+)\}\}/g, (m, k) => {

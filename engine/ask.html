@@ -15,7 +15,7 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400&display=swap">
 {{favicon}}
 <style>
-/* Layout: one page. Hero (eyebrow, huge serif headline with one italic blue word, question box, suggestion chips), then the data story appears below: answer + navy stat panel, three chapters (text left, chart right), sources, ask next. */
+/* Layout: one page. Hero, full width (eyebrow, serif headline with one blue word, intro below it, question box, suggestion chips), then the data story appears below: answer + navy stat panel, three chapters (text left, chart right), sources, ask next. */
 :root {
   --bg: #ffffff;
   --surface: #f3f5f8;
@@ -57,7 +57,7 @@ em { font-style: normal; color: var(--blue); font-weight: inherit; }
 a { color: var(--blue); }
 button, input { font: inherit; }
 :focus-visible { outline: 2px solid var(--blue); outline-offset: 3px; }
-.wrap { max-width: 1120px; margin: 0 auto; padding-inline: 24px; }
+.wrap { max-width: 1280px; margin: 0 auto; padding-inline: 24px; }
 .eyebrow { font-family: var(--mono); font-size: 11px; letter-spacing: .1em; text-transform: uppercase; color: var(--blue); display: flex; align-items: center; gap: 10px; }
 .eyebrow a { color: inherit; text-decoration: underline; text-decoration-color: var(--gold); text-underline-offset: 3px; }
 .bar a { color: inherit; text-decoration: underline; text-decoration-color: var(--border); text-underline-offset: 3px; }
@@ -71,10 +71,12 @@ button, input { font: inherit; }
 .bar span { color: var(--muted); font-size: 13px; }
 
 /* hero */
-.hero { padding-block: 72px 48px; display: flex; flex-direction: column; gap: 24px; max-width: 860px; }
-.hero h1 { font-size: clamp(44px, 8vw, 84px); }
-.hero .sub { font-size: 16px; color: var(--muted); }
-form.ask { display: flex; align-items: center; gap: 8px; background: var(--bg); border: 1px solid #8a9caf; border-radius: var(--radius); padding: 8px; margin-top: 8px; box-shadow: 0 1px 0 rgba(3, 34, 62, .04), 0 8px 24px -12px rgba(3, 34, 62, .18); }
+.hero { padding-block: 40px 32px; display: flex; flex-direction: column; gap: 16px; }
+.hero > .eyebrow { display: block; line-height: 1.8; }
+.hero > .eyebrow::before { display: inline-block; margin-right: 10px; }
+.hero h1 { font-size: clamp(34px, 3.7vw, 54px); }
+.hero .sub { font-size: 16px; color: var(--muted); max-width: 78ch; }
+form.ask { display: flex; align-items: center; gap: 8px; background: var(--bg); border: 1px solid #8a9caf; border-radius: var(--radius); padding: 8px; margin-top: 6px; box-shadow: 0 1px 0 rgba(3, 34, 62, .04), 0 8px 24px -12px rgba(3, 34, 62, .18); }
 form.ask:focus-within { border-color: var(--blue); }
 form.ask svg { flex: none; color: var(--muted); margin-left: 8px; }
 form.ask input { flex: 1; min-width: 0; border: 0; background: transparent; color: var(--ink); font-size: 16px; font-weight: 300; padding: 10px 4px; outline: none; }
@@ -134,6 +136,13 @@ form.ask button:hover { background: var(--blue); }
 .stat .facts b { font-size: clamp(22px, 2.6vw, 28px); letter-spacing: -0.02em; }
 .stat .facts span { display: block; margin-top: 6px; color: var(--on-navy-muted); font-size: 13px; line-height: 1.4; }
 .stat .bar-gold { width: 40px; height: 3px; background: var(--gold); }
+/* Light key-numbers panel (theme "panel": "light"): an accent tint instead of the dark block; follows dark mode through the variables. */
+.panel-light .stat { background: color-mix(in srgb, var(--blue) 8%, var(--bg)); color: var(--ink); border: 1px solid color-mix(in srgb, var(--blue) 18%, var(--bg)); }
+.panel-light .stat b { color: var(--ink); }
+.panel-light .stat .facts b { color: var(--blue); }
+.panel-light .stat p, .panel-light .stat .facts span, .panel-light .stat .eyebrow { color: var(--muted); }
+.panel-light .stat .facts { border-top-color: color-mix(in srgb, var(--blue) 18%, var(--bg)); }
+.panel-light .stat .bar-gold { background: var(--blue); }
 
 .chapter { display: flex; flex-direction: column; gap: 24px; }
 .chapter .txt { display: flex; flex-direction: column; gap: 14px; min-width: 0; }
@@ -148,13 +157,30 @@ form.ask button:hover { background: var(--blue); }
 .chart svg { display: block; width: 100%; height: auto; overflow: visible; }
 .chart text { font-family: var(--font); font-size: 12px; fill: var(--muted); }
 .chart .lbl { fill: var(--ink); font-weight: 600; paint-order: stroke; stroke: var(--surface); stroke-width: 4px; stroke-linejoin: round; }
+/* Marks: bars grow from the baseline on first draw; hovering one dims the rest. */
+.chart .mk { transition: opacity .18s ease, fill .18s ease; }
+.chart svg.hovering .mk:not(.on) { opacity: .38; }
+.chart .mk.on { fill: var(--blue); }
+.chart .grow-y { transform-box: fill-box; transform-origin: 50% 100%; animation: growY .7s cubic-bezier(.2, .7, .2, 1) both; animation-delay: calc(var(--i, 0) * 28ms); }
+.chart .grow-y.neg { transform-origin: 50% 0; }
+.chart .grow-x { transform-box: fill-box; transform-origin: 0 50%; animation: growX .7s cubic-bezier(.2, .7, .2, 1) both; animation-delay: calc(var(--i, 0) * 40ms); }
+.chart .draw { stroke-dasharray: 1; stroke-dashoffset: 1; animation: draw 1.1s cubic-bezier(.3, .6, .2, 1) forwards; }
+.chart .fade { animation: fadeIn .6s ease .5s both; }
+@keyframes growY { from { transform: scaleY(0); } }
+@keyframes growX { from { transform: scaleX(0); } }
+@keyframes draw { to { stroke-dashoffset: 0; } }
+@keyframes fadeIn { from { opacity: 0; } }
+.chart .hit { cursor: crosshair; outline: none; }
+.chart .hit:focus-visible { fill: var(--blue); fill-opacity: .08; }
 .chart .axis { stroke: var(--border); }
 .fighead { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: 4px 16px; }
 .fighead b { font-weight: 600; font-size: 15px; color: var(--ink); }
 .fighead span { font-size: 13px; color: var(--muted); }
 .fighead .key { display: inline-flex; align-items: center; gap: 6px; }
 .fighead .key i { width: 10px; height: 10px; border-radius: 2px; background: var(--blue); display: inline-block; }
-.tip { position: absolute; pointer-events: none; background: var(--ink); color: var(--bg); font-size: 13px; padding: 5px 9px; border-radius: var(--radius); white-space: nowrap; transform: translate(-50%, calc(-100% - 8px)); font-variant-numeric: tabular-nums; z-index: 2; }
+.tip { position: absolute; pointer-events: none; background: var(--bg); color: var(--ink); border: 1px solid var(--border); padding: 8px 12px; border-radius: 8px; white-space: nowrap; transform: translate(-50%, calc(-100% - 12px)); z-index: 2; box-shadow: 0 10px 28px -12px rgba(3, 34, 62, .35); display: flex; flex-direction: column; gap: 1px; transition: left .08s linear, top .08s linear; }
+.tip b { font-size: 16px; font-weight: 650; font-variant-numeric: tabular-nums; letter-spacing: -0.01em; }
+.tip span { font-size: 12px; color: var(--muted); }
 .figfoot { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px 16px; font-size: 13px; border-top: 1px solid var(--border); padding-top: 12px; }
 .figfoot .src { color: var(--muted); }
 .figfoot .src a { color: var(--ink); text-decoration: none; border-bottom: 1px solid var(--border); }
@@ -210,18 +236,24 @@ footer .wrap { padding-block: 20px 40px; font-size: 12px; color: var(--muted); }
 }
 @media (max-width: 520px) {
   .wrap { padding-inline: 16px; }
+  .hero { padding-block: 28px 24px; gap: 14px; }
+  .hero .sub { font-size: 15px; }
+  /* Example chips: one swipeable row instead of a stack that fills the screen. */
+  #sugg { flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; margin-inline: -16px; padding-inline: 16px; scroll-padding-inline: 16px; mask-image: linear-gradient(90deg, #000 85%, transparent); }
+  #sugg::-webkit-scrollbar { display: none; }
+  #sugg .chip, #sugg .more { flex: none; white-space: nowrap; }
   form.ask input { font-size: 16px; }
   form.ask button { padding: 0 14px; }
   .figure { padding: 16px 14px 12px; }
   .stat { padding: 24px; }
 }
-@media (prefers-reduced-motion: reduce) { .story.enter { animation: none; } .working span { transition: none; } }
+@media (prefers-reduced-motion: reduce) { .story.enter, .chart .grow-y, .chart .grow-x, .chart .fade { animation: none; } .chart .draw { animation: none; stroke-dashoffset: 0; } .working span, .tip, .chart .mk { transition: none; } }
 .bar .brand { display: flex; align-items: center; gap: 10px; }
 .bar .brand img { height: 28px; width: auto; display: block; }
 </style>
 {{themeCss}}
 </head>
-<body>
+<body{{bodyClass}}>
 
 
 <header class="bar"><div class="wrap"><span class="brand">{{logo}}<b>{{name}}</b></span><span>Data from <a href="{{sourceUrl}}" target="_blank" rel="noopener">{{sourceName}} ↗</a></span></div></header>
@@ -265,13 +297,24 @@ const tableOf = (rows, cols) => `<table><thead><tr>${cols.map(c => `<th${c[2] ? 
 /* ---------- charts ---------- */
 const NS = "http://www.w3.org/2000/svg";
 function svgEl(tag, attrs, parent) { const e = document.createElementNS(NS, tag); for (const k in attrs) e.setAttribute(k, attrs[k]); if (parent) parent.appendChild(e); return e; }
-function tip(box, x, y, text) { let t = box.querySelector(".tip"); if (!t) { t = document.createElement("div"); t.className = "tip"; box.appendChild(t); } t.textContent = text; t.hidden = false; t.style.left = Math.max(80, Math.min(box.clientWidth - 80, x)) + "px"; t.style.top = y + "px"; }
+// Tooltip card: the value leads in bold, the label follows ("label: value").
+function tip(box, x, y, text) {
+  let t = box.querySelector(".tip"); if (!t) { t = document.createElement("div"); t.className = "tip"; box.appendChild(t); }
+  const k = text.lastIndexOf(": "), b = document.createElement("b"), l = document.createElement("span");
+  b.textContent = k > 0 ? text.slice(k + 2) : text; l.textContent = k > 0 ? text.slice(0, k) : "";
+  t.replaceChildren(b, ...(k > 0 ? [l] : [])); t.hidden = false; t.style.left = Math.max(80, Math.min(box.clientWidth - 80, x)) + "px"; t.style.top = y + "px"; }
 function untip(box) { const t = box.querySelector(".tip"); if (t) t.hidden = true; }
 function niceStep(max) { if (!(max > 0)) return 1; const raw = max / 4, p = Math.pow(10, Math.floor(Math.log10(raw))); const n = raw / p; return (n <= 1 ? 1 : n <= 2 ? 2 : n <= 2.5 ? 2.5 : n <= 5 ? 5 : 10) * p; }
-function hoverable(box, svg, W, H, el, cx, cy, text) {
-  const on = () => { const r = svg.getBoundingClientRect(); tip(box, cx * r.width / W, cy * r.height / H, text); };
-  el.addEventListener("pointerenter", on); el.addEventListener("pointerdown", on); el.addEventListener("pointerleave", () => untip(box));
+// Hover, touch and keyboard focus all show the tooltip; mark (optional) is lifted while the others dim.
+function hoverable(box, svg, W, H, el, cx, cy, text, mark) {
+  el.setAttribute("tabindex", "0"); el.setAttribute("aria-label", text); el.setAttribute("class", "hit");
+  const on = () => { const r = svg.getBoundingClientRect(); tip(box, cx * r.width / W, cy * r.height / H, text); if (mark) { svg.classList.add("hovering"); mark.classList.add("on"); } };
+  const off = () => { untip(box); if (mark) { svg.classList.remove("hovering"); mark.classList.remove("on"); } };
+  el.addEventListener("pointerenter", on); el.addEventListener("pointerdown", on); el.addEventListener("focus", on);
+  el.addEventListener("pointerleave", off); el.addEventListener("blur", off);
 }
+// Marks animate in on a chart's first draw only, not on every resize.
+const firstDraw = box => { const f = !box.dataset.drawn; box.dataset.drawn = "1"; return f && !reduced; };
 function roundTop(x, y, w, h, r) { r = Math.min(r, w / 2, h); return `M${x},${y + h} V${y + r} Q${x},${y} ${x + r},${y} H${x + w - r} Q${x + w},${y} ${x + w},${y + r} V${y + h} Z`; }
 function roundBottom(x, y, w, h, r) { r = Math.min(r, w / 2, h); return `M${x},${y} V${y + h - r} Q${x},${y + h} ${x + r},${y + h} H${x + w - r} Q${x + w},${y + h} ${x + w},${y + h - r} V${y} Z`; }
 function roundRight(x, y, w, h, r) { r = Math.min(r, h / 2, w); return `M${x},${y} H${x + w - r} Q${x + w},${y} ${x + w},${y + r} V${y + h - r} Q${x + w},${y + h} ${x + w - r},${y + h} H${x} Z`; }
@@ -280,7 +323,7 @@ function columns(box, data, o) {
   box.querySelector("svg")?.remove();
   const W = box.clientWidth, H = Math.max(200, Math.min(300, W * 0.28)), m = { t: 24, r: 4, b: 26, l: 44 };
   const svg = svgEl("svg", { viewBox: `0 0 ${W} ${H}`, role: "img" }); box.prepend(svg);
-  const slot = (W - m.l - m.r) / data.length, bw = Math.max(4, Math.min(36, slot - 3));
+  const slot = (W - m.l - m.r) / data.length, bw = Math.max(4, Math.min(24, slot - 4)), anim = firstDraw(box);
   // Axis labels are measured, not guessed: show every nth label so they never
   // collide, and wrap long labels onto two lines when there are only a few bars.
   const measure = (s, cls) => { const t = svgEl("text", { x: -999, y: -999, class: cls || "" }, svg); t.textContent = s; const w = t.getComputedTextLength(); t.remove(); return w; };
@@ -304,9 +347,9 @@ function columns(box, data, o) {
   let axisStart = Infinity;
   const geo = data.map((d, i) => { const cx = m.l + slot * (i + 0.5), neg = d.y < 0, h = Math.max(1, Math.abs(Y(d.y) - y0)); return { d, i, cx, neg, h, yTop: neg ? y0 : y0 - h }; });
   for (const g of geo) {
-    svgEl("path", { d: g.neg ? roundBottom(g.cx - bw / 2, y0, bw, g.h, 3) : roundTop(g.cx - bw / 2, g.yTop, bw, g.h, 3), fill: g.d.hi ? "var(--blue)" : "var(--context)" }, svg);
+    const bar = svgEl("path", { d: g.neg ? roundBottom(g.cx - bw / 2, y0, bw, g.h, 4) : roundTop(g.cx - bw / 2, g.yTop, bw, g.h, 4), fill: g.d.hi ? "var(--blue)" : "var(--context)", class: "mk" + (anim ? " grow-y" + (g.neg ? " neg" : "") : ""), style: `--i:${g.i}` }, svg);
     const hit = svgEl("rect", { x: g.cx - slot / 2, y: m.t, width: slot, height: H - m.t - m.b, fill: "transparent" }, svg);
-    hoverable(box, svg, W, H, hit, g.cx, g.yTop, o.tip(g.d));
+    hoverable(box, svg, W, H, hit, g.cx, g.yTop, o.tip(g.d), bar);
   }
   // Axis labels go right to left, counting from the latest bar, so the most recent one always shows.
   for (const g of [...geo].reverse()) {
@@ -357,16 +400,19 @@ function line(box, data, o) {
   });
   const pts = data.map((d, i) => `${X(i).toFixed(1)},${Y(d.y).toFixed(1)}`);
   const base = Y(Math.max(lo, Math.min(0, top)));
-  svgEl("path", { d: `M${X(0)},${base} L${pts.join(" L")} L${X(data.length - 1)},${base} Z`, fill: "var(--blue)", opacity: 0.1 }, svg);
-  svgEl("path", { d: `M${pts.join(" L")}`, fill: "none", stroke: "var(--blue)", "stroke-width": 2, "stroke-linejoin": "round" }, svg);
+  const anim = firstDraw(box), gid = "g" + Math.random().toString(36).slice(2, 8);
+  const grad = svgEl("linearGradient", { id: gid, x1: 0, x2: 0, y1: 0, y2: 1 }, svgEl("defs", {}, svg));
+  svgEl("stop", { offset: "0%", "stop-color": "var(--blue)", "stop-opacity": 0.18 }, grad); svgEl("stop", { offset: "100%", "stop-color": "var(--blue)", "stop-opacity": 0.01 }, grad);
+  svgEl("path", { d: `M${X(0)},${base} L${pts.join(" L")} L${X(data.length - 1)},${base} Z`, fill: `url(#${gid})`, class: anim ? "fade" : "" }, svg);
+  svgEl("path", { d: `M${pts.join(" L")}`, fill: "none", stroke: "var(--blue)", "stroke-width": 2, "stroke-linejoin": "round", "stroke-linecap": "round", pathLength: 1, class: anim ? "draw" : "" }, svg);
   // Label the latest value and the peak (if it isn't the latest).
   const li = data.length - 1, pi = ys.indexOf(hi0);
   // Each label is kept inside the chart, and the peak's is dropped if it would overlap the latest one.
   const markText = i => `${o.val(data[i].y)} (${data[i].x})`;
   const markBox = i => { const w = measure(markText(i), "lbl"), x = Math.max(m.l, Math.min(W - m.r - w, X(i) - w / 2)); return { x, w, y: Y(data[i].y) - 10 }; };
   const mark = (i, b) => {
-    svgEl("circle", { cx: X(i), cy: Y(data[i].y), r: 4, fill: "var(--blue)", stroke: "var(--surface)", "stroke-width": 2 }, svg);
-    svgEl("text", { x: b.x, y: b.y, "text-anchor": "start", class: "lbl" }, svg).textContent = markText(i);
+    svgEl("circle", { cx: X(i), cy: Y(data[i].y), r: 4, fill: "var(--blue)", stroke: "var(--surface)", "stroke-width": 2, class: anim ? "fade" : "" }, svg);
+    svgEl("text", { x: b.x, y: b.y, "text-anchor": "start", class: "lbl" + (anim ? " fade" : "") }, svg).textContent = markText(i);
   };
   const lb = markBox(li), last = { ...lb, x: Math.max(m.l, Math.min(W - m.r - lb.w, X(li) - lb.w)) };
   if (pi !== li) { const pb = markBox(pi); if (pb.x + pb.w + 8 < last.x || last.x + last.w + 8 < pb.x || Math.abs(pb.y - last.y) > 16) mark(pi, pb); }
@@ -379,22 +425,23 @@ function line(box, data, o) {
     const hit = svgEl("rect", { x: X(i) - slot / 2, y: m.t, width: slot, height: H - m.t - m.b, fill: "transparent" }, svg);
     hoverable(box, svg, W, H, hit, X(i), Y(d.y), o.tip(d));
     const show = () => { for (const [e, a] of [[guide, { x1: X(i), x2: X(i) }], [dot, { cx: X(i), cy: Y(d.y) }]]) { for (const k in a) e.setAttribute(k, a[k]); e.setAttribute("visibility", "visible"); } };
-    hit.addEventListener("pointerenter", show); hit.addEventListener("pointerdown", show);
-    hit.addEventListener("pointerleave", () => { guide.setAttribute("visibility", "hidden"); dot.setAttribute("visibility", "hidden"); });
+    const hide = () => { guide.setAttribute("visibility", "hidden"); dot.setAttribute("visibility", "hidden"); };
+    hit.addEventListener("pointerenter", show); hit.addEventListener("pointerdown", show); hit.addEventListener("focus", show);
+    hit.addEventListener("pointerleave", hide); hit.addEventListener("blur", hide);
   });
 }
 function bars(box, data, o) {
   box.querySelector("svg")?.remove();
   const W = box.clientWidth, row = 28, labelW = Math.min(230, W * 0.42), valW = 56, H = data.length * row;
   const svg = svgEl("svg", { viewBox: `0 0 ${W} ${H}`, role: "img" }); box.prepend(svg);
-  const max = Math.max(...data.map(d => d.y)), plot = W - labelW - valW;
+  const max = Math.max(...data.map(d => d.y)), plot = W - labelW - valW, anim = firstDraw(box);
   data.forEach((d, i) => {
     const y = i * row + 5, bh = 18, w = Math.max(2, d.y / max * plot);
     svgEl("text", { x: labelW - 10, y: y + 13, "text-anchor": "end", class: d.hi ? "lbl" : "" }, svg).textContent = d.x;
-    svgEl("path", { d: roundRight(labelW, y, w, bh, 3), fill: d.hi ? "var(--blue)" : "var(--context)" }, svg);
-    svgEl("text", { x: labelW + w + 6, y: y + 13, class: d.hi ? "lbl" : "" }, svg).textContent = o.val ? o.val(d.y) : fmt(d.y);
+    const bar = svgEl("path", { d: roundRight(labelW, y, w, bh, 4), fill: d.hi ? "var(--blue)" : "var(--context)", class: "mk" + (anim ? " grow-x" : ""), style: `--i:${i}` }, svg);
+    svgEl("text", { x: labelW + w + 6, y: y + 13, class: (d.hi ? "lbl" : "") + (anim ? " fade" : "") }, svg).textContent = o.val ? o.val(d.y) : fmt(d.y);
     const hit = svgEl("rect", { x: 0, y: y - 5, width: W, height: row, fill: "transparent" }, svg);
-    hoverable(box, svg, W, H, hit, labelW + w / 2, y, o.tip(d));
+    hoverable(box, svg, W, H, hit, labelW + w, y, o.tip(d), bar);
   });
 }
 
@@ -652,7 +699,8 @@ async function post(url, body) {
   return json;
 }
 const niceLabel = t => /[a-z]/.test(t) || !/[A-Z]/.test(t) ? t : title(t).replace(/ Station$/, "");
-const numFmt = v => Number.isInteger(v) ? fmt(v) : fmt(Math.round(v * 10) / 10);
+// Two decimals below 100 (rates like 0.08 per 100,000 must not round to 0.1), one above.
+const numFmt = v => Number.isInteger(v) ? fmt(v) : fmt(Math.abs(v) >= 100 ? Math.round(v * 10) / 10 : Math.round(v * 100) / 100);
 // Story text: **x** marks a key number, shown highlighted.
 const rich = t => escH(t).replace(/\*\*([^*]+)\*\*/g, '<strong class="num">$1</strong>').replace(/\*/g, "");
 // Colours the AI's chosen phrase (or *asterisk* phrase) in the headline, like the prepared stories.
@@ -730,10 +778,12 @@ function liveStory(question, ok, story, isLive) {
     const data = rows.map(r => ({ x: niceLabel(r.label), y: r.value }));
     const max = Math.max(...data.map(d => d.y));
     const unit = q.unit ? " " + q.unit : "";
-    // Long runs of years or months read best as a line; rankings as bars; short series as columns.
-    const kind = q.chart === "bars" ? "bars" : data.length > 24 && data.every(d => /^\d{4}/.test(d.x)) ? "line" : "columns";
+    // Time series of 12 or more points read best as a line; rankings as bars; short series as columns.
+    const isTime = data.every(d => /\b(19|20)\d{2}\b|\b(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)/.test(d.x));
+    const kind = q.chart === "bars" ? "bars" : data.length >= 12 && isTime ? "line" : "columns";
     const pct = /^%|percent/i.test(q.unit || ""), val = v => { const r = Math.abs(v) >= 100 ? Math.round(v * 10) / 10 : Math.round(v * 100) / 100; return fmt(r === 0 ? 0 : r) + (pct ? "%" : ""); };
-    const tipOf = d => `${d.x}: ${numFmt(d.y)}${pct ? "%" : unit}`;
+    // Tooltip: the value in bold, then the label and unit on the line below.
+    const tipOf = d => `${d.x}${q.unit && !pct ? " · " + q.unit : ""}: ${numFmt(d.y)}${pct ? "%" : ""}`;
     const draw = el => kind === "bars"
       ? bars(el, data.map((d, j) => ({ ...d, hi: j === 0 })), { tip: tipOf, val })
       : kind === "line"
