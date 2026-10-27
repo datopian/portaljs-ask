@@ -280,24 +280,53 @@ function columns(box, data, o) {
   box.querySelector("svg")?.remove();
   const W = box.clientWidth, H = Math.max(200, Math.min(300, W * 0.28)), m = { t: 24, r: 4, b: 26, l: 44 };
   const svg = svgEl("svg", { viewBox: `0 0 ${W} ${H}`, role: "img" }); box.prepend(svg);
+  const slot = (W - m.l - m.r) / data.length, bw = Math.max(4, Math.min(36, slot - 3));
+  // Axis labels are measured, not guessed: show every nth label so they never
+  // collide, and wrap long labels onto two lines when there are only a few bars.
+  const measure = (s, cls) => { const t = svgEl("text", { x: -999, y: -999, class: cls || "" }, svg); t.textContent = s; const w = t.getComputedTextLength(); t.remove(); return w; };
+  const halves = s => { const w = String(s).split(" "); if (w.length < 2) return [String(s)]; let best = null; for (let k = 1; k < w.length; k++) { const a = w.slice(0, k).join(" "), b = w.slice(k).join(" "), d = Math.abs(a.length - b.length); if (!best || d < best.d) best = { d, l: [a, b] }; } return best.l; };
+  const widths = data.map(d => measure(d.x)), gap = 8;
+  let lines = data.map(d => [String(d.x)]), every;
+  if (Math.max(...widths) + gap <= slot) every = 1;
+  else if (data.length <= 6 && data.every(d => Math.max(...halves(d.x).map(s => measure(s))) + gap <= slot)) { every = 1; lines = data.map(d => halves(d.x)); }
+  else every = Math.ceil((Math.max(...widths) + gap) / slot);
+  if (o.every) every = Math.max(every, W < 640 ? o.every * 2 : o.every);
+  const extra = Math.max(...lines.map(l => l.length)) > 1 ? 14 : 0;
+  m.b += extra;
   const max = Math.max(...data.map(d => d.y)), min = Math.min(0, ...data.map(d => d.y)), step = niceStep((max - min) || 1);
   const top = Math.max(0, Math.ceil(max / step) * step), lo = Math.floor(min / step) * step;
   const Y = v => H - m.b - (v - lo) / ((top - lo) || 1) * (H - m.t - m.b), y0 = Y(0);
   const dec = step < 1 ? (step < 0.1 ? 2 : 1) : 0;
   for (let v = lo; v <= top + 1e-9; v += step) { svgEl("line", { x1: m.l, x2: W - m.r, y1: Y(v), y2: Y(v), stroke: Math.abs(v) < 1e-9 && lo < 0 ? "var(--muted)" : "var(--grid)", "stroke-width": 1 }, svg); svgEl("text", { x: m.l - 8, y: Y(v) + 4, "text-anchor": "end" }, svg).textContent = Math.abs(v) >= 1e3 ? short(v) : (Math.abs(v) < 1e-9 ? 0 : v).toFixed(dec); }
-  const slot = (W - m.l - m.r) / data.length, bw = Math.max(4, Math.min(36, slot - 3));
-  const every = o.every && W < 640 ? o.every * 2 : (o.every || (W < 480 && data.length > 8 ? 2 : 1));
-  // Narrow bars: label only the tallest highlighted bar so labels don't collide.
+  // Value labels: highlighted bars first, then the last bar, then (on wide bars) the rest; skip any that would overlap one already placed.
+  const placed = [], fits = (x, y, w) => !placed.some(p => x - w / 2 < p.x + p.w / 2 + 4 && p.x - p.w / 2 < x + w / 2 + 4 && Math.abs(p.y - y) < 14);
   const hiMax = Math.max(...data.filter(d => d.hi).map(d => d.y));
-  data.forEach((d, i) => {
-    const cx = m.l + slot * (i + 0.5), neg = d.y < 0, h = Math.max(1, Math.abs(Y(d.y) - y0)), yTop = neg ? y0 : y0 - h;
-    svgEl("path", { d: neg ? roundBottom(cx - bw / 2, y0, bw, h, 3) : roundTop(cx - bw / 2, yTop, bw, h, 3), fill: d.hi ? "var(--blue)" : "var(--context)" }, svg);
-    if (i % every === 0) svgEl("text", { x: cx, y: H - 6, "text-anchor": "middle" }, svg).textContent = d.x;
-    const last = i === data.length - 1 && !d.hi && slot >= 14;
-    if ((o.labelHi && d.hi && (slot >= 32 || d.y === hiMax)) || last || (slot >= 56 && !d.hi)) svgEl("text", { x: cx, y: neg ? y0 + h + 14 : yTop - 6, "text-anchor": "middle", class: d.hi ? "lbl" : "" }, svg).textContent = o.val ? o.val(d.y) : short(d.y);
-    const hit = svgEl("rect", { x: cx - slot / 2, y: m.t, width: slot, height: H - m.t - m.b, fill: "transparent" }, svg);
-    hoverable(box, svg, W, H, hit, cx, yTop, o.tip(d));
-  });
+  let axisStart = Infinity;
+  const geo = data.map((d, i) => { const cx = m.l + slot * (i + 0.5), neg = d.y < 0, h = Math.max(1, Math.abs(Y(d.y) - y0)); return { d, i, cx, neg, h, yTop: neg ? y0 : y0 - h }; });
+  for (const g of geo) {
+    svgEl("path", { d: g.neg ? roundBottom(g.cx - bw / 2, y0, bw, g.h, 3) : roundTop(g.cx - bw / 2, g.yTop, bw, g.h, 3), fill: g.d.hi ? "var(--blue)" : "var(--context)" }, svg);
+    const hit = svgEl("rect", { x: g.cx - slot / 2, y: m.t, width: slot, height: H - m.t - m.b, fill: "transparent" }, svg);
+    hoverable(box, svg, W, H, hit, g.cx, g.yTop, o.tip(g.d));
+  }
+  // Axis labels go right to left, counting from the latest bar, so the most recent one always shows.
+  for (const g of [...geo].reverse()) {
+    if ((data.length - 1 - g.i) % every) continue;
+    const lw = Math.max(...lines[g.i].map(s => measure(s))), x = Math.max(lw / 2 + 2, Math.min(W - lw / 2 - 2, g.cx));
+    if (x + lw / 2 > axisStart - 6) continue;
+    axisStart = x - lw / 2;
+    const t = svgEl("text", { x, y: H - 6 - 14 * (lines[g.i].length - 1), "text-anchor": "middle" }, svg);
+    lines[g.i].forEach((s, k) => { svgEl("tspan", { x, dy: k ? 14 : 0 }, t).textContent = s; });
+  }
+  const want = g => (o.labelHi && g.d.hi && (slot >= 32 || g.d.y === hiMax)) || (g.i === data.length - 1 && slot >= 14) || (slot >= 56 && !g.d.hi);
+  const order = [...geo.filter(g => g.d.hi), ...geo.filter(g => !g.d.hi).reverse()];
+  for (const g of order) {
+    if (!want(g)) continue;
+    const s = o.val ? o.val(g.d.y) : short(g.d.y), cls = g.d.hi ? "lbl" : "", w = measure(s, cls), y = g.neg ? y0 + g.h + 14 : g.yTop - 6;
+    const x = Math.max(m.l + w / 2, Math.min(W - w / 2 - 1, g.cx));
+    if (!fits(x, y, w)) continue;
+    placed.push({ x, y, w });
+    svgEl("text", { x, y, "text-anchor": "middle", class: cls }, svg).textContent = s;
+  }
 }
 
 function line(box, data, o) {
@@ -314,20 +343,34 @@ function line(box, data, o) {
     svgEl("line", { x1: m.l, x2: W - m.r, y1: Y(v), y2: Y(v), stroke: Math.abs(v) < 1e-9 ? "var(--muted)" : "var(--grid)", "stroke-width": 1 }, svg);
     svgEl("text", { x: m.l - 8, y: Y(v) + 4, "text-anchor": "end" }, svg).textContent = Math.abs(v) >= 1e3 ? short(v) : v.toFixed(dec);
   }
-  const every = Math.ceil(data.length / (W < 520 ? 4 : 8));
-  data.forEach((d, i) => { if (i % every === 0 || i === data.length - 1 && (data.length - 1) % every > every / 2) svgEl("text", { x: X(i), y: H - 6, "text-anchor": "middle" }, svg).textContent = d.x; });
+  // Axis labels are measured so they never collide or run off either edge; the last one shows only if it has room.
+  const measure = (s, cls) => { const t = svgEl("text", { x: -999, y: -999, class: cls || "" }, svg); t.textContent = s; const w = t.getComputedTextLength(); t.remove(); return w; };
+  const px = (W - m.l - m.r) / Math.max(1, data.length - 1), lw = Math.max(...data.map(d => measure(d.x)));
+  const every = Math.max(Math.ceil(data.length / (W < 520 ? 4 : 8)), Math.ceil((lw + 12) / px));
+  let prev = -Infinity;
+  data.forEach((d, i) => {
+    if (!(i % every === 0 || i === data.length - 1)) return;
+    const w = measure(d.x), x = Math.max(w / 2 + 2, Math.min(W - w / 2 - 2, X(i)));
+    if (x - w / 2 < prev + 8) return;
+    svgEl("text", { x, y: H - 6, "text-anchor": "middle" }, svg).textContent = d.x;
+    prev = x + w / 2;
+  });
   const pts = data.map((d, i) => `${X(i).toFixed(1)},${Y(d.y).toFixed(1)}`);
   const base = Y(Math.max(lo, Math.min(0, top)));
   svgEl("path", { d: `M${X(0)},${base} L${pts.join(" L")} L${X(data.length - 1)},${base} Z`, fill: "var(--blue)", opacity: 0.1 }, svg);
   svgEl("path", { d: `M${pts.join(" L")}`, fill: "none", stroke: "var(--blue)", "stroke-width": 2, "stroke-linejoin": "round" }, svg);
   // Label the latest value and the peak (if it isn't the latest).
   const li = data.length - 1, pi = ys.indexOf(hi0);
-  const mark = (i, anchor) => {
+  // Each label is kept inside the chart, and the peak's is dropped if it would overlap the latest one.
+  const markText = i => `${o.val(data[i].y)} (${data[i].x})`;
+  const markBox = i => { const w = measure(markText(i), "lbl"), x = Math.max(m.l, Math.min(W - m.r - w, X(i) - w / 2)); return { x, w, y: Y(data[i].y) - 10 }; };
+  const mark = (i, b) => {
     svgEl("circle", { cx: X(i), cy: Y(data[i].y), r: 4, fill: "var(--blue)", stroke: "var(--surface)", "stroke-width": 2 }, svg);
-    svgEl("text", { x: X(i), y: Y(data[i].y) - 10, "text-anchor": anchor, class: "lbl" }, svg).textContent = `${o.val(data[i].y)} (${data[i].x})`;
+    svgEl("text", { x: b.x, y: b.y, "text-anchor": "start", class: "lbl" }, svg).textContent = markText(i);
   };
-  if (pi !== li && Math.abs(X(pi) - X(li)) > 110) mark(pi, X(pi) < m.l + 60 ? "start" : "middle");
-  mark(li, "end");
+  const lb = markBox(li), last = { ...lb, x: Math.max(m.l, Math.min(W - m.r - lb.w, X(li) - lb.w)) };
+  if (pi !== li) { const pb = markBox(pi); if (pb.x + pb.w + 8 < last.x || last.x + last.w + 8 < pb.x || Math.abs(pb.y - last.y) > 16) mark(pi, pb); }
+  mark(li, last);
   // Hover: a guide line and dot follow the pointer.
   const guide = svgEl("line", { y1: m.t, y2: H - m.b, stroke: "var(--muted)", "stroke-width": 1, "stroke-dasharray": "3 3", visibility: "hidden" }, svg);
   const dot = svgEl("circle", { r: 4, fill: "var(--blue)", stroke: "var(--surface)", "stroke-width": 2, visibility: "hidden" }, svg);
@@ -375,6 +418,13 @@ const FIXED = P.examples.filter(q => INSTANT[norm(q)]).slice(0, 3);
 const POOL = P.live ? P.examples : P.examples.filter(q => INSTANT[norm(q)]);
 const SHOWN = 7;
 const shuffle = a => { a = [...a]; for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } return a; };
+// Follow-up questions: the story's own suggestions when live questions are on;
+// otherwise the next pre-computed examples, so every chip leads to an answer.
+const nextQuestions = s => {
+  if (P.live) return s.next || [];
+  const i = POOL.findIndex(q => norm(q) === norm(s.q));
+  return [...POOL.slice(i + 1), ...POOL.slice(0, Math.max(0, i))].slice(0, 3);
+};
 const firstIdeas = () => [...FIXED, ...POOL.filter(q => !FIXED.includes(q))].slice(0, SHOWN);
 let ideas = firstIdeas();
 function renderSugg() {
@@ -495,8 +545,8 @@ function show(s) {
           <div class="ds-list">${dsList.map(k => DATASETS[k]).map(ds => `<div class="ds"><a href="${ds.url}" target="_blank" rel="noopener">${ds.title} ↗</a><span>${ds.note}</span></div>`).join("")}</div>
         </div>
         <div>
-          <span class="eyebrow">Ask next</span>
-          <div class="sugg">${s.next.map(q => `<button class="chip" type="button" data-ask="${escH(q).replace(/"/g, "&quot;")}">${escH(q)}</button>`).join("")}</div>
+          <span class="eyebrow">${P.live ? "Ask next" : "More questions"}</span>
+          <div class="sugg">${nextQuestions(s).map(q => `<button class="chip" type="button" data-ask="${escH(q).replace(/"/g, "&quot;")}">${escH(q)}</button>`).join("")}</div>
         </div>
       </section>
     </article>`;

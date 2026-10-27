@@ -10,6 +10,9 @@ const dir = path.join(root, 'portals')
 const { default: defaultSlug, domains = {} } = JSON.parse(fs.readFileSync(path.join(dir, 'index.json'), 'utf8'))
 const template = fs.readFileSync(path.join(root, 'engine/ask.html'), 'utf8')
 
+// A magnifier in the portal's accent colour, inline so every portal has a tab icon without an extra file.
+const favicon = (c) => `<link rel="icon" href="data:image/svg+xml,${encodeURIComponent(`<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='${c}' stroke-width='3' stroke-linecap='round'><circle cx='10.5' cy='10.5' r='7'/><path d='m20 20-4.5-4.5'/></svg>`)}">`
+
 const esc = (s) => String(s ?? '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;')
 // "Line one.|Line *two.*": | is a line break, *x* is the highlighted word.
 const headline = (s) => esc(s).split('|').join('<br>').replace(/\*([^*]+)\*/g, '<em>$1</em>')
@@ -53,7 +56,7 @@ for (const slug of fs.readdirSync(dir).sort()) {
   ].join('')
   const pub = { slug, name: portal.name, sourceName: src.name, live: portal.live !== false, examples: portal.examples, datasets: portal.datasets, data: { base: portal.data.remote || portal.data.base, snapshot: portal.data.snapshot }, instant }
   const vals = {
-    title: esc(portal.name), description: esc(portal.description), favicon: '', themeCss, logo, name: esc(portal.name),
+    title: esc(portal.name), description: esc(portal.description), favicon: favicon(t.accent || '#094f9a'), themeCss, logo, name: esc(portal.name),
     sourceUrl: esc(src.url), sourceName: esc(src.name), sourceLabel: esc(src.label || src.name),
     datasetCount: `${portal.datasets.length} dataset${portal.datasets.length === 1 ? '' : 's'}`,
     headline: headline(portal.headline), intro: esc(portal.intro), placeholder: esc(portal.placeholder || ''),
