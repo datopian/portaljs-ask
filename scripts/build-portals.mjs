@@ -53,6 +53,7 @@ for (const slug of fs.readdirSync(dir).sort()) {
     portal.live
       ? ` The first example questions were answered in advance. Other questions about the ${portal.datasets.length} connected datasets are answered live: AI writes the queries, they run on the data in your browser, and AI writes the story from their results. Every number comes from the query shown under its chart. Live questions are limited each day.`
       : ` The example questions were answered in advance by AI: it wrote the queries and the story, and every number comes from the query shown under its chart.`,
+    portal.disclaimer ? ` ${esc(portal.disclaimer)}` : '',
   ].join('')
   const pub = { slug, name: portal.name, sourceName: src.name, live: portal.live !== false, examples: portal.examples, datasets: portal.datasets, data: { base: portal.data.remote || portal.data.base, snapshot: portal.data.snapshot }, instant }
   const vals = {

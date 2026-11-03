@@ -16,6 +16,8 @@ notes and pre-computed example answers. Read ARCHITECTURE.md first.
   datasets that are only maps, PDFs, or over ~50 MB as parquet.
 - Branding: accent colour, dark colour, highlight colour, logo (SVG or PNG),
   from their website if not given. Never copy a logo you can't confirm is theirs.
+  To add a line to the footer (e.g. "Not an official <Org> website."), set
+  `"disclaimer"` in `portal.json`.
   For a lighter look, add `"panel": "light"` to `theme`: the key-numbers panel
   becomes a pale accent tint instead of a dark block.
 
