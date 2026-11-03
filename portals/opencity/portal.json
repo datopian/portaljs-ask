@@ -26,7 +26,8 @@
   },
   "data": {
     "base": "/data/opencity/",
-    "snapshot": "2026-11-03"
+    "snapshot": "2026-11-03",
+    "remote": "https://r7ku4izoj8cd8lsg.public.blob.vercel-storage.com/data/opencity/2026-11-03/"
   },
   "live": true,
   "examples": [
