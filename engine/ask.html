@@ -774,7 +774,18 @@ async function live(question) {
   }
 }
 function liveStory(question, ok, story, isLive) {
-  const dsOfSql = sql => { const ids = [...new Set(tablesIn(sql).flatMap(t => TABLE_DS[t]))]; return ids.length ? ids : [P.datasets[0].id]; };
+  // A table built from several datasets credits only the ones whose "match" text (e.g. a city) appears in a quoted
+  // value in the query, such as WHERE city = 'Chennai'; with no match, all of them.
+  const dsOfSql = sql => {
+    const lits = [...sql.matchAll(/'([^']*)'/g)].map(m => m[1].toLowerCase());
+    const pick = ids => {
+      if (ids.length < 2) return ids;
+      const hit = ids.filter(id => DATASETS[id].match && lits.some(l => l.includes(DATASETS[id].match.toLowerCase())));
+      return hit.length ? hit : ids;
+    };
+    const ids = [...new Set(tablesIn(sql).flatMap(t => pick(TABLE_DS[t])))];
+    return ids.length ? ids : [P.datasets[0].id];
+  };
   const dsList = [...new Set(ok.flatMap(r => dsOfSql(r.q.sql)))];
   const points = ok.map(({ q, rows }, i) => {
     const pt = story.points[i] || { h: q.purpose, p: "" };

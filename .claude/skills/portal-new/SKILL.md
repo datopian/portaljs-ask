@@ -44,7 +44,9 @@ Look at sample rows yourself too: the profile catches common traps, not all.
   `portals/datahub/notes.md` and `portals/toronto/notes.md` for the level of
   detail). Verify every number you write with DuckDB.
 - `portal.json` `datasets`: id (catalogue name), title, url, one-line note,
-  tables. `examples`: 15 to 20 short questions; the first 3 are the headline
+  tables. When several datasets feed one table (e.g. one per city), give each
+  a `match` (e.g. `"Chennai"`) so charts filtered to that value credit only
+  that dataset. `examples`: 15 to 20 short questions; the first 3 are the headline
   ones. Each must be answerable from the tables.
 
 ## 5. Preview and pre-compute

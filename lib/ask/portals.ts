@@ -11,6 +11,7 @@ export interface PortalDataset {
   url: string
   note: string
   tables: string[] // the DuckDB tables (parquet files) built from it
+  match?: string // when several datasets share a table: text in a query's quoted values that means this one, e.g. "Chennai"
 }
 
 export interface Share {
