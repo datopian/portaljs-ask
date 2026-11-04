@@ -12,10 +12,10 @@ air_quality_daily  -- daily averages from Bengaluru, Chennai and Pune's continuo
                              -- different Chennai stations.
   station_full_name VARCHAR  -- as published, with the operator, e.g. 'Silk Board, Bengaluru - KSPCB'
   day               DATE     -- 2024-01-01 to 2025-12-31
-  pm25              DOUBLE   -- daily average PM2.5, micrograms per cubic metre (ug/m3)
-  pm10              DOUBLE   -- daily average PM10, ug/m3
-  no2               DOUBLE   -- daily average nitrogen dioxide, ug/m3
-  ozone             DOUBLE   -- daily average ozone, ug/m3
+  pm25              DOUBLE   -- daily average PM2.5, micrograms per cubic metre (µg/m³). Always write the unit as µg/m³ (not ug/m3)
+  pm10              DOUBLE   -- daily average PM10, µg/m³
+  no2               DOUBLE   -- daily average nitrogen dioxide, µg/m³
+  ozone             DOUBLE   -- daily average ozone, µg/m³
   co                DOUBLE   -- daily average carbon monoxide, mg/m3 (milligrams, not micrograms)
   How the daily values were made: averages of the published 15-minute readings. A pollutant's daily value is NULL unless it
     had at least 64 readings (16 hours, CPCB's rule for a valid 24-hour average). PM2.5 is also NULL when it is higher than the
@@ -26,7 +26,7 @@ air_quality_daily  -- daily averages from Bengaluru, Chennai and Pune's continuo
       (Pune) only starts in 2025; 'Hadapsar' and 'Alandi' (Pune) have under 300. When ranking stations, show how many valid days
       each has (count(pm25)) and leave out stations with fewer than 60 valid days in the period.
     - City averages = avg(pm25) over all station-days in that city. Say it is an average across that city's stations.
-    - Standards: India's 24-hour standard for PM2.5 is 60 ug/m3 (annual 40); for PM10 100 (annual 60). The WHO 2021
+    - Standards: India's 24-hour standard for PM2.5 is 60 µg/m³ (annual 40); for PM10 100 (annual 60). The WHO 2021
       guideline for PM2.5 is 15 (24-hour) and 5 (annual). Say which one you compare against. "Days above the standard" =
       count(*) FILTER (WHERE pm25 > 60), counted per station-day.
     - Air is worst in winter (Nov-Feb) in all three cities and cleanest in the monsoon (Jun-Sep). "Last winter" = 2024-11-01 to

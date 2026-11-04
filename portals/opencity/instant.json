@@ -2650,7 +2650,7 @@
     "id": "q1",
     "purpose": "Average PM2.5 by Chennai station, winter 2024-25 (stations with 60+ valid days)",
     "chart": "bars",
-    "unit": "ug/m3 PM2.5 (average)",
+    "unit": "µg/m³ PM2.5 (average)",
     "sql": "SELECT station AS label, ROUND(AVG(pm25), 1) AS value FROM air_quality_daily WHERE city = 'Chennai' AND day BETWEEN DATE '2024-11-01' AND DATE '2025-02-28' GROUP BY station HAVING count(pm25) >= 60 ORDER BY value DESC LIMIT 30",
     "rows": [
      {
@@ -2689,9 +2689,9 @@
    },
    {
     "id": "q2",
-    "purpose": "Days with PM2.5 above India's 24-hour standard (60 ug/m3), winter 2024-25",
+    "purpose": "Days with PM2.5 above India's 24-hour standard (60 µg/m³), winter 2024-25",
     "chart": "bars",
-    "unit": "days above 60 ug/m3",
+    "unit": "days above 60 µg/m³",
     "sql": "SELECT station AS label, count(*) FILTER (WHERE pm25 > 60) AS value FROM air_quality_daily WHERE city = 'Chennai' AND day BETWEEN DATE '2024-11-01' AND DATE '2025-02-28' GROUP BY station HAVING count(pm25) >= 60 ORDER BY value DESC LIMIT 30",
     "rows": [
      {
@@ -2777,7 +2777,7 @@
    "sub": "Daily PM2.5 readings from Chennai's air-quality monitoring stations (pollution control boards), 1 November 2024 to 28 February 2025.",
    "facts": [
     {
-     "value": "46.1 ug/m3",
+     "value": "46.1 µg/m³",
      "label": "Arumbakkam's winter average PM2.5, the highest"
     },
     {
@@ -2785,7 +2785,7 @@
      "label": "Perungudi's days above India's daily limit"
     },
     {
-     "value": "14.2 ug/m3",
+     "value": "14.2 µg/m³",
      "label": "Kodungaiyur's average, the lowest"
     }
    ],
@@ -2960,7 +2960,7 @@
     "id": "q1",
     "purpose": "Average PM2.5 across each city's stations, 2024-2025",
     "chart": "bars",
-    "unit": "ug/m3 (PM2.5, average across the city's stations)",
+    "unit": "µg/m³ (PM2.5, average across the city's stations)",
     "sql": "SELECT city AS label, round(avg(pm25), 1) AS value FROM air_quality_daily WHERE city IN ('Pune','Bengaluru') GROUP BY city ORDER BY value DESC LIMIT 30",
     "rows": [
      {
@@ -2975,9 +2975,9 @@
    },
    {
     "id": "q2",
-    "purpose": "Share of station-days with PM2.5 above India's 24-hour standard (60 ug/m3)",
+    "purpose": "Share of station-days with PM2.5 above India's 24-hour standard (60 µg/m³)",
     "chart": "bars",
-    "unit": "% of valid station-days above 60 ug/m3",
+    "unit": "% of valid station-days above 60 µg/m³",
     "sql": "SELECT city AS label, round(100.0 * count(*) FILTER (WHERE pm25 > 60) / count(pm25), 1) AS value FROM air_quality_daily WHERE city IN ('Pune','Bengaluru') AND pm25 IS NOT NULL GROUP BY city ORDER BY value DESC LIMIT 30",
     "rows": [
      {
@@ -2994,7 +2994,7 @@
     "id": "q3",
     "purpose": "Average PM2.5 by month, Pune (shows the winter peak)",
     "chart": "columns",
-    "unit": "ug/m3 (PM2.5, average across Pune's stations)",
+    "unit": "µg/m³ (PM2.5, average across Pune's stations)",
     "sql": "SELECT strftime(date_trunc('month', day), '%b %Y') AS label, round(avg(pm25), 1) AS value FROM air_quality_daily WHERE city = 'Pune' GROUP BY date_trunc('month', day) ORDER BY date_trunc('month', day) LIMIT 30",
     "rows": [
      {
@@ -3104,7 +3104,7 @@
    "facts": [
     {
      "value": "39.9 vs 30.8",
-     "label": "Average PM2.5 in Pune vs Bengaluru (ug/m3)"
+     "label": "Average PM2.5 in Pune vs Bengaluru (µg/m³)"
     },
     {
      "value": "20%",
@@ -3154,7 +3154,7 @@
     "id": "q1",
     "purpose": "Average PM2.5 by calendar month, Bengaluru stations, 2024-2025",
     "chart": "columns",
-    "unit": "ug/m3 PM2.5 (average across Bengaluru stations)",
+    "unit": "µg/m³ PM2.5 (average across Bengaluru stations)",
     "sql": "SELECT strftime(day, '%b') AS label, round(avg(pm25), 1) AS value FROM air_quality_daily WHERE city = 'Bengaluru' AND pm25 IS NOT NULL GROUP BY month(day), strftime(day, '%b') ORDER BY month(day)",
     "rows": [
      {
@@ -3211,7 +3211,7 @@
     "id": "q2",
     "purpose": "Average PM10 by calendar month, Bengaluru stations, 2024-2025",
     "chart": "columns",
-    "unit": "ug/m3 PM10 (average across Bengaluru stations)",
+    "unit": "µg/m³ PM10 (average across Bengaluru stations)",
     "sql": "SELECT strftime(day, '%b') AS label, round(avg(pm10), 1) AS value FROM air_quality_daily WHERE city = 'Bengaluru' AND pm10 IS NOT NULL GROUP BY month(day), strftime(day, '%b') ORDER BY month(day)",
     "rows": [
      {
@@ -3268,7 +3268,7 @@
     "id": "q3",
     "purpose": "Share of station-days above India's 24-hour PM2.5 standard (60) by month",
     "chart": "columns",
-    "unit": "% of station-days above 60 ug/m3",
+    "unit": "% of station-days above 60 µg/m³",
     "sql": "SELECT strftime(day, '%b') AS label, round(100.0 * count(*) FILTER (WHERE pm25 > 60) / count(pm25), 1) AS value FROM air_quality_daily WHERE city = 'Bengaluru' AND pm25 IS NOT NULL GROUP BY month(day), strftime(day, '%b') ORDER BY month(day)",
     "rows": [
      {
@@ -3329,11 +3329,11 @@
    "sub": "Daily readings from Bengaluru's air-quality monitoring stations, January 2024 to December 2025, as published by pollution control boards.",
    "facts": [
     {
-     "value": "18.7 ug/m3",
+     "value": "18.7 µg/m³",
      "label": "Average PM2.5 in July, the cleanest month"
     },
     {
-     "value": "42.9 ug/m3",
+     "value": "42.9 µg/m³",
      "label": "Average PM2.5 in March, the dirtiest month"
     },
     {
@@ -3375,7 +3375,7 @@
   "queries": [
    {
     "id": "q1",
-    "purpose": "Pune station-days above India's 24-hour PM2.5 standard (60 ug/m3) by month, 2025",
+    "purpose": "Pune station-days above India's 24-hour PM2.5 standard (60 µg/m³) by month, 2025",
     "chart": "columns",
     "unit": "station-days",
     "sql": "SELECT strftime(day, '%b') AS label, count(*) FILTER (WHERE pm25 > 60) AS value FROM air_quality_daily WHERE city = 'Pune' AND day >= DATE '2025-01-01' AND day <= DATE '2025-12-31' GROUP BY month(day), strftime(day, '%b') ORDER BY month(day)",
@@ -3432,7 +3432,7 @@
    },
    {
     "id": "q2",
-    "purpose": "Share of valid Pune station-days above 60 ug/m3 by month, 2025",
+    "purpose": "Share of valid Pune station-days above 60 µg/m³ by month, 2025",
     "chart": "columns",
     "unit": "% of station-days with valid PM2.5",
     "sql": "SELECT strftime(day, '%b') AS label, round(100.0 * count(*) FILTER (WHERE pm25 > 60) / count(pm25), 1) AS value FROM air_quality_daily WHERE city = 'Pune' AND day >= DATE '2025-01-01' AND day <= DATE '2025-12-31' GROUP BY month(day), strftime(day, '%b') ORDER BY month(day)",
@@ -3489,9 +3489,9 @@
    },
    {
     "id": "q3",
-    "purpose": "Days above 60 ug/m3 by Pune station in 2025 (stations with 60+ valid days)",
+    "purpose": "Days above 60 µg/m³ by Pune station in 2025 (stations with 60+ valid days)",
     "chart": "bars",
-    "unit": "days above 60 ug/m3",
+    "unit": "days above 60 µg/m³",
     "sql": "SELECT station AS label, count(*) FILTER (WHERE pm25 > 60) AS value FROM air_quality_daily WHERE city = 'Pune' AND day >= DATE '2025-01-01' AND day <= DATE '2025-12-31' GROUP BY station HAVING count(pm25) >= 60 ORDER BY value DESC LIMIT 30",
     "rows": [
      {
@@ -3549,7 +3549,7 @@
    "facts": [
     {
      "value": "695",
-     "label": "station-days above 60 ug/m3 in Pune, 2025"
+     "label": "station-days above 60 µg/m³ in Pune, 2025"
     },
     {
      "value": "76.8%",
@@ -3575,7 +3575,7 @@
     }
    ],
    "takeaway": "Pune's air went above India's daily PM2.5 limit mostly in winter, and it got worse towards the end of 2025. The monsoon months were almost clear. Where you live in the city also mattered a lot.",
-   "note": "These are station-days against India's 24-hour PM2.5 standard of 60 ug/m3, not the official AQI, and Pune's stations have different numbers of valid days.",
+   "note": "These are station-days against India's 24-hour PM2.5 standard of 60 µg/m³, not the official AQI, and Pune's stations have different numbers of valid days.",
    "next": [
     "How does Pune's 2025 share of days above 60 compare with Bengaluru and Chennai?",
     "How did Pune's PM2.5 in winter 2024-25 compare with the WHO guideline of 15?",
