@@ -28,7 +28,7 @@ export interface Portal {
   headline: string
   intro: string
   placeholder: string
-  theme: Record<string, string>
+  theme: Record<string, string> // accent, navy, highlight, ink; optional panel ('light'), band (top strip colour), footer (footer colour)
   logo: string | null
   source: { name: string; label: string; url: string; licence?: string }
   catalogue: { type: 'ckan' | 'none'; api?: string; datasetUrl?: string }
@@ -36,6 +36,7 @@ export interface Portal {
   disclaimer?: string // optional line added to the footer, e.g. "Not an official <Org> website."
   live: boolean // false = examples-only: no question box, no AI calls
   examples: string[]
+  exampleGroups?: { label: string; examples: string[] }[] // optional: show examples in labelled rows (e.g. by city)
   datasets: PortalDataset[]
   notes: string // what the AI knows about the tables (portals/<slug>/notes.md)
   shares: Record<string, Share> // saved answers' headlines by normalised question, for link previews

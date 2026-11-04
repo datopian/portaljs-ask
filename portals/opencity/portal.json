@@ -7,12 +7,14 @@
   "intro": "For data jams, newsrooms and civic groups: ask a plain question about Bengaluru, Chennai, Pune or Mumbai and get a short answer with charts, built from tables published on data.opencity.in. Every number links back to its OpenCity dataset.",
   "placeholder": "e.g. Which Bengaluru wards file the most garbage complaints?",
   "theme": {
-    "accent": "#206b82",
-    "navy": "#1a5668",
-    "highlight": "#ffd527",
-    "ink": "#0f2f3a"
+    "accent": "#a62635",
+    "navy": "#a62635",
+    "highlight": "#c8e537",
+    "ink": "#1f1f1f",
+    "band": "#426133",
+    "footer": "#111111"
   },
-  "logo": null,
+  "logo": "mark.svg",
   "source": {
     "name": "OpenCity – Urban Data Portal",
     "label": "data.opencity.in",
@@ -194,5 +196,40 @@
       ]
     }
   ],
-  "disclaimer": "A PortalJS capability demo by Datopian using publicly available data from data.opencity.in. Not an official OpenCity website."
+  "disclaimer": "A PortalJS capability demo by Datopian using publicly available data from data.opencity.in. Not an official OpenCity website.",
+  "exampleGroups": [
+    {
+      "label": "Bengaluru & Karnataka",
+      "examples": [
+        "What do people complain to BBMP about most?",
+        "Which new Bengaluru corporation has the most people?",
+        "Bengaluru wards with the most garbage complaints?",
+        "Busiest routes from Bengaluru airport?",
+        "Cleanest months for air in Bengaluru?",
+        "Streetlight complaints in Bengaluru over time?",
+        "Wettest years in Bengaluru?",
+        "How did COVID-19 hit Bengaluru's flights?",
+        "Most common traffic offences in Bengaluru?",
+        "Karnataka districts with the most crimes in 2025?"
+      ]
+    },
+    {
+      "label": "Chennai & Tamil Nadu",
+      "examples": [
+        "Which Chennai station had the worst air last winter?",
+        "How fast is Chennai Metro ridership growing?",
+        "Who won the 2026 Tamil Nadu election?",
+        "How low did Chennai's reservoirs fall in 2019?",
+        "Closest contests in Tamil Nadu 2026?"
+      ]
+    },
+    {
+      "label": "Pune & Mumbai",
+      "examples": [
+        "How did the BJP do in Pune and Mumbai's 2026 civic polls?",
+        "Days Pune breached the PM2.5 limit in 2025?",
+        "Is Pune's air worse than Bengaluru's?"
+      ]
+    }
+  ]
 }

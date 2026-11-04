@@ -18,6 +18,12 @@ notes and pre-computed example answers. Read ARCHITECTURE.md first.
   from their website if not given. Never copy a logo you can't confirm is theirs.
   To add a line to the footer (e.g. "Not an official <Org> website."), set
   `"disclaimer"` in `portal.json`.
+  More client branding, all optional: `theme.band` (a top strip in the client's
+  colour that carries the disclaimer), `theme.footer` (footer background; links use
+  the highlight colour), a `logo` SVG of our own (never the client's logo without
+  written permission), and `exampleGroups` ([{label, examples}]) to show the example
+  chips in labelled rows, e.g. by city. Take colours from the client's own site CSS,
+  not from a stock CKAN theme.
   For a lighter look, add `"panel": "light"` to `theme`: the key-numbers panel
   becomes a pale accent tint instead of a dark block.
 
