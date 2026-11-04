@@ -36,7 +36,7 @@ const portal = JSON.parse(fs.readFileSync(path.join(pdir, 'portal.json'), 'utf8'
 const instantFile = path.join(pdir, 'instant.json')
 const instant = fs.existsSync(instantFile) ? JSON.parse(fs.readFileSync(instantFile, 'utf8')) : []
 const norm = (t) => t.toLowerCase().replace(/[^\p{L}\p{N}]+/gu, ' ').trim()
-const tables = portal.datasets.flatMap((d) => d.tables)
+const tables = [...new Set(portal.datasets.flatMap((d) => d.tables))] // a table can come from several datasets
 // The local build folder if it's there (after portal-data.mjs), otherwise the uploaded copy (data.remote).
 const localBase = path.join(root, 'public', portal.data.base)
 const base = fs.existsSync(localBase) && fs.readdirSync(localBase).some((f) => f.endsWith('.parquet')) ? localBase : portal.data.remote || localBase

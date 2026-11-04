@@ -174,7 +174,7 @@
           }
         }
       },
-      "sql": "SELECT 'Bengaluru' AS city, TRY_CAST(\"Year\" AS INTEGER) AS year, list_position(['jan','feb','mar','apr','may','jun','jul','aug','sep','oct','nov','dec'], lower(left(m,3))) AS month, TRY_CAST(v AS DOUBLE) AS rainfall_mm FROM (UNPIVOT (SELECT \"Year\", COLUMNS('^(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)') FROM raw) ON COLUMNS(* EXCLUDE (\"Year\")) INTO NAME m VALUE v) UNION ALL SELECT 'Chennai' AS city, TRY_CAST(\"Year\" AS INTEGER) AS year, list_position(['jan','feb','mar','apr','may','jun','jul','aug','sep','oct','nov','dec'], lower(left(m,3))) AS month, TRY_CAST(v AS DOUBLE) AS rainfall_mm FROM (UNPIVOT (SELECT \"Year\", COLUMNS('^(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)') FROM chennai) ON COLUMNS(* EXCLUDE (\"Year\")) INTO NAME m VALUE v)"
+      "sql": "SELECT * FROM (SELECT 'Bengaluru' AS city, TRY_CAST(\"Year\" AS INTEGER) AS year, list_position(['jan','feb','mar','apr','may','jun','jul','aug','sep','oct','nov','dec'], lower(left(m,3))) AS month, TRY_CAST(v AS DOUBLE) AS rainfall_mm FROM (UNPIVOT (SELECT \"Year\", COLUMNS('^(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)') FROM raw) ON COLUMNS(* EXCLUDE (\"Year\")) INTO NAME m VALUE v) UNION ALL SELECT 'Chennai' AS city, TRY_CAST(\"Year\" AS INTEGER) AS year, list_position(['jan','feb','mar','apr','may','jun','jul','aug','sep','oct','nov','dec'], lower(left(m,3))) AS month, TRY_CAST(v AS DOUBLE) AS rainfall_mm FROM (UNPIVOT (SELECT \"Year\", COLUMNS('^(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)') FROM chennai) ON COLUMNS(* EXCLUDE (\"Year\")) INTO NAME m VALUE v)) WHERE year IS NOT NULL AND rainfall_mm IS NOT NULL"
     },
     "bengaluru_domestic_flights": {
       "dataset": "bengaluru-aviation-traffic-data",

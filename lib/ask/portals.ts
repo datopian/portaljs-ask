@@ -47,5 +47,5 @@ export function getPortal(slug: unknown): Portal | null {
 }
 
 export function portalTables(p: Portal): string[] {
-  return p.datasets.flatMap((d) => d.tables)
+  return [...new Set(p.datasets.flatMap((d) => d.tables))]
 }

@@ -47,6 +47,7 @@ bbmp_grievances  -- BBMP (Bengaluru) citizen grievances, one row per complaint, 
   grievance_date DATE     -- the day the complaint was filed. The source's times are on a 12-hour clock with no AM/PM, so
                           -- there is NO time-of-day in this table: never answer "what hour" questions from it.
   ward_name      VARCHAR  -- one of BBMP's 198 old wards (as used before the 2025 GBA delimitation), e.g. 'Horamavu', 'Begur'
+                          -- 2025 also has 'NON Ward' (complaints not tied to a ward): leave it out of ward rankings
   status         VARCHAR  -- 'Closed' (91.5%), 'Registered', 'Rejected', 'Non Relevant', 'Resolved', 'ReOpen', 'In Progress', ...
   Notes: count complaints with count(*). Complete years are 2021-2024. 2020 starts on 8 Feb and 2025 ends on 19 Jun: leave
     them out of year-on-year totals, or compare the same months. Complaints jumped from 119,140 (2023) to 207,016 (2024);
@@ -125,7 +126,9 @@ rainfall_monthly  -- monthly rainfall in Bengaluru (1901-2025) and Chennai (1901
   rainfall_mm  DOUBLE   -- millimetres that month
   Notes: annual rainfall = sum per year. Chennai's values are long decimals (an area average), round them. Chennai gets most of
     its rain from the northeast monsoon (Oct-Dec); Bengaluru from both monsoons, wettest Sep-Oct. Chennai ends in 2021, so
-    only compare the two cities up to 2021. Bengaluru: 1,890 mm in 2022, 1,045 mm in 2025.
+    only compare the two cities up to 2021. Bengaluru: 1,890 mm in 2022, 1,045 mm in 2025. Bengaluru's long-period average
+    (LPA, 1991-2020, published with the data) is 1,077.1 mm a year (December 1950 is missing, so leave 1950 out of totals); use it for "normal" ("above/below normal"). Wettest years:
+    2022 (1,890), 2017 (1,696), 2021 (1,511).
 
 bengaluru_domestic_flights  -- passengers and freight between Bengaluru airport and each Indian destination, one row per
                                destination and month, April 2015 to October 2025 (DGCA figures)
@@ -138,7 +141,8 @@ bengaluru_domestic_flights  -- passengers and freight between Bengaluru airport 
   destination_as_published VARCHAR -- the name exactly as in the source file
   passengers_out      DOUBLE  -- passengers flying Bengaluru -> destination
   passengers_in       DOUBLE  -- passengers flying destination -> Bengaluru
-  freight_out_tonnes, freight_in_tonnes DOUBLE  -- tonnes
+  freight_out_tonnes, freight_in_tonnes DOUBLE  -- tonnes. Freight is only published from 2018 (incomplete in 2018): NULL before;
+                                                 -- compare freight from 2019 on
   Notes: route traffic = passengers_out + passengers_in. MISSING MONTHS in the source: May 2021, May 2024, Jan-Mar 2015 and
     Nov-Dec 2025 are not in the data. Complete years: 2016-2020, 2022, 2023. For year-on-year comparisons use complete years or
     the same months in both years, and say so. 2020-21 show the COVID-19 collapse (28.73 million passengers on these routes

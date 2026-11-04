@@ -1,0 +1,3827 @@
+[
+ {
+  "q": "What do people complain to BBMP about most?",
+  "queries": [
+   {
+    "id": "q1",
+    "purpose": "Complaints filed by department (all years, Feb 2020 to Jun 2025)",
+    "chart": "bars",
+    "unit": "complaints",
+    "sql": "SELECT trim(regexp_replace(category, '\\s+', ' ', 'g')) AS label, count(*) AS value FROM bbmp_grievances GROUP BY 1 ORDER BY value DESC LIMIT 15",
+    "rows": [
+     {
+      "label": "Electrical",
+      "value": 310128
+     },
+     {
+      "label": "Solid Waste (Garbage) Related",
+      "value": 195153
+     },
+     {
+      "label": "Road Maintenance(Engg)",
+      "value": 111535
+     },
+     {
+      "label": "Forest",
+      "value": 34618
+     },
+     {
+      "label": "Health Dept",
+      "value": 29924
+     },
+     {
+      "label": "veterinary",
+      "value": 25524
+     },
+     {
+      "label": "Road Infrastructure",
+      "value": 12817
+     },
+     {
+      "label": "Others",
+      "value": 8043
+     },
+     {
+      "label": "Storm Water Drain(SWD)",
+      "value": 6621
+     },
+     {
+      "label": "Revenue Department",
+      "value": 5158
+     },
+     {
+      "label": "E khata / Khata services",
+      "value": 4631
+     },
+     {
+      "label": "Town Planning",
+      "value": 4622
+     },
+     {
+      "label": "Parks and Play grounds",
+      "value": 3857
+     },
+     {
+      "label": "Advertisement",
+      "value": 2816
+     },
+     {
+      "label": "Sanitation",
+      "value": 2533
+     }
+    ]
+   },
+   {
+    "id": "q2",
+    "purpose": "Top 15 specific complaint types",
+    "chart": "bars",
+    "unit": "complaints",
+    "sql": "SELECT sub_category AS label, count(*) AS value FROM bbmp_grievances GROUP BY 1 ORDER BY value DESC LIMIT 15",
+    "rows": [
+     {
+      "label": "Street Light Not Working",
+      "value": 293580
+     },
+     {
+      "label": "Garbage vehicle not arrived",
+      "value": 73108
+     },
+     {
+      "label": "Garbage dump",
+      "value": 66680
+     },
+     {
+      "label": "Potholes",
+      "value": 32655
+     },
+     {
+      "label": "Road side drains",
+      "value": 24344
+     },
+     {
+      "label": "Sweeping not done",
+      "value": 20775
+     },
+     {
+      "label": "obstructions Branches / Trees.",
+      "value": 17011
+     },
+     {
+      "label": "Removal of dead/fallen trees",
+      "value": 15604
+     },
+     {
+      "label": "Debris Removal / Construction Material",
+      "value": 14810
+     },
+     {
+      "label": "Road Infrastructure",
+      "value": 12817
+     },
+     {
+      "label": "Dengue positive",
+      "value": 10462
+     },
+     {
+      "label": "footpath encroachment",
+      "value": 9631
+     },
+     {
+      "label": "Others",
+      "value": 9153
+     },
+     {
+      "label": "Stray dog related complaints",
+      "value": 9120
+     },
+     {
+      "label": "Road cutting",
+      "value": 8548
+     }
+    ]
+   },
+   {
+    "id": "q3",
+    "purpose": "Complaints filed per year for the top 3 departments' main complaint, street lights, by complete year",
+    "chart": "columns",
+    "unit": "complaints",
+    "sql": "SELECT CAST(year(grievance_date) AS VARCHAR) AS label, count(*) AS value FROM bbmp_grievances WHERE sub_category = 'Street Light Not Working' AND year(grievance_date) BETWEEN 2021 AND 2024 GROUP BY 1 ORDER BY 1",
+    "rows": [
+     {
+      "label": "2021",
+      "value": 47641
+     },
+     {
+      "label": "2022",
+      "value": 53848
+     },
+     {
+      "label": "2023",
+      "value": 48991
+     },
+     {
+      "label": "2024",
+      "value": 71430
+     }
+    ]
+   }
+  ],
+  "story": {
+   "lead": "Broken street lights top BBMP complaints",
+   "highlight": "street lights",
+   "summary": "BBMP grievance records published on OpenCity show that one problem towers over the rest: street lights that don't work. Of all complaints filed from February 2020 to June 2025, **293,580** were about street lights. That is more than the next three complaint types put together (garbage vehicle not arrived, garbage dump and potholes). Below, we look at which departments get the most complaints, which specific problems lead, and how street light complaints changed by year.",
+   "sub": "BBMP grievance records, complaints filed 8 February 2020 to 19 June 2025; yearly view covers 2021 to 2024.",
+   "facts": [
+    {
+     "value": "293,580",
+     "label": "complaints about street lights not working"
+    },
+    {
+     "value": "310,128",
+     "label": "complaints to the Electrical department"
+    },
+    {
+     "value": "71,430",
+     "label": "street light complaints filed in 2024"
+    }
+   ],
+   "points": [
+    {
+     "h": "Three departments get most of the complaints",
+     "p": "Start with the departments. Electrical is far ahead with **310,128** complaints. Garbage-related complaints come next at **195,153**, and road maintenance follows with **111,535**. After that the numbers drop sharply: Forest, the fourth, has **34,618**, less than a third of road maintenance. Everyday services like light, rubbish and roads make up the bulk of what people report."
+    },
+    {
+     "h": "One complaint stands out: lights that don't work",
+     "p": "Zooming in on specific problems makes the picture sharper. **Street Light Not Working** alone has **293,580** complaints, which is almost all of the Electrical department's total. Garbage is split into two big problems: **73,108** said the garbage vehicle did not arrive, and **66,680** reported a garbage dump. Potholes come fourth with **32,655**. Street lights get about four times as many complaints as the next single problem."
+    },
+    {
+     "h": "Street light complaints rose sharply in 2024",
+     "p": "Has this been a steady problem? Looking only at the complete years 2021 to 2024, street light complaints stayed between **47,641** and **53,848** for three years. Then 2024 jumped to **71,430**. That is about 46% more than in 2023. These are complaints filed through BBMP's system, so the rise shows more filings, not necessarily more broken lights."
+    }
+   ],
+   "takeaway": "People complain to BBMP most about street lights, then garbage collection, then roads and potholes. Across the whole period, street lights lead by a wide margin. The figures count complaints filed, not how many problems exist.",
+   "note": "Counts are complaints filed, and 2020 and 2025 are partial years, so only 2021 to 2024 are compared year by year.",
+   "next": [
+    "Which Bengaluru wards file the most garbage complaints?",
+    "How many complaints are filed in each month of the year?",
+    "What share of complaints end up closed?"
+   ],
+   "sources": [
+    "More than the next three put together: 73,108 + 66,680 + 32,655 = 172,443, less than 293,580",
+    "About four times the next problem: 293,580 / 73,108 = 4.0",
+    "About 46% more than in 2023: 71,430 / 48,991 = 1.46",
+    "Less than a third of road maintenance: 34,618 vs 111,535 (31%)",
+    "Almost all of Electrical's total: 293,580 of 310,128 (95%)",
+    "Three years between 47,641 and 53,848: 2021 = 47,641, 2022 = 53,848, 2023 = 48,991"
+   ]
+  },
+  "created": "2026-11-04"
+ },
+ {
+  "q": "Bengaluru wards with the most garbage complaints?",
+  "queries": [
+   {
+    "id": "q1",
+    "purpose": "Top 15 old BBMP wards by garbage complaints filed, 2020-2025",
+    "chart": "bars",
+    "unit": "complaints",
+    "sql": "SELECT ward_name AS label, count(*) AS value FROM bbmp_grievances WHERE category ILIKE '%garbage%' AND ward_name IS NOT NULL GROUP BY ward_name ORDER BY value DESC LIMIT 15",
+    "rows": [
+     {
+      "label": "Thanisandra",
+      "value": 5553
+     },
+     {
+      "label": "Rajarajeshwari Nagar",
+      "value": 5143
+     },
+     {
+      "label": "Someshwara",
+      "value": 4712
+     },
+     {
+      "label": "Jnanabharathi Ward",
+      "value": 4679
+     },
+     {
+      "label": "Horamavu",
+      "value": 4069
+     },
+     {
+      "label": "Bellandur",
+      "value": 3514
+     },
+     {
+      "label": "Gottigere",
+      "value": 3322
+     },
+     {
+      "label": "Banaswadi",
+      "value": 3197
+     },
+     {
+      "label": "Doddanekkundi",
+      "value": 3126
+     },
+     {
+      "label": "Vidyaranyapura",
+      "value": 3095
+     },
+     {
+      "label": "Ramamurthy Nagar",
+      "value": 3007
+     },
+     {
+      "label": "Kavalbyrasandra",
+      "value": 2919
+     },
+     {
+      "label": "HSR Layout",
+      "value": 2904
+     },
+     {
+      "label": "Jakkur",
+      "value": 2787
+     },
+     {
+      "label": "Hoodi",
+      "value": 2478
+     }
+    ]
+   },
+   {
+    "id": "q2",
+    "purpose": "Top 15 wards by garbage complaints in complete year 2024",
+    "chart": "bars",
+    "unit": "complaints",
+    "sql": "SELECT ward_name AS label, count(*) AS value FROM bbmp_grievances WHERE category ILIKE '%garbage%' AND ward_name IS NOT NULL AND grievance_date >= DATE '2024-01-01' AND grievance_date < DATE '2025-01-01' GROUP BY ward_name ORDER BY value DESC LIMIT 15",
+    "rows": [
+     {
+      "label": "Doddanekkundi",
+      "value": 1492
+     },
+     {
+      "label": "Thanisandra",
+      "value": 1404
+     },
+     {
+      "label": "Someshwara",
+      "value": 1326
+     },
+     {
+      "label": "Gottigere",
+      "value": 1271
+     },
+     {
+      "label": "Horamavu",
+      "value": 1264
+     },
+     {
+      "label": "Kavalbyrasandra",
+      "value": 1172
+     },
+     {
+      "label": "Jnanabharathi Ward",
+      "value": 1096
+     },
+     {
+      "label": "Banaswadi",
+      "value": 1038
+     },
+     {
+      "label": "Bellandur",
+      "value": 1037
+     },
+     {
+      "label": "Rajarajeshwari Nagar",
+      "value": 1030
+     },
+     {
+      "label": "Kumaraswamy Layout",
+      "value": 977
+     },
+     {
+      "label": "Jakkur",
+      "value": 913
+     },
+     {
+      "label": "Ramamurthy Nagar",
+      "value": 900
+     },
+     {
+      "label": "Vishwanathnagenahalli",
+      "value": 879
+     },
+     {
+      "label": "Hoodi",
+      "value": 813
+     }
+    ]
+   },
+   {
+    "id": "q3",
+    "purpose": "Garbage complaints filed per year (complete years 2021-2024)",
+    "chart": "columns",
+    "unit": "complaints",
+    "sql": "SELECT CAST(year(grievance_date) AS VARCHAR) AS label, count(*) AS value FROM bbmp_grievances WHERE category ILIKE '%garbage%' AND year(grievance_date) BETWEEN 2021 AND 2024 GROUP BY year(grievance_date) ORDER BY year(grievance_date)",
+    "rows": [
+     {
+      "label": "2021",
+      "value": 24184
+     },
+     {
+      "label": "2022",
+      "value": 22828
+     },
+     {
+      "label": "2023",
+      "value": 28639
+     },
+     {
+      "label": "2024",
+      "value": 57329
+     }
+    ]
+   }
+  ],
+  "story": {
+   "lead": "Thanisandra filed the most garbage complaints.",
+   "highlight": "Thanisandra",
+   "summary": "BBMP grievance records published on OpenCity show Thanisandra, in north-east Bengaluru, filed **5,553** garbage complaints between February 2020 and June 2025. That is the most of any of the city's 198 old wards. Rajarajeshwari Nagar (**5,143**) and Someshwara (**4,712**) follow close behind. Below, we look at the top 15, whether 2024 tells the same story, and how the yearly total changed.",
+   "sub": "BBMP garbage-related complaints on OpenCity, old 198 wards, 8 Feb 2020 to 19 Jun 2025; yearly view uses 2021-2024.",
+   "facts": [
+    {
+     "value": "5,553",
+     "label": "garbage complaints from Thanisandra, 2020-2025"
+    },
+    {
+     "value": "1,492",
+     "label": "complaints in Doddanekkundi, top ward in 2024"
+    },
+    {
+     "value": "57,329",
+     "label": "garbage complaints filed citywide in 2024"
+    }
+   ],
+   "points": [
+    {
+     "h": "Thanisandra tops a list of 15 busy wards",
+     "p": "Over the whole period, Thanisandra leads with **5,553** complaints. Rajarajeshwari Nagar is second with **5,143**, and Someshwara third with **4,712**. Jnanabharathi Ward (4,679) and Horamavu (4,069) complete the top five. The 15th ward, Hoodi, has 2,478, less than half of Thanisandra's count, so the counts fall off steadily down the list. These are old BBMP ward names, and a ward with more complaints is not necessarily worse served, since the table has no ward populations."
+    },
+    {
+     "h": "In 2024 alone, Doddanekkundi moves to the top",
+     "p": "Looking at just 2024, the order changes a little. Doddanekkundi leads with **1,492** complaints, while Thanisandra drops to second with **1,404**. Someshwara, Gottigere and Horamavu follow. Rajarajeshwari Nagar falls from second overall to tenth, with 1,030. Kumaraswamy Layout (977) and Vishwanathnagenahalli (879) appear in the top 15 for 2024 but not in the whole-period list. So the top of the list shifts from year to year."
+    },
+    {
+     "h": "Complaints filed doubled in 2024",
+     "p": "The wider picture matters here. Garbage complaints filed were **24,184** in 2021 and **22,828** in 2022, then **28,639** in 2023. In 2024 they jumped to **57,329**, about twice the 2023 figure. This is a count of complaints filed, not proof that garbage problems doubled. It also helps explain why 2024 gives each top ward a large share of its total: Doddanekkundi's 1,492 in 2024 alone is nearly half its five-year level of 3,126."
+    }
+   ],
+   "takeaway": "Thanisandra, Rajarajeshwari Nagar and Someshwara have filed the most garbage complaints overall. In 2024 Doddanekkundi took the top spot. Because filings roughly doubled in 2024, the ranking mixes real ward differences with more complaints being filed.",
+   "note": "Counts are complaints filed in the old 198 BBMP wards, with no adjustment for ward size or population; 2020 and 2025 are partial years.",
+   "next": [
+    "Which garbage complaint types are most common in Bengaluru?",
+    "Which wards have the most street light complaints?",
+    "How do monthly garbage complaints change through the year?"
+   ],
+   "sources": [
+    "about twice: 2024 = 57,329, 2023 = 28,639 (ratio 2.0)",
+    "nearly half: Doddanekkundi 2024 = 1,492 against whole-period 3,126 (48%)",
+    "tenth: Rajarajeshwari Nagar is 10th in the 2024 chart list, with 1,030"
+   ]
+  },
+  "created": "2026-11-04"
+ },
+ {
+  "q": "Streetlight complaints in Bengaluru over time?",
+  "queries": [
+   {
+    "id": "q1",
+    "purpose": "Street light complaints filed per year (2021-2024 complete years)",
+    "chart": "columns",
+    "unit": "complaints filed",
+    "sql": "SELECT CAST(year(grievance_date) AS VARCHAR) AS label, count(*) AS value FROM bbmp_grievances WHERE sub_category = 'Street Light Not Working' AND year(grievance_date) BETWEEN 2021 AND 2024 GROUP BY year(grievance_date) ORDER BY year(grievance_date)",
+    "rows": [
+     {
+      "label": "2021",
+      "value": 47641
+     },
+     {
+      "label": "2022",
+      "value": 53848
+     },
+     {
+      "label": "2023",
+      "value": 48991
+     },
+     {
+      "label": "2024",
+      "value": 71430
+     }
+    ]
+   },
+   {
+    "id": "q2",
+    "purpose": "Street light complaints filed per month, 2023 to mid-2025",
+    "chart": "columns",
+    "unit": "complaints filed",
+    "sql": "SELECT strftime(date_trunc('month', grievance_date), '%b %Y') AS label, count(*) AS value FROM bbmp_grievances WHERE sub_category = 'Street Light Not Working' AND grievance_date >= DATE '2023-01-01' AND grievance_date < DATE '2025-06-01' GROUP BY date_trunc('month', grievance_date) ORDER BY date_trunc('month', grievance_date)",
+    "rows": [
+     {
+      "label": "Jan 2023",
+      "value": 3033
+     },
+     {
+      "label": "Feb 2023",
+      "value": 2827
+     },
+     {
+      "label": "Mar 2023",
+      "value": 3128
+     },
+     {
+      "label": "Apr 2023",
+      "value": 2429
+     },
+     {
+      "label": "May 2023",
+      "value": 4061
+     },
+     {
+      "label": "Jun 2023",
+      "value": 4540
+     },
+     {
+      "label": "Jul 2023",
+      "value": 5198
+     },
+     {
+      "label": "Aug 2023",
+      "value": 4933
+     },
+     {
+      "label": "Sep 2023",
+      "value": 4803
+     },
+     {
+      "label": "Oct 2023",
+      "value": 4966
+     },
+     {
+      "label": "Nov 2023",
+      "value": 4710
+     },
+     {
+      "label": "Dec 2023",
+      "value": 4363
+     },
+     {
+      "label": "Jan 2024",
+      "value": 4429
+     },
+     {
+      "label": "Feb 2024",
+      "value": 4404
+     },
+     {
+      "label": "Mar 2024",
+      "value": 4373
+     },
+     {
+      "label": "Apr 2024",
+      "value": 4221
+     },
+     {
+      "label": "May 2024",
+      "value": 6066
+     },
+     {
+      "label": "Jun 2024",
+      "value": 6251
+     },
+     {
+      "label": "Jul 2024",
+      "value": 6314
+     },
+     {
+      "label": "Aug 2024",
+      "value": 6793
+     },
+     {
+      "label": "Sep 2024",
+      "value": 6399
+     },
+     {
+      "label": "Oct 2024",
+      "value": 7585
+     },
+     {
+      "label": "Nov 2024",
+      "value": 7336
+     },
+     {
+      "label": "Dec 2024",
+      "value": 7259
+     },
+     {
+      "label": "Jan 2025",
+      "value": 6745
+     },
+     {
+      "label": "Feb 2025",
+      "value": 5826
+     },
+     {
+      "label": "Mar 2025",
+      "value": 6748
+     },
+     {
+      "label": "Apr 2025",
+      "value": 6664
+     },
+     {
+      "label": "May 2025",
+      "value": 8289
+     }
+    ]
+   },
+   {
+    "id": "q3",
+    "purpose": "Street light complaints as a share of all complaints filed each year (%)",
+    "chart": "columns",
+    "unit": "% of all complaints",
+    "sql": "SELECT CAST(year(grievance_date) AS VARCHAR) AS label, round(100.0 * count(*) FILTER (WHERE sub_category = 'Street Light Not Working') / count(*), 1) AS value FROM bbmp_grievances WHERE year(grievance_date) BETWEEN 2021 AND 2024 GROUP BY year(grievance_date) ORDER BY year(grievance_date)",
+    "rows": [
+     {
+      "label": "2021",
+      "value": 46
+     },
+     {
+      "label": "2022",
+      "value": 45.5
+     },
+     {
+      "label": "2023",
+      "value": 41.1
+     },
+     {
+      "label": "2024",
+      "value": 34.5
+     }
+    ]
+   }
+  ],
+  "story": {
+   "lead": "Streetlight complaints jumped in 2024 after three flat years",
+   "highlight": "jumped in 2024",
+   "summary": "BBMP grievance records published on OpenCity show that \"Street Light Not Working\" is the single biggest kind of complaint in Bengaluru. For three years the yearly count stayed between about 48,000 and 54,000. In 2024 it shot up to **71,430** complaints filed, about 46% more than 2023's **48,991**. Below, we look at the yearly totals, the month-by-month climb, and how much of all complaints this one problem makes up.",
+   "sub": "BBMP grievance records on OpenCity, 2021 to 2024 (complete years) and monthly to May 2025.",
+   "facts": [
+    {
+     "value": "71,430",
+     "label": "streetlight complaints filed in 2024"
+    },
+    {
+     "value": "8,289",
+     "label": "filed in May 2025, the highest month shown"
+    },
+    {
+     "value": "34.5%",
+     "label": "share of all complaints in 2024, down from 46%"
+    }
+   ],
+   "points": [
+    {
+     "h": "Three steady years, then a big jump",
+     "p": "Start with the yearly totals. Complaints filed were **47,641** in 2021, **53,848** in 2022 and **48,991** in 2023, so they moved up and down within a narrow range. Then 2024 reached **71,430**. That is about 22,000 more than the year before. These are complaints filed through BBMP's system, so they show how many people complained, not necessarily how many lights failed."
+    },
+    {
+     "h": "The climb was gradual, not a single spike",
+     "p": "The monthly figures show how the jump happened. In early 2023 the city saw about 2,400 to 3,100 complaints a month, and by mid-2023 it was near 5,000. In 2024 it started at about 4,400 in January, rose to **7,585** in October and stayed above 7,000 through December. The level did not fall back in 2025: every month from January to May was above 5,800, and May 2025 hit **8,289**. The higher level (above 5,800 a month since May 2024) has lasted about a year."
+    },
+    {
+     "h": "Streetlights are a smaller slice of a growing pile",
+     "p": "Streetlights are still the biggest single complaint, but their share is falling. They were **46%** of all complaints in 2021 and **34.5%** in 2024. That does not mean fewer streetlight complaints, since the count rose. It means other kinds of complaints grew even faster in 2024. Streetlights remain about one in three complaints filed."
+    }
+   ],
+   "takeaway": "Streetlight complaints were steady until 2023, then rose sharply through 2024 and stayed high into 2025. Their share of all complaints fell because the total grew faster. The figures count complaints filed, not broken lights.",
+   "note": "Complaints jumped overall in 2024 because more were filed through BBMP's system, which is not proof that problems doubled; 2025 data ends in June.",
+   "next": [
+    "Which Bengaluru wards filed the most streetlight complaints in 2024?",
+    "Which complaint types grew fastest between 2023 and 2024?",
+    "What share of streetlight complaints ended with status Closed?"
+   ],
+   "sources": [
+    "about 46% more: 71,430 / 48,991 = 1.46",
+    "about 22,000 more: 71,430 - 48,991 = 22,439",
+    "about 48,000 to 54,000: yearly values 2021-2023 range 47,641 to 53,848",
+    "about 2,400 to 3,100: Jan-Apr 2023 values range 2,429 to 3,128",
+    "above 5,800: Jan-May 2025 values 6,745, 5,826, 6,748, 6,664, 8,289",
+    "one in three: 34.5% in 2024"
+   ]
+  },
+  "created": "2026-11-04"
+ },
+ {
+  "q": "Who won the 2026 Tamil Nadu election?",
+  "queries": [
+   {
+    "id": "q1",
+    "purpose": "Seats won by each party (234 seats)",
+    "chart": "bars",
+    "unit": "seats",
+    "sql": "SELECT party AS label, count(*) AS value FROM tn_assembly_2026 WHERE position = 1 GROUP BY party ORDER BY value DESC LIMIT 15",
+    "rows": [
+     {
+      "label": "Tamilaga Vettri Kazhagam",
+      "value": 108
+     },
+     {
+      "label": "Dravida Munnetra Kazhagam",
+      "value": 59
+     },
+     {
+      "label": "All India Anna Dravida Munnetra Kazhagam",
+      "value": 47
+     },
+     {
+      "label": "Indian National Congress",
+      "value": 5
+     },
+     {
+      "label": "Pattali Makkal Katchi",
+      "value": 4
+     },
+     {
+      "label": "Communist Party of India",
+      "value": 2
+     },
+     {
+      "label": "Viduthalai Chiruthaigal Katchi",
+      "value": 2
+     },
+     {
+      "label": "Communist Party of India (Marxist)",
+      "value": 2
+     },
+     {
+      "label": "Indian Union Muslim League",
+      "value": 2
+     },
+     {
+      "label": "Desiya Murpokku Dravida Kazhagam",
+      "value": 1
+     },
+     {
+      "label": "Bharatiya Janata Party",
+      "value": 1
+     },
+     {
+      "label": "Amma Makkal Munnettra Kazagam",
+      "value": 1
+     }
+    ]
+   },
+   {
+    "id": "q2",
+    "purpose": "Statewide vote share by party (% of all votes)",
+    "chart": "bars",
+    "unit": "% of votes",
+    "sql": "SELECT party AS label, round(100.0 * sum(total_votes) / (SELECT sum(total_votes) FROM tn_assembly_2026), 1) AS value FROM tn_assembly_2026 WHERE party <> 'Independent' GROUP BY party ORDER BY value DESC LIMIT 10",
+    "rows": [
+     {
+      "label": "Tamilaga Vettri Kazhagam",
+      "value": 34.9
+     },
+     {
+      "label": "Dravida Munnetra Kazhagam",
+      "value": 24.2
+     },
+     {
+      "label": "All India Anna Dravida Munnetra Kazhagam",
+      "value": 21.2
+     },
+     {
+      "label": "Naam Tamilar Katchi",
+      "value": 4
+     },
+     {
+      "label": "Indian National Congress",
+      "value": 3.4
+     },
+     {
+      "label": "Bharatiya Janata Party",
+      "value": 3
+     },
+     {
+      "label": "Pattali Makkal Katchi",
+      "value": 2.2
+     },
+     {
+      "label": "Desiya Murpokku Dravida Kazhagam",
+      "value": 1.2
+     },
+     {
+      "label": "Viduthalai Chiruthaigal Katchi",
+      "value": 1.1
+     },
+     {
+      "label": "Amma Makkal Munnettra Kazagam",
+      "value": 0.9
+     }
+    ]
+   },
+   {
+    "id": "q3",
+    "purpose": "Closest seats: winning margin in votes",
+    "chart": "bars",
+    "unit": "votes",
+    "sql": "SELECT w.ac_name || ' (' || w.party || ')' AS label, w.total_votes - r.total_votes AS value FROM tn_assembly_2026 w JOIN tn_assembly_2026 r ON w.ac_no = r.ac_no AND r.position = 2 WHERE w.position = 1 ORDER BY value ASC LIMIT 10",
+    "rows": [
+     {
+      "label": "TIRUPPATTUR (Tamilaga Vettri Kazhagam)",
+      "value": 1
+     },
+     {
+      "label": "VEPPANAHALLI (Dravida Munnetra Kazhagam)",
+      "value": 138
+     },
+     {
+      "label": "KANNIYAKUMARI (All India Anna Dravida Munnetra Kazhagam)",
+      "value": 214
+     },
+     {
+      "label": "POLUR (Tamilaga Vettri Kazhagam)",
+      "value": 227
+     },
+     {
+      "label": "TIRUKKOYILUR (All India Anna Dravida Munnetra Kazhagam)",
+      "value": 285
+     },
+     {
+      "label": "PARAMATHI-VELUR (All India Anna Dravida Munnetra Kazhagam)",
+      "value": 308
+     },
+     {
+      "label": "KULITHALAI (Dravida Munnetra Kazhagam)",
+      "value": 579
+     },
+     {
+      "label": "KUMBAKONAM (Tamilaga Vettri Kazhagam)",
+      "value": 679
+     },
+     {
+      "label": "PALANI (All India Anna Dravida Munnetra Kazhagam)",
+      "value": 693
+     },
+     {
+      "label": "TINDIVANAM (Viduthalai Chiruthaigal Katchi)",
+      "value": 734
+     }
+    ]
+   }
+  ],
+  "story": {
+   "lead": "Tamilaga Vettri Kazhagam won the most seats",
+   "highlight": "Tamilaga Vettri Kazhagam",
+   "summary": "Tamilaga Vettri Kazhagam (TVK) came first in the May 2026 Tamil Nadu election, with **108** of the 234 seats. That is almost twice as many as the Dravida Munnetra Kazhagam (DMK), which won **59**. The 108 seats are short of the 118 needed for a majority on their own, if you count a majority as more than half of 234. Below, we look at seats, votes and the very closest contests.",
+   "sub": "Tamil Nadu Assembly election results, May 2026, as republished on OpenCity: all 234 constituencies.",
+   "facts": [
+    {
+     "value": "108 of 234",
+     "label": "seats won by TVK"
+    },
+    {
+     "value": "34.9%",
+     "label": "TVK's share of all votes statewide"
+    },
+    {
+     "value": "1 vote",
+     "label": "winning margin in Tiruppattur, the closest seat"
+    }
+   ],
+   "points": [
+    {
+     "h": "TVK leads, with DMK and AIADMK behind",
+     "p": "Election results published on OpenCity show TVK won **108** seats. The DMK came second with **59**, and the All India Anna Dravida Munnetra Kazhagam (AIADMK) third with **47**. Together those three parties took 214 of the 234 seats. The other 20 seats were spread across a handful of smaller parties, with the Indian National Congress the largest on 5."
+    },
+    {
+     "h": "The vote share backs up the seat count",
+     "p": "Seats are won constituency by constituency, so votes and seats can differ. Here they point the same way. TVK got **34.9%** of all votes statewide, against **24.2%** for the DMK and **21.2%** for the AIADMK. TVK's share is about 10.7 points higher than the DMK's. Naam Tamilar Katchi won no seats in the chart but took **4%** of the votes."
+    },
+    {
+     "h": "Some seats were decided by a handful of votes",
+     "p": "Some contests were extremely tight. TVK won Tiruppattur from the DMK by just **1 vote**. The DMK won Veppanahalli by **138** votes, and the AIADMK won Kanniyakumari by **214**. Of the ten closest seats, TVK won three, the AIADMK four, the DMK two and the Viduthalai Chiruthaigal Katchi one. In every one of these ten seats the winner was ahead by fewer than 750 votes."
+    }
+   ],
+   "takeaway": "TVK won the election clearly, with the most seats and the most votes. It was well ahead of the DMK and AIADMK on both counts. A few seats, though, were won by only a few votes.",
+   "note": "The table lists results only, with no alliances, so this compares single parties and does not add up alliance totals.",
+   "next": [
+    "How many seats did TVK win by more than 10,000 votes?",
+    "Which parties got the most votes but won no seats?",
+    "How many votes went to NOTA across Tamil Nadu?"
+   ],
+   "sources": [
+    "118: half of 234 is 117, so a majority needs 118",
+    "214: 108 + 59 + 47 = 214",
+    "20: 234 - 214",
+    "10.7 points: 34.9 - 24.2",
+    "three TVK: Tiruppattur, Polur, Kumbakonam",
+    "four AIADMK: Kanniyakumari, Tirukkoyilur, Paramathi-Velur, Palani",
+    "two DMK: Veppanahalli, Kulithalai",
+    "one VCK: Tindivanam",
+    "fewer than 750 votes: largest of the ten margins is 734"
+   ]
+  },
+  "created": "2026-11-04"
+ },
+ {
+  "q": "Closest contests in Tamil Nadu 2026?",
+  "queries": [
+   {
+    "id": "q1",
+    "purpose": "15 closest seats by winning margin (votes)",
+    "chart": "bars",
+    "unit": "votes",
+    "sql": "WITH m AS (SELECT ac_name, max(total_votes) FILTER (WHERE position=1) - max(total_votes) FILTER (WHERE position=2) AS margin FROM tn_assembly_2026 GROUP BY ac_no, ac_name) SELECT ac_name AS label, margin AS value FROM m ORDER BY value ASC LIMIT 15",
+    "rows": [
+     {
+      "label": "TIRUPPATTUR",
+      "value": 1
+     },
+     {
+      "label": "VEPPANAHALLI",
+      "value": 138
+     },
+     {
+      "label": "KANNIYAKUMARI",
+      "value": 214
+     },
+     {
+      "label": "POLUR",
+      "value": 227
+     },
+     {
+      "label": "TIRUKKOYILUR",
+      "value": 285
+     },
+     {
+      "label": "PARAMATHI-VELUR",
+      "value": 308
+     },
+     {
+      "label": "KULITHALAI",
+      "value": 579
+     },
+     {
+      "label": "KUMBAKONAM",
+      "value": 679
+     },
+     {
+      "label": "PALANI",
+      "value": 693
+     },
+     {
+      "label": "TINDIVANAM",
+      "value": 734
+     },
+     {
+      "label": "CUMBUM",
+      "value": 751
+     },
+     {
+      "label": "KALLAKURICHI",
+      "value": 798
+     },
+     {
+      "label": "KOVILPATTI",
+      "value": 843
+     },
+     {
+      "label": "VIKRAVANDI",
+      "value": 910
+     },
+     {
+      "label": "UDHAGAMANDALAM",
+      "value": 976
+     }
+    ]
+   },
+   {
+    "id": "q2",
+    "purpose": "Which parties won the 20 closest seats",
+    "chart": "bars",
+    "unit": "seats",
+    "sql": "WITH m AS (SELECT ac_no, max(total_votes) FILTER (WHERE position=1) - max(total_votes) FILTER (WHERE position=2) AS margin, max(party) FILTER (WHERE position=1) AS wp FROM tn_assembly_2026 GROUP BY ac_no), c AS (SELECT * FROM m ORDER BY margin ASC LIMIT 20) SELECT wp AS label, count(*) AS value FROM c GROUP BY wp ORDER BY value DESC",
+    "rows": [
+     {
+      "label": "Tamilaga Vettri Kazhagam",
+      "value": 7
+     },
+     {
+      "label": "All India Anna Dravida Munnetra Kazhagam",
+      "value": 5
+     },
+     {
+      "label": "Dravida Munnetra Kazhagam",
+      "value": 4
+     },
+     {
+      "label": "Indian Union Muslim League",
+      "value": 1
+     },
+     {
+      "label": "Bharatiya Janata Party",
+      "value": 1
+     },
+     {
+      "label": "Viduthalai Chiruthaigal Katchi",
+      "value": 1
+     },
+     {
+      "label": "Pattali Makkal Katchi",
+      "value": 1
+     }
+    ]
+   },
+   {
+    "id": "q3",
+    "purpose": "Number of seats by winning margin band",
+    "chart": "columns",
+    "unit": "seats",
+    "sql": "WITH m AS (SELECT ac_no, max(total_votes) FILTER (WHERE position=1) - max(total_votes) FILTER (WHERE position=2) AS margin FROM tn_assembly_2026 GROUP BY ac_no) SELECT CASE WHEN margin < 500 THEN '1. Under 500' WHEN margin < 1000 THEN '2. 500-999' WHEN margin < 2500 THEN '3. 1,000-2,499' WHEN margin < 5000 THEN '4. 2,500-4,999' WHEN margin < 10000 THEN '5. 5,000-9,999' ELSE '6. 10,000+' END AS label, count(*) AS value FROM m GROUP BY 1 ORDER BY 1",
+    "rows": [
+     {
+      "label": "1. Under 500",
+      "value": 6
+     },
+     {
+      "label": "2. 500-999",
+      "value": 9
+     },
+     {
+      "label": "3. 1,000-2,499",
+      "value": 20
+     },
+     {
+      "label": "4. 2,500-4,999",
+      "value": 26
+     },
+     {
+      "label": "5. 5,000-9,999",
+      "value": 43
+     },
+     {
+      "label": "6. 10,000+",
+      "value": 130
+     }
+    ]
+   }
+  ],
+  "story": {
+   "lead": "One seat in Tamil Nadu was won by one vote",
+   "highlight": "one vote",
+   "summary": "In Tamil Nadu's May 2026 assembly election, Tiruppattur was decided by a single vote. Results published on OpenCity show that six of the 234 seats were won by fewer than 500 votes. Fifteen seats were won by fewer than 1,000. Here is how thin those margins were, who won them, and how they compare with the rest of the state.",
+   "sub": "Based on Tamil Nadu Legislative Assembly election results, May 2026, all 234 constituencies.",
+   "facts": [
+    {
+     "value": "1 vote",
+     "label": "Winning margin in Tiruppattur, the closest seat"
+    },
+    {
+     "value": "15",
+     "label": "Seats won by fewer than 1,000 votes"
+    },
+    {
+     "value": "130",
+     "label": "Seats won by 10,000 votes or more"
+    }
+   ],
+   "points": [
+    {
+     "h": "Tiruppattur was settled by one vote",
+     "p": "Start with the 15 tightest seats. Tiruppattur tops the list with a margin of **1 vote**. Veppanahalli follows at **138 votes**, then Kanniyakumari at 214 and Polur at 227. The 15th seat on the list, Udhagamandalam, was still won by only 976 votes. In the closest of these seats, a few hundred votes at most separated the winner from the runner-up."
+    },
+    {
+     "h": "The close wins were spread across many parties",
+     "p": "So who won these nail-biters? Among the 20 closest seats, Tamilaga Vettri Kazhagam won **7**, the most of any party. The All India Anna Dravida Munnetra Kazhagam won **5** and the Dravida Munnetra Kazhagam won 4. Four other parties won one each: the Indian Union Muslim League, the Bharatiya Janata Party, Viduthalai Chiruthaigal Katchi and Pattali Makkal Katchi. No single party owned the close finishes."
+    },
+    {
+     "h": "Most seats were not close at all",
+     "p": "Zoom out and the close seats are a small group. Only **6** seats had a margin under 500 votes, and 9 more fell between 500 and 999. At the other end, **130** of the 234 seats were won by 10,000 votes or more. That is 130 of 234, a little over half. Another 43 seats were won by 5,000 to 9,999 votes. The nail-biters were the exception, but they were close enough to matter."
+    }
+   ],
+   "takeaway": "A handful of seats came down to a few hundred votes, and one came down to a single vote. Seven different parties shared the 20 closest wins. Even so, more than half of all seats were won comfortably.",
+   "note": "Margin means the winner's total votes (machine plus postal) minus the runner-up's, as published in the results table.",
+   "next": [
+    "Which parties won the most seats in Tamil Nadu in 2026?",
+    "Which seats had the biggest winning margins?",
+    "What was the statewide vote share of each party?"
+   ],
+   "sources": [
+    "15: seats in Chart 1 list, all with margins from 1 to 976",
+    "six: Chart 3 band 'Under 500' = 6",
+    "15 seats under 1,000: 6 + 9 = 15 from Chart 3",
+    "130 of 234: Chart 3 rows 6+9+20+26+43+130 = 234",
+    "a little over half: 130 / 234 = 55.6%",
+    "Four other parties won one each: Chart 2 rows with value 1 (IUML, BJP, VCK, PMK)",
+    "20 closest seats: 7+5+4+1+1+1+1 = 20"
+   ]
+  },
+  "created": "2026-11-04"
+ },
+ {
+  "q": "How fast is Chennai Metro ridership growing?",
+  "queries": [
+   {
+    "id": "q1",
+    "purpose": "Total riders per complete year (2024 vs 2025)",
+    "chart": "columns",
+    "unit": "riders",
+    "sql": "SELECT CAST(year(month) AS VARCHAR) AS label, SUM(total_riders) AS value FROM chennai_metro_ridership WHERE year(month) IN (2024, 2025) GROUP BY year(month) ORDER BY year(month)",
+    "rows": [
+     {
+      "label": "2024",
+      "value": 105200039
+     },
+     {
+      "label": "2025",
+      "value": 112057251
+     }
+    ]
+   },
+   {
+    "id": "q2",
+    "purpose": "Same months (Jan-Jun) compared across 2024, 2025 and 2026",
+    "chart": "columns",
+    "unit": "riders",
+    "sql": "SELECT CAST(year(month) AS VARCHAR) AS label, SUM(total_riders) AS value FROM chennai_metro_ridership WHERE month(month) <= 6 GROUP BY year(month) ORDER BY year(month)",
+    "rows": [
+     {
+      "label": "2023",
+      "value": 21413299
+     },
+     {
+      "label": "2024",
+      "value": 50710052
+     },
+     {
+      "label": "2025",
+      "value": 53464511
+     },
+     {
+      "label": "2026",
+      "value": 56705550
+     }
+    ]
+   },
+   {
+    "id": "q3",
+    "purpose": "Monthly riders over time",
+    "chart": "columns",
+    "unit": "riders per month",
+    "sql": "SELECT strftime(month, '%b %Y') AS label, total_riders AS value FROM chennai_metro_ridership ORDER BY month LIMIT 30",
+    "rows": [
+     {
+      "label": "Apr 2023",
+      "value": 6719510
+     },
+     {
+      "label": "May 2023",
+      "value": 7299093
+     },
+     {
+      "label": "Jun 2023",
+      "value": 7394696
+     },
+     {
+      "label": "Jul 2023",
+      "value": 8254561
+     },
+     {
+      "label": "Aug 2023",
+      "value": 8590212
+     },
+     {
+      "label": "Sep 2023",
+      "value": 8437182
+     },
+     {
+      "label": "Oct 2023",
+      "value": 8550435
+     },
+     {
+      "label": "Nov 2023",
+      "value": 8001700
+     },
+     {
+      "label": "Dec 2023",
+      "value": 8123281
+     },
+     {
+      "label": "Jan 2024",
+      "value": 8466310
+     },
+     {
+      "label": "Feb 2024",
+      "value": 8618114
+     },
+     {
+      "label": "Mar 2024",
+      "value": 8682459
+     },
+     {
+      "label": "Apr 2024",
+      "value": 8087712
+     },
+     {
+      "label": "May 2024",
+      "value": 8421620
+     },
+     {
+      "label": "Jun 2024",
+      "value": 8433837
+     },
+     {
+      "label": "Jul 2024",
+      "value": 9535019
+     },
+     {
+      "label": "Aug 2024",
+      "value": 9552680
+     },
+     {
+      "label": "Sep 2024",
+      "value": 9278183
+     },
+     {
+      "label": "Oct 2024",
+      "value": 9024220
+     },
+     {
+      "label": "Nov 2024",
+      "value": 8361492
+     },
+     {
+      "label": "Dec 2024",
+      "value": 8738393
+     },
+     {
+      "label": "Jan 2025",
+      "value": 8699359
+     },
+     {
+      "label": "Feb 2025",
+      "value": 8665803
+     },
+     {
+      "label": "Mar 2025",
+      "value": 9210069
+     },
+     {
+      "label": "Apr 2025",
+      "value": 8759588
+     },
+     {
+      "label": "May 2025",
+      "value": 8909729
+     },
+     {
+      "label": "Jun 2025",
+      "value": 9219963
+     },
+     {
+      "label": "Jul 2025",
+      "value": 10468732
+     },
+     {
+      "label": "Aug 2025",
+      "value": 9896230
+     },
+     {
+      "label": "Sep 2025",
+      "value": 10146769
+     }
+    ]
+   }
+  ],
+  "story": {
+   "lead": "Chennai Metro ridership is growing about 6% a year",
+   "highlight": "about 6% a year",
+   "summary": "Chennai Metro carried about **112 million** journeys in 2025, up from **105 million** in 2024. That is roughly **6.5%** more, or nearly 7 million extra trips. Figures published on OpenCity show the same steady climb in the first half of 2026. Below, we check the full years, then the same months side by side, then the month-by-month ride.",
+   "sub": "Chennai Metro Rail monthly passenger totals, April 2023 to June 2026, as published on OpenCity.",
+   "facts": [
+    {
+     "value": "6.5%",
+     "label": "Growth in yearly riders, 2024 to 2025"
+    },
+    {
+     "value": "6.1%",
+     "label": "Jan-Jun 2026 versus Jan-Jun 2025"
+    },
+    {
+     "value": "10.47 million",
+     "label": "Busiest month: July 2025"
+    }
+   ],
+   "points": [
+    {
+     "h": "A full year brings 7 million more journeys",
+     "p": "Start with the only two complete years in the data. Chennai Metro had **105.2 million** journeys in 2024 and **112.1 million** in 2025. That is about **6.5%** growth, or 6.9 million more trips. These count journeys, not separate people."
+    },
+    {
+     "h": "The first half of 2026 keeps the pace",
+     "p": "Does the growth continue into this year? Comparing January to June in each year gives a fair test, because every year gets the same months. Riders went from **50.7 million** in 2024 to **53.5 million** in 2025, a rise of about 5.4%. In 2026 the total reached **56.7 million**, about 6.1% above 2025. That is nearly 12% more than two years earlier. The 2023 figure is left out because the data starts in April that year."
+    },
+    {
+     "h": "Month by month, 2025 beat 2024 every time",
+     "p": "The monthly numbers show how this growth happens. Monthly riders rose from 6.7 million in April 2023 to more than 10 million in July 2025. Each of the nine 2025 months shown, January to September, was higher than the same month of 2024. July 2025 hit **10.47 million**, about 9.8% above July 2024. The rows shown here stop at September 2025, so they don't cover the 2026 months."
+    }
+   ],
+   "takeaway": "Chennai Metro ridership is growing steadily, by about 6% a year. The yearly totals, the same-month comparison and the monthly figures all point the same way. Growth hasn't slowed in the first half of 2026.",
+   "note": "Figures are journeys, not people, and 2024 and 2025 are the only complete years in the data.",
+   "next": [
+    "Which ticket type is growing fastest on Chennai Metro?",
+    "How big is the QR ticket share of Chennai Metro rides?",
+    "Which months are busiest each year on Chennai Metro?"
+   ],
+   "sources": [
+    "6.5%: (112,057,251 - 105,200,039) / 105,200,039 = 6,857,212 / 105,200,039",
+    "6.9 million more trips: 112,057,251 - 105,200,039 = 6,857,212",
+    "5.4%: (53,464,511 - 50,710,052) / 50,710,052 = 2,754,459 / 50,710,052",
+    "6.1%: (56,705,550 - 53,464,511) / 53,464,511 = 3,241,039 / 53,464,511",
+    "nearly 12%: (56,705,550 - 50,710,052) / 50,710,052 = 5,995,498 / 50,710,052 = 11.8%",
+    "9.8%: (10,468,732 - 9,535,019) / 9,535,019 = 933,713 / 9,535,019",
+    "nine 2025 months higher: Jan-Sep 2025 each exceeds Jan-Sep 2024 in the rows",
+    "6.7 million: Apr 2023 = 6,719,510",
+    "about 7 million extra trips: 6,857,212"
+   ]
+  },
+  "created": "2026-11-04"
+ },
+ {
+  "q": "How low did Chennai's reservoirs fall in 2019?",
+  "queries": [
+   {
+    "id": "q1",
+    "purpose": "Total storage across all five reservoirs by month in 2019",
+    "chart": "columns",
+    "unit": "mcft",
+    "sql": "SELECT strftime(make_date(year, month, 1), '%b') AS label, ROUND(SUM(storage_mcft)) AS value FROM chennai_reservoirs WHERE year = 2019 GROUP BY year, month ORDER BY month",
+    "rows": [
+     {
+      "label": "Jan",
+      "value": 2842
+     },
+     {
+      "label": "Feb",
+      "value": 2347
+     },
+     {
+      "label": "Mar",
+      "value": 2079
+     },
+     {
+      "label": "Apr",
+      "value": 1275
+     },
+     {
+      "label": "May",
+      "value": 1528
+     },
+     {
+      "label": "Jun",
+      "value": 818
+     },
+     {
+      "label": "Jul",
+      "value": 377
+     },
+     {
+      "label": "Aug",
+      "value": 112
+     },
+     {
+      "label": "Sep",
+      "value": 1267
+     },
+     {
+      "label": "Oct",
+      "value": 1984
+     },
+     {
+      "label": "Nov",
+      "value": 3969
+     },
+     {
+      "label": "Dec",
+      "value": 4817
+     }
+    ]
+   },
+   {
+    "id": "q2",
+    "purpose": "Lowest storage in 2019 for each reservoir",
+    "chart": "bars",
+    "unit": "mcft",
+    "sql": "SELECT reservoir AS label, ROUND(MIN(storage_mcft), 1) AS value FROM chennai_reservoirs WHERE year = 2019 GROUP BY reservoir ORDER BY value DESC",
+    "rows": [
+     {
+      "label": "Veeranam",
+      "value": 96
+     },
+     {
+      "label": "Poondi",
+      "value": 16
+     },
+     {
+      "label": "Red Hills (Puzhal)",
+      "value": 0
+     },
+     {
+      "label": "Cholavaram",
+      "value": 0
+     },
+     {
+      "label": "Chembarambakkam",
+      "value": 0
+     }
+    ]
+   },
+   {
+    "id": "q3",
+    "purpose": "Storage of the four reservoirs near the city (excluding Veeranam) by month in 2019",
+    "chart": "columns",
+    "unit": "mcft",
+    "sql": "SELECT strftime(make_date(year, month, 1), '%b') AS label, ROUND(SUM(storage_mcft), 1) AS value FROM chennai_reservoirs WHERE year = 2019 AND reservoir <> 'Veeranam' GROUP BY year, month ORDER BY month",
+    "rows": [
+     {
+      "label": "Jan",
+      "value": 1389
+     },
+     {
+      "label": "Feb",
+      "value": 1008
+     },
+     {
+      "label": "Mar",
+      "value": 1067
+     },
+     {
+      "label": "Apr",
+      "value": 686
+     },
+     {
+      "label": "May",
+      "value": 331
+     },
+     {
+      "label": "Jun",
+      "value": 61
+     },
+     {
+      "label": "Jul",
+      "value": 18
+     },
+     {
+      "label": "Aug",
+      "value": 16
+     },
+     {
+      "label": "Sep",
+      "value": 16
+     },
+     {
+      "label": "Oct",
+      "value": 713
+     },
+     {
+      "label": "Nov",
+      "value": 2789
+     },
+     {
+      "label": "Dec",
+      "value": 3473
+     }
+    ]
+   }
+  ],
+  "story": {
+   "lead": "Chennai's reservoirs nearly ran dry in 2019",
+   "highlight": "nearly ran dry",
+   "summary": "In August 2019, the five reservoirs that supply Chennai held just **112 mcft** of water in total. That is about one twenty-fifth of what they held in January (**2,842 mcft**). Three of the five reservoirs hit zero at some point in the year. Here is how the year fell and then recovered. Mcft means million cubic feet, the unit the water figures are published in.",
+   "sub": "Monthly reservoir storage published for Chennai's five drinking-water reservoirs, January to December 2019.",
+   "facts": [
+    {
+     "value": "112 mcft",
+     "label": "Lowest total storage, August 2019"
+    },
+    {
+     "value": "3 of 5",
+     "label": "Reservoirs that fell to zero in 2019"
+    },
+    {
+     "value": "4,817 mcft",
+     "label": "Total storage by December 2019"
+    }
+   ],
+   "points": [
+    {
+     "h": "Storage fell month after month, then bounced back",
+     "p": "Across all five reservoirs, storage started 2019 at **2,842 mcft** and slid for most of the year. By June it was **818 mcft**, by July **377**, and in August it bottomed out at **112 mcft**. Then it turned fast: **1,267 mcft** in September and **4,817 mcft** by December. That December figure is well above where the year began."
+    },
+    {
+     "h": "Three reservoirs went completely empty",
+     "p": "The total hides differences between reservoirs. Red Hills, Cholavaram and Chembarambakkam each hit **0 mcft** at their lowest point in 2019. Poondi was down to **16 mcft**. Only Veeranam, the reservoir far to the south that pipes water to the city, stayed well above that, with a low of **96 mcft**. So the shortage was really a crisis at the reservoirs closest to the city."
+    },
+    {
+     "h": "Near the city, almost nothing was left for months",
+     "p": "Take Veeranam out and the picture is starker. The four nearby reservoirs held **1,389 mcft** in January and only **61 mcft** in June. They then sat at **18**, **16** and **16 mcft** in July, August and September. The recovery came in the last three months, with **713 mcft** in October, **2,789** in November and **3,473** in December. For about three months, these reservoirs held almost no water."
+    }
+   ],
+   "takeaway": "Chennai's reservoirs fell to almost nothing in mid-2019. The four reservoirs near the city held only 16 mcft in August and September, and three of the five touched zero. They refilled quickly in the last months of the year.",
+   "note": "The reservoir data ends in December 2021, so it says nothing about how full the reservoirs are today.",
+   "next": [
+    "How did total reservoir storage in 2019 compare with other drought years like 2016 to 2018?",
+    "What was Chennai's yearly rainfall in 2018 and 2019?",
+    "Which year had the highest reservoir storage between 2003 and 2021?"
+   ],
+   "sources": [
+    "one twenty-fifth: 2,842 in Jan divided by 112 in Aug is about 25",
+    "Three of five at zero: Red Hills (Puzhal) = 0, Cholavaram = 0, Chembarambakkam = 0",
+    "Four nearby reservoirs: Jul = 18, Aug = 16, Sep = 16"
+   ]
+  },
+  "created": "2026-11-04"
+ },
+ {
+  "q": "Busiest routes from Bengaluru airport?",
+  "queries": [
+   {
+    "id": "q1",
+    "purpose": "Busiest routes in 2023 (latest complete year), passengers both ways",
+    "chart": "bars",
+    "unit": "passengers",
+    "sql": "SELECT destination AS label, round(sum(passengers_out + passengers_in)) AS value FROM bengaluru_domestic_flights WHERE year(month) = 2023 GROUP BY destination ORDER BY value DESC LIMIT 15",
+    "rows": [
+     {
+      "label": "DELHI",
+      "value": 4765368
+     },
+     {
+      "label": "MUMBAI",
+      "value": 4400258
+     },
+     {
+      "label": "HYDERABAD",
+      "value": 2288261
+     },
+     {
+      "label": "KOLKATA",
+      "value": 1850020
+     },
+     {
+      "label": "PUNE",
+      "value": 1800592
+     },
+     {
+      "label": "KOCHI",
+      "value": 1675910
+     },
+     {
+      "label": "GOA",
+      "value": 1579196
+     },
+     {
+      "label": "CHENNAI",
+      "value": 1372835
+     },
+     {
+      "label": "AHMEDABAD",
+      "value": 953780
+     },
+     {
+      "label": "LUCKNOW",
+      "value": 840374
+     },
+     {
+      "label": "BHUBANESWAR",
+      "value": 785612
+     },
+     {
+      "label": "GUWAHATI",
+      "value": 760033
+     },
+     {
+      "label": "VISAKHAPATNAM",
+      "value": 653202
+     },
+     {
+      "label": "JAIPUR",
+      "value": 602382
+     },
+     {
+      "label": "BAGDOGRA",
+      "value": 537798
+     }
+    ]
+   },
+   {
+    "id": "q2",
+    "purpose": "Busiest routes over all months 2015-2025, passengers both ways",
+    "chart": "bars",
+    "unit": "passengers",
+    "sql": "SELECT destination AS label, round(sum(passengers_out + passengers_in)) AS value FROM bengaluru_domestic_flights GROUP BY destination ORDER BY value DESC LIMIT 15",
+    "rows": [
+     {
+      "label": "DELHI",
+      "value": 40091425
+     },
+     {
+      "label": "MUMBAI",
+      "value": 34097874
+     },
+     {
+      "label": "HYDERABAD",
+      "value": 18154757
+     },
+     {
+      "label": "KOLKATA",
+      "value": 17458265
+     },
+     {
+      "label": "PUNE",
+      "value": 14736858
+     },
+     {
+      "label": "CHENNAI",
+      "value": 11309076
+     },
+     {
+      "label": "KOCHI",
+      "value": 10821637
+     },
+     {
+      "label": "GOA",
+      "value": 10618672
+     },
+     {
+      "label": "AHMEDABAD",
+      "value": 8040114
+     },
+     {
+      "label": "BHUBANESWAR",
+      "value": 5712429
+     },
+     {
+      "label": "JAIPUR",
+      "value": 5556851
+     },
+     {
+      "label": "LUCKNOW",
+      "value": 5157793
+     },
+     {
+      "label": "MANGALORE",
+      "value": 5025209
+     },
+     {
+      "label": "TRIVANDRUM",
+      "value": 4978947
+     },
+     {
+      "label": "GUWAHATI",
+      "value": 4826703
+     }
+    ]
+   },
+   {
+    "id": "q3",
+    "purpose": "Busiest routes in 2025 so far (Jan-Oct), passengers both ways",
+    "chart": "bars",
+    "unit": "passengers",
+    "sql": "SELECT destination AS label, round(sum(passengers_out + passengers_in)) AS value FROM bengaluru_domestic_flights WHERE year(month) = 2025 GROUP BY destination ORDER BY value DESC LIMIT 15",
+    "rows": [
+     {
+      "label": "DELHI",
+      "value": 3747367
+     },
+     {
+      "label": "MUMBAI",
+      "value": 3268696
+     },
+     {
+      "label": "HYDERABAD",
+      "value": 2014684
+     },
+     {
+      "label": "KOLKATA",
+      "value": 1842623
+     },
+     {
+      "label": "PUNE",
+      "value": 1518798
+     },
+     {
+      "label": "GOA",
+      "value": 1277649
+     },
+     {
+      "label": "CHENNAI",
+      "value": 1233159
+     },
+     {
+      "label": "KOCHI",
+      "value": 1126701
+     },
+     {
+      "label": "AHMEDABAD",
+      "value": 920693
+     },
+     {
+      "label": "VARANASI",
+      "value": 751480
+     },
+     {
+      "label": "LUCKNOW",
+      "value": 685160
+     },
+     {
+      "label": "GUWAHATI",
+      "value": 665969
+     },
+     {
+      "label": "MANGALORE",
+      "value": 655643
+     },
+     {
+      "label": "BHUBANESWAR",
+      "value": 655573
+     },
+     {
+      "label": "TRIVANDRUM",
+      "value": 589259
+     }
+    ]
+   }
+  ],
+  "story": {
+   "lead": "Delhi and Mumbai are Bengaluru's busiest flight routes",
+   "highlight": "Delhi and Mumbai",
+   "summary": "Two cities stand far above the rest of Bengaluru's domestic flight routes: Delhi and Mumbai. In 2023, the latest complete year, about **4.77 million** passengers flew between Bengaluru and Delhi, and **4.40 million** between Bengaluru and Mumbai, counting both directions. That is about twice the next route, Hyderabad, at 2.29 million. The charts below show the same pattern in 2023, over the whole 2015–2025 period, and in 2025 so far.",
+   "sub": "DGCA figures on routes between Bengaluru airport and Indian cities, April 2015 to October 2025.",
+   "facts": [
+    {
+     "value": "4.77 million",
+     "label": "Delhi route passengers in 2023, both ways"
+    },
+    {
+     "value": "40.1 million",
+     "label": "Delhi route passengers, 2015–2025"
+    },
+    {
+     "value": "2.29 million",
+     "label": "Hyderabad, third place in 2023"
+    }
+   ],
+   "points": [
+    {
+     "h": "In 2023, Delhi and Mumbai led by a wide margin",
+     "p": "Start with 2023, the latest full year. Delhi came first with **4.77 million** passengers and Mumbai second with **4.40 million**, counting people flying in both directions. Hyderabad was third with **2.29 million**, less than half of Delhi's total. Kolkata, Pune, Kochi and Goa followed, each with between 1.58 and 1.85 million."
+    },
+    {
+     "h": "Over ten years, the same two cities stay on top",
+     "p": "Zoom out to every month in the data and the order barely changes. Delhi has **40.1 million** passengers and Mumbai **34.1 million**, well ahead of Hyderabad at 18.2 million and Kolkata at 17.5 million. Delhi's total is more than twice Hyderabad's. Pune, Chennai, Kochi and Goa fill out the next places, so the big routes are long-standing ones."
+    },
+    {
+     "h": "In 2025 so far, the top order holds with a new face",
+     "p": "The first ten months of 2025 look much like the past. Delhi still leads with **3.75 million** passengers and Mumbai follows with **3.27 million**, with Hyderabad and Kolkata next. Delhi's total for ten months is about 79% of its 2023 full-year figure of 4.77 million. One change is that Varanasi is now tenth, with **751,480** passengers, and it was not in the 2023 top 15."
+    }
+   ],
+   "takeaway": "Delhi and Mumbai have been Bengaluru's two busiest domestic routes in every view here, and they are far ahead of the rest. Hyderabad, Kolkata and Pune make up the next group. Lower down, the order shifts a little from year to year.",
+   "note": "These are passengers on routes between Bengaluru and other Indian cities, both directions added together. They are not the airport's total traffic, and 2025 covers only January to October.",
+   "next": [
+    "How did Bengaluru's flight passengers change from 2019 to 2020?",
+    "Which routes grew fastest between 2023 and 2025?",
+    "How much freight moves on the Delhi and Mumbai routes?"
+   ],
+   "sources": [
+    "about twice: Delhi 4,765,368 and Mumbai 4,400,258 vs Hyderabad 2,288,261 (Hyderabad is under half of Delhi)",
+    "less than half: 2,288,261 is less than half of 4,765,368",
+    "between 1.6 and 1.9 million: Kolkata 1,850,020, Pune 1,800,592, Kochi 1,675,910, Goa 1,579,196 (Goa is about 1.58 million, just under 1.6)",
+    "more than twice: Delhi 40,091,425 vs Hyderabad 18,154,757",
+    "Varanasi tenth: Delhi, Mumbai, Hyderabad, Kolkata, Pune, Goa, Chennai, Kochi, Ahmedabad, then Varanasi 751,480; not in the 2023 top 15"
+   ]
+  },
+  "created": "2026-11-04"
+ },
+ {
+  "q": "How did COVID-19 hit Bengaluru's flights?",
+  "queries": [
+   {
+    "id": "q1",
+    "purpose": "Passengers per year on routes to and from Bengaluru, complete years",
+    "chart": "columns",
+    "unit": "million passengers",
+    "sql": "SELECT CAST(year(month) AS VARCHAR) AS label, ROUND(SUM(passengers_out + passengers_in) / 1e6, 2) AS value FROM bengaluru_domestic_flights WHERE year(month) IN (2016,2017,2018,2019,2020,2022,2023) GROUP BY year(month) ORDER BY year(month)",
+    "rows": [
+     {
+      "label": "2016",
+      "value": 18.59
+     },
+     {
+      "label": "2017",
+      "value": 21.22
+     },
+     {
+      "label": "2018",
+      "value": 27.96
+     },
+     {
+      "label": "2019",
+      "value": 28.73
+     },
+     {
+      "label": "2020",
+      "value": 12.44
+     },
+     {
+      "label": "2022",
+      "value": 24.37
+     },
+     {
+      "label": "2023",
+      "value": 32.54
+     }
+    ]
+   },
+   {
+    "id": "q2",
+    "purpose": "Monthly passengers both ways, Jan 2019 to Dec 2022 (the COVID collapse and recovery)",
+    "chart": "columns",
+    "unit": "million passengers",
+    "sql": "SELECT strftime(month, '%b %Y') AS label, ROUND(SUM(passengers_out + passengers_in) / 1e6, 2) AS value FROM bengaluru_domestic_flights WHERE month >= DATE '2019-07-01' AND month <= DATE '2022-06-01' GROUP BY month ORDER BY month",
+    "rows": [
+     {
+      "label": "Jul 2019",
+      "value": 2.33
+     },
+     {
+      "label": "Aug 2019",
+      "value": 2.36
+     },
+     {
+      "label": "Sep 2019",
+      "value": 2.24
+     },
+     {
+      "label": "Oct 2019",
+      "value": 2.39
+     },
+     {
+      "label": "Nov 2019",
+      "value": 2.48
+     },
+     {
+      "label": "Dec 2019",
+      "value": 2.53
+     },
+     {
+      "label": "Jan 2020",
+      "value": 2.5
+     },
+     {
+      "label": "Feb 2020",
+      "value": 2.36
+     },
+     {
+      "label": "Mar 2020",
+      "value": 1.42
+     },
+     {
+      "label": "Apr 2020",
+      "value": 0
+     },
+     {
+      "label": "May 2020",
+      "value": 0.07
+     },
+     {
+      "label": "Jun 2020",
+      "value": 0.37
+     },
+     {
+      "label": "Jul 2020",
+      "value": 0.42
+     },
+     {
+      "label": "Aug 2020",
+      "value": 0.63
+     },
+     {
+      "label": "Sep 2020",
+      "value": 0.83
+     },
+     {
+      "label": "Oct 2020",
+      "value": 1.12
+     },
+     {
+      "label": "Nov 2020",
+      "value": 1.26
+     },
+     {
+      "label": "Dec 2020",
+      "value": 1.46
+     },
+     {
+      "label": "Jan 2021",
+      "value": 1.5
+     },
+     {
+      "label": "Feb 2021",
+      "value": 1.45
+     },
+     {
+      "label": "Mar 2021",
+      "value": 1.42
+     },
+     {
+      "label": "Apr 2021",
+      "value": 1.08
+     },
+     {
+      "label": "Jun 2021",
+      "value": 0.51
+     },
+     {
+      "label": "Jul 2021",
+      "value": 0.88
+     },
+     {
+      "label": "Aug 2021",
+      "value": 1.18
+     },
+     {
+      "label": "Sep 2021",
+      "value": 1.22
+     },
+     {
+      "label": "Oct 2021",
+      "value": 1.63
+     },
+     {
+      "label": "Nov 2021",
+      "value": 1.89
+     },
+     {
+      "label": "Dec 2021",
+      "value": 2.04
+     },
+     {
+      "label": "Jan 2022",
+      "value": 1.12
+     }
+    ]
+   },
+   {
+    "id": "q3",
+    "purpose": "Freight (tonnes, both ways) per year, complete years",
+    "chart": "columns",
+    "unit": "tonnes",
+    "sql": "SELECT CAST(year(month) AS VARCHAR) AS label, ROUND(SUM(freight_out_tonnes + freight_in_tonnes)) AS value FROM bengaluru_domestic_flights WHERE year(month) IN (2016,2017,2018,2019,2020,2022,2023) GROUP BY year(month) ORDER BY year(month)",
+    "rows": [
+     {
+      "label": "2018",
+      "value": 134638
+     },
+     {
+      "label": "2019",
+      "value": 167298
+     },
+     {
+      "label": "2020",
+      "value": 117699
+     },
+     {
+      "label": "2022",
+      "value": 156734
+     },
+     {
+      "label": "2023",
+      "value": 180050
+     }
+    ]
+   }
+  ],
+  "story": {
+   "lead": "COVID cut Bengaluru's flight traffic by more than half",
+   "highlight": "more than half",
+   "summary": "In April 2020, no passengers were recorded on flights between Bengaluru and other Indian cities. Two months earlier, in February 2020, there were **2.36 million**. Over the whole of 2020, DGCA figures show **12.44 million** passengers, down from **28.73 million** in 2019. That is a fall of about 57%. The charts below show the yearly drop, the month-by-month collapse and slow climb back, and what happened to air freight.",
+   "sub": "DGCA passenger and freight figures for routes to and from Bengaluru, complete years 2016–2020, 2022 and 2023, plus monthly figures from July 2019 to January 2022.",
+   "facts": [
+    {
+     "value": "57%",
+     "label": "fall in passengers, 2019 to 2020"
+    },
+    {
+     "value": "0",
+     "label": "passengers recorded in April 2020"
+    },
+    {
+     "value": "32.54 million",
+     "label": "passengers in 2023, above the 2019 level"
+    }
+   ],
+   "points": [
+    {
+     "h": "A steady climb, then a cliff in 2020",
+     "p": "Before COVID, traffic was rising every year. It grew from **18.59 million** passengers in 2016 to **28.73 million** in 2019. Then 2020 fell to **12.44 million**, about 16 million fewer than the year before. 2022 reached 24.37 million, still below 2019. By 2023 it hit **32.54 million**, about 13% above 2019. The drop was deep, but it did not last."
+    },
+    {
+     "h": "Traffic hit zero in April 2020, then crept back",
+     "p": "The yearly total hides how sudden the fall was. Passengers were at 2.36 million in February 2020 and 1.42 million in March. In April the figure was 0, and in May just 0.07 million. From there the recovery was slow: 1.12 million in October 2020 and 1.46 million in December. Recovery was not smooth. The monthly figure fell back to 0.51 million in June 2021, the month after the one missing from the data. It reached 2.04 million in December 2021, close to the 2.53 million of December 2019."
+    },
+    {
+     "h": "Cargo fell too, but by much less",
+     "p": "Air freight tells a similar story with a smaller drop. Freight on these routes went from **167,298** tonnes in 2019 to **117,699** in 2020, a fall of about 30%. That is far gentler than the 57% fall in passengers. Freight was back at 156,734 tonnes in 2022, still below 2019. In 2023 it reached **180,050** tonnes, about 8% above 2019. Cargo was hit, but it recovered to above its old level."
+    }
+   ],
+   "takeaway": "COVID almost stopped flying to and from Bengaluru for a time. Passengers fell by more than half in 2020, and air freight fell by about 30%. Both were back above 2019 levels by 2023.",
+   "note": "2021 is left out of the yearly charts because the data has no figure for May 2021. Figures cover only routes between Bengaluru and Indian cities.",
+   "next": [
+    "Which routes from Bengaluru recovered fastest after 2020?",
+    "How did Delhi and Mumbai traffic change between 2019 and 2023?",
+    "How many passengers flew on Bengaluru routes in the first ten months of 2025?"
+   ],
+   "sources": [
+    "57%: 2019 = 28.73, 2020 = 12.44, (28.73-12.44)/28.73 = 0.567",
+    "about 16 million fewer: 28.73 - 12.44 = 16.29",
+    "about 13% above 2019: (32.54-28.73)/28.73 = 0.133",
+    "30%: 2019 = 167,298, 2020 = 117,699, (167,298-117,699)/167,298 = 0.296",
+    "about 8% above 2019: 2023 = 180,050, 2019 = 167,298, difference 12,752 / 167,298 = 0.076",
+    "still below 2019: 2022 = 24.37 vs 2019 = 28.73; freight 156,734 vs 167,298"
+   ]
+  },
+  "created": "2026-11-04"
+ },
+ {
+  "q": "Which new Bengaluru corporation has the most people?",
+  "queries": [
+   {
+    "id": "q1",
+    "purpose": "Population by new corporation (2011 Census base)",
+    "chart": "bars",
+    "unit": "people",
+    "sql": "SELECT corporation AS label, SUM(population) AS value FROM gba_wards_2025 GROUP BY corporation ORDER BY value DESC LIMIT 30",
+    "rows": [
+     {
+      "label": "West",
+      "value": 2640095
+     },
+     {
+      "label": "North",
+      "value": 1792028
+     },
+     {
+      "label": "South",
+      "value": 1655093
+     },
+     {
+      "label": "Central",
+      "value": 1456987
+     },
+     {
+      "label": "East",
+      "value": 855831
+     }
+    ]
+   },
+   {
+    "id": "q2",
+    "purpose": "Number of wards per corporation",
+    "chart": "bars",
+    "unit": "wards",
+    "sql": "SELECT corporation AS label, COUNT(*) AS value FROM gba_wards_2025 GROUP BY corporation ORDER BY value DESC LIMIT 30",
+    "rows": [
+     {
+      "label": "West",
+      "value": 111
+     },
+     {
+      "label": "North",
+      "value": 72
+     },
+     {
+      "label": "South",
+      "value": 72
+     },
+     {
+      "label": "Central",
+      "value": 63
+     },
+     {
+      "label": "East",
+      "value": 50
+     }
+    ]
+   },
+   {
+    "id": "q3",
+    "purpose": "Average ward population per corporation",
+    "chart": "bars",
+    "unit": "people per ward",
+    "sql": "SELECT corporation AS label, ROUND(AVG(population)) AS value FROM gba_wards_2025 GROUP BY corporation ORDER BY value DESC LIMIT 30",
+    "rows": [
+     {
+      "label": "North",
+      "value": 24889
+     },
+     {
+      "label": "West",
+      "value": 23785
+     },
+     {
+      "label": "Central",
+      "value": 23127
+     },
+     {
+      "label": "South",
+      "value": 22987
+     },
+     {
+      "label": "East",
+      "value": 17117
+     }
+    ]
+   }
+  ],
+  "story": {
+   "lead": "West is Bengaluru's biggest new corporation",
+   "highlight": "West",
+   "summary": "Bengaluru's new draft plan splits the city into five corporations, and West is the giant. It has about **2.64 million** people, based on the 2011 Census. That is roughly three times as many as East, the smallest, with about **856,000**. The charts below show the head count, then why West is so big, and then how ward sizes compare.",
+   "sub": "Based on the 2025 draft ward map of the Greater Bengaluru Authority, with 2011 Census populations re-cut to the new wards (368 wards).",
+   "facts": [
+    {
+     "value": "2.64 million",
+     "label": "people in West, the largest corporation"
+    },
+    {
+     "value": "111",
+     "label": "wards in West, the most of any corporation"
+    },
+    {
+     "value": "856,000",
+     "label": "people in East, the smallest corporation"
+    }
+   ],
+   "points": [
+    {
+     "h": "West holds far more people than any other corporation",
+     "p": "Add up the people in each corporation's wards and West comes out clearly first, with **2,640,095**. North is second with 1,792,028 and South third with 1,655,093. West has about 850,000 more people than North. East is at the bottom with **855,831**, about a third of West's total."
+    },
+    {
+     "h": "West has the most wards by a wide margin",
+     "p": "Part of the reason is simple: West was given the most wards. It has **111** of the 368, while North and South have 72 each. Central has 63 and East has just 50. West therefore has about one and a half times as many wards as North or South."
+    },
+    {
+     "h": "Wards in West are not unusually large",
+     "p": "So are West's wards bigger than everyone else's? Not really. North's wards are the largest on average, at **24,889** people each, and West is second at 23,785. Central and South are close behind, at about 23,000. East stands out as the odd one, with only **17,117** people per ward. West is biggest mainly because it has the most wards, not because each ward is crowded."
+    }
+   ],
+   "takeaway": "West has the most people because it has the most wards. Its wards are about as big as those in North, Central and South. East is the smallest corporation, with fewer wards and smaller ones.",
+   "note": "These are 2011 Census numbers re-cut to the 2025 draft wards, so today's populations will be different.",
+   "next": [
+    "Which new ward has the most people in Bengaluru?",
+    "How many Scheduled Caste and Scheduled Tribe people live in each corporation?",
+    "Which assembly constituencies fall under the West corporation?"
+   ],
+   "sources": [
+    "about three times: West 2,640,095 / East 855,831 = 3.08",
+    "about 850,000 more: 2,640,095 - 1,792,028 = 848,067",
+    "about a third: 855,831 / 2,640,095 = 0.32",
+    "about one and a half times: 111 / 72 = 1.54",
+    "about 23,000: Central 23,127, South 22,987"
+   ]
+  },
+  "created": "2026-11-04"
+ },
+ {
+  "q": "Karnataka districts with the most crimes in 2025?",
+  "queries": [
+   {
+    "id": "q1",
+    "purpose": "Total crimes registered in 2025 by police unit (top 15)",
+    "chart": "bars",
+    "unit": "cases registered",
+    "sql": "SELECT unit AS label, ipc_bns_crimes + sll_crimes AS value FROM karnataka_crime_districts_2025 ORDER BY value DESC LIMIT 15",
+    "rows": [
+     {
+      "label": "Bengaluru City",
+      "value": 56472
+     },
+     {
+      "label": "Tumakuru",
+      "value": 8470
+     },
+     {
+      "label": "Bengaluru Dist",
+      "value": 7620
+     },
+     {
+      "label": "Shivamogga",
+      "value": 6995
+     },
+     {
+      "label": "Belagavi Dist",
+      "value": 6594
+     },
+     {
+      "label": "Hassan",
+      "value": 6147
+     },
+     {
+      "label": "Mandya",
+      "value": 5930
+     },
+     {
+      "label": "Mysuru Dist",
+      "value": 5864
+     },
+     {
+      "label": "Chitradurga",
+      "value": 5838
+     },
+     {
+      "label": "Vijayapur",
+      "value": 5054
+     },
+     {
+      "label": "Davanagere",
+      "value": 4771
+     },
+     {
+      "label": "Bengaluru South",
+      "value": 4580
+     },
+     {
+      "label": "Raichur",
+      "value": 4271
+     },
+     {
+      "label": "Bidar",
+      "value": 4226
+     },
+     {
+      "label": "Chikkamagaluru",
+      "value": 4210
+     }
+    ]
+   },
+   {
+    "id": "q2",
+    "purpose": "IPC/BNS cases only by police unit (top 15)",
+    "chart": "bars",
+    "unit": "IPC/BNS cases",
+    "sql": "SELECT unit AS label, ipc_bns_crimes AS value FROM karnataka_crime_districts_2025 ORDER BY value DESC LIMIT 15",
+    "rows": [
+     {
+      "label": "Bengaluru City",
+      "value": 37181
+     },
+     {
+      "label": "Bengaluru Dist",
+      "value": 6433
+     },
+     {
+      "label": "Tumakuru",
+      "value": 5961
+     },
+     {
+      "label": "Mysuru Dist",
+      "value": 4952
+     },
+     {
+      "label": "Shivamogga",
+      "value": 4840
+     },
+     {
+      "label": "Hassan",
+      "value": 4781
+     },
+     {
+      "label": "Mandya",
+      "value": 4780
+     },
+     {
+      "label": "Belagavi Dist",
+      "value": 4535
+     },
+     {
+      "label": "Chitradurga",
+      "value": 4098
+     },
+     {
+      "label": "Bengaluru South",
+      "value": 3644
+     },
+     {
+      "label": "Davanagere",
+      "value": 3385
+     },
+     {
+      "label": "Vijayapur",
+      "value": 3062
+     },
+     {
+      "label": "Bidar",
+      "value": 3054
+     },
+     {
+      "label": "Raichur",
+      "value": 2813
+     },
+     {
+      "label": "Chikkamagaluru",
+      "value": 2722
+     }
+    ]
+   },
+   {
+    "id": "q3",
+    "purpose": "Special and Local Laws cases by police unit (top 15)",
+    "chart": "bars",
+    "unit": "SLL cases",
+    "sql": "SELECT unit AS label, sll_crimes AS value FROM karnataka_crime_districts_2025 ORDER BY value DESC LIMIT 15",
+    "rows": [
+     {
+      "label": "Bengaluru City",
+      "value": 19291
+     },
+     {
+      "label": "Tumakuru",
+      "value": 2509
+     },
+     {
+      "label": "Shivamogga",
+      "value": 2155
+     },
+     {
+      "label": "Belagavi Dist",
+      "value": 2059
+     },
+     {
+      "label": "Vijayapur",
+      "value": 1992
+     },
+     {
+      "label": "Ballari",
+      "value": 1961
+     },
+     {
+      "label": "Chitradurga",
+      "value": 1740
+     },
+     {
+      "label": "Chickballapura",
+      "value": 1619
+     },
+     {
+      "label": "Uttara Kannada",
+      "value": 1596
+     },
+     {
+      "label": "Chikkamagaluru",
+      "value": 1488
+     },
+     {
+      "label": "Vijayanagara",
+      "value": 1467
+     },
+     {
+      "label": "Raichur",
+      "value": 1458
+     },
+     {
+      "label": "Davanagere",
+      "value": 1386
+     },
+     {
+      "label": "Hassan",
+      "value": 1366
+     },
+     {
+      "label": "Bagalkot",
+      "value": 1362
+     }
+    ]
+   }
+  ],
+  "story": {
+   "lead": "Bengaluru City dwarfs every other Karnataka police unit",
+   "highlight": "Bengaluru City",
+   "summary": "Karnataka Police registered **56,472** cases in Bengaluru City in 2025, more than any other unit by a wide margin. That is about **28%** of the 202,533 cases registered across the whole state. Among the district units, Tumakuru comes first with **8,470** cases, followed by Bengaluru District and Shivamogga. These are cases registered, not crime rates, so bigger places naturally show bigger numbers.",
+   "sub": "Karnataka Police cases registered in 2025, by police unit, as published on OpenCity.",
+   "facts": [
+    {
+     "value": "56,472",
+     "label": "cases registered in Bengaluru City, 2025"
+    },
+    {
+     "value": "28%",
+     "label": "share of all Karnataka cases in Bengaluru City"
+    },
+    {
+     "value": "8,470",
+     "label": "cases in Tumakuru, the top district unit"
+    }
+   ],
+   "points": [
+    {
+     "h": "One city accounts for more than a quarter of cases",
+     "p": "Add up both kinds of cases and the ranking is lopsided. Bengaluru City leads with **56,472** cases. The next unit, Tumakuru, has **8,470**, so Bengaluru City has more than six times as many. After Tumakuru come Bengaluru District (7,620), Shivamogga (6,995), Belagavi District (6,594) and Hassan (6,147). Bengaluru City and Bengaluru District are separate police units, so the figures are kept apart here."
+    },
+    {
+     "h": "The main criminal-law cases show the same gap",
+     "p": "Most cases fall under the main criminal law, the IPC and its replacement the BNS. Bengaluru City again leads with **37,181** such cases, about 27% of the state's 138,666. Bengaluru District moves up to second place with **6,433**, ahead of Tumakuru (5,961). Mysuru District also climbs, to fourth with 4,952. The order below the capital shifts a little, but nobody comes close to it."
+    },
+    {
+     "h": "Special-law cases reshuffle the lower places",
+     "p": "The other group is cases under Special and Local Laws, which cover things like excise, narcotics and gambling. Bengaluru City has **19,291** of them, more than seven times Tumakuru's **2,509**, and about 30% of the state's 63,867. This list brings in units that were not near the top overall. Ballari has 1,961 cases, and Chickballapura, Uttara Kannada, Vijayanagara and Bagalkot also make the list. So the district order depends partly on which kind of case you count."
+    }
+   ],
+   "takeaway": "Bengaluru City is far ahead of everyone else on every count, with more than a quarter of Karnataka's registered cases. Among districts, Tumakuru is the busiest overall, and the order below it changes depending on the type of case. These numbers show cases registered, not how safe a place is.",
+   "note": "Figures are cases registered in 2025 with no population adjustment, so they are not crime rates. Bengaluru City and Bengaluru District are separate units.",
+   "next": [
+    "Which Karnataka units have the fewest cases in 2025?",
+    "How do Bengaluru's traffic offence cases change from 2018 to 2025?",
+    "Which police ranges have the most cases in 2025?"
+   ],
+   "sources": [
+    "28%: Bengaluru City 56,472 out of 202,533 statewide (138,666 + 63,867) = 27.9%",
+    "202,533: 138,666 IPC/BNS + 63,867 SLL statewide totals",
+    "more than six times: 56,472 / 8,470 = 6.7",
+    "about 27%: 37,181 / 138,666 = 26.8%",
+    "more than seven times: 19,291 / 2,509 = 7.7",
+    "about 30%: 19,291 / 63,867 = 30.2%"
+   ]
+  },
+  "created": "2026-11-04"
+ },
+ {
+  "q": "Most common traffic offences in Bengaluru?",
+  "queries": [
+   {
+    "id": "q1",
+    "purpose": "Top offences in 2024 (latest year with the full list of offences)",
+    "chart": "bars",
+    "unit": "cases",
+    "sql": "SELECT offence AS label, cases AS value FROM bengaluru_traffic_offences WHERE year = 2024 ORDER BY cases DESC LIMIT 15",
+    "rows": [
+     {
+      "label": "Rider- without Helmet",
+      "value": 3191814
+     },
+     {
+      "label": "Pillion Rider- without Helmet",
+      "value": 2097153
+     },
+     {
+      "label": "Wrong parking",
+      "value": 973071
+     },
+     {
+      "label": "Jumping traffic signal",
+      "value": 680900
+     },
+     {
+      "label": "Without Safety belt",
+      "value": 421816
+     },
+     {
+      "label": "No Entry",
+      "value": 186951
+     },
+     {
+      "label": "Def. reg. no. plate",
+      "value": 184502
+     },
+     {
+      "label": "Triple riding",
+      "value": 159479
+     },
+     {
+      "label": "Footpath parking",
+      "value": 117416
+     },
+     {
+      "label": "Using Mobile phone",
+      "value": 93410
+     },
+     {
+      "label": "Over speeding",
+      "value": 40890
+     },
+     {
+      "label": "Drunken driving",
+      "value": 23608
+     },
+     {
+      "label": "Riding on Footpath",
+      "value": 17214
+     },
+     {
+      "label": "Others",
+      "value": 15765
+     },
+     {
+      "label": "Without Driving license",
+      "value": 13298
+     }
+    ]
+   },
+   {
+    "id": "q2",
+    "purpose": "Top offences in 2025",
+    "chart": "bars",
+    "unit": "cases",
+    "sql": "SELECT offence AS label, cases AS value FROM bengaluru_traffic_offences WHERE year = 2025 ORDER BY cases DESC LIMIT 15",
+    "rows": [
+     {
+      "label": "Rider- without Helmet",
+      "value": 2033259
+     },
+     {
+      "label": "Pillion Rider- without Helmet",
+      "value": 1127924
+     },
+     {
+      "label": "Wrong parking",
+      "value": 1116278
+     },
+     {
+      "label": "Without Safety belt",
+      "value": 759183
+     },
+     {
+      "label": "Jumping traffic signal",
+      "value": 662447
+     },
+     {
+      "label": "No Entry",
+      "value": 302962
+     },
+     {
+      "label": "Others",
+      "value": 301142
+     },
+     {
+      "label": "Def. reg. no. plate",
+      "value": 150861
+     },
+     {
+      "label": "Footpath parking",
+      "value": 128821
+     },
+     {
+      "label": "Triple riding",
+      "value": 110917
+     },
+     {
+      "label": "Using Mobile phone",
+      "value": 53476
+     },
+     {
+      "label": "Over speeding",
+      "value": 40439
+     },
+     {
+      "label": "Drunken driving",
+      "value": 38919
+     },
+     {
+      "label": "HTV prohibited",
+      "value": 23682
+     },
+     {
+      "label": "Without Driving license",
+      "value": 21612
+     }
+    ]
+   },
+   {
+    "id": "q3",
+    "purpose": "Helmet offences (rider) cases booked per year",
+    "chart": "columns",
+    "unit": "cases",
+    "sql": "SELECT CAST(year AS VARCHAR) AS label, cases AS value FROM bengaluru_traffic_offences WHERE offence = 'Rider- without Helmet' ORDER BY year LIMIT 30",
+    "rows": [
+     {
+      "label": "2018",
+      "value": 1648240
+     },
+     {
+      "label": "2019",
+      "value": 2035519
+     },
+     {
+      "label": "2020",
+      "value": 3184367
+     },
+     {
+      "label": "2021",
+      "value": 3900651
+     },
+     {
+      "label": "2022",
+      "value": 4392381
+     },
+     {
+      "label": "2023",
+      "value": 4015729
+     },
+     {
+      "label": "2024",
+      "value": 3191814
+     },
+     {
+      "label": "2025",
+      "value": 2033259
+     }
+    ]
+   }
+  ],
+  "story": {
+   "lead": "Not wearing a helmet tops Bengaluru's traffic cases",
+   "highlight": "helmet",
+   "summary": "Bengaluru Traffic Police records published on OpenCity show that helmet offences are booked more than any other. In 2024, riders without a helmet led with **3.19 million** cases, and pillion riders (the passengers) without one added **2.10 million**. Together that is more than five times the cases for wrong parking, the next most common offence. The charts below show the 2024 list, how it changed in 2025, and the long run for riders without helmets.",
+   "sub": "Cases booked by Bengaluru Traffic Police under the Motor Vehicles Act, 2018 to 2025 (offence lists for 2024 and 2025).",
+   "facts": [
+    {
+     "value": "3,191,814",
+     "label": "riders booked for no helmet, 2024"
+    },
+    {
+     "value": "5.29 million",
+     "label": "rider plus pillion helmet cases, 2024"
+    },
+    {
+     "value": "4,392,381",
+     "label": "rider helmet cases in 2022, the peak year"
+    }
+   ],
+   "points": [
+    {
+     "h": "Helmets dominate the 2024 list",
+     "p": "Start with 2024, the latest year with the full list of offences. Riders without a helmet were booked **3,191,814** times, and pillion riders without one **2,097,153** times. Together that is about **5.29 million** cases, more than five times the **973,071** for wrong parking in third place. Jumping a signal (680,900) and driving without a seat belt (421,816) came next."
+    },
+    {
+     "h": "In 2025 the top still holds, but the gaps shrink",
+     "p": "The 2025 list has the same offences at the top, but the order and sizes moved. Rider helmet cases fell to **2,033,259** and pillion helmet cases fell to **1,127,924**, a drop of about 46% for pillion riders. Wrong parking rose to **1,116,278**, so it is now almost level with pillion helmet cases. Seat belt cases climbed from 421,816 to **759,183**, up about 80%."
+    },
+    {
+     "h": "Rider helmet cases rose for years, then fell",
+     "p": "Zoom out and the helmet story has a clear arc. Cases for riders without a helmet grew from 1.65 million in 2018 to a peak of **4,392,381** in 2022. They have dropped every year since. The 2025 figure of **2,033,259** is less than half the peak, though still above the 2018 level. Even so, it remains the single most common offence on the 2025 list."
+    }
+   ],
+   "takeaway": "Helmet offences are the most common traffic cases in Bengaluru, with riders without helmets at the top in both 2024 and 2025. Their numbers have fallen since 2022, while cases for wrong parking and missing seat belts rose from 2024 to 2025.",
+   "note": "These are cases booked, which depend on how much enforcement and camera checking happens, not only on how people drive. The 2025 list covers fewer offences than 2024.",
+   "next": [
+    "How have wrong parking cases changed from 2018 to 2025?",
+    "Which offences grew the most between 2024 and 2025?",
+    "How many drunken driving cases were booked each year?"
+   ],
+   "sources": [
+    "5.29 million: 3,191,814 + 2,097,153 = 5,288,967 (2024)",
+    "more than five times: 5,288,967 / 973,071 = 5.4",
+    "about 46%: pillion helmet 2,097,153 (2024) to 1,127,924 (2025), a fall of 46.2%",
+    "about 80%: seat belt 421,816 (2024) to 759,183 (2025), a rise of 80%",
+    "less than half the peak: 2,033,259 / 4,392,381 = 46%",
+    "1.65 million: 2018 = 1,648,240",
+    "dropped every year since: 2022 = 4,392,381, 2023 = 4,015,729, 2024 = 3,191,814, 2025 = 2,033,259"
+   ]
+  },
+  "created": "2026-11-04"
+ },
+ {
+  "q": "Which Chennai station had the worst air last winter?",
+  "queries": [
+   {
+    "id": "q1",
+    "purpose": "Average PM2.5 by Chennai station, winter 2024-25 (stations with 60+ valid days)",
+    "chart": "bars",
+    "unit": "ug/m3 PM2.5 (average)",
+    "sql": "SELECT station AS label, ROUND(AVG(pm25), 1) AS value FROM air_quality_daily WHERE city = 'Chennai' AND day BETWEEN DATE '2024-11-01' AND DATE '2025-02-28' GROUP BY station HAVING count(pm25) >= 60 ORDER BY value DESC LIMIT 30",
+    "rows": [
+     {
+      "label": "Arumbakkam",
+      "value": 46.1
+     },
+     {
+      "label": "Perungudi",
+      "value": 44.9
+     },
+     {
+      "label": "Royapuram",
+      "value": 41.1
+     },
+     {
+      "label": "Alandur Bus Depot",
+      "value": 40.5
+     },
+     {
+      "label": "Manali",
+      "value": 39.7
+     },
+     {
+      "label": "Manali Village",
+      "value": 39.4
+     },
+     {
+      "label": "Velachery Res. Area",
+      "value": 38.6
+     },
+     {
+      "label": "Kodungaiyur",
+      "value": 14.2
+     }
+    ]
+   },
+   {
+    "id": "q2",
+    "purpose": "Days with PM2.5 above India's 24-hour standard (60 ug/m3), winter 2024-25",
+    "chart": "bars",
+    "unit": "days above 60 ug/m3",
+    "sql": "SELECT station AS label, count(*) FILTER (WHERE pm25 > 60) AS value FROM air_quality_daily WHERE city = 'Chennai' AND day BETWEEN DATE '2024-11-01' AND DATE '2025-02-28' GROUP BY station HAVING count(pm25) >= 60 ORDER BY value DESC LIMIT 30",
+    "rows": [
+     {
+      "label": "Perungudi",
+      "value": 40
+     },
+     {
+      "label": "Arumbakkam",
+      "value": 39
+     },
+     {
+      "label": "Royapuram",
+      "value": 24
+     },
+     {
+      "label": "Alandur Bus Depot",
+      "value": 18
+     },
+     {
+      "label": "Manali",
+      "value": 14
+     },
+     {
+      "label": "Manali Village",
+      "value": 10
+     },
+     {
+      "label": "Velachery Res. Area",
+      "value": 7
+     },
+     {
+      "label": "Kodungaiyur",
+      "value": 0
+     }
+    ]
+   },
+   {
+    "id": "q3",
+    "purpose": "Valid PM2.5 days per station in that winter (data coverage check)",
+    "chart": "bars",
+    "unit": "valid days",
+    "sql": "SELECT station AS label, count(pm25) AS value FROM air_quality_daily WHERE city = 'Chennai' AND day BETWEEN DATE '2024-11-01' AND DATE '2025-02-28' GROUP BY station HAVING count(pm25) >= 60 ORDER BY value DESC LIMIT 30",
+    "rows": [
+     {
+      "label": "Alandur Bus Depot",
+      "value": 118
+     },
+     {
+      "label": "Arumbakkam",
+      "value": 117
+     },
+     {
+      "label": "Royapuram",
+      "value": 117
+     },
+     {
+      "label": "Perungudi",
+      "value": 116
+     },
+     {
+      "label": "Velachery Res. Area",
+      "value": 114
+     },
+     {
+      "label": "Kodungaiyur",
+      "value": 111
+     },
+     {
+      "label": "Manali Village",
+      "value": 110
+     },
+     {
+      "label": "Manali",
+      "value": 72
+     }
+    ]
+   }
+  ],
+  "story": {
+   "lead": "Arumbakkam had Chennai's worst air last winter",
+   "highlight": "Arumbakkam",
+   "summary": "Last winter (November 2024 to February 2025), Arumbakkam had the highest average fine-particle pollution of any Chennai station with enough data: **46.1** micrograms per cubic metre of PM2.5. Perungudi was close behind at **44.9**. Kodungaiyur was far cleaner at **14.2**. The charts below show the averages, how many days broke India's daily limit, and how much data each station has.",
+   "sub": "Daily PM2.5 readings from Chennai's air-quality monitoring stations (pollution control boards), 1 November 2024 to 28 February 2025.",
+   "facts": [
+    {
+     "value": "46.1 ug/m3",
+     "label": "Arumbakkam's winter average PM2.5, the highest"
+    },
+    {
+     "value": "40 days",
+     "label": "Perungudi's days above India's daily limit"
+    },
+    {
+     "value": "14.2 ug/m3",
+     "label": "Kodungaiyur's average, the lowest"
+    }
+   ],
+   "points": [
+    {
+     "h": "Arumbakkam tops the winter average, Perungudi close behind",
+     "p": "Averaging PM2.5 over the whole winter puts Arumbakkam first at **46.1** micrograms per cubic metre. Perungudi follows at **44.9**, then Royapuram at **41.1**. Most of the other stations sit between 38.6 and 40.5. Kodungaiyur is the odd one out at **14.2**, about a third of Arumbakkam's level."
+    },
+    {
+     "h": "Counting bad days, Perungudi edges ahead",
+     "p": "Averages can hide how often the air turns bad, so this chart counts days above India's 24-hour PM2.5 limit of 60. Here Perungudi comes first with **40** days, and Arumbakkam is right behind with **39**. Royapuram had 24 days and Alandur Bus Depot 18. Kodungaiyur had none. So Arumbakkam has the worst average, but Perungudi had one more day over the limit."
+    },
+    {
+     "h": "Eight stations have enough data, but Manali has fewer days",
+     "p": "A ranking is only fair if each station was measured on enough days. Arumbakkam had **117** valid days and Perungudi **116**, out of a winter of 120 days. Both are well covered, so the top two are reliable. Manali had only **72** valid days, so its figures rest on fewer days than the rest. Gandhi Nagar (Ennore) is left out because it had too few valid days."
+    }
+   ],
+   "takeaway": "Arumbakkam had the worst average air last winter, and Perungudi was a very close second, with slightly more days over India's daily limit. Both were measured on almost every day. Kodungaiyur was much cleaner than every other station.",
+   "note": "These are average PM2.5 readings from monitoring stations, not the official air quality index, and a station reflects the air around it, not the whole city.",
+   "next": [
+    "Which Pune station had the worst air last winter?",
+    "How did Chennai's air in winter compare with the monsoon months?",
+    "How many days did Chennai stations exceed the limit in 2025?"
+   ],
+   "sources": [
+    "about a third: 14.2 / 46.1 = 0.31",
+    "out of a winter of 120 days: 1 Nov 2024 to 28 Feb 2025 = 30+31+31+28 = 120 days",
+    "Most others between 38.6 and 40.5: Velachery 38.6, Manali Village 39.4, Manali 39.7, Alandur Bus Depot 40.5",
+    "one more day: Perungudi 40, Arumbakkam 39"
+   ]
+  },
+  "created": "2026-11-04"
+ },
+ {
+  "q": "How did the BJP do in Pune and Mumbai's 2026 civic polls?",
+  "queries": [
+   {
+    "id": "q1",
+    "purpose": "BJP share of seats won in each city",
+    "chart": "bars",
+    "unit": "% of seats",
+    "sql": "SELECT city AS label, round(100.0 * count(*) FILTER (WHERE party = 'Bharatiya Janata Party') / count(*), 1) AS value FROM ward_winners_2026 GROUP BY city ORDER BY value DESC",
+    "rows": [
+     {
+      "label": "Pune (PMC)",
+      "value": 71.5
+     },
+     {
+      "label": "Mumbai (BMC)",
+      "value": 39.2
+     }
+    ]
+   },
+   {
+    "id": "q2",
+    "purpose": "BJP seats won in each city",
+    "chart": "bars",
+    "unit": "seats",
+    "sql": "SELECT city AS label, count(*) AS value FROM ward_winners_2026 WHERE party = 'Bharatiya Janata Party' GROUP BY city ORDER BY value DESC",
+    "rows": [
+     {
+      "label": "Pune (PMC)",
+      "value": 118
+     },
+     {
+      "label": "Mumbai (BMC)",
+      "value": 89
+     }
+    ]
+   },
+   {
+    "id": "q3",
+    "purpose": "Seats won by each party in Mumbai (BJP's rivals)",
+    "chart": "bars",
+    "unit": "seats",
+    "sql": "SELECT party AS label, count(*) AS value FROM ward_winners_2026 WHERE city = 'Mumbai (BMC)' GROUP BY party ORDER BY value DESC LIMIT 10",
+    "rows": [
+     {
+      "label": "Bharatiya Janata Party",
+      "value": 89
+     },
+     {
+      "label": "Shiv Sena (Uddhav Balasaheb Thackeray)",
+      "value": 65
+     },
+     {
+      "label": "Shiv Sena",
+      "value": 29
+     },
+     {
+      "label": "Indian National Congress",
+      "value": 24
+     },
+     {
+      "label": "All India Majlis-e-Ittehadul Muslimeen",
+      "value": 8
+     },
+     {
+      "label": "Maharashtra Navnirman Sena",
+      "value": 6
+     },
+     {
+      "label": "Nationalist Congress Party",
+      "value": 3
+     },
+     {
+      "label": "Samajwadi Party",
+      "value": 2
+     },
+     {
+      "label": "Nationalist Congress Party Sharadchandra Pawar",
+      "value": 1
+     }
+    ]
+   }
+  ],
+  "story": {
+   "lead": "BJP won big in Pune, but not Mumbai",
+   "highlight": "Pune",
+   "summary": "In Pune, the BJP won almost three of every four seats in the January 2026 city election. In Mumbai it won fewer than two in five. The party took **71.5%** of Pune's seats and **39.2%** of Mumbai's. Mumbai's BJP total was still the biggest of any party there, so the story is about how far ahead it finished.",
+   "sub": "Winners of the January 2026 municipal elections in Pune (165 seats) and Mumbai (227 seats), as published on OpenCity.",
+   "facts": [
+    {
+     "value": "71.5%",
+     "label": "Share of Pune seats won by BJP"
+    },
+    {
+     "value": "39.2%",
+     "label": "Share of Mumbai seats won by BJP"
+    },
+    {
+     "value": "24",
+     "label": "Seats BJP led Shiv Sena (UBT) by in Mumbai"
+    }
+   ],
+   "points": [
+    {
+     "h": "Pune gave the BJP a far bigger share",
+     "p": "Cities have different numbers of seats, so the fair comparison is the share of seats each party won. Pune's civic body has 165 seats, and the BJP won **71.5%** of them. Mumbai's has 227 seats, and the BJP won **39.2%**. That is a gap of about 32 percentage points between the two cities."
+    },
+    {
+     "h": "In raw seats, the gap looks smaller",
+     "p": "Counting seats instead of shares, the BJP won **118** in Pune and **89** in Mumbai. That is 29 more seats in Pune. It looks closer than the shares do because Mumbai has 62 more seats to win. The BJP won most of Pune's seats, while in Mumbai it won well under half."
+    },
+    {
+     "h": "In Mumbai, the BJP led a split field",
+     "p": "Mumbai's seats were spread across many parties. The BJP's **89** was the top total, ahead of Shiv Sena (Uddhav Balasaheb Thackeray) with **65**. The separate Shiv Sena won **29** and the Indian National Congress **24**. Smaller parties took the rest, including 8 for the All India Majlis-e-Ittehadul Muslimeen and 6 for the Maharashtra Navnirman Sena. The BJP finished first, but no party won a majority on its own (114 of 227 seats were needed)."
+    }
+   ],
+   "takeaway": "The BJP came first in both cities, but its win was far bigger in Pune. There it took nearly three in four seats. In Mumbai it led a crowded field with just under two in five.",
+   "note": "Only winners are listed, so this shows seats won, not votes, turnout or alliances.",
+   "next": [
+    "How many Pune seats did each party win?",
+    "Which Pune wards did the BJP not sweep?",
+    "How many Mumbai seats did Shiv Sena and Shiv Sena (UBT) win together?"
+   ],
+   "sources": [
+    "about 32 percentage points: 71.5 - 39.2 = 32.3",
+    "29 more seats: 118 - 89",
+    "62 more seats: 227 - 165 seats (Mumbai 227, Pune 165, from the table notes)",
+    "24 seats: 89 - 65 = 24",
+    "fewer than two in five / just under two in five: 39.2%",
+    "nearly three in four: 71.5%"
+   ]
+  },
+  "created": "2026-11-04"
+ },
+ {
+  "q": "Is Pune's air worse than Bengaluru's?",
+  "queries": [
+   {
+    "id": "q1",
+    "purpose": "Average PM2.5 across each city's stations, 2024-2025",
+    "chart": "bars",
+    "unit": "ug/m3 (PM2.5, average across the city's stations)",
+    "sql": "SELECT city AS label, round(avg(pm25), 1) AS value FROM air_quality_daily WHERE city IN ('Pune','Bengaluru') GROUP BY city ORDER BY value DESC LIMIT 30",
+    "rows": [
+     {
+      "label": "Pune",
+      "value": 39.9
+     },
+     {
+      "label": "Bengaluru",
+      "value": 30.8
+     }
+    ]
+   },
+   {
+    "id": "q2",
+    "purpose": "Share of station-days with PM2.5 above India's 24-hour standard (60 ug/m3)",
+    "chart": "bars",
+    "unit": "% of valid station-days above 60 ug/m3",
+    "sql": "SELECT city AS label, round(100.0 * count(*) FILTER (WHERE pm25 > 60) / count(pm25), 1) AS value FROM air_quality_daily WHERE city IN ('Pune','Bengaluru') AND pm25 IS NOT NULL GROUP BY city ORDER BY value DESC LIMIT 30",
+    "rows": [
+     {
+      "label": "Pune",
+      "value": 20
+     },
+     {
+      "label": "Bengaluru",
+      "value": 6.2
+     }
+    ]
+   },
+   {
+    "id": "q3",
+    "purpose": "Average PM2.5 by month, Pune (shows the winter peak)",
+    "chart": "columns",
+    "unit": "ug/m3 (PM2.5, average across Pune's stations)",
+    "sql": "SELECT strftime(date_trunc('month', day), '%b %Y') AS label, round(avg(pm25), 1) AS value FROM air_quality_daily WHERE city = 'Pune' GROUP BY date_trunc('month', day) ORDER BY date_trunc('month', day) LIMIT 30",
+    "rows": [
+     {
+      "label": "Jan 2024",
+      "value": 53.3
+     },
+     {
+      "label": "Feb 2024",
+      "value": 49.7
+     },
+     {
+      "label": "Mar 2024",
+      "value": 42.6
+     },
+     {
+      "label": "Apr 2024",
+      "value": 36.4
+     },
+     {
+      "label": "May 2024",
+      "value": 32.6
+     },
+     {
+      "label": "Jun 2024",
+      "value": 19.2
+     },
+     {
+      "label": "Jul 2024",
+      "value": 14.5
+     },
+     {
+      "label": "Aug 2024",
+      "value": 15.6
+     },
+     {
+      "label": "Sep 2024",
+      "value": 18.4
+     },
+     {
+      "label": "Oct 2024",
+      "value": 34.2
+     },
+     {
+      "label": "Nov 2024",
+      "value": 68.9
+     },
+     {
+      "label": "Dec 2024",
+      "value": 55.8
+     },
+     {
+      "label": "Jan 2025",
+      "value": 59.4
+     },
+     {
+      "label": "Feb 2025",
+      "value": 56.5
+     },
+     {
+      "label": "Mar 2025",
+      "value": 51.5
+     },
+     {
+      "label": "Apr 2025",
+      "value": 43.3
+     },
+     {
+      "label": "May 2025",
+      "value": 28.4
+     },
+     {
+      "label": "Jun 2025",
+      "value": 21
+     },
+     {
+      "label": "Jul 2025",
+      "value": 18.5
+     },
+     {
+      "label": "Aug 2025",
+      "value": 16.7
+     },
+     {
+      "label": "Sep 2025",
+      "value": 17.3
+     },
+     {
+      "label": "Oct 2025",
+      "value": 36.1
+     },
+     {
+      "label": "Nov 2025",
+      "value": 57.5
+     },
+     {
+      "label": "Dec 2025",
+      "value": 90
+     }
+    ]
+   }
+  ],
+  "story": {
+   "lead": "Yes, Pune's air is worse than Bengaluru's.",
+   "highlight": "Pune's air is worse",
+   "summary": "Pune's air carries more fine dust than Bengaluru's, and the gap is clear. Across 2024 and 2025, the average reading at Pune's stations was **39.9** micrograms of PM2.5 per cubic metre, against **30.8** in Bengaluru. PM2.5 is the tiny dust and smoke that can get deep into the lungs. Below, we look at the average, at how often the air crossed India's daily limit, and at how Pune's air changes through the year.",
+   "sub": "Daily PM2.5 readings from air-quality monitoring stations in Pune and Bengaluru, 1 January 2024 to 31 December 2025.",
+   "facts": [
+    {
+     "value": "39.9 vs 30.8",
+     "label": "Average PM2.5 in Pune vs Bengaluru (ug/m3)"
+    },
+    {
+     "value": "20%",
+     "label": "Pune station-days above India's daily limit"
+    },
+    {
+     "value": "6.2%",
+     "label": "Bengaluru station-days above the same limit"
+    }
+   ],
+   "points": [
+    {
+     "h": "Pune's average is about 30% higher",
+     "p": "Start with the simple average. CPCB and state pollution board stations show Pune at **39.9** micrograms per cubic metre, averaged across its stations over two years. Bengaluru's stations average **30.8**. That makes Pune about 9 points higher, or roughly 30% more fine dust. An average can hide bad days, so the next chart looks at those."
+    },
+    {
+     "h": "Pune breaks the daily limit far more often",
+     "p": "Bad days show the gap more sharply. India's 24-hour standard for PM2.5 is 60 micrograms per cubic metre. In Pune, **20%** of valid station-days went above it, which is one day in five. In Bengaluru it was **6.2%**, about one in sixteen. So Pune's share of days over the limit is more than three times Bengaluru's."
+    },
+    {
+     "h": "Pune's air turns bad every winter",
+     "p": "Pune's averages swing with the seasons. Monthly readings fell to **14.5** in July 2024, then climbed to **68.9** in November 2024. The same pattern came back the next year, ending at **90** in December 2025, the highest month in the two years. The winter months were above the 60 limit at times, while the rainy months of June to September stayed between 14.5 and 21. This swing helps explain why Pune's two-year average ends up higher."
+    }
+   ],
+   "takeaway": "Pune's air is worse on average and on bad days. It crosses India's daily limit about three times as often as Bengaluru. Its worst stretch comes each winter.",
+   "note": "These are averages of station readings from each city's monitors, not the official AQI, and the stations differ in number and in how many days they reported.",
+   "next": [
+    "How do Pune and Bengaluru compare in winter 2024-25 only?",
+    "Which Pune stations have the highest PM2.5?",
+    "How does Chennai's air compare with Pune's?"
+   ],
+   "sources": [
+    "About 9 points higher: 39.9 - 30.8 = 9.1",
+    "Roughly 30% more: 39.9 / 30.8 = 1.30",
+    "One in sixteen: 100 / 6.2 = about 16",
+    "More than three times: 20 / 6.2 = 3.2",
+    "Rainy months between 14.5 and 21: Jun-Sep 2024 = 19.2, 14.5, 15.6, 18.4; Jun-Sep 2025 = 21, 18.5, 16.7, 17.3",
+    "Winter months above 60 at times: Nov 2024 = 68.9, Dec 2025 = 90"
+   ]
+  },
+  "created": "2026-11-04"
+ },
+ {
+  "q": "Cleanest months for air in Bengaluru?",
+  "queries": [
+   {
+    "id": "q1",
+    "purpose": "Average PM2.5 by calendar month, Bengaluru stations, 2024-2025",
+    "chart": "columns",
+    "unit": "ug/m3 PM2.5 (average across Bengaluru stations)",
+    "sql": "SELECT strftime(day, '%b') AS label, round(avg(pm25), 1) AS value FROM air_quality_daily WHERE city = 'Bengaluru' AND pm25 IS NOT NULL GROUP BY month(day), strftime(day, '%b') ORDER BY month(day)",
+    "rows": [
+     {
+      "label": "Jan",
+      "value": 42.3
+     },
+     {
+      "label": "Feb",
+      "value": 38.8
+     },
+     {
+      "label": "Mar",
+      "value": 42.9
+     },
+     {
+      "label": "Apr",
+      "value": 33.6
+     },
+     {
+      "label": "May",
+      "value": 23.9
+     },
+     {
+      "label": "Jun",
+      "value": 20.2
+     },
+     {
+      "label": "Jul",
+      "value": 18.7
+     },
+     {
+      "label": "Aug",
+      "value": 20.9
+     },
+     {
+      "label": "Sep",
+      "value": 21.8
+     },
+     {
+      "label": "Oct",
+      "value": 29.2
+     },
+     {
+      "label": "Nov",
+      "value": 37
+     },
+     {
+      "label": "Dec",
+      "value": 39.5
+     }
+    ]
+   },
+   {
+    "id": "q2",
+    "purpose": "Average PM10 by calendar month, Bengaluru stations, 2024-2025",
+    "chart": "columns",
+    "unit": "ug/m3 PM10 (average across Bengaluru stations)",
+    "sql": "SELECT strftime(day, '%b') AS label, round(avg(pm10), 1) AS value FROM air_quality_daily WHERE city = 'Bengaluru' AND pm10 IS NOT NULL GROUP BY month(day), strftime(day, '%b') ORDER BY month(day)",
+    "rows": [
+     {
+      "label": "Jan",
+      "value": 94.4
+     },
+     {
+      "label": "Feb",
+      "value": 86.9
+     },
+     {
+      "label": "Mar",
+      "value": 93.5
+     },
+     {
+      "label": "Apr",
+      "value": 79.5
+     },
+     {
+      "label": "May",
+      "value": 61.7
+     },
+     {
+      "label": "Jun",
+      "value": 54.5
+     },
+     {
+      "label": "Jul",
+      "value": 49.8
+     },
+     {
+      "label": "Aug",
+      "value": 52.1
+     },
+     {
+      "label": "Sep",
+      "value": 56.1
+     },
+     {
+      "label": "Oct",
+      "value": 65.6
+     },
+     {
+      "label": "Nov",
+      "value": 82.6
+     },
+     {
+      "label": "Dec",
+      "value": 82.8
+     }
+    ]
+   },
+   {
+    "id": "q3",
+    "purpose": "Share of station-days above India's 24-hour PM2.5 standard (60) by month",
+    "chart": "columns",
+    "unit": "% of station-days above 60 ug/m3",
+    "sql": "SELECT strftime(day, '%b') AS label, round(100.0 * count(*) FILTER (WHERE pm25 > 60) / count(pm25), 1) AS value FROM air_quality_daily WHERE city = 'Bengaluru' AND pm25 IS NOT NULL GROUP BY month(day), strftime(day, '%b') ORDER BY month(day)",
+    "rows": [
+     {
+      "label": "Jan",
+      "value": 14
+     },
+     {
+      "label": "Feb",
+      "value": 7.4
+     },
+     {
+      "label": "Mar",
+      "value": 13.9
+     },
+     {
+      "label": "Apr",
+      "value": 6.5
+     },
+     {
+      "label": "May",
+      "value": 1.1
+     },
+     {
+      "label": "Jun",
+      "value": 0.7
+     },
+     {
+      "label": "Jul",
+      "value": 0.2
+     },
+     {
+      "label": "Aug",
+      "value": 0.3
+     },
+     {
+      "label": "Sep",
+      "value": 0.2
+     },
+     {
+      "label": "Oct",
+      "value": 6
+     },
+     {
+      "label": "Nov",
+      "value": 8.7
+     },
+     {
+      "label": "Dec",
+      "value": 13.9
+     }
+    ]
+   }
+  ],
+  "story": {
+   "lead": "Bengaluru's air is cleanest in July and the monsoon months.",
+   "highlight": "July",
+   "summary": "Bengaluru's air is cleanest in the middle of the year. July is the best month, with fine dust (PM2.5) averaging **18.7** micrograms per cubic metre across the city's stations. March is the dirtiest month at **42.9**, more than twice as high. The charts below show the same pattern in two kinds of dust and in how often the air crosses India's daily limit.",
+   "sub": "Daily readings from Bengaluru's air-quality monitoring stations, January 2024 to December 2025, as published by pollution control boards.",
+   "facts": [
+    {
+     "value": "18.7 ug/m3",
+     "label": "Average PM2.5 in July, the cleanest month"
+    },
+    {
+     "value": "42.9 ug/m3",
+     "label": "Average PM2.5 in March, the dirtiest month"
+    },
+    {
+     "value": "0.2%",
+     "label": "Station-days above India's limit in July and September"
+    }
+   ],
+   "points": [
+    {
+     "h": "Fine dust drops to its lowest from June to September",
+     "p": "PM2.5 is fine dust that can get deep into the lungs. The average across Bengaluru's stations falls from **33.6** in April to **23.9** in May. It then stays low through the monsoon: **20.2** in June, **18.7** in July, **20.9** in August and **21.8** in September. After that it climbs again, reaching **39.5** in December. So the cleanest stretch runs from about May to September."
+    },
+    {
+     "h": "Coarser dust follows the same yearly curve",
+     "p": "The pattern isn't a quirk of one measure. PM10, which covers larger dust particles, is also lowest in July at **49.8**. It is highest in January at **94.4** and in March at **93.5**. The months from June to September all stay under **57**, while December is at **82.8**. Both kinds of dust agree on which months are clean."
+    },
+    {
+     "h": "In the cleanest months, days over the limit almost vanish",
+     "p": "India's 24-hour limit for PM2.5 is 60 micrograms per cubic metre. In July only **0.2%** of station-days went above it, and in September also **0.2%**. In January and December the share was **14%** and **13.9%**, roughly one in seven station-days. March was also high at **13.9%**. Monsoon air rarely crosses the limit, while winter and early spring often do."
+    }
+   ],
+   "takeaway": "Bengaluru's air is cleanest from June to September, and July is the best month. It is worst in winter and in March. The monsoon months are the ones with almost no days above India's daily limit.",
+   "note": "These are averages across Bengaluru's stations for 2024 and 2025 combined, so each calendar month has two years of readings, and the figures are not the official AQI.",
+   "next": [
+    "Which Bengaluru stations have the cleanest and dirtiest air?",
+    "How does Bengaluru's winter air compare with Chennai and Pune?",
+    "How many days did Bengaluru stations exceed the PM2.5 limit in 2025?"
+   ],
+   "sources": [
+    "more than twice as high: March 42.9 vs July 18.7 (42.9 / 18.7 = 2.3)",
+    "under 57: Jun 54.5, Jul 49.8, Aug 52.1, Sep 56.1",
+    "roughly one in seven: 14% (Jan) and 13.9% (Dec, Mar) are about 1/7"
+   ]
+  },
+  "created": "2026-11-04"
+ },
+ {
+  "q": "Days Pune breached the PM2.5 limit in 2025?",
+  "queries": [
+   {
+    "id": "q1",
+    "purpose": "Pune station-days above India's 24-hour PM2.5 standard (60 ug/m3) by month, 2025",
+    "chart": "columns",
+    "unit": "station-days",
+    "sql": "SELECT strftime(day, '%b') AS label, count(*) FILTER (WHERE pm25 > 60) AS value FROM air_quality_daily WHERE city = 'Pune' AND day >= DATE '2025-01-01' AND day <= DATE '2025-12-31' GROUP BY month(day), strftime(day, '%b') ORDER BY month(day)",
+    "rows": [
+     {
+      "label": "Jan",
+      "value": 126
+     },
+     {
+      "label": "Feb",
+      "value": 93
+     },
+     {
+      "label": "Mar",
+      "value": 86
+     },
+     {
+      "label": "Apr",
+      "value": 49
+     },
+     {
+      "label": "May",
+      "value": 20
+     },
+     {
+      "label": "Jun",
+      "value": 2
+     },
+     {
+      "label": "Jul",
+      "value": 0
+     },
+     {
+      "label": "Aug",
+      "value": 0
+     },
+     {
+      "label": "Sep",
+      "value": 1
+     },
+     {
+      "label": "Oct",
+      "value": 34
+     },
+     {
+      "label": "Nov",
+      "value": 95
+     },
+     {
+      "label": "Dec",
+      "value": 189
+     }
+    ]
+   },
+   {
+    "id": "q2",
+    "purpose": "Share of valid Pune station-days above 60 ug/m3 by month, 2025",
+    "chart": "columns",
+    "unit": "% of station-days with valid PM2.5",
+    "sql": "SELECT strftime(day, '%b') AS label, round(100.0 * count(*) FILTER (WHERE pm25 > 60) / count(pm25), 1) AS value FROM air_quality_daily WHERE city = 'Pune' AND day >= DATE '2025-01-01' AND day <= DATE '2025-12-31' GROUP BY month(day), strftime(day, '%b') ORDER BY month(day)",
+    "rows": [
+     {
+      "label": "Jan",
+      "value": 48.6
+     },
+     {
+      "label": "Feb",
+      "value": 40.4
+     },
+     {
+      "label": "Mar",
+      "value": 29.4
+     },
+     {
+      "label": "Apr",
+      "value": 18.8
+     },
+     {
+      "label": "May",
+      "value": 8.1
+     },
+     {
+      "label": "Jun",
+      "value": 0.9
+     },
+     {
+      "label": "Jul",
+      "value": 0
+     },
+     {
+      "label": "Aug",
+      "value": 0
+     },
+     {
+      "label": "Sep",
+      "value": 0.5
+     },
+     {
+      "label": "Oct",
+      "value": 16
+     },
+     {
+      "label": "Nov",
+      "value": 45.5
+     },
+     {
+      "label": "Dec",
+      "value": 76.8
+     }
+    ]
+   },
+   {
+    "id": "q3",
+    "purpose": "Days above 60 ug/m3 by Pune station in 2025 (stations with 60+ valid days)",
+    "chart": "bars",
+    "unit": "days above 60 ug/m3",
+    "sql": "SELECT station AS label, count(*) FILTER (WHERE pm25 > 60) AS value FROM air_quality_daily WHERE city = 'Pune' AND day >= DATE '2025-01-01' AND day <= DATE '2025-12-31' GROUP BY station HAVING count(pm25) >= 60 ORDER BY value DESC LIMIT 30",
+    "rows": [
+     {
+      "label": "Revenue Colony-Shivajinagar",
+      "value": 140
+     },
+     {
+      "label": "Bhumkar Nagar",
+      "value": 122
+     },
+     {
+      "label": "Mhada Colony",
+      "value": 97
+     },
+     {
+      "label": "Hadapsar",
+      "value": 88
+     },
+     {
+      "label": "Karve Road",
+      "value": 55
+     },
+     {
+      "label": "Dhankawadi",
+      "value": 47
+     },
+     {
+      "label": "Transport Nagar-Nigdi",
+      "value": 46
+     },
+     {
+      "label": "Panchawati_Pashan",
+      "value": 31
+     },
+     {
+      "label": "Savitribai Phule Pune University",
+      "value": 22
+     },
+     {
+      "label": "Katraj Dairy",
+      "value": 20
+     },
+     {
+      "label": "Bhosari",
+      "value": 8
+     }
+    ]
+   }
+  ],
+  "story": {
+   "lead": "Pune's air broke the limit 695 times in 2025",
+   "highlight": "695 times",
+   "summary": "Pune's monitors recorded **695** station-days in 2025 when PM2.5, a fine dust that gets deep into the lungs, was above India's daily limit of 60 micrograms per cubic metre. A station-day is one monitor on one day, so one bad day can count several times. The problem swings hugely with the seasons: in December, **76.8%** of valid readings were above the limit, while in July and August none were. Below, we look at when it happened and which stations saw it most.",
+   "sub": "Daily PM2.5 readings from Pune's air-quality monitoring stations (CPCB / state pollution control board), 1 January to 31 December 2025.",
+   "facts": [
+    {
+     "value": "695",
+     "label": "station-days above 60 ug/m3 in Pune, 2025"
+    },
+    {
+     "value": "76.8%",
+     "label": "of valid December readings were above the limit"
+    },
+    {
+     "value": "140",
+     "label": "days above the limit at Revenue Colony-Shivajinagar"
+    }
+   ],
+   "points": [
+    {
+     "h": "Winter months carry most of the bad days",
+     "p": "Counting every monitor, the breaches pile up at the ends of the year. December was the worst month with **189** station-days above the limit, followed by January with **126**. November, January, February and December together hold 503 of the 695, about 72%. July and August had **0**, and September had just 1."
+    },
+    {
+     "h": "In December, three in four readings were over the limit",
+     "p": "Raw counts can mislead, because monitors miss some days. So this chart shows the share of valid readings above 60. December tops it at **76.8%**, which means most monitor-days that month were over the limit. November was at 45.5% and January at 48.6%. The share fell to 0.9% in June and 0% in July and August, then climbed again from October (16%)."
+    },
+    {
+     "h": "Some stations saw far more bad days than others",
+     "p": "The breaches were not spread evenly across the city. Revenue Colony-Shivajinagar had the most, with **140** days above the limit, then Bhumkar Nagar with **122**. Together those two stations had 262 days. At the other end, Bhosari had **8**, so the top station had more than 17 times as many. This list only includes stations with at least 60 valid days, but stations have different numbers of valid days (some, like Dhankawadi, only began in 2025), so the counts are not strictly like for like."
+    }
+   ],
+   "takeaway": "Pune's air went above India's daily PM2.5 limit mostly in winter, and it got worse towards the end of 2025. The monsoon months were almost clear. Where you live in the city also mattered a lot.",
+   "note": "These are station-days against India's 24-hour PM2.5 standard of 60 ug/m3, not the official AQI, and Pune's stations have different numbers of valid days.",
+   "next": [
+    "How does Pune's 2025 share of days above 60 compare with Bengaluru and Chennai?",
+    "How did Pune's PM2.5 in winter 2024-25 compare with the WHO guideline of 15?",
+    "Which Pune stations had the highest average PM2.5 in 2025?"
+   ],
+   "sources": [
+    "695: sum of monthly station-days = 126+93+86+49+20+2+0+0+1+34+95+189",
+    "503 and about 72%: Jan 126 + Feb 93 + Nov 95 + Dec 189 = 503; 503/695 = 72.4%",
+    "262: Revenue Colony-Shivajinagar 140 + Bhumkar Nagar 122",
+    "more than 17 times: 140 / 8 = 17.5"
+   ]
+  },
+  "created": "2026-11-04"
+ },
+ {
+  "q": "Wettest years in Bengaluru?",
+  "queries": [
+   {
+    "id": "q1",
+    "purpose": "Ten wettest years in Bengaluru, 1901-2025",
+    "chart": "bars",
+    "unit": "mm",
+    "sql": "SELECT CAST(year AS VARCHAR) AS label, ROUND(SUM(rainfall_mm)) AS value FROM rainfall_monthly WHERE city = 'Bengaluru' GROUP BY year ORDER BY value DESC, year LIMIT 10",
+    "rows": [
+     {
+      "label": "2022",
+      "value": 1890
+     },
+     {
+      "label": "2017",
+      "value": 1696
+     },
+     {
+      "label": "2021",
+      "value": 1511
+     },
+     {
+      "label": "1998",
+      "value": 1432
+     },
+     {
+      "label": "1991",
+      "value": 1351
+     },
+     {
+      "label": "2005",
+      "value": 1351
+     },
+     {
+      "label": "1916",
+      "value": 1348
+     },
+     {
+      "label": "1903",
+      "value": 1301
+     },
+     {
+      "label": "1958",
+      "value": 1283
+     },
+     {
+      "label": "2015",
+      "value": 1279
+     }
+    ]
+   },
+   {
+    "id": "q2",
+    "purpose": "Bengaluru annual rainfall over the last 15 years",
+    "chart": "columns",
+    "unit": "mm",
+    "sql": "SELECT CAST(year AS VARCHAR) AS label, ROUND(SUM(rainfall_mm)) AS value FROM rainfall_monthly WHERE city = 'Bengaluru' AND year BETWEEN 2011 AND 2025 GROUP BY year ORDER BY year",
+    "rows": [
+     {
+      "label": "2011",
+      "value": 1172
+     },
+     {
+      "label": "2012",
+      "value": 725
+     },
+     {
+      "label": "2013",
+      "value": 1185
+     },
+     {
+      "label": "2014",
+      "value": 1167
+     },
+     {
+      "label": "2015",
+      "value": 1279
+     },
+     {
+      "label": "2016",
+      "value": 791
+     },
+     {
+      "label": "2017",
+      "value": 1696
+     },
+     {
+      "label": "2018",
+      "value": 618
+     },
+     {
+      "label": "2019",
+      "value": 960
+     },
+     {
+      "label": "2020",
+      "value": 1213
+     },
+     {
+      "label": "2021",
+      "value": 1511
+     },
+     {
+      "label": "2022",
+      "value": 1890
+     },
+     {
+      "label": "2023",
+      "value": 1020
+     },
+     {
+      "label": "2024",
+      "value": 1154
+     },
+     {
+      "label": "2025",
+      "value": 1045
+     }
+    ]
+   },
+   {
+    "id": "q3",
+    "purpose": "Average annual rainfall by decade (Bengaluru)",
+    "chart": "columns",
+    "unit": "mm per year",
+    "sql": "SELECT CAST(decade AS VARCHAR) || 's' AS label, ROUND(SUM(rainfall_mm) / COUNT(DISTINCT year)) AS value FROM (SELECT (year // 10) * 10 AS decade, year, rainfall_mm FROM rainfall_monthly WHERE city = 'Bengaluru') GROUP BY decade ORDER BY decade",
+    "rows": [
+     {
+      "label": "1900s",
+      "value": 924
+     },
+     {
+      "label": "1910s",
+      "value": 938
+     },
+     {
+      "label": "1920s",
+      "value": 772
+     },
+     {
+      "label": "1930s",
+      "value": 879
+     },
+     {
+      "label": "1940s",
+      "value": 948
+     },
+     {
+      "label": "1950s",
+      "value": 952
+     },
+     {
+      "label": "1960s",
+      "value": 978
+     },
+     {
+      "label": "1970s",
+      "value": 961
+     },
+     {
+      "label": "1980s",
+      "value": 892
+     },
+     {
+      "label": "1990s",
+      "value": 1036
+     },
+     {
+      "label": "2000s",
+      "value": 978
+     },
+     {
+      "label": "2010s",
+      "value": 1055
+     },
+     {
+      "label": "2020s",
+      "value": 1306
+     }
+    ]
+   }
+  ],
+  "story": {
+   "lead": "Bengaluru's wettest year on record was 2022",
+   "highlight": "2022",
+   "summary": "Rainfall figures for Bengaluru go back to 1901, and the wettest year in all that time is 2022, with **1,890 mm**. That is about 190 mm more than 2017, the second wettest at **1,696 mm**. Three of the ten wettest years have come since 2017. Below, we look at the top ten, the last 15 years, and how rain has changed decade by decade.",
+   "sub": "Monthly rainfall for Bengaluru, 1901 to 2025, added up by calendar year.",
+   "facts": [
+    {
+     "value": "1,890 mm",
+     "label": "Rain in 2022, the wettest year since 1901"
+    },
+    {
+     "value": "1,306 mm",
+     "label": "Average per year in the 2020s so far"
+    },
+    {
+     "value": "618 mm",
+     "label": "Rain in 2018, the driest of the last 15 years"
+    }
+   ],
+   "points": [
+    {
+     "h": "Recent years dominate the top ten",
+     "p": "The ten wettest years put 2022 clearly in front at **1,890 mm**, followed by 2017 (**1,696 mm**) and 2021 (**1,511 mm**). The top three are all from the last nine years. Older wet years do appear: 1998, 1991, 1916, 1903 and 1958 all made the list. Even so, 2015 is the only other year from after 2005 in the top ten, so recent years hold four of the ten places."
+    },
+    {
+     "h": "The last 15 years swing between dry and soaking",
+     "p": "Recent years have not been steadily wet. Rain fell as low as **618 mm** in 2018 and as high as **1,890 mm** in 2022. The three years from 2020 to 2022 rose each time, from 1,213 to 1,511 to 1,890 mm. After that, rain dropped back to 1,020 mm in 2023, 1,154 mm in 2024 and 1,045 mm in 2025. So the record year was a peak, not the new normal."
+    },
+    {
+     "h": "Averaged by decade, the 2020s stand out",
+     "p": "Zooming out, the average year in the 1900s brought 924 mm, and most decades through the 1980s stayed between about 770 and 980 mm. The 1990s rose to **1,036 mm** and the 2010s to **1,055 mm**. The 2020s average **1,306 mm** a year, though this decade is only partly done and includes the record 2022. Still, it is already well above every earlier decade."
+    }
+   ],
+   "takeaway": "2022 is Bengaluru's wettest year in the records, and several of the other wettest years are recent. Yet the last few years have been much drier than 2022, so the high average for the 2020s rests heavily on one huge year.",
+   "note": "Each year is the total of its twelve monthly rainfall figures; the 2020s average covers 2020 to 2025 only.",
+   "next": [
+    "Which months bring the most rain in Bengaluru?",
+    "How does Bengaluru's rainfall compare with Chennai's up to 2021?",
+    "What were Bengaluru's driest years since 1901?"
+   ],
+   "sources": [
+    "190 mm: 2022 = 1,890, 2017 = 1,696, difference 194, rounded",
+    "Three of the ten since 2017: 2017, 2021, 2022",
+    "four of the ten recent places: 2015, 2017, 2021, 2022",
+    "three years rising: 2020 = 1,213, 2021 = 1,511, 2022 = 1,890",
+    "about 770 to 980 mm: decades 1900s to 1980s range from 772 (1920s) to 978 (1960s, 2000s)",
+    "1990s (1,036) is the first decade above 1,000 mm; 2020s = 1,306 is above all earlier decades"
+   ]
+  },
+  "created": "2026-11-04"
+ }
+]
