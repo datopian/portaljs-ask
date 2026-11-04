@@ -1,0 +1,216 @@
+{
+  "type": "ckan",
+  "api": "https://data.opencity.in/api/3/action",
+  "tables": {
+    "air_quality_daily": {
+      "dataset": "chennai-hourly-air-quality-reports",
+      "resource": [
+        "Alandur Bus Depot CPCB 15 minute AQI Data for 2024-25",
+        "Arumbakkam TNPCB 15 minute AQI Data for 2024-25",
+        "Gandhi Nagar_Ennore TNPCB 15 minute AQI Data for 2024-25",
+        "Kodungaiyur TNPCB 15 minute AQI Data for 2024-25",
+        "Manali Village TNPCB 15 minute AQI Data for 2024-25",
+        "Manali CPCB 15 minute AQI Data for 2024-25",
+        "Perungudi TNPCB 15 minute AQI Data for 2024-25",
+        "Royapuram TNPCB 15 minute AQI Data for 2024-25",
+        "Velachery Res. Area CPCB 15 minute AQI Data for 2024-25"
+      ],
+      "read": {
+        "all_varchar": true
+      },
+      "inputs": {
+        "pune": {
+          "dataset": "pune-hourly-air-quality-reports",
+          "resource": [
+            "Alandi IITM 15 minute AQI Data for 2024-25",
+            "Bhosari IITM 15 minute AQI Data for 2024-25",
+            "Bhumkar Nagar IITM 15 minute AQI Data for 2024-25",
+            "Dhankawadi IITM 15 minute AQI Data for 2025",
+            "Hadapsar IITM 15 minute AQI Data for 2024-25",
+            "Karve Road MPCB 15 minute AQI Data for 2024-25",
+            "Katraj Dairy MPCB 15 minute AQI Data for 2024-25",
+            "Mhada Colony IITM 15 minute AQI Data for 2024-25",
+            "Panchawati_Pashan IITM 15 minute AQI Data for 2024-25",
+            "Revenue Colony Shivajinagar 15 minute AQI Data for 2024-25",
+            "Savitribai Phule Pune University MPCB 15 minute AQI Data for 2024-25",
+            "Transport Nagar Nigdi 15 minute AQI Data for 2024-25"
+          ],
+          "read": {
+            "all_varchar": true
+          }
+        },
+        "bengaluru": {
+          "dataset": "bengaluru-hourly-air-quality-reports",
+          "resource": [
+            "Bapuji Nagar KSPCB 15 minute AQI Data for 2024-25",
+            "BTM Layout CPCB 15 minute AQI Data for 2024-25",
+            "City Railway Station KSPCB 15 minute AQI Data for 2024-25",
+            "Hebbal KSPCB 15 minute AQI Data for 2024-25",
+            "Hombegowda Nagar KSPCB 15 minute AQI Data for 2024-25",
+            "Jayanagar 5th Block KSPCB 15 minute AQI Data for 2024-25",
+            "Jigani KSPCB 15 minute AQI Data for 2024-25",
+            "Kasturi Nagar KSPCB 15 minute AQI Data for 2024-25",
+            "Peenya CPCB 15 minute AQI Data for 2024-25",
+            "RVCE Mailasandra 15 minute AQI Data for 2024-25",
+            "Sanegurava Halli KSPCB 15 minute AQI Data for 2024-25",
+            "Shivapura_Peenya KSPCB 15 minute AQI Data for 2024-25",
+            "Silk Board KSPCB 15 minute AQI Data for 2024-25"
+          ],
+          "read": {
+            "all_varchar": true
+          }
+        }
+      },
+      "sql": "WITH d AS (SELECT \"City\" AS city, trim(split_part(\"Station Name\", ',', 1)) AS station, \"Station Name\" AS station_full_name, CAST(TRY_CAST(\"Timestamp\" AS TIMESTAMP) AS DATE) AS day, avg(TRY_CAST(\"PM2.5 (ug/m3)\" AS DOUBLE)) AS pm25_avg, count(TRY_CAST(\"PM2.5 (ug/m3)\" AS DOUBLE)) AS pm25_n, avg(TRY_CAST(\"PM10 (ug/m3)\" AS DOUBLE)) AS pm10_avg, count(TRY_CAST(\"PM10 (ug/m3)\" AS DOUBLE)) AS pm10_n, avg(TRY_CAST(\"NO2 (ug/m3)\" AS DOUBLE)) AS no2_avg, count(TRY_CAST(\"NO2 (ug/m3)\" AS DOUBLE)) AS no2_n, avg(TRY_CAST(\"Ozone (ug/m3)\" AS DOUBLE)) AS ozone_avg, count(TRY_CAST(\"Ozone (ug/m3)\" AS DOUBLE)) AS ozone_n, avg(TRY_CAST(\"CO (mg/m3)\" AS DOUBLE)) AS co_avg, count(TRY_CAST(\"CO (mg/m3)\" AS DOUBLE)) AS co_n FROM (SELECT * FROM raw UNION ALL BY NAME SELECT * FROM pune UNION ALL BY NAME SELECT * FROM bengaluru) WHERE \"City\" IS NOT NULL GROUP BY ALL) SELECT city, station, station_full_name, day, CASE WHEN pm25_n >= 64 AND (pm10_n = 0 OR pm25_avg <= pm10_avg) THEN round(pm25_avg, 2) END AS pm25, CASE WHEN pm10_n >= 64 THEN round(pm10_avg, 2) END AS pm10, CASE WHEN no2_n >= 64 THEN round(no2_avg, 2) END AS no2, CASE WHEN ozone_n >= 64 THEN round(ozone_avg, 2) END AS ozone, CASE WHEN co_n >= 64 AND co_avg > 0 THEN round(co_avg, 2) END AS co FROM d WHERE day IS NOT NULL"
+    },
+    "bbmp_grievances": {
+      "dataset": "bbmp-grievances-data",
+      "resource": "*",
+      "read": {
+        "all_varchar": true
+      },
+      "sql": "SELECT \"Complaint ID\" AS complaint_id, trim(\"Category\") AS category, trim(\"Sub Category\") AS sub_category, CAST(TRY_CAST(\"Grievance Date\" AS TIMESTAMP) AS DATE) AS grievance_date, trim(\"Ward Name\") AS ward_name, trim(\"Grievance Status\") AS status FROM raw"
+    },
+    "tn_assembly_2026": {
+      "dataset": "tamil-nadu-final-results-2026",
+      "resource": "*",
+      "read": {
+        "all_varchar": true
+      },
+      "sql": "WITH t AS (SELECT TRY_CAST(\"AC No\" AS INTEGER) AS ac_no, trim(\"AC Name\") AS ac_name, trim(\"Candidate\") AS candidate, trim(\"Party\") AS party, TRY_CAST(\"EVM Votes\" AS BIGINT) AS evm_votes, TRY_CAST(\"Postal Votes\" AS BIGINT) AS postal_votes, TRY_CAST(\"Total Votes\" AS BIGINT) AS total_votes, TRY_CAST(\"Vote Share\" AS DOUBLE) AS vote_share_pct FROM raw) SELECT *, rank() OVER (PARTITION BY ac_no ORDER BY total_votes DESC) AS position FROM t"
+    },
+    "ward_winners_2026": {
+      "dataset": "pmc-election-results-2026",
+      "resource": "*",
+      "read": {
+        "all_varchar": true
+      },
+      "inputs": {
+        "mumbai": {
+          "dataset": "bmc-election-results-2026",
+          "resource": "*",
+          "read": {
+            "all_varchar": true
+          }
+        }
+      },
+      "sql": "SELECT 'Pune (PMC)' AS city, TRY_CAST(\"Ward No.\" AS INTEGER) AS ward_no, last_value(nullif(trim(\"Ward Name\"),'') IGNORE NULLS) OVER (ORDER BY TRY_CAST(_id AS INTEGER)) AS ward_name, trim(\"Seat\") AS seat, trim(\"Reservation\") AS reservation, trim(\"Elected Candidate Name\") AS winner, CASE trim(\"Party\") WHEN 'BJP' THEN 'Bharatiya Janata Party' WHEN 'NCP' THEN 'Nationalist Congress Party' WHEN 'INC' THEN 'Indian National Congress' WHEN 'NCP-SP' THEN 'Nationalist Congress Party Sharadchandra Pawar' WHEN 'SHS' THEN 'Shiv Sena' WHEN 'SHS (UBT)' THEN 'Shiv Sena (Uddhav Balasaheb Thackeray)' ELSE trim(\"Party\") END AS party, CAST(NULL AS BIGINT) AS winner_votes FROM raw UNION ALL SELECT 'Mumbai (BMC)', TRY_CAST(\"Ward No.\" AS INTEGER), NULL, NULL, NULL, trim(\"Elected Candidate Name\"), trim(\"Party\"), TRY_CAST(replace(\"Valid Votes Received\", ',', '') AS BIGINT) FROM mumbai"
+    },
+    "gba_wards_2025": {
+      "dataset": "gba-wards-delimitation-2025",
+      "resource": "Wards Populations of Draft Delimitation",
+      "read": {
+        "all_varchar": true
+      },
+      "inputs": {
+        "mapping": {
+          "dataset": "gba-wards-delimitation-2025",
+          "resource": "GBA Wards Mapping to Divisions and Sub-divisions Tables",
+          "read": {
+            "all_varchar": true
+          }
+        }
+      },
+      "sql": "WITH m AS (SELECT last_value(nullif(trim(\"Corporation\"),'') IGNORE NULLS) OVER w AS corporation, last_value(nullif(trim(\"Zone\"),'') IGNORE NULLS) OVER w AS zone, last_value(nullif(trim(\"Division\"),'') IGNORE NULLS) OVER w AS division, TRY_CAST(\"Ward no\" AS INTEGER) AS ward_no FROM mapping WINDOW w AS (ORDER BY TRY_CAST(_id AS INTEGER))), p AS (SELECT trim(\"Corporation_Name\") AS corporation, trim(\"Assembly_Name\") AS assembly_constituency, TRY_CAST(split_part(\"Ward_No_Name\", '-', 1) AS INTEGER) AS ward_no, trim(regexp_replace(\"Ward_No_Name\", '^[0-9]+\\s*-\\s*', '')) AS ward_name, TRY_CAST(\"TOT_P\" AS INTEGER) AS population, TRY_CAST(\"TOT_M\" AS INTEGER) AS male, TRY_CAST(\"TOT_F\" AS INTEGER) AS female, TRY_CAST(\"SC_P\" AS INTEGER) AS sc_population, TRY_CAST(\"ST_P\" AS INTEGER) AS st_population FROM raw WHERE TRY_CAST(\"Sl_No\" AS INTEGER) IS NOT NULL) SELECT p.*, m.zone, m.division FROM p LEFT JOIN m ON lower(m.corporation) = lower(p.corporation) AND m.ward_no = p.ward_no"
+    },
+    "chennai_metro_ridership": {
+      "dataset": "chennai-metro-monthly-usage-data",
+      "resource": "*",
+      "read": {
+        "all_varchar": true
+      },
+      "sql": "SELECT CAST(strptime(\"Month\", '%b-%y') AS DATE) AS month, TRY_CAST(replace(\"Total Passenger Flow\", ',', '') AS BIGINT) AS total_riders, TRY_CAST(replace(\"Closed Loop (Ridership)\", ',', '') AS BIGINT) AS closed_loop_card_riders, TRY_CAST(replace(\"QR Tickets (Ridership)\", ',', '') AS BIGINT) AS qr_ticket_riders, TRY_CAST(replace(\"NCMC (Ridership)\", ',', '') AS BIGINT) AS ncmc_card_riders FROM raw WHERE TRY_CAST(replace(\"Total Passenger Flow\", ',', '') AS BIGINT) IS NOT NULL"
+    },
+    "chennai_reservoirs": {
+      "dataset": "chennai-lake-leves-since-2003",
+      "resource": "Poondi Lake Storage Levels from 2003",
+      "read": {
+        "all_varchar": true
+      },
+      "inputs": {
+        "cholavaram": {
+          "dataset": "chennai-lake-leves-since-2003",
+          "resource": "Cholavaram Lake Storage Levels from 2003",
+          "read": {
+            "all_varchar": true
+          }
+        },
+        "chembarambakkam": {
+          "dataset": "chennai-lake-leves-since-2003",
+          "resource": "Chembarambakkam Lake Storage Levels from 2003",
+          "read": {
+            "all_varchar": true
+          }
+        },
+        "veeranam": {
+          "dataset": "chennai-lake-leves-since-2003",
+          "resource": "Veeranam Lake Storage Levels from 2003",
+          "read": {
+            "all_varchar": true
+          }
+        },
+        "redhills": {
+          "dataset": "chennai-lake-leves-since-2003",
+          "resource": "Red Hills Lake (Puzhal Aeri) Storage Levels from 2003",
+          "read": {
+            "all_varchar": true
+          }
+        }
+      },
+      "sql": "SELECT 'Poondi' AS reservoir, TRY_CAST(\"Year\" AS INTEGER) AS year, (list_position(['jan','feb','mar','apr','may','jun','jul','aug','sep','oct','nov','dec'], lower(left(m,3)))) AS month, TRY_CAST(replace(CAST(v AS VARCHAR),',','') AS DOUBLE) AS storage_mcft FROM (UNPIVOT (SELECT * EXCLUDE (_id) FROM raw) ON COLUMNS(* EXCLUDE (\"Year\")) INTO NAME m VALUE v) UNION ALL SELECT 'Cholavaram' AS reservoir, TRY_CAST(\"Year\" AS INTEGER) AS year, (list_position(['jan','feb','mar','apr','may','jun','jul','aug','sep','oct','nov','dec'], lower(left(m,3)))) AS month, TRY_CAST(replace(CAST(v AS VARCHAR),',','') AS DOUBLE) AS storage_mcft FROM (UNPIVOT (SELECT * EXCLUDE (_id) FROM cholavaram) ON COLUMNS(* EXCLUDE (\"Year\")) INTO NAME m VALUE v) UNION ALL SELECT 'Chembarambakkam' AS reservoir, TRY_CAST(\"Year\" AS INTEGER) AS year, (list_position(['jan','feb','mar','apr','may','jun','jul','aug','sep','oct','nov','dec'], lower(left(m,3)))) AS month, TRY_CAST(replace(CAST(v AS VARCHAR),',','') AS DOUBLE) AS storage_mcft FROM (UNPIVOT (SELECT * EXCLUDE (_id) FROM chembarambakkam) ON COLUMNS(* EXCLUDE (\"Year\")) INTO NAME m VALUE v) UNION ALL SELECT 'Veeranam' AS reservoir, TRY_CAST(\"Year\" AS INTEGER) AS year, (list_position(['jan','feb','mar','apr','may','jun','jul','aug','sep','oct','nov','dec'], lower(left(m,3)))) AS month, TRY_CAST(replace(CAST(v AS VARCHAR),',','') AS DOUBLE) AS storage_mcft FROM (UNPIVOT (SELECT * EXCLUDE (_id) FROM veeranam) ON COLUMNS(* EXCLUDE (\"Year\")) INTO NAME m VALUE v) UNION ALL SELECT 'Red Hills (Puzhal)' AS reservoir, TRY_CAST(\"Year\" AS INTEGER) AS year, (list_position(['jan','feb','mar','apr','may','jun','jul','aug','sep','oct','nov','dec'], lower(left(m,3)))) AS month, TRY_CAST(replace(CAST(v AS VARCHAR),',','') AS DOUBLE) AS storage_mcft FROM (UNPIVOT (SELECT * EXCLUDE (_id) FROM redhills) ON COLUMNS(* EXCLUDE (\"Year\")) INTO NAME m VALUE v)"
+    },
+    "rainfall_monthly": {
+      "dataset": "bengaluru-rainfall",
+      "resource": "*",
+      "read": {
+        "all_varchar": true
+      },
+      "inputs": {
+        "chennai": {
+          "dataset": "chennai-rainfall-data",
+          "resource": "Chennai Monthly Rainfall Data 1901-2021",
+          "read": {
+            "all_varchar": true
+          }
+        }
+      },
+      "sql": "SELECT * FROM (SELECT 'Bengaluru' AS city, TRY_CAST(\"Year\" AS INTEGER) AS year, list_position(['jan','feb','mar','apr','may','jun','jul','aug','sep','oct','nov','dec'], lower(left(m,3))) AS month, TRY_CAST(v AS DOUBLE) AS rainfall_mm FROM (UNPIVOT (SELECT \"Year\", COLUMNS('^(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)') FROM raw) ON COLUMNS(* EXCLUDE (\"Year\")) INTO NAME m VALUE v) UNION ALL SELECT 'Chennai' AS city, TRY_CAST(\"Year\" AS INTEGER) AS year, list_position(['jan','feb','mar','apr','may','jun','jul','aug','sep','oct','nov','dec'], lower(left(m,3))) AS month, TRY_CAST(v AS DOUBLE) AS rainfall_mm FROM (UNPIVOT (SELECT \"Year\", COLUMNS('^(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)') FROM chennai) ON COLUMNS(* EXCLUDE (\"Year\")) INTO NAME m VALUE v)) WHERE year IS NOT NULL AND rainfall_mm IS NOT NULL"
+    },
+    "bengaluru_domestic_flights": {
+      "dataset": "bengaluru-aviation-traffic-data",
+      "resource": [
+        "Monthly Domestic Flights Data - 2015",
+        "Monthly Domestic Flights Data - 2016",
+        "Monthly Domestic Flights Data - 2017",
+        "Monthly Domestic Flights Data - 2018",
+        "Monthly Domestic Flights Data - 2019",
+        "Monthly Domestic Flights Data - 2020",
+        "Monthly Domestic Flights Data - 2021",
+        "Monthly Domestic Flights Data - 2022",
+        "Monthly Domestic Flights Data - 2023",
+        "Monthly Domestic Flights Data - 2024",
+        "Monthly Domestic Flights Data - 2025"
+      ],
+      "read": {
+        "all_varchar": true
+      },
+      "sql": "SELECT make_date(TRY_CAST(\"Year\" AS INTEGER), TRY_CAST(\"Month\" AS INTEGER), 1) AS month, trim(\"Origin\") AS origin, CASE upper(trim(\"Dest\")) WHEN 'BIDAR AIRPORT, KARNATAKA' THEN 'BIDAR' WHEN 'CUDDAPAH' THEN 'KADAPA' WHEN 'DEHRA DUN' THEN 'DEHRADUN' WHEN 'GOA' THEN 'GOA' WHEN 'DABOLIM' THEN 'GOA' WHEN 'MOPA, GOA' THEN 'GOA' WHEN 'KALABURAGI, KARNATAKA' THEN 'KALABURAGI' WHEN 'COCHIN' THEN 'KOCHI' WHEN 'PONDICHERRY' THEN 'PUDUCHERRY' WHEN 'ALLAHABAD' THEN 'PRAYAGRAJ' WHEN 'RAJKOT INTERNATIONAL AIRPORT' THEN 'RAJKOT' WHEN 'AYODHYA INTERNATIONAL AIRPORT' THEN 'AYODHYA' WHEN 'SHIVAMOGGA AIRPORT' THEN 'SHIVAMOGGA' WHEN 'HINDON AIRPORT' THEN 'HINDON (GHAZIABAD)' ELSE upper(trim(\"Dest\")) END AS destination, trim(\"Dest\") AS destination_as_published, TRY_CAST(\"Pax From Origin\" AS DOUBLE) AS passengers_out, TRY_CAST(\"Pax To Origin\" AS DOUBLE) AS passengers_in, TRY_CAST(\"Freight From Origin\" AS DOUBLE) AS freight_out_tonnes, TRY_CAST(\"Frieght To Origin\" AS DOUBLE) AS freight_in_tonnes FROM raw"
+    },
+    "karnataka_crime_districts_2025": {
+      "dataset": "karnataka-crime-data-2025",
+      "resource": "District and Commissionerate-wise Crimes (IPC/BNS and SLL) in Karnataka in 2025",
+      "read": {
+        "all_varchar": true
+      },
+      "sql": "SELECT trim(\"Districts/Units\") AS unit, CASE WHEN trim(\"Districts/Units\") = 'Karnataka Railways' THEN 'Railways' ELSE last_value(CASE WHEN \"Sl No\" IS NULL AND \"IPC/BNS Crimes\" IS NULL THEN trim(\"Districts/Units\") END IGNORE NULLS) OVER (ORDER BY TRY_CAST(_id AS INTEGER)) END AS police_range, TRY_CAST(\"IPC/BNS Crimes\" AS INTEGER) AS ipc_bns_crimes, TRY_CAST(\"SLL Crimes\" AS INTEGER) AS sll_crimes FROM raw QUALIFY \"IPC/BNS Crimes\" IS NOT NULL AND upper(trim(\"Districts/Units\")) <> 'STATE'"
+    },
+    "bengaluru_traffic_offences": {
+      "dataset": "bengaluru-traffic-violations-data",
+      "resource": "BTP - Cases booked under M.V Act (2018-25)",
+      "read": {
+        "all_varchar": true
+      },
+      "sql": "SELECT trim(\"Type of Offences\") AS offence, TRY_CAST(y AS INTEGER) AS year, TRY_CAST(v AS BIGINT) AS cases FROM (UNPIVOT (SELECT \"Type of Offences\", COLUMNS('^20[0-9][0-9]$') FROM raw) ON COLUMNS('^20') INTO NAME y VALUE v) WHERE lower(trim(\"Type of Offences\")) <> 'total' AND v IS NOT NULL"
+    }
+  }
+}

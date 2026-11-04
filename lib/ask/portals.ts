@@ -32,6 +32,7 @@ export interface Portal {
   source: { name: string; label: string; url: string; licence?: string }
   catalogue: { type: 'ckan' | 'none'; api?: string; datasetUrl?: string }
   data: { base: string; snapshot: string; remote?: string } // base: local build path under public/; remote: where browsers load the files from, if uploaded (scripts/upload-data.mjs)
+  disclaimer?: string // optional line added to the footer, e.g. "Not an official <Org> website."
   live: boolean // false = examples-only: no question box, no AI calls
   examples: string[]
   datasets: PortalDataset[]
@@ -46,5 +47,5 @@ export function getPortal(slug: unknown): Portal | null {
 }
 
 export function portalTables(p: Portal): string[] {
-  return p.datasets.flatMap((d) => d.tables)
+  return [...new Set(p.datasets.flatMap((d) => d.tables))]
 }

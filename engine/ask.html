@@ -285,7 +285,9 @@ footer .wrap { padding-block: 20px 40px; font-size: 12px; color: var(--muted); }
 // baked in at build time by scripts/build-portals.mjs from portals/<slug>/.
 const P = window.PORTAL;
 const DATASETS = Object.fromEntries(P.datasets.map(d => [d.id, d]));
-const TABLE_DS = Object.fromEntries(P.datasets.flatMap(d => d.tables.map(t => [t, d.id])));
+// A table can be built from several datasets (e.g. one per city): keep them all, so charts credit every source.
+const TABLE_DS = {};
+for (const d of P.datasets) for (const t of d.tables) (TABLE_DS[t] ||= []).push(d.id);
 const tablesIn = sql => Object.keys(TABLE_DS).filter(t => new RegExp(`\\b${t}\\b`, "i").test(sql));
 
 const fmt = n => Number(n).toLocaleString("en-US");
@@ -546,7 +548,8 @@ function instant(a, typed, now) {
 function show(s) {
   $("working").hidden = true;
   const esc = t => String(t).replace(/&/g, "&amp;").replace(/</g, "&lt;");
-  const dsOf = p => DATASETS[p.ds || s.ds];
+  const dsOf = p => [].concat(p.ds || s.ds).map(k => DATASETS[k]);
+  const srcLinks = list => `Source${list.length > 1 ? "s" : ""}: ${list.map(d => `<a href="${d.url}" target="_blank" rel="noopener">${d.title} ↗</a>`).join(", ")}`;
   const dsList = s.dsList || [s.ds];
   $("story").innerHTML = `
     <article class="story enter">
@@ -575,7 +578,7 @@ function show(s) {
             <div class="fighead"><b>${p.fig.title}</b><span>${p.fig.unit ? p.fig.unit + (p.fig.key ? " · " : "") : ""}${p.fig.key ? `<span class="key"><i></i>${p.fig.key}</span>` : ""}</span></div>
             <div class="chart" id="ch${i}"></div>
             <div class="figfoot">
-              <span class="src">Source: <a href="${dsOf(p).url}" target="_blank" rel="noopener">${dsOf(p).title} ↗</a></span>
+              <span class="src">${srcLinks(dsOf(p))}</span>
               <button class="explore-btn" type="button" data-ex="${i}">Explore this chart <span aria-hidden="true">→</span></button>
             </div>
           </figure>
@@ -607,7 +610,7 @@ function show(s) {
 
 let exDraw = null, exReturn = null;
 function explore(s, i, opener) {
-  const p = s.points[i], ex = p.explore, ds = DATASETS[p.ds || s.ds];
+  const p = s.points[i], ex = p.explore, dss = [].concat(p.ds || s.ds).map(k => DATASETS[k]);
   let val = ex.multi ? [...ex.def] : ex.def, tab = "table";
   exReturn = opener;
   const ov = document.createElement("div");
@@ -618,7 +621,7 @@ function explore(s, i, opener) {
     <figure class="figure" style="margin:0"><p class="caption" id="excap"></p><div class="chart" id="exchart"></div></figure>
     <div class="tabs" role="tablist"><button type="button" role="tab" data-tab="table">The numbers</button><button type="button" role="tab" data-tab="query">The query</button></div>
     <div class="drawer" id="exbody"></div>
-    <div class="pf"><span>Source: <a href="${ds.url}" target="_blank" rel="noopener">${ds.title} ↗</a></span><span>${ds.note}</span></div>
+    <div class="pf"><span>Source${dss.length > 1 ? "s" : ""}: ${dss.map(d => `<a href="${d.url}" target="_blank" rel="noopener">${d.title} ↗</a>`).join(", ")}</span><span>${dss.map(d => d.note).join(" ")}</span></div>
   </div>`;
   document.body.appendChild(ov); document.body.classList.add("locked");
   const close = () => { ov.remove(); document.body.classList.remove("locked"); exDraw = null; document.removeEventListener("keydown", onKey); exReturn?.focus(); };
@@ -771,8 +774,8 @@ async function live(question) {
   }
 }
 function liveStory(question, ok, story, isLive) {
-  const dsOfSql = sql => TABLE_DS[tablesIn(sql)[0]] || P.datasets[0].id;
-  const dsList = [...new Set(ok.map(r => dsOfSql(r.q.sql)))];
+  const dsOfSql = sql => { const ids = [...new Set(tablesIn(sql).flatMap(t => TABLE_DS[t]))]; return ids.length ? ids : [P.datasets[0].id]; };
+  const dsList = [...new Set(ok.flatMap(r => dsOfSql(r.q.sql)))];
   const points = ok.map(({ q, rows }, i) => {
     const pt = story.points[i] || { h: q.purpose, p: "" };
     const data = rows.map(r => ({ x: niceLabel(r.label), y: r.value }));

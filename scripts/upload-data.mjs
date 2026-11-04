@@ -19,7 +19,7 @@ if (!process.env.BLOB_READ_WRITE_TOKEN) { console.error('BLOB_READ_WRITE_TOKEN i
 const root = path.resolve(path.dirname(new URL(import.meta.url).pathname), '..')
 const portal = JSON.parse(fs.readFileSync(path.join(root, 'portals', slug, 'portal.json'), 'utf8'))
 const dir = path.join(root, 'public', portal.data.base)
-const tables = portal.datasets.flatMap((d) => d.tables)
+const tables = [...new Set(portal.datasets.flatMap((d) => d.tables))]
 const prefix = `data/${slug}/${portal.data.snapshot}/`
 
 let base = ''

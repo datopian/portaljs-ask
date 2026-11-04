@@ -1,0 +1,191 @@
+{
+  "slug": "opencity",
+  "name": "Ask OpenCity's data",
+  "owner": "OpenCity (Oorvani Foundation)",
+  "description": "Ask a question about OpenCity's urban data for Bengaluru, Chennai, Pune and Mumbai, and get a short data story with charts and sources.",
+  "headline": "Ask a question.|Get the *story.*",
+  "intro": "Type a question in plain English. You'll get a short answer with charts, built from tables published on data.opencity.in, with every source one click away.",
+  "placeholder": "e.g. Which Chennai station had the worst air last winter?",
+  "theme": {
+    "accent": "#206b82",
+    "navy": "#1a5668",
+    "highlight": "#ffd527",
+    "ink": "#0f2f3a"
+  },
+  "logo": null,
+  "source": {
+    "name": "OpenCity – Urban Data Portal",
+    "label": "data.opencity.in",
+    "url": "https://data.opencity.in/",
+    "licence": "As published on each dataset page (mostly Other, Public Domain)"
+  },
+  "catalogue": {
+    "type": "ckan",
+    "api": "https://data.opencity.in/api/3/action",
+    "datasetUrl": "https://data.opencity.in/dataset/{name}"
+  },
+  "data": {
+    "base": "/data/opencity/",
+    "snapshot": "2026-11-03",
+    "remote": "https://r7ku4izoj8cd8lsg.public.blob.vercel-storage.com/data/opencity/2026-11-03/"
+  },
+  "live": true,
+  "examples": [
+    "Which Chennai station had the worst air last winter?",
+    "What do people complain to BBMP about most?",
+    "How did the BJP do in Pune and Mumbai's 2026 civic polls?",
+    "Is Pune's air worse than Bengaluru's?",
+    "Cleanest months for air in Bengaluru?",
+    "Days Pune breached the PM2.5 limit in 2025?",
+    "Bengaluru wards with the most garbage complaints?",
+    "Streetlight complaints in Bengaluru over time?",
+    "Who won the 2026 Tamil Nadu election?",
+    "Closest contests in Tamil Nadu 2026?",
+    "How fast is Chennai Metro ridership growing?",
+    "How low did Chennai's reservoirs fall in 2019?",
+    "Wettest years in Bengaluru?",
+    "Busiest routes from Bengaluru airport?",
+    "How did COVID-19 hit Bengaluru's flights?",
+    "Which new Bengaluru corporation has the most people?",
+    "Karnataka districts with the most crimes in 2025?",
+    "Most common traffic offences in Bengaluru?"
+  ],
+  "datasets": [
+    {
+      "id": "chennai-hourly-air-quality-reports",
+      "title": "Chennai Hourly Air Quality Reports",
+      "url": "https://data.opencity.in/dataset/chennai-hourly-air-quality-reports",
+      "note": "Readings every 15 minutes from 9 Chennai stations, 2024-2025, as daily averages. Snapshot 3 Nov 2026. Licence: Other (Public Domain).",
+      "tables": [
+        "air_quality_daily"
+      ]
+    },
+    {
+      "id": "bengaluru-hourly-air-quality-reports",
+      "title": "Bengaluru Hourly Air Quality Reports",
+      "url": "https://data.opencity.in/dataset/bengaluru-hourly-air-quality-reports",
+      "note": "Readings every 15 minutes from 13 Bengaluru stations, 2024-2025, as daily averages. Snapshot 3 Nov 2026. Licence: Other (Public Domain).",
+      "tables": [
+        "air_quality_daily"
+      ]
+    },
+    {
+      "id": "pune-hourly-air-quality-reports",
+      "title": "Pune Hourly Air Quality Reports",
+      "url": "https://data.opencity.in/dataset/pune-hourly-air-quality-reports",
+      "note": "Readings every 15 minutes from 12 Pune stations, 2024-2025, as daily averages. Snapshot 3 Nov 2026. Licence: Other (Public Domain).",
+      "tables": [
+        "air_quality_daily"
+      ]
+    },
+    {
+      "id": "bbmp-grievances-data",
+      "title": "BBMP Grievances Data",
+      "url": "https://data.opencity.in/dataset/bbmp-grievances-data",
+      "note": "Every citizen complaint to BBMP, Feb 2020 to Jun 2025: 766,648 complaints by ward and type. Snapshot 3 Nov 2026. Licence: Other (Public Domain).",
+      "tables": [
+        "bbmp_grievances"
+      ]
+    },
+    {
+      "id": "tamil-nadu-final-results-2026",
+      "title": "Tamil Nadu Assembly Election Results 2026",
+      "url": "https://data.opencity.in/dataset/tamil-nadu-final-results-2026",
+      "note": "Votes for every candidate in all 234 constituencies, May 2026. Snapshot 3 Nov 2026. Licence: Other (Public Domain).",
+      "tables": [
+        "tn_assembly_2026"
+      ]
+    },
+    {
+      "id": "pmc-election-results-2026",
+      "title": "PMC Election Results 2026",
+      "url": "https://data.opencity.in/dataset/pmc-election-results-2026",
+      "note": "Winners of all 165 Pune Municipal Corporation seats, January 2026. Snapshot 3 Nov 2026. Licence: Other (Public Domain).",
+      "tables": [
+        "ward_winners_2026"
+      ]
+    },
+    {
+      "id": "bmc-election-results-2026",
+      "title": "BMC Election Results 2026",
+      "url": "https://data.opencity.in/dataset/bmc-election-results-2026",
+      "note": "Winners of all 227 Mumbai (BMC) wards, January 2026. Snapshot 3 Nov 2026. Licence: Other (Public Domain).",
+      "tables": [
+        "ward_winners_2026"
+      ]
+    },
+    {
+      "id": "gba-wards-delimitation-2025",
+      "title": "GBA Wards Delimitation 2025",
+      "url": "https://data.opencity.in/dataset/gba-wards-delimitation-2025",
+      "note": "Bengaluru's 368 new wards across five city corporations, with population. Snapshot 3 Nov 2026. Licence: Other (Public Domain).",
+      "tables": [
+        "gba_wards_2025"
+      ]
+    },
+    {
+      "id": "chennai-metro-monthly-usage-data",
+      "title": "Chennai Metro Monthly Usage Data",
+      "url": "https://data.opencity.in/dataset/chennai-metro-monthly-usage-data",
+      "note": "Chennai Metro passengers per month by ticket type, April 2023 to June 2026. Snapshot 3 Nov 2026. Licence: Other (Public Domain).",
+      "tables": [
+        "chennai_metro_ridership"
+      ]
+    },
+    {
+      "id": "chennai-lake-leves-since-2003",
+      "title": "Chennai Lake Levels since 2003",
+      "url": "https://data.opencity.in/dataset/chennai-lake-leves-since-2003",
+      "note": "Monthly storage in Chennai's five drinking-water reservoirs, 2003-2021. Snapshot 3 Nov 2026. Licence: Other (Public Domain).",
+      "tables": [
+        "chennai_reservoirs"
+      ]
+    },
+    {
+      "id": "bengaluru-rainfall",
+      "title": "Bengaluru Rainfall",
+      "url": "https://data.opencity.in/dataset/bengaluru-rainfall",
+      "note": "Monthly rainfall in Bengaluru, 1901-2025. Snapshot 3 Nov 2026. Licence: Other (Public Domain).",
+      "tables": [
+        "rainfall_monthly"
+      ]
+    },
+    {
+      "id": "chennai-rainfall-data",
+      "title": "Chennai Rainfall Data",
+      "url": "https://data.opencity.in/dataset/chennai-rainfall-data",
+      "note": "Monthly rainfall in Chennai, 1901-2021. Snapshot 3 Nov 2026. Licence: Other (Public Domain).",
+      "tables": [
+        "rainfall_monthly"
+      ]
+    },
+    {
+      "id": "bengaluru-aviation-traffic-data",
+      "title": "Bengaluru Aviation Traffic Data",
+      "url": "https://data.opencity.in/dataset/bengaluru-aviation-traffic-data",
+      "note": "Domestic passengers and freight on every route from Bengaluru, monthly, 2015-2025. Snapshot 3 Nov 2026. Licence: Other (Public Domain).",
+      "tables": [
+        "bengaluru_domestic_flights"
+      ]
+    },
+    {
+      "id": "karnataka-crime-data-2025",
+      "title": "Karnataka Crime Data 2025",
+      "url": "https://data.opencity.in/dataset/karnataka-crime-data-2025",
+      "note": "Crimes registered in 2025 by each Karnataka police district and city commissionerate. Snapshot 3 Nov 2026. Licence: Other (Public Domain).",
+      "tables": [
+        "karnataka_crime_districts_2025"
+      ]
+    },
+    {
+      "id": "bengaluru-traffic-violations-data",
+      "title": "Bengaluru Traffic Violations Data",
+      "url": "https://data.opencity.in/dataset/bengaluru-traffic-violations-data",
+      "note": "Cases booked by Bengaluru Traffic Police by offence, 2018-2025. Snapshot 3 Nov 2026. Licence: Other (Public Domain).",
+      "tables": [
+        "bengaluru_traffic_offences"
+      ]
+    }
+  ],
+  "disclaimer": "A PortalJS capability demo by Datopian using publicly available data from data.opencity.in. Not an official OpenCity website."
+}
