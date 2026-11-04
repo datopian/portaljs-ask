@@ -44,24 +44,28 @@ for (const slug of fs.readdirSync(dir).sort()) {
     logo = `<img src="/p/${slug}/${esc(path.basename(portal.logo))}" alt="">`
   }
   const t = portal.theme || {}
-  const vars = [['--blue', t.accent], ['--navy', t.navy], ['--gold', t.highlight], ['--ink', t.ink]].filter(([, v]) => v)
-  const themeCss = vars.length ? `<style>@media not (prefers-color-scheme: dark) { :root { ${vars.map(([k, v]) => `${k}: ${v};`).join(' ')} } }</style>` : ''
   const src = portal.source
+  const vars = [['--blue', t.accent], ['--navy', t.navy], ['--gold', t.highlight], ['--ink', t.ink]].filter(([, v]) => v)
+  const footerCss = t.footer ? `footer { background: ${t.footer}; border-top: 0; } footer .wrap { color: rgba(255,255,255,.78); } footer a { color: var(--gold); }` : ''
+  const themeCss = vars.length || footerCss ? `<style>${vars.length ? `@media not (prefers-color-scheme: dark) { :root { ${vars.map(([k, v]) => `${k}: ${v};`).join(' ')} } }` : ''} ${footerCss}</style>` : ''
+  // Optional top band in the client's colour, carrying the disclaimer.
+  const band = t.band ? `<div class="band" style="background:${esc(t.band)}"><div class="wrap">${esc(portal.disclaimer || `Data from ${src.name}`)}</div></div>` : ''
+  for (const g of portal.exampleGroups || []) for (const q of g.examples) if (!portal.examples.includes(q)) throw new Error(`${slug}: exampleGroups "${g.label}" has a question that isn't in examples: ${q}`)
   const isDefault = slug === defaultSlug
   const footer = [
-    `Built with PortalJS by Datopian. Data: ${esc(portal.owner)}, ${esc(src.name)}${src.licence ? `, ${esc(src.licence)}` : ''}.`,
+    `Built with PortalJS by Datopian. Data: ${esc(portal.owner)}, <a href="${esc(src.url)}" target="_blank" rel="noopener">${esc(src.name)}</a>${src.licence ? `, ${esc(src.licence)}` : ''}.`,
     portal.live
       ? ` The first example questions were answered in advance. Other questions about the ${portal.datasets.length} connected datasets are answered live: AI writes the queries, they run on the data in your browser, and AI writes the story from their results. Every number comes from the query shown under its chart. Live questions are limited each day.`
       : ` The example questions were answered in advance by AI: it wrote the queries and the story, and every number comes from the query shown under its chart.`,
     portal.disclaimer ? ` ${esc(portal.disclaimer)}` : '',
   ].join('')
-  const pub = { slug, name: portal.name, sourceName: src.name, live: portal.live !== false, examples: portal.examples, datasets: portal.datasets, data: { base: portal.data.remote || portal.data.base, snapshot: portal.data.snapshot }, instant }
+  const pub = { slug, name: portal.name, sourceName: src.name, live: portal.live !== false, examples: portal.examples, exampleGroups: portal.exampleGroups || [], datasets: portal.datasets, data: { base: portal.data.remote || portal.data.base, snapshot: portal.data.snapshot }, instant }
   const vals = {
     title: esc(portal.name), description: esc(portal.description), favicon: favicon(t.accent || '#094f9a'), themeCss, logo, name: esc(portal.name),
     sourceUrl: esc(src.url), sourceName: esc(src.name), sourceLabel: esc(src.label || src.name),
     datasetCount: `${portal.datasets.length} dataset${portal.datasets.length === 1 ? '' : 's'}`,
     headline: headline(portal.headline), intro: esc(portal.intro), placeholder: esc(portal.placeholder || ''),
-    formHidden: portal.live === false ? ' hidden' : '', footer,
+    formHidden: portal.live === false ? ' hidden' : '', footer, band,
     bodyClass: t.panel === 'light' ? ' class="panel-light"' : '',
     portalJson: JSON.stringify(pub).replace(/</g, '\\u003c'),
   }
